@@ -1,0 +1,348 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
+
+body {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0a1a 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Rajdhani', sans-serif;
+    overflow: hidden;
+}
+
+#gameContainer {
+    position: relative;
+    width: 900px;
+    height: 650px;
+    border: 3px solid #e94560;
+    border-radius: 8px;
+    box-shadow:
+        0 0 40px rgba(233, 69, 96, 0.4),
+        inset 0 0 60px rgba(233, 69, 96, 0.1);
+    overflow: hidden;
+}
+
+#gameCanvas {
+    display: block;
+}
+
+#ui {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+#hud {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+#scoreDisplay,
+#speedDisplay {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid rgba(233, 69, 96, 0.6);
+    border-radius: 8px;
+    padding: 10px 20px;
+    backdrop-filter: blur(10px);
+}
+
+#scoreLabel,
+#speedLabel {
+    display: block;
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    color: #e94560;
+    letter-spacing: 3px;
+    margin-bottom: 2px;
+}
+
+#score {
+    font-family: 'Orbitron', monospace;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(233, 69, 96, 0.8);
+    line-height: 1;
+}
+
+#speed {
+    font-family: 'Orbitron', monospace;
+    font-size: 42px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+    line-height: 1;
+}
+
+#speedUnit {
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    color: #00d4ff;
+    margin-left: 5px;
+}
+
+#nitroBar {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 220px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid rgba(0, 212, 255, 0.6);
+    border-radius: 8px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+#nitroFill {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #00d4ff, #e94560, #ff00ff);
+    background-size: 200% 100%;
+    animation: nitroShimmer 2s linear infinite;
+    transition: width 0.1s;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+@keyframes nitroShimmer {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+#nitroLabel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    letter-spacing: 4px;
+    z-index: 5;
+}
+
+#startScreen,
+#gameOverScreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 0, 20, 0.95) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+}
+
+#startContent,
+#gameOverContent {
+    text-align: center;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#startScreen h1,
+#gameOverScreen h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: 72px;
+    font-weight: 900;
+    color: #e94560;
+    text-shadow:
+        0 0 20px #e94560,
+        0 0 40px #e94560,
+        0 0 80px #ff0066;
+    margin-bottom: 10px;
+    letter-spacing: 8px;
+}
+
+.carPreview {
+    margin: 30px auto;
+    width: 120px;
+    height: 60px;
+    background: linear-gradient(135deg, #e94560 0%, #c0392b 100%);
+    border-radius: 20px 20px 8px 8px;
+    position: relative;
+    box-shadow: 0 0 30px rgba(233, 69, 96, 0.6);
+    animation: carPulse 2s ease-in-out infinite;
+}
+
+.carPreview::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    right: 15px;
+    height: 15px;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.6);
+}
+
+.carPreview::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 20px;
+    right: 20px;
+    height: 8px;
+    background: #f1c40f;
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgba(241, 196, 15, 0.8);
+}
+
+@keyframes carPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.controls {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.controlItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.key {
+    font-family: 'Orbitron', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    color: #00d4ff;
+    background: rgba(0, 212, 255, 0.1);
+    border: 2px solid rgba(0, 212, 255, 0.4);
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+}
+
+.action {
+    font-size: 14px;
+    color: #aaa;
+    letter-spacing: 2px;
+}
+
+#startBtn,
+#restartBtn {
+    margin-top: 20px;
+    padding: 18px 50px;
+    font-family: 'Orbitron', monospace;
+    font-size: 18px;
+    font-weight: 900;
+    color: #fff;
+    background: linear-gradient(135deg, #e94560 0%, #c0392b 100%);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(233, 69, 96, 0.5);
+    transition: all 0.3s;
+    letter-spacing: 3px;
+    pointer-events: auto;
+}
+
+#startBtn:hover,
+#restartBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 50px rgba(233, 69, 96, 0.8);
+    background: linear-gradient(135deg, #ff6b6b 0%, #e94560 100%);
+}
+
+#gameOverScreen h1 {
+    color: #ff0000;
+    text-shadow:
+        0 0 20px #ff0000,
+        0 0 40px #ff0000,
+        0 0 80px #cc0000;
+}
+
+#finalStats {
+    margin: 30px 0;
+}
+
+.stat {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.statLabel {
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    color: #e94560;
+    letter-spacing: 3px;
+}
+
+.statValue {
+    font-family: 'Orbitron', monospace;
+    font-size: 48px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(233, 69, 96, 0.8);
+}
+
+.statUnit {
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    color: #aaa;
+}
+
+#flash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 15;
+    transition: opacity 0.1s;
+}

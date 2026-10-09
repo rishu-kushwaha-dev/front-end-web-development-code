@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Crossy Road</title>
+    <link rel="stylesheet" href="Crossy Road.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="gameContainer">
+        <div id="scoreBoard">Score: <span id="score">0</span> | Best: <span id="highScore">0</span></div>
+        <canvas id="gameCanvas"></canvas>
+
+        <div id="startScreen" class="overlay">
+            <h1>Crossy Road</h1>
+            <p class="subtitle">Use Arrow Keys or WASD to move</p>
+            <p class="subtitle">Avoid cars, cross rivers on logs, dodge trains!</p>
+            <p class="subtitle mobile-hint">Swipe or use buttons on mobile</p>
+            <button id="startBtn">Start Game</button>
+        </div>
+
+        <div id="pauseScreen" class="overlay" style="display:none;">
+            <h1>Paused</h1>
+            <p>Press SPACE or tap to resume</p>
+            <button id="resumeBtn">Resume</button>
+        </div>
+
+        <div id="gameOverScreen" class="overlay" style="display:none;">
+            <h1>Game Over</h1>
+            <p>Score: <span id="finalScore">0</span></p>
+            <p id="newHighScore" style="color:#f1c40f; display:none;">New High Score!</p>
+            <button id="restartBtn">Play Again</button>
+        </div>
+
+        <div id="mobileControls">
+            <div id="dpad">
+                <button class="dpad-btn" id="btnUp" aria-label="Up">▲</button>
+                <div class="dpad-row">
+                    <button class="dpad-btn" id="btnLeft" aria-label="Left">◀</button>
+                    <button class="dpad-btn" id="btnDown" aria-label="Down">▼</button>
+                    <button class="dpad-btn" id="btnRight" aria-label="Right">▶</button>
+                </div>
+            </div>
+            <button id="btnPause" class="pause-btn">⏸</button>
+        </div>
+    </div>
+    <script src="Crossy Road.js"></script>
+</body>
+
+</html>

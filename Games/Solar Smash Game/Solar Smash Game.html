@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar Smash</title>
+  <link rel="stylesheet" href="Solar Smash Game.css">
+</head>
+
+<body>
+  <div id="game-container">
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="planet-selector">
+      <h2>Choose a Planet to Destroy</h2>
+      <div id="planet-list"></div>
+      <button id="close-selector">Start Destruction</button>
+    </div>
+
+    <div id="weapons-panel">
+      <button class="weapon-btn active" data-weapon="bomb">Bomb</button>
+      <button class="weapon-btn" data-weapon="rocket">Rocket</button>
+      <button class="weapon-btn" data-weapon="missile">Missile</button>
+      <button class="weapon-btn" data-weapon="laser">Laser</button>
+    </div>
+
+    <div id="status">Select a weapon and click on the planet</div>
+  </div>
+
+  <script src="Solar Smash Game.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nitro Racing</title>
+    <link rel="stylesheet" href="Nitro Racing.css">
+</head>
+
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        <div id="ui">
+            <div id="hud">
+                <div id="scoreDisplay">
+                    <span id="scoreLabel">SCORE</span>
+                    <span id="score">000000</span>
+                </div>
+                <div id="speedDisplay">
+                    <span id="speedLabel">SPEED</span>
+                    <span id="speed">0</span>
+                    <span id="speedUnit">KM/H</span>
+                </div>
+                <div id="nitroBar">
+                    <div id="nitroFill"></div>
+                    <div id="nitroLabel">NITRO</div>
+                </div>
+            </div>
+        </div>
+        <div id="startScreen">
+            <div id="startContent">
+                <h1>NITRO RACING</h1>
+                <div class="carPreview">
+                    <div class="previewCar"></div>
+                </div>
+                <div class="controls">
+                    <div class="controlItem">
+                        <span class="key">W A S D</span>
+                        <span class="action">Steer</span>
+                    </div>
+                    <div class="controlItem">
+                        <span class="key">SPACE</span>
+                        <span class="action">Nitro Boost</span>
+                    </div>
+                </div>
+                <button id="startBtn">START RACE</button>
+            </div>
+        </div>
+        <div id="gameOverScreen" style="display:none;">
+            <div id="gameOverContent">
+                <h1>WRECKED</h1>
+                <div id="finalStats">
+                    <div class="stat">
+                        <span class="statLabel">DISTANCE</span>
+                        <span id="finalScore" class="statValue">0</span>
+                        <span class="statUnit">M</span>
+                    </div>
+                </div>
+                <button id="restartBtn">RACE AGAIN</button>
+            </div>
+        </div>
+        <div id="flash"></div>
+    </div>
+    <script src="Nitro Racing.js"></script>
+</body>
+
+</html>

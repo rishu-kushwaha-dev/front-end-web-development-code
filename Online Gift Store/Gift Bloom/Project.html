@@ -1,0 +1,2343 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift Bloom </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="Project.css?v=3">
+    <link rel="icon" href="Favicon.ico" type="image/ico">
+</head>
+
+<body>
+    <div id="app">
+        <div class="floating-particles" id="floating-particles"></div>
+        <header id="main-header" class="header">
+            <div class="header-left">
+                <div class="header-logo" onclick="showPage('home')">Gift Bloom</div>
+                <nav id="header-nav">
+                    <button class="header-nav-item" onclick="showPage('home')"><i class="fa-solid fa-house"></i>
+                        Home</button>
+                    <button class="header-nav-item" onclick="showPage('orders')"><i class="fa-solid fa-box"></i> My
+                        Orders</button>
+                    <button class="header-nav-item cart-wrapper" onclick="showPage('cart')">
+                        <i class="fa-solid fa-cart-shopping"></i> Cart
+                        <span id="cart-count">0</span>
+                    </button>
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" id="theme-btn">
+                        <i class="fa-solid fa-sun theme-icon-sun"></i>
+                        <i class="fa-solid fa-moon theme-icon-moon"></i>
+                    </button>
+                </nav>
+            </div>
+            <div class="header-right">
+                <div id="profile-bar" class="header-profile" onclick="toggleProfileMenu()">
+                    <img class="header-profile-avatar" id="header-profile-picture" src="" style="display:none;" alt="">
+                    <div class="header-profile-avatar" id="header-profile-icon" style="display:inline-flex;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div id="profile-dropdown" class="profile-dropdown">
+                        <div id="profile-menu-guest">
+                            <button class="profile-dropdown-item" onclick="openAuthModal('login')">
+                                <i class="fa-solid fa-right-to-bracket"></i> Log In
+                            </button>
+                            <button class="profile-dropdown-item" onclick="openAuthModal('signup')">
+                                <i class="fa-solid fa-user-plus"></i> Create Account
+                            </button>
+                        </div>
+                        <div id="profile-menu-user" class="hidden">
+                            <div class="profile-dropdown-user-info">
+                                <div id="dropdown-user-name" class="profile-dropdown-user-name">User</div>
+                                <div id="dropdown-user-email" class="profile-dropdown-user-email"></div>
+                            </div>
+                            <button class="profile-dropdown-item" onclick="showProfilePage();closeProfileMenu();">
+                                <i class="fa-solid fa-user"></i> My Profile
+                            </button>
+                            <button class="profile-dropdown-item profile-dropdown-logout" onclick="logout()">
+                                <i class="fa-solid fa-right-from-bracket"></i> Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button class="header-mobile-toggle" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </header>
+
+        <div id="auth-modal" class="auth-modal hidden">
+            <div class="auth-modal-overlay" onclick="closeAuthModal()"></div>
+            <div class="auth-modal-container">
+                <button class="auth-modal-close" onclick="closeAuthModal()">&times;</button>
+                <div id="auth-modal-login" class="auth-modal-content">
+                    <h2>Welcome Back</h2>
+                    <form class="auth-form" onsubmit="event.preventDefault();handleLogin();">
+                        <div class="auth-error" id="login-error"></div>
+                        <div class="auth-input-group">
+                            <input type="email" id="login-email" placeholder="E-Mail address" autocomplete="email">
+                        </div>
+                        <div class="auth-input-group">
+                            <input type="password" id="login-password" placeholder="Password"
+                                autocomplete="current-password">
+                            <button type="button" class="password-toggle" onclick="togglePassword('login-password', this)" aria-label="Toggle password visibility">
+                                <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                <svg class="eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                            </button>
+                        </div>
+                        <button type="submit" class="auth-btn">Log In</button>
+                    </form>
+                    <p class="auth-switch">Don't have an account? <a onclick="switchAuthModal('signup')">Create an
+                            Account</a></p>
+                </div>
+                <div id="auth-modal-signup" class="auth-modal-content hidden">
+                    <h2>Create Account</h2>
+                    <form class="auth-form" onsubmit="event.preventDefault();handleSignup();">
+                        <div class="auth-error" id="signup-error"></div>
+                        <div class="auth-input-group">
+                            <input type="text" id="signup-name" placeholder="Full Name" autocomplete="name">
+                        </div>
+                        <div class="auth-input-group">
+                            <input type="email" id="signup-email" placeholder="E-mail address" autocomplete="email">
+                        </div>
+                        <div class="auth-input-group">
+                            <input type="password" id="signup-password" placeholder="Password"
+                                autocomplete="new-password">
+                            <button type="button" class="password-toggle" onclick="togglePassword('signup-password', this)" aria-label="Toggle password visibility">
+                                <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                <svg class="eye-closed hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                            </button>
+                        </div>
+                        <button type="submit" class="auth-btn">Create Account</button>
+                    </form>
+                    <p class="auth-switch">Already have an account? <a onclick="switchAuthModal('login')">Log In</a></p>
+                </div>
+            </div>
+        </div>
+
+        <main id="main-content">
+            <section id="profile-page" class="hidden">
+                <div class="profile-header">
+                    <h2> <u> My Profile </u> </h2>
+                </div>
+                <div class="profile-container">
+                    <div class="profile-layout">
+                        <div class="profile-sidebar">
+                            <div class="profile-sidebar-avatar">
+                                <img id="profile-picture-img" src="" style="display:none;" alt="">
+                                <div id="profile-picture-placeholder" style="display:flex;">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="profile-sidebar-name" id="profile-sidebar-name">User</div>
+                            <div class="profile-sidebar-email" id="profile-sidebar-email"></div>
+                            <div class="profile-picture-actions">
+                                <label class="profile-pic-btn"
+                                    onclick="document.getElementById('profile-picture-input').click()">
+                                    <i class="fa-solid fa-upload"></i> Browse From Device
+                                </label>
+                                <button class="profile-pic-btn" onclick="openCamera()">
+                                    <i class="fa-solid fa-camera"></i> Capture Photo
+                                </button>
+                                <button class="profile-pic-btn profile-pic-btn-secondary"
+                                    onclick="removeProfilePicture()">
+                                    <i class="fa-solid fa-trash"></i> Remove photo
+                                </button>
+                                <button type="button" class="profile-pic-btn profile-pic-btn-danger"
+                                    onclick="deleteAccount()">
+                                    <i class="fa-solid fa-trash"></i> Delete Account
+                                </button>
+                            </div>
+                            <input type="file" id="profile-picture-input" accept="image/*"
+                                onchange="handleProfilePicture(this)">
+                        </div>
+                        <div class="profile-form-card">
+                            <form onsubmit="event.preventDefault();saveProfile();">
+                                <div class="profile-error" id="profile-error"></div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Full Name</label>
+                                        <input type="text" id="profile-name" placeholder="Your Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>E-Mail</label>
+                                        <input type="email" id="profile-email" placeholder="Enter your email" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Phone</label>
+                                        <input type="tel" id="profile-phone" placeholder="Mobile Number" maxlength="10">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Date of Birth</label>
+                                        <input type="date" id="profile-dob">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Gender</label>
+                                        <select id="profile-gender">
+                                            <option value="">Select</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <textarea id="profile-address" placeholder="Address" rows="2"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Location</label>
+                                    <div class="location-input-wrapper">
+                                        <input type="text" id="profile-location"
+                                            placeholder="Fetch your exact Location">
+                                        <button type="button" class="location-btn"
+                                            onclick="getLocation('profile-location')"><i
+                                                class="fa-solid fa-location-dot"></i></button>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <select id="profile-city">
+                                            <option value="">Select City</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>State</label>
+                                        <select id="profile-state" onchange="populateCitiesForProfile()">
+                                            <option value="">Select State</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Pin Code</label>
+                                        <input type="number" id="profile-pincode" placeholder="Pin Code" maxlength="6">
+                                    </div>
+                                </div>
+                                <button type="submit" class="auth-btn profile-save-btn">Save Profile</button>
+                                <button type="button" class="auth-btn profile-delete-btn" onclick="deleteAccount()">
+                                    <i class="fa-solid fa-trash"></i> Delete Account
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="header-nav-overlay" id="nav-overlay" onclick="toggleMobileMenu()"></div>
+            <section id="orders-page" class="hidden">
+                <div class="profile-header">
+                    <h2>My Orders</h2>
+                </div>
+                <div id="orders-container"></div>
+            </section>
+            <section id="hero-section" class="hero">
+                <div class="hero-content">
+                    <h1>Perfect Gifts For Every Occasion</h1>
+                    <p>Discover handpicked gifts that bring joy to your loved ones. Fast delivery, premium quality, and
+                        unforgettable moments.</p>
+                    <div class="search-bar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                        <input type="text" id="search-input" placeholder="Search gifts, categories, brands..."
+                            oninput="searchProducts(this.value)">
+                    </div>
+                    <div class="hero-actions">
+                        <button class="quick-delivery-btn" onclick="showPage('ten-minute')">
+                            <i class="fa-solid fa-bolt"></i> 10 Minute Delivery
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <section id="home-page">
+                <div class="filter">
+                    <button class="filter-btn" onclick="applyFilter('All')">All Gifts</button>
+                    <button class="filter-btn" onclick="applyFilter('Birthday')">Birthday</button>
+                    <button class="filter-btn" onclick="applyFilter('Anniversary')">Anniversary</button>
+                    <button class="filter-btn" onclick="applyFilter('Festival')">Festival</button>
+                </div>
+                <div id="item-count"></div>
+                <section id="product-list" class="products">
+                    <div class="card" data-category="Birthday" data-id="1" data-rating="4.7"
+                        data-description="Soft, freshly baked eggless birthday cake with creamy vanilla frosting and cheerful sprinkles — the perfect sweet centerpiece for any celebration."
+                        data-features='["Eggless &amp; freshly baked","Serves 4-6 people","Same-day delivery available","100% vegetarian"]'>
+                        <img src="images/cake.jpg" alt="Birthday Cake"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Birthday Cake</h3>
+                        <p>₹599</p>
+                        <button onclick="addToCart(1)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="2" data-rating="4.8"
+                        data-description="A hand-tied bouquet of 12 fresh red roses wrapped in premium floral paper with a heartfelt greeting card — a timeless expression of love."
+                        data-features='["12 fresh long-stem roses","Elegant floral wrapping","Express delivery","Includes greeting card"]'>
+                        <img src="images/rose.jpg" alt="Rose Bouquet" onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Rose Bouquet</h3>
+                        <p>₹349</p>
+                        <button onclick="addToCart(2)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="3" data-rating="4.5"
+                        data-description="A festive Diwali hamper filled with assorted sweets, decorative diyas, candles and decorative items to light up the celebration."
+                        data-features='["Assorted Indian sweets","Decorative diyas &amp; candles","Reusable gift box","Gift wrapping included"]'>
+                        <img src="images/diwali.jpg" alt="Diwali Gift Hamper"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Diwali Gift Hamper</h3>
+                        <p>₹999</p>
+                        <button onclick="addToCart(3)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="4" data-rating="4.6"
+                        data-description="A classic premium analog watch with a stainless steel strap, scratch-resistant sapphire glass and quartz movement for everyday elegance."
+                        data-features='["Stainless steel strap","Sapphire glass","Water resistant 50m","Quartz movement","2-year warranty"]'>
+                        <img src="images/watch.jpg" alt="Premium Watch"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Premium Watch</h3>
+                        <p>₹1499</p>
+                        <button onclick="addToCart(4)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="5" data-rating="4.7"
+                        data-description="A luxurious box of assorted Belgian chocolates with ganache fillings, beautifully packed in a premium gift box."
+                        data-features='["Assorted flavours","Premium gift packaging","Shelf life 6 months","Hand-crafted Belgian chocolates"]'>
+                        <img src="images/chocolate.jpg" alt="Chocolate Box"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Chocolate Box</h3>
+                        <p>₹399</p>
+                        <button onclick="addToCart(5)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="6" data-rating="4.3"
+                        data-description="A colourful Holi celebration set with organic colours, water balloons, pichkari and eco-friendly gulal for a joyful festival."
+                        data-features='["Skin-friendly organic colours","Reusable pichkari","Eco-friendly","Includes 6 colours + balloons"]'>
+                        <img src="images/holi.jpg" alt="Holi Gift Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Holi Gift Set</h3>
+                        <p>₹649</p>
+                        <button onclick="addToCart(6)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="7" data-rating="4.5"
+                        data-description="A rich and moist chocolate truffle cake layered with dark ganache and topped with chocolate shavings — a chocoholic dream."
+                        data-features='["Eggless option available","Serves 4-6","Chilled delivery","Dark chocolate ganache"]'>
+                        <img src="images/chocolate truffle cake.jfif" alt="Chocolate Truffle Cake"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Chocolate Truffle Cake</h3>
+                        <p>₹649</p>
+                        <button onclick="addToCart(7)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="8" data-rating="4.6"
+                        data-description="A huggable 2-feet tall ultra-soft plush teddy bear with washable cover — the ultimate cuddly companion for birthdays and surprises."
+                        data-features='["2 feet tall","Ultra-soft plush","Washable cover","Hypoallergenic filling"]'>
+                        <img src="images/teddy bear 2 feet.jfif" alt="Teddy Bear 2Ft"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Teddy Bear 2Ft</h3>
+                        <p>₹899</p>
+                        <button onclick="addToCart(8)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="9" data-rating="4.3"
+                        data-description="A multi-photo collage frame with elegant wood finish to showcase your favourite memories in one beautiful wall piece."
+                        data-features='["Holds 6 photos","Wall &amp; table mount","Premium MDF build","Gold finish frame"]'>
+                        <img src="images/photo frame collage.jfif" alt="Photo Frame Collage"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Photo Frame Collage</h3>
+                        <p>₹499</p>
+                        <button onclick="addToCart(9)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="10" data-rating="4.5"
+                        data-description="A personalized ceramic mug printed with a custom name or photo — a thoughtful daily-use gift for coffee lovers."
+                        data-features='["Custom name/photo print","330 ml capacity","Microwave safe","Dishwasher safe"]'>
+                        <img src="images/mug.jfif" alt="Personalized Mug"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Personalized Mug</h3>
+                        <p>₹279</p>
+                        <button onclick="addToCart(10)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="11" data-rating="4.5"
+                        data-description="A portable Bluetooth speaker with deep bass, 360° sound and long battery life for music anywhere."
+                        data-features='["Wireless Bluetooth 5.0","12 hr battery","IPX5 splash proof","360° surround sound"]'>
+                        <img src="images/Bluetooth speaker.jfif" alt="Bluetooth Speaker"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Bluetooth Speaker</h3>
+                        <p>₹1599</p>
+                        <button onclick="addToCart(11)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="12" data-rating="4.1"
+                        data-description="A cheerful set of 20 latex balloons in bright rainbow colours with ribbons for instant party decoration."
+                        data-features='["Pack of 20 balloons","Latex material","Includes ribbon","Assorted colours"]'>
+                        <img src="images/birthday balloon set.jfif" alt="Birthday Balloons Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Birthday Balloons Set</h3>
+                        <p>₹199</p>
+                        <button onclick="addToCart(12)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="13" data-rating="4.6"
+                        data-description="A box of 6 freshly baked cupcakes in assorted flavours, each topped with rich buttercream frosting."
+                        data-features='["Box of 6 cupcakes","Multiple flavours","Freshly baked","Eggless option' ]'>
+                        <img src="images/Cupcake Box 6pc.jfif" alt="Cupcake Box 6pc"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Cupcake Box 6pc</h3>
+                        <p>₹349</p>
+                        <button onclick="addToCart(13)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="14" data-rating="4.3"
+                        data-description="Immersive gaming headphones with 7.1 surround sound, RGB lighting and a noise-cancelling microphone."
+                        data-features='["7.1 surround sound","RGB lighting","Soft cushioned earcups","Noise-cancelling mic"]'>
+                        <img src="images/Gaming Headphone.jfif" alt="Gaming Headphone"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Gaming Headphone</h3>
+                        <p>₹2499</p>
+                        <button onclick="addToCart(14)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="15" data-rating="4.2"
+                        data-description="A modern silent wall clock with a minimalist design and sweep movement for any room."
+                        data-features='["Silent no-tick movement","12 inch dial","Battery operated","Sleek modern design"]'>
+                        <img src="images/wall clock.jfif" alt="Wall Clock"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Wall Clock</h3>
+                        <p>₹749</p>
+                        <button onclick="addToCart(15)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="16" data-rating="4.5"
+                        data-description="A long-lasting designer perfume with fresh floral and woody notes in an elegant 50ml bottle."
+                        data-features='["50 ml bottle","8 hr longevity","Eau de Parfum","Elegant glass bottle"]'>
+                        <img src="images/perfume.jfif" alt="Perfume" onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Perfume</h3>
+                        <p>₹1299</p>
+                        <button onclick="addToCart(16)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="17" data-rating="4.3"
+                        data-description="Stylish UV-protection sunglasses with a lightweight frame and polarized lenses for sunny outings."
+                        data-features='["UV400 protection","Polarized lens","Lightweight frame","Anti-scratch coating"]'>
+                        <img src="images/sunglasses.jfif" alt="Sunglasses"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Sunglasses</h3>
+                        <p>₹949</p>
+                        <button onclick="addToCart(17)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="18" data-rating="4.4"
+                        data-description="A spacious, water-resistant backpack with padded laptop compartment for daily commute and travel."
+                        data-features='["30 L capacity","Laptop sleeve","Water resistant","Padded shoulder straps"]'>
+                        <img src="images/backpack.jfif" alt="Backpack"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Backpack</h3>
+                        <p>₹1399</p>
+                        <button onclick="addToCart(18)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="19" data-rating="4.3"
+                        data-description="A set of 4 matching ceramic coffee mugs with a comfortable grip, ideal for gifting."
+                        data-features='["Set of 4 mugs","300 ml each","Dishwasher safe","Microwave safe"]'>
+                        <img src="images/coffee mug set.jfif" alt="Coffee Mug Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Coffee Mug Set</h3>
+                        <p>₹449</p>
+                        <button onclick="addToCart(19)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="20" data-rating="4.6"
+                        data-description="A custom LED name lamp that glows with a personalised name in 7 vibrant colours — a trendy room decor gift."
+                        data-features='["Custom name","7 colour modes","USB powered","Eye-friendly LED"]'>
+                        <img src="images/led name lamp.jfif" alt="LED Name Lamp"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>LED Name Lamp</h3>
+                        <p>₹949</p>
+                        <button onclick="addToCart(20)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="21" data-rating="4.2"
+                        data-description="A soft cotton printed T-shirt with a trendy graphic, great as a casual gift for any occasion."
+                        data-features='["100% cotton","Unisex fit","Multiple colours","Machine washable"]'>
+                        <img src="images/t-shirt.jfif" alt="T-Shirt" onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>T-Shirt</h3>
+                        <p>₹549</p>
+                        <button onclick="addToCart(21)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="22" data-rating="4.4"
+                        data-description="A genuine leather wallet with multiple card slots, RFID blocking and a sleek profile for everyday use."
+                        data-features='["Genuine leather","RFID blocking","Slim design","6 card slots"]'>
+                        <img src="images/wallet.jfif" alt="Wallet" onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Wallet</h3>
+                        <p>₹699</p>
+                        <button onclick="addToCart(22)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="23" data-rating="4.3"
+                        data-description="True-wireless Bluetooth earbuds with touch controls, noise cancellation and a compact charging case."
+                        data-features='["Bluetooth 5.3","Touch controls","20 hr total playtime","Noise cancellation"]'>
+                        <img src="images/bluetooth earbuds.jfif" alt="Bluetooth Earbuds"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Bluetooth Earbuds</h3>
+                        <p>₹1899</p>
+                        <button onclick="addToCart(23)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="24" data-rating="4.0"
+                        data-description="A fun glittery birthday crown cap to make the birthday star feel extra special and festive."
+                        data-features='["Adjustable fit","Glitter finish","Reusable","Pack of 1 cap"]'>
+                        <img src="images/birthday crown cap.jfif" alt="Birthday Crown Cap"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Birthday Crown Cap</h3>
+                        <p>₹129</p>
+                        <button onclick="addToCart(24)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="25" data-rating="4.2"
+                        data-description="A pizza voucher redeemable at partner outlets — a tasty treat gift for foodies and pizza lovers."
+                        data-features='["Valid 3 months","Multiple outlets","Digital voucher","Choice of toppings"]'>
+                        <img src="images/pizza voucher.jfif" alt="Pizza Voucher"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Pizza Voucher</h3>
+                        <p>₹449</p>
+                        <button onclick="addToCart(25)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="26" data-rating="4.1"
+                        data-description="A DIY cake pop set with sticks, wrappers and decorating supplies to create adorable bite-sized treats at home."
+                        data-features='["Pack of 12 sticks","Decorating wraps","Reusable mold","Recipe booklet"]'>
+                        <img src="images/cake pop set.jfif" alt="Cake Pop Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Cake Pop Set</h3>
+                        <p>₹399</p>
+                        <button onclick="addToCart(26)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="27" data-rating="4.3"
+                        data-description="A warm-glow wooden table lamp with a touch dimmer that adds a cozy ambience to any bedside or desk."
+                        data-features='["Touch dimmer","Wooden base","LED bulb","3 brightness levels"]'>
+                        <img src="images/table lamp.jfif" alt="Table Lamp"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Table Lamp</h3>
+                        <p>₹1099</p>
+                        <button onclick="addToCart(27)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="28" data-rating="4.2"
+                        data-description="A classic bound diary with premium cream paper, perfect for journaling and daily planning."
+                        data-features='["A5 size","160 pages","Elastic closure","Premium paper"]'>
+                        <img src="images/diary.jfif" alt="Diary" onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Diary</h3>
+                        <p>₹349</p>
+                        <button onclick="addToCart(28)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="29" data-rating="4.3"
+                        data-description="An elegant pen set with a ballpoint and roller pen in a gift box — a thoughtful gift for writers."
+                        data-features='["2 pens included","Gift boxed","Smooth writing","Premium packaging"]'>
+                        <img src="images/pen set.jfif" alt="Pen Set" onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Pen Set</h3>
+                        <p>₹499</p>
+                        <button onclick="addToCart(29)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="30" data-rating="4.4"
+                        data-description="Lightweight sports shoes with cushioned sole, breathable mesh and non-slip grip for running and gym."
+                        data-features='["Breathable mesh","Cushioned insole","Non-slip sole","Lightweight design"]'>
+                        <img src="images/sport shoes.jfif" alt="Sports Shoes"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Sports Shoes</h3>
+                        <p>₹2199</p>
+                        <button onclick="addToCart(30)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="31" data-rating="4.3"
+                        data-description="A rugged denim jacket with a classic fit, perfect for layering on casual outings and weekends."
+                        data-features='["100% cotton denim","Classic fit","Multiple sizes","Interior pocket"]'>
+                        <img src="images/denim jacket.jfif" alt="Denim Jacket"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Denim Jacket</h3>
+                        <p>₹2699</p>
+                        <button onclick="addToCart(31)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="32" data-rating="4.1"
+                        data-description="A casual baseball cap with an adjustable strap and embroidered logo for everyday style."
+                        data-features='["Adjustable strap","Curved brim","Cotton fabric","One size fits all"]'>
+                        <img src="images/baseball cap.jfif" alt="Baseball Cap"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Baseball Cap</h3>
+                        <p>₹399</p>
+                        <button onclick="addToCart(32)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="33" data-rating="4.5"
+                        data-description="A bestselling novel in paperback — a thoughtful gift for readers and story lovers."
+                        data-features='["Paperback","Bestseller","Gift wrap option","200+ pages"]'>
+                        <img src="images/novel.jfif" alt="Novel Book" onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Novel Book</h3>
+                        <p>₹449</p>
+                        <button onclick="addToCart(33)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="34" data-rating="4.4"
+                        data-description="A challenging 1000-piece jigsaw puzzle with vibrant artwork — perfect for family bonding."
+                        data-features='["1000 pieces","Premium board","Full image guide","Ages 8+"]'>
+                        <img src="images/puzzle.jfif" alt="1000 Piece Puzzle"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>1000 Piece Puzzle</h3>
+                        <p>₹649</p>
+                        <button onclick="addToCart(34)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="35" data-rating="4.6"
+                        data-description="The classic Monopoly board game for friendly family game nights and gatherings."
+                        data-features='["2-6 players","Family classic","Includes tokens","Ages 8+"]'>
+                        <img src="images/monopoly.jfif" alt="Monopoly Board Game"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Monopoly Board Game</h3>
+                        <p>₹949</p>
+                        <button onclick="addToCart(35)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="36" data-rating="4.2"
+                        data-description="A mini drone with HD camera, altitude hold and easy controls — a thrilling tech gift."
+                        data-features='["HD camera","Altitude hold","One-key return","USB charging' ]'>
+                        <img src="images/mini drone.jfif" alt="Mini Drone"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Mini Drone</h3>
+                        <p>₹4299</p>
+                        <button onclick="addToCart(36)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="37" data-rating="4.3"
+                        data-description="A rechargeable remote control car with high speed, durable build and all-terrain wheels."
+                        data-features='["2.4 GHz control","Rechargeable","All-terrain wheels","Ages 6+"]'>
+                        <img src="images/remote control car.jfif" alt="Remote Control Car"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Remote Control Car</h3>
+                        <p>₹1399</p>
+                        <button onclick="addToCart(37)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="38" data-rating="4.4"
+                        data-description="A feature-packed smart watch with heart-rate, SpO2 monitoring and smart notifications."
+                        data-features='["Heart &amp; SpO2 monitor","Call &amp; message alerts","Multi-sport modes","IP68 waterproof"]'>
+                        <img src="images/smart watch.jfif" alt="Smart Watch"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Smart Watch</h3>
+                        <p>₹3299</p>
+                        <button onclick="addToCart(38)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="39" data-rating="4.5"
+                        data-description="A high-capacity 20000mAh power bank with fast charging and dual USB ports for all gadgets."
+                        data-features='["20000 mAh","Fast charging","Dual USB ports","Compact design"]'>
+                        <img src="images/power bank.jfif" alt="Power Bank 20000mAh"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Power Bank 20000mAh</h3>
+                        <p>₹1299</p>
+                        <button onclick="addToCart(39)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="40" data-rating="4.3"
+                        data-description="A sturdy camera tripod with adjustable height and smooth 360° rotation for stable shots."
+                        data-features='["Adjustable height","360° head","Lightweight aluminium","Phone &amp; camera compatible"]'>
+                        <img src="images/tripod.jfif" alt="Camera Tripod"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Camera Tripod</h3>
+                        <p>₹949</p>
+                        <button onclick="addToCart(40)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="41" data-rating="4.7"
+                        data-description="A professional DSLR camera with 24MP sensor and kit lens for stunning photography and vlogging."
+                        data-features='["24 MP sensor","Kit lens included","Full HD video","18-55mm lens"]'>
+                        <img src="images/DSLR Camera.jfif" alt="DSLR Camera"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>DSLR Camera</h3>
+                        <p>₹25999</p>
+                        <button onclick="addToCart(41)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="42" data-rating="4.4"
+                        data-description="A finely crafted 925 sterling silver ring with a polished finish for everyday wear."
+                        data-features='["925 sterling silver","Adjustable size","Gift boxed","Hypoallergenic"]'>
+                        <img src="images/ring.jfif" alt="Silver Ring" onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Silver Ring</h3>
+                        <p>₹5499</p>
+                        <button onclick="addToCart(42)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="43" data-rating="4.2"
+                        data-description="A braided leather bracelet with a metallic clasp — a stylish unisex accessory."
+                        data-features='["Genuine leather","Unisex","Adjustable","Gift boxed"]'>
+                        <img src="images/Leather Bracelet.jfif" alt="Leather Bracelet"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Leather Bracelet</h3>
+                        <p>₹1399</p>
+                        <button onclick="addToCart(43)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="44" data-rating="4.5"
+                        data-description="An elegant 22k gold-plated necklace that adds grace to any festive or formal outfit."
+                        data-features='["22k gold plated","Hypoallergenic","Gift boxed","18 inch chain"]'>
+                        <img src="images/gold neklace.jfif" alt="Gold Necklace"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Gold Necklace</h3>
+                        <p>₹3299</p>
+                        <button onclick="addToCart(44)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="45" data-rating="4.4"
+                        data-description="Sparkling American diamond earrings with a premium finish for special occasions."
+                        data-features='["American diamond","Push-back lock","Tarnish free","Gift boxed"]'>
+                        <img src="images/diamnd earrings.jfif" alt="Diamond Earrings"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Diamond Earrings</h3>
+                        <p>₹999</p>
+                        <button onclick="addToCart(45)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="46" data-rating="4.3"
+                        data-description="A complete makeup kit with lipsticks, eyeshadows, brushes and a beauty bag."
+                        data-features='["12 piece kit","Travel pouch","Cruelty free","Mirror included"]'>
+                        <img src="images/makeup kit.jfif" alt="Makeup Kit"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Makeup Kit</h3>
+                        <p>₹1599</p>
+                        <button onclick="addToCart(46)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="47" data-rating="4.5"
+                        data-description="A nourishing 3-step skincare gift set with cleanser, serum and moisturiser."
+                        data-features='["3 step routine","Paraben free","Suitable all skin","Gift boxed"]'>
+                        <img src="images/skincare gift set.jfif" alt="Skincare Gift Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Skincare Gift Set</h3>
+                        <p>₹1399</p>
+                        <button onclick="addToCart(47)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="48" data-rating="4.2"
+                        data-description="A foldable hairdryer with multiple heat settings and a concentrator nozzle."
+                        data-features='["1800 W","Foldable","2 speed settings","Ionic technology"]'>
+                        <img src="images/hair dryer.jfif" alt="Hair Dryer"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Hair Dryer</h3>
+                        <p>₹2199</p>
+                        <button onclick="addToCart(48)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="49" data-rating="4.4"
+                        data-description="A set of 4 soy wax scented candles in soothing fragrances to relax any space."
+                        data-features='["Set of 4 candles","Soy wax","40 hr burn","Assorted scents"]'>
+                        <img src="images/Scented Candle Set.jfif" alt="Scented Candle Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Scented Candle Set</h3>
+                        <p>₹349</p>
+                        <button onclick="addToCart(49)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="50" data-rating="4.3"
+                        data-description="A clear borosilicate glass flower vase that beautifully displays fresh or artificial blooms."
+                        data-features='["Borosilicate glass","Hand blown","Multiple sizes","Gift boxed"]'>
+                        <img src="images/Glass Flower Vase.jfif" alt="Glass Flower Vase"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Glass Flower Vase</h3>
+                        <p>₹649</p>
+                        <button onclick="addToCart(50)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="51" data-rating="4.2"
+                        data-description="A hand-cut lead-free crystal showpiece that catches light and elevates home decor."
+                        data-features='["Lead-free crystal","Polished edges","Decor base","Gift boxed"]'>
+                        <img src="images/Crystal Showpiece.jfif" alt="Crystal Showpiece"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Crystal Showpiece</h3>
+                        <p>₹899</p>
+                        <button onclick="addToCart(51)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="52" data-rating="4.4"
+                        data-description="A digital photo frame with 8-inch crisp display, USB/SD support and auto slideshow."
+                        data-features='["8 inch display","USB/SD support","Auto slideshow","Wooden frame"]'>
+                        <img src="images/digital photo frame.jfif" alt="Digital Photo Frame"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Digital Photo Frame</h3>
+                        <p>₹4299</p>
+                        <button onclick="addToCart(52)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="53" data-rating="4.3"
+                        data-description="A ready-to-gift wicker basket filled with assorted goodies for any occasion."
+                        data-features='["Assorted treats","Wicker basket","Reusable","Gift wrapped"]'>
+                        <img src="images/gift basket.jfif" alt="Gift Basket"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Gift Basket</h3>
+                        <p>₹999</p>
+                        <button onclick="addToCart(53)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="54" data-rating="4.2"
+                        data-description="A snack hamper packed with chips, nuts, cookies and more for movie nights and cravings."
+                        data-features='["10 snack items","Sealed packs","Gift wrapped","Variety pack"]'>
+                        <img src="images/snack hamper.jfif" alt="Snack Hamper"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Snack Hamper</h3>
+                        <p>₹549</p>
+                        <button onclick="addToCart(54)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="55" data-rating="4.3"
+                        data-description="A decorative acrylic cake stand with a rotating dome to display and protect baked creations."
+                        data-features='["Acrylic dome","Rotating base","Easy clean","Elegant design"]'>
+                        <img src="images/cake stand.jfif" alt="Cake Stand"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Cake Stand</h3>
+                        <p>₹749</p>
+                        <button onclick="addToCart(55)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="56" data-rating="4.0"
+                        data-description="A pack of 10 colourful party hats with elastic strings to crown guests at any celebration."
+                        data-features='["Pack of 10","Elastic string","Bright prints","One size"]'>
+                        <img src="images/Party Hat Pack.jfif" alt="Party Hat Pack"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Party Hat Pack</h3>
+                        <p>₹59</p>
+                        <button onclick="addToCart(56)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="57" data-rating="4.1"
+                        data-description="Confetti poppers that burst with colourful biodegradable paper for instant party fun."
+                        data-features='["Pack of 6","Biodegradable","Easy pull","Assorted colours"]'>
+                        <img src="images/Confetti Poppers.jfif" alt="Confetti Poppers"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Confetti Poppers</h3>
+                        <p>₹119</p>
+                        <button onclick="addToCart(57)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="58" data-rating="4.2"
+                        data-description="A vibrant 'Happy Birthday' banner with glitter letters to set the mood for party decor."
+                        data-features='["Glitter letters","Reusable string","Indoor/outdoor","1.5m length"]'>
+                        <img src="images/Happy Birthday Banner.jfif" alt="Happy Birthday Banner"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Happy Birthday Banner</h3>
+                        <p>₹179</p>
+                        <button onclick="addToCart(58)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="59" data-rating="4.1"
+                        data-description="A roll of designer gift wrapping paper — tear resistant with glossy print finish."
+                        data-features='["2 m roll","Tear resistant","Glossy print","Premium quality"]'>
+                        <img src="images/Gift Wrapping Paper.jfif" alt="Gift Wrapping Paper"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Gift Wrapping Paper</h3>
+                        <p>₹219</p>
+                        <button onclick="addToCart(59)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="60" data-rating="4.3"
+                        data-description="A premium greeting card with a warm message, perfect for birthdays and special occasions."
+                        data-features='["Premium paper","Envelope included","Blank inside","A6 size"]'>
+                        <img src="images/Greeting Card.jfif" alt="Greeting Card"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Greeting Card</h3>
+                        <p>₹99</p>
+                        <button onclick="addToCart(60)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="61" data-rating="4.4"
+                        data-description="A low-maintenance money plant in a ceramic pot — a symbol of good luck and fresh air."
+                        data-features='["Live plant","Air purifying","Easy care","Gifting pot included"]'>
+                        <img src="images/money plant.jfif" alt="Money Plant"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Money Plant</h3>
+                        <p>₹399</p>
+                        <button onclick="addToCart(61)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="62" data-rating="4.1"
+                        data-description="A mini desktop aquarium kit with LED light and starter fish food."
+                        data-features='["3 L tank","LED light","Starter kit","Ages 6+"]'>
+                        <img src="images/mini aquarium.jfif" alt="Mini Aquarium"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Mini Aquarium</h3>
+                        <p>₹999</p>
+                        <button onclick="addToCart(62)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="63" data-rating="4.3"
+                        data-description="A bamboo desk organizer with multi-compartment design for pens, notes and gadgets."
+                        data-features='["Bamboo wood","Multi-compartment","Phone stand","Cable management"]'>
+                        <img src="images/desk organizer.jfif" alt="Desk Organizer"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Desk Organizer</h3>
+                        <p>₹649</p>
+                        <button onclick="addToCart(63)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="64" data-rating="4.4"
+                        data-description="An extended gaming mouse pad with a smooth surface and stitched edges."
+                        data-features='["900x400 mm","Anti-slip base","Stitched edges","Water resistant"]'>
+                        <img src="images/mousepad.webp" alt="Gaming Mouse Pad"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Gaming Mouse Pad</h3>
+                        <p>₹299</p>
+                        <button onclick="addToCart(64)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="65" data-rating="4.5"
+                        data-description="A tactile mechanical keyboard with RGB backlight for gaming and productivity."
+                        data-features='["Blue switches","RGB backlight","USB-C wired","Full-size layout"]'>
+                        <img src="images/Mechanical keyboard.jpg" alt="Mechanical Keyboard"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Mechanical Keyboard</h3>
+                        <p>₹2199</p>
+                        <button onclick="addToCart(65)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="66" data-rating="4.4"
+                        data-description="A 24 inch full-HD monitor with slim bezels for work and entertainment."
+                        data-features='["1080p display","75 Hz","HDMI &amp; VGA","IPS panel"]'>
+                        <img src="images/24 inch Monitor.jfif" alt="24 Inch Monitor"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>24 Inch Monitor</h3>
+                        <p>₹9499</p>
+                        <button onclick="addToCart(66)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="67" data-rating="4.3"
+                        data-description="A padded laptop bag with multiple pockets for safe commutes and travel."
+                        data-features='["Fits 15.6 inch","Padded sleeve","Water resistant","USB charging port"]'>
+                        <img src="images/laptop bag.jfif" alt="Laptop Bag"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Laptop Bag</h3>
+                        <p>₹1599</p>
+                        <button onclick="addToCart(67)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="68" data-rating="4.2"
+                        data-description="A compact 64GB USB 3.0 pen drive for fast, portable file storage."
+                        data-features='["64 GB","USB 3.0","Metal body","5-year warranty"]'>
+                        <img src="images/64gb pendrive.jfif" alt="64GB Pen Drive"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>64GB Pen Drive</h3>
+                        <p>₹899</p>
+                        <button onclick="addToCart(68)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="69" data-rating="4.5"
+                        data-description="A portable 1TB external hard disk for secure backup of photos and files."
+                        data-features='["1 TB storage","USB 3.0","Shock resistant","2-year warranty"]'>
+                        <img src="images/1 tb hard disk.jfif" alt="1TB Hard Disk"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>1TB Hard Disk</h3>
+                        <p>₹4299</p>
+                        <button onclick="addToCart(69)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="70" data-rating="4.3"
+                        data-description="A full-HD webcam with autofocus for crisp video calls and streaming."
+                        data-features='["1080p video","Auto focus","Plug &amp; play","Built-in mic"]'>
+                        <img src="images/HD Webcam.jfif" alt="HD Webcam"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>HD Webcam</h3>
+                        <p>₹2699</p>
+                        <button onclick="addToCart(70)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="71" data-rating="4.4"
+                        data-description="A responsive gaming mouse with adjustable DPI and RGB lighting."
+                        data-features='["6 DPI levels","RGB lighting","Ergonomic","USB wired"]'>
+                        <img src="images/gaming Mouse.jfif" alt="Gaming Mouse"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Gaming Mouse</h3>
+                        <p>₹1399</p>
+                        <button onclick="addToCart(71)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="72" data-rating="4.4"
+                        data-description="An ergonomic office chair with lumbar support and breathable mesh back."
+                        data-features='["Lumbar support","Adjustable height","Breathable mesh","Swivel base"]'>
+                        <img src="images/office chair.jfif" alt="Office Chair"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Office Chair</h3>
+                        <p>₹7499</p>
+                        <button onclick="addToCart(72)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="73" data-rating="4.8"
+                        data-description="A grand bouquet of 100 fresh red roses arranged in a luxury gift box."
+                        data-features='["100 fresh roses","Luxury wrap","Midnight delivery","Gift boxed"]'>
+                        <img src="images/100 roses bouquet.jfif" alt="100 Red Roses Bouquet"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>100 Red Roses Bouquet</h3>
+                        <p>₹1499</p>
+                        <button onclick="addToCart(73)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="74" data-rating="4.5"
+                        data-description="A matching couple rings set crafted in sterling silver with engraving option."
+                        data-features='["Pair of 2 rings","925 silver","Engraving option","Gift boxed"]'>
+                        <img src="images/couple ring set.jfif" alt="Couple Rings Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Couple Rings Set</h3>
+                        <p>₹6499</p>
+                        <button onclick="addToCart(74)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="75" data-rating="4.4"
+                        data-description="An elegant 24-piece ceramic dinner set for a complete family dining experience."
+                        data-features='["24 piece set","Microwave safe","Chip resistant","16 dinner plates + 16 bowls"]'>
+                        <img src="images/ceramic dinner set.jfif" alt="Ceramic Dinner Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Ceramic Dinner Set</h3>
+                        <p>₹3799</p>
+                        <button onclick="addToCart(75)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="76" data-rating="4.2"
+                        data-description="A set of 4 crafted drinking glasses for daily use and special toasts."
+                        data-features='["Set of 4 glasses","Lead free","Dishwasher safe","250 ml each"]'>
+                        <img src="images/glass set.jfif" alt="Glass Set 4pc"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Glass Set 4pc</h3>
+                        <p>₹1399</p>
+                        <button onclick="addToCart(76)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="77" data-rating="4.3"
+                        data-description="Matching couple T-shirts with a fun printed message for partners."
+                        data-features='["Pair of 2 tees","100% cotton","Custom print","Unisex fit"]'>
+                        <img src="images/couple t-shirt.jfif" alt="Couple T-Shirts"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Couple T-Shirts</h3>
+                        <p>₹999</p>
+                        <button onclick="addToCart(77)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="78" data-rating="4.5"
+                        data-description="A heart-shaped LED love lamp with touch dimmer for romantic ambience."
+                        data-features='["Heart shape","Touch dimmer","USB powered","7 colour modes"]'>
+                        <img src="images/led love lamp.jfif" alt="LED Love Lamp"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>LED Love Lamp</h3>
+                        <p>₹1099</p>
+                        <button onclick="addToCart(78)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="79" data-rating="4.7"
+                        data-description="A luscious heart-shaped red velvet cake with creamy frosting for anniversaries."
+                        data-features='["Heart shaped","Serves 4-6","Eggless option","Rich cocoa"]'>
+                        <img src="images/Heart Shape Red Cake.jfif" alt="Heart Shape Red Cake"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Heart Shape Red Cake</h3>
+                        <p>₹749</p>
+                        <button onclick="addToCart(79)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="80" data-rating="4.6"
+                        data-description="A box of premium assorted Belgian chocolates for a sweet romantic surprise."
+                        data-features='["12 pieces","Belgian cocoa","Gift boxed","Hand-crafted"]'>
+                        <img src="images/Chocolate.jfif" alt="Chocolate"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Chocolate</h3>
+                        <p>₹1299</p>
+                        <button onclick="addToCart(80)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="81" data-rating="4.4"
+                        data-description="Romantic scented candles with rose and vanilla notes for a cosy evening."
+                        data-features='["Set of 3","Soy wax","Long burn","Hand poured"]'>
+                        <img src="images/Romantic Scented Candle.jfif" alt="Romantic Scented Candle"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Romantic Scented Candle</h3>
+                        <p>₹449</p>
+                        <button onclick="addToCart(81)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="82" data-rating="4.3"
+                        data-description="A soft king-size bed sheet set with 2 pillow covers for restful nights."
+                        data-features='["King size","Cotton blend","2 pillow covers","Machine washable"]'>
+                        <img src="images/King Size Bed Sheet.jfif" alt="King Size Bed Sheet"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>King Size Bed Sheet</h3>
+                        <p>₹2699</p>
+                        <button onclick="addToCart(82)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="83" data-rating="4.2"
+                        data-description="A romantic couple wall painting to personalise your living space."
+                        data-features='["Framed canvas","Ready to hang","Multiple sizes","Hand painted"]'>
+                        <img src="images/Couple Wall Painting.jfif" alt="Couple Wall Painting"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Couple Wall Painting</h3>
+                        <p>₹3299</p>
+                        <button onclick="addToCart(83)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="84" data-rating="4.4"
+                        data-description="A matching couple watch set with coordinated designs for partners."
+                        data-features='["Pair of 2 watches","Quartz movement","Gift boxed","Water resistant"]'>
+                        <img src="images/Couple Watch Set.jfif" alt="Couple Watch Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Couple Watch Set</h3>
+                        <p>₹5499</p>
+                        <button onclick="addToCart(84)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="85" data-rating="4.5"
+                        data-description="A luxury perfume gift set with his &amp; hers fragrances for couples."
+                        data-features='["2 perfumes","50 ml each","Gift packed","Eau de Parfum"]'>
+                        <img src="images/Perfume Gift Set.jfif" alt="Perfume Gift Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Perfume Gift Set</h3>
+                        <p>₹2199</p>
+                        <button onclick="addToCart(85)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="86" data-rating="4.6"
+                        data-description="A personalized photo canvas printed with your favourite memory together."
+                        data-features='["Custom photo","Gallery wrap","Multiple sizes","Premium canvas"]'>
+                        <img src="images/Personalized Photo Canvas.jfif" alt="Personalized Photo Canvas"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Personalized Photo Canvas</h3>
+                        <p>₹1599</p>
+                        <button onclick="addToCart(86)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="87" data-rating="4.4"
+                        data-description="A musical jewelry box that plays a gentle tune when opened."
+                        data-features='["Plays melody","Ring tray","Velvet lining","Battery operated"]'>
+                        <img src="images/Musical Jewelry Box.jfif" alt="Musical Jewelry Box"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Musical Jewelry Box</h3>
+                        <p>₹999</p>
+                        <button onclick="addToCart(87)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="88" data-rating="4.5"
+                        data-description="An adorable pair of couple teddy bears to cuddle together."
+                        data-features='["Pair of 2 bears","Soft plush","Heart pillows","12 inches each"]'>
+                        <img src="images/Couple Teddy Bears.jfif" alt="Couple Teddy Bears"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Couple Teddy Bears</h3>
+                        <p>₹1299</p>
+                        <button onclick="addToCart(88)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="89" data-rating="4.3"
+                        data-description="A love letter shaped photo frame for a romantic keepsake."
+                        data-features='["Heart design","Holds 4x6 photo","Wooden frame","Gold finish"]'>
+                        <img src="images/Love Letter Frame.jfif" alt="Love Letter Frame"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Love Letter Frame</h3>
+                        <p>₹749</p>
+                        <button onclick="addToCart(89)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="90" data-rating="4.4"
+                        data-description="Matching couple coffee mugs with a sweet 'his &amp; hers' message."
+                        data-features='["Set of 2 mugs","350 ml","Dishwasher safe","Microwave safe"]'>
+                        <img src="images/Couple Coffee Mugs.jfif" alt="Couple Coffee Mugs"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Couple Coffee Mugs</h3>
+                        <p>₹499</p>
+                        <button onclick="addToCart(90)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Birthday" data-id="91" data-rating="4.3"
+                        data-description="A kids night kit with a night light, storybook and plush toy."
+                        data-features='["Night light","Storybook","Plush toy","Ages 3+"]'>
+                        <img src="images/kids night kit.jfif" alt="Kids Night Kit"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Kids Night Kit</h3>
+                        <p>₹1699</p>
+                        <button onclick="addToCart(91)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="92" data-rating="4.4"
+                        data-description="A lined jewelry storage box with sections to organise rings and earrings."
+                        data-features='["Multiple compartments","Mirror inside","Lockable","Velvet lined"]'>
+                        <img src="images/Jewelry Storage Box.jfif" alt="Jewelry Storage Box"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Jewelry Storage Box</h3>
+                        <p>₹2499</p>
+                        <button onclick="addToCart(92)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="93" data-rating="4.5"
+                        data-description="A relaxing spa voucher redeemable at partner salons for a pampering day."
+                        data-features='["Valid 6 months","Multiple outlets","Digital voucher","Choice of treatments"]'>
+                        <img src="images/Spa Voucher.jfif" alt="Spa Voucher"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Spa Voucher</h3>
+                        <p>₹3299</p>
+                        <button onclick="addToCart(93)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="94" data-rating="4.3"
+                        data-description="A roomy travel duffel bag with sturdy handles for weekend getaways."
+                        data-features='["40 L capacity","Multiple pockets","Detachable strap","Water resistant"]'>
+                        <img src="images/Travel Duffel Bag.jfif" alt="Travel Duffel Bag"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Travel Duffel Bag</h3>
+                        <p>₹4299</p>
+                        <button onclick="addToCart(94)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="95" data-rating="4.4"
+                        data-description="A supportive memory foam pillow that contours to the neck for better sleep."
+                        data-features='["Memory foam","Washable cover","Ortho support","Hypoallergenic"]'>
+                        <img src="images/Memory Foam Pillow.jfif" alt="Memory Foam Pillow"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Memory Foam Pillow</h3>
+                        <p>₹549</p>
+                        <button onclick="addToCart(95)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="96" data-rating="4.5"
+                        data-description="A 3-piece luggage set to travel in style with matching hard-shell trolleys."
+                        data-features='["Set of 3 sizes","Hard shell","360° wheels","Expandable"]'>
+                        <img src="images/Luggage Set 3pc.jfif" alt="Luggage Set 3pc"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Luggage Set 3pc</h3>
+                        <p>₹8499</p>
+                        <button onclick="addToCart(96)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="97" data-rating="4.4"
+                        data-description="A matching couple necklace set symbolising your bond."
+                        data-features='["Pair of 2","Adjustable chain","Gift boxed","925 silver"]'>
+                        <img src="images/Couple Necklace.jfif" alt="Couple Necklace"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Couple Necklace</h3>
+                        <p>₹4299</p>
+                        <button onclick="addToCart(97)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="98" data-rating="4.3"
+                        data-description="A set of coordinating bracelets for couples to wear together."
+                        data-features='["Set of 2","Adjustable","Unisex","Genuine leather"]'>
+                        <img src="images/Bracelet Set.jfif" alt="Bracelet Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Bracelet Set</h3>
+                        <p>₹2699</p>
+                        <button onclick="addToCart(98)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="99" data-rating="4.2"
+                        data-description="A charming ring holder stand to safely display and store rings."
+                        data-features='["Ceramic build","Non-scratch","Cute design","Compact size"]'>
+                        <img src="images/Ring Holder Stand.jfif" alt="Ring Holder Stand"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Ring Holder Stand</h3>
+                        <p>₹449</p>
+                        <button onclick="addToCart(99)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="100" data-rating="4.3"
+                        data-description="A tasteful table decor set to elevate your dining or centre table."
+                        data-features='["3 piece set","Modern look","Easy to clean","Gift boxed"]'>
+                        <img src="images/Table Decor Set.jfif" alt="Table Decor Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Table Decor Set</h3>
+                        <p>₹999</p>
+                        <button onclick="addToCart(100)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="101" data-rating="4.2"
+                        data-description="A floral centerpiece arrangement that brightens any table or mantle."
+                        data-features='["Silk flowers","Long lasting","Ready made"]'>
+                        <img src="images/Floral Centerpiece.jfif" alt="Floral Centerpiece"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Floral Centerpiece</h3>
+                        <p>₹1599</p>
+                        <button onclick="addToCart(101)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="102" data-rating="4.3"
+                        data-description="A stunning balloon decoration arch kit to transform any celebration space."
+                        data-features='["Arch frame","50 balloons","Reusable"]'>
+                        <img src="images/Balloon Decoration Arch.jfif" alt="Balloon Decoration Arch"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Balloon Decoration Arch</h3>
+                        <p>₹1999</p>
+                        <button onclick="addToCart(102)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="103" data-rating="4.4"
+                        data-description="Fairy LED string lights to add a magical glow to rooms and parties."
+                        data-features='["10 m length","8 modes","USB/battery"]'>
+                        <img src="images/Fairy LED Lights.jfif" alt="Fairy LED Lights"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Fairy LED Lights</h3>
+                        <p>₹699</p>
+                        <button onclick="addToCart(103)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="104" data-rating="4.1"
+                        data-description="A fun photo booth props kit for memorable party pictures."
+                        data-features='["Pack of 20 props","Sticks included","Reusable"]'>
+                        <img src="images/Photo Booth Props.jfif" alt="Photo Booth Props"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Photo Booth Props</h3>
+                        <p>₹4999</p>
+                        <button onclick="addToCart(104)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="105" data-rating="4.2"
+                        data-description="An acrylic cake topper with a custom name to crown celebration cakes."
+                        data-features='["Custom text","Food safe acrylic","Reusable"]'>
+                        <img src="images/Acrylic Cake Topper.jfif" alt="Acrylic Cake Topper"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Acrylic Cake Topper</h3>
+                        <p>₹199</p>
+                        <button onclick="addToCart(105)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="106" data-rating="4.2"
+                        data-description="A multi-tier cupcake tower stand to display treats elegantly."
+                        data-features='["3 tiers","Holds 24 cupcakes","Easy assemble"]'>
+                        <img src="images/Cupcake Tower Stand.jfif" alt="Cupcake Tower Stand"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Cupcake Tower Stand</h3>
+                        <p>₹1299</p>
+                        <button onclick="addToCart(106)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="107" data-rating="4.5"
+                        data-description="An Amazon gift card redeemable for millions of products — the flexible gift."
+                        data-features='["Digital code","No expiry","Instant delivery"]'>
+                        <img src="images/Amazon Gift Card.jfif" alt="Amazon Gift Card"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Amazon Gift Card</h3>
+                        <p>₹1000</p>
+                        <button onclick="addToCart(107)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="108" data-rating="4.3"
+                        data-description="A his &amp; hers couple perfume set for shared romantic moments."
+                        data-features='["2 perfumes","Eau de Parfum","Gift boxed"]'>
+                        <img src="images/Couple Perfume Set.jfif" alt="Couple Perfume Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Couple Perfume Set</h3>
+                        <p>₹2999</p>
+                        <button onclick="addToCart(108)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="109" data-rating="4.3"
+                        data-description="A pair of genuine leather wallets for him and her."
+                        data-features='["Set of 2","Genuine leather","RFID safe"]'>
+                        <img src="images/Leather Wallet Pair.jfif" alt="Leather Wallet Pair"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Leather Wallet Pair</h3>
+                        <p>₹1999</p>
+                        <button onclick="addToCart(109)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="110" data-rating="4.2"
+                        data-description="A stylish pair of sunglasses for partners to match their look."
+                        data-features='["Set of 2","UV400","Polarized"]'>
+                        <img src="images/Sunglasses pair.jfif" alt="Sunglasses Pair"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Sunglasses Pair</h3>
+                        <p>₹2499</p>
+                        <button onclick="addToCart(110)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="111" data-rating="4.1"
+                        data-description="A comfortable, elegant nighty for relaxed and restful nights."
+                        data-features='["Soft fabric","Free size","Breathable"]'>
+                        <img src="images/nighty.jfif" alt="Nighty" onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Nighty</h3>
+                        <p>₹3499</p>
+                        <button onclick="addToCart(111)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="112" data-rating="4.4"
+                        data-description="A tailored formal suit for a sharp, confident appearance at events."
+                        data-features='["2-piece suit","Wool blend","Multiple sizes"]'>
+                        <img src="images/Formal Suit.jfif" alt="Formal Suit"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Formal Suit</h3>
+                        <p>₹5999</p>
+                        <button onclick="addToCart(112)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="113" data-rating="4.2"
+                        data-description="A matching couple shoes pair to coordinate your steps together."
+                        data-features='["Set of 2","Faux leather","Cushioned"]'>
+                        <img src="images/Couple Shoes.jfif" alt="Couple Shoes"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Couple Shoes</h3>
+                        <p>₹3999</p>
+                        <button onclick="addToCart(113)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="114" data-rating="4.4"
+                        data-description="A designer handbag with premium finish and roomy compartments."
+                        data-features='["Premium faux leather","Multiple pockets","Detachable strap"]'>
+                        <img src="images/Designer Handbag.jfif" alt="Designer Handbag"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Designer Handbag</h3>
+                        <p>₹4999</p>
+                        <button onclick="addToCart(114)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="115" data-rating="4.1"
+                        data-description="A classic silk tie to complete a formal outfit with elegance."
+                        data-features='["100% silk","Classic width","Gift boxed"]'>
+                        <img src="images/Silk Tie.jfif" alt="Silk Tie"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Silk Tie</h3>
+                        <p>₹899</p>
+                        <button onclick="addToCart(115)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="116" data-rating="4.3"
+                        data-description="A soft pashmina scarf that adds warmth and grace to any attire."
+                        data-features='["Pure pashmina","Handwoven","Multiple shades"]'>
+                        <img src="images/Pashmina Scarf.jfif" alt="Pashmina Scarf"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Pashmina Scarf</h3>
+                        <p>₹699</p>
+                        <button onclick="addToCart(116)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="117" data-rating="4.2"
+                        data-description="Genuine leather gloves with a snug fit for winter sophistication."
+                        data-features='["Genuine leather","Lined","Touchscreen tips"]'>
+                        <img src="images/Leather Gloves.jfif" alt="Leather Gloves"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Leather Gloves</h3>
+                        <p>₹499</p>
+                        <button onclick="addToCart(117)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="118" data-rating="4.3"
+                        data-description="A warm winter coat with insulation to beat the cold in style."
+                        data-features='["Padded insulation","Water repellent","Multiple sizes"]'>
+                        <img src="images/Winter Coat.jfif" alt="Winter Coat"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Winter Coat</h3>
+                        <p>₹7999</p>
+                        <button onclick="addToCart(118)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="119" data-rating="4.4"
+                        data-description="A solid wooden dining table that anchors family meals in style."
+                        data-features='["Sheesham wood","Seats 6","Termite proof"]'>
+                        <img src="images/Dining Table.jfif" alt="Dining Table"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Dining Table</h3>
+                        <p>₹12999</p>
+                        <button onclick="addToCart(119)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="120" data-rating="4.2"
+                        data-description="A pair of cushioned dining chairs that complement your dining set."
+                        data-features='["Set of 2","Cushioned seat","Sturdy legs"]'>
+                        <img src="images/Dining Chair.jfif" alt="Dining Chairs 2pc"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Dining Chairs 2pc</h3>
+                        <p>₹9999</p>
+                        <button onclick="addToCart(120)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="121" data-rating="4.2"
+                        data-description="A home decor combo of vases, candles and accents for a makeover."
+                        data-features='["5 piece combo","Modern style","Gift packed"]'>
+                        <img src="images/Home Decor Combo.jfif" alt="Home Decor Combo"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Home Decor Combo</h3>
+                        <p>₹5999</p>
+                        <button onclick="addToCart(121)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="122" data-rating="4.1"
+                        data-description="An elegant curtain set to dress your windows with grace."
+                        data-features='["Set of 2","Blackout option","Eyelet top"]'>
+                        <img src="images/Curtain Set.jfif" alt="Curtain Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Curtain Set</h3>
+                        <p>₹2999</p>
+                        <button onclick="addToCart(122)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="123" data-rating="4.2"
+                        data-description="A plush floor carpet that adds comfort and warmth underfoot."
+                        data-features='["Soft pile","Non-slip back","Stain resistant"]'>
+                        <img src="images/Floor Carpet.jfif" alt="Floor Carpet"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Floor Carpet</h3>
+                        <p>₹4999</p>
+                        <button onclick="addToCart(123)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="124" data-rating="4.4"
+                        data-description="A luxurious 3-seater sofa with deep cushions for ultimate lounging."
+                        data-features='["3 seater","High-density foam","Removable covers"]'>
+                        <img src="images/3 Seater Sofa.jfif" alt="3 Seater Sofa"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>3 Seater Sofa</h3>
+                        <p>₹29999</p>
+                        <button onclick="addToCart(124)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="125" data-rating="4.5"
+                        data-description="A 55 inch smart TV with 4K visuals and built-in streaming apps."
+                        data-features='["4K UHD","Smart OS","Dolby audio"]'>
+                        <img src="images/55 Inch Smart TV.jfif" alt="55 Inch Smart TV"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>55 Inch Smart TV</h3>
+                        <p>₹39999</p>
+                        <button onclick="addToCart(125)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="126" data-rating="4.3"
+                        data-description="A home theater system with surround sound for a cinematic experience."
+                        data-features='["5.1 channel","Wireless sub","Bluetooth"]'>
+                        <img src="images/Home Theater System.webp" alt="Home Theater System"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Home Theater System</h3>
+                        <p>₹19999</p>
+                        <button onclick="addToCart(126)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="127" data-rating="4.4"
+                        data-description="A double-door refrigerator with ample storage and energy efficiency."
+                        data-features='["265 L","Inverter compressor","Frost free"]'>
+                        <img src="images/Double Door Refrigerator.jfif" alt="Double Door Refrigerator"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Double Door Refrigerator</h3>
+                        <p>₹34999</p>
+                        <button onclick="addToCart(127)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="128" data-rating="4.3"
+                        data-description="A fully automatic washing machine that handles laundry with ease."
+                        data-features='["7 kg load","Fuzzy logic","Quick wash"]'>
+                        <img src="images/Washing Machine.jfif" alt="Washing Machine"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Washing Machine</h3>
+                        <p>₹29999</p>
+                        <button onclick="addToCart(128)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="129" data-rating="4.3"
+                        data-description="A convection microwave oven for baking, grilling and reheating."
+                        data-features='["23 L","Convection","Auto cook menus"]'>
+                        <img src="images/Microwave Oven.jfif" alt="Microwave Oven"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Microwave Oven</h3>
+                        <p>₹12999</p>
+                        <button onclick="addToCart(129)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="130" data-rating="4.4"
+                        data-description="A split air conditioner with fast cooling and智能 inverter tech."
+                        data-features='["1.5 ton","Inverter","PM 2.5 filter"]'>
+                        <img src="images/Air Conditioner.jfif" alt="Air Conditioner"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Air Conditioner</h3>
+                        <p>₹49999</p>
+                        <button onclick="addToCart(130)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="131" data-rating="4.2"
+                        data-description="A powerful bagless vacuum cleaner for effortless home cleaning."
+                        data-features='["1200 W","HEPA filter","Multi-surface"]'>
+                        <img src="images/Vacuum Cleaner.jfif" alt="Vacuum Cleaner"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Vacuum Cleaner</h3>
+                        <p>₹8999</p>
+                        <button onclick="addToCart(131)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="132" data-rating="4.1"
+                        data-description="A versatile kitchen blender for smoothies, chutneys and shakes."
+                        data-features='["500 W","2 jars","Multi-speed"]'>
+                        <img src="images/Kitchen Blender.jfif" alt="Kitchen Blender"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Kitchen Blender</h3>
+                        <p>₹3999</p>
+                        <button onclick="addToCart(132)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="133" data-rating="4.3"
+                        data-description="A set of 12 decorative diyas to light up Diwali beautifully."
+                        data-features='["Set of 12","Clay diyas","Paintable"]'>
+                        <img src="images/Diwali Diya Set 12pc.jfif" alt="Diwali Diya Set 12pc"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Diwali Diya Set 12pc</h3>
+                        <p>₹299</p>
+                        <button onclick="addToCart(133)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="134" data-rating="4.4"
+                        data-description="A Lakshmi-Ganesh idol set to invite prosperity during festivals."
+                        data-features='["Polyresin","Hand painted","Gift boxed"]'>
+                        <img src="images/Lakshmi Ganesh.jfif" alt="Lakshmi Ganesh Statue"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Lakshmi Ganesh Statue</h3>
+                        <p>₹899</p>
+                        <button onclick="addToCart(134)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="135" data-rating="4.3"
+                        data-description="A traditional pooja thali set with diya, bells and essentials."
+                        data-features='["8 piece set","Steel/brass","Decorated"]'>
+                        <img src="images/pooja thali set.jfif" alt="Pooja Thali Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Pooja Thali Set</h3>
+                        <p>₹499</p>
+                        <button onclick="addToCart(135)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="136" data-rating="4.4"
+                        data-description="A 1kg box of assorted Indian sweets for festive sharing."
+                        data-features='["1 kg pack","Fresh made","Mixed sweets"]'>
+                        <img src="images/Assorted Sweets 1kg.jfif" alt="Assorted Sweets 1kg"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Assorted Sweets 1kg</h3>
+                        <p>₹699</p>
+                        <button onclick="addToCart(136)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="137" data-rating="4.5"
+                        data-description="A premium dry fruits gift box with almonds, cashews and raisins."
+                        data-features='["1 kg assorted","Premium nuts","Gift tin"]'>
+                        <img src="images/Dry Fruits Gift Box.jfif" alt="Dry Fruits Gift Box"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Dry Fruits Gift Box</h3>
+                        <p>₹1299</p>
+                        <button onclick="addToCart(137)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="138" data-rating="4.2"
+                        data-description="A pack of 10 organic Holi colours for a safe, colourful celebration."
+                        data-features='["Pack of 10","Skin friendly","Eco-friendly"]'>
+                        <img src="images/Holi Color Pack 10.jfif" alt="Holi Color Pack 10"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Holi Color Pack 10</h3>
+                        <p>₹249</p>
+                        <button onclick="addToCart(138)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="139" data-rating="4.0"
+                        data-description="A fun water gun pichkari to splash joy during Holi."
+                        data-features='["Refillable","Long range","BPA free"]'>
+                        <img src="images/Water Gun Pichkari.jfif" alt="Water Gun Pichkari"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Water Gun Pichkari</h3>
+                        <p>₹199</p>
+                        <button onclick="addToCart(139)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="140" data-rating="4.1"
+                        data-description="A rangoli colour kit with stencils to create vibrant floor art."
+                        data-features='["12 colours","Stencils","Reusable"]'>
+                        <img src="images/Rangoli Color Kit.jfif" alt="Rangoli Color Kit"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Rangoli Color Kit</h3>
+                        <p>₹399</p>
+                        <button onclick="addToCart(140)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="141" data-rating="4.2"
+                        data-description="A decorative door toran to welcome guests with festive charm."
+                        data-features='["Beaded design","Hangable","Traditional"]'>
+                        <img src="images/Door Toran.jfif" alt="Door Toran"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Door Toran</h3>
+                        <p>₹299</p>
+                        <button onclick="addToCart(141)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="142" data-rating="4.4"
+                        data-description="Fairy string lights to add festive sparkle indoors and out."
+                        data-features='["5 m length","8 modes","USB/battery"]'>
+                        <img src="images/Fairy String Lights.jfif" alt="Fairy String Lights"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Fairy String Lights</h3>
+                        <p>₹499</p>
+                        <button onclick="addToCart(142)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="143" data-rating="3.9"
+                        data-description="A cracker gift pack for a sparkling Diwali celebration."
+                        data-features='["Assorted crackers","Safety tested","Family pack"]'>
+                        <img src="images/Cracker Gift Pack.jfif" alt="Cracker Gift Pack"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Cracker Gift Pack</h3>
+                        <p>₹999</p>
+                        <button onclick="addToCart(143)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="144" data-rating="4.3"
+                        data-description="A Rakhi set of 3 with roli-chawal for brotherly bonds."
+                        data-features='["Set of 3 rakhis","Roli-chawal","Designer"]'>
+                        <img src="images/Rakhi Set 3pc.jfif" alt="Rakhi Set 3pc"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Rakhi Set 3pc</h3>
+                        <p>₹199</p>
+                        <button onclick="addToCart(144)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="145" data-rating="4.2"
+                        data-description="A delicious chocolate Rakhi combining tradition with a sweet treat."
+                        data-features='["Chocolate rakhi","Gift packed","With roli"]'>
+                        <img src="images/Chocolate Rakhi.jfif" alt="Chocolate Rakhi"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Chocolate Rakhi</h3>
+                        <p>₹299</p>
+                        <button onclick="addToCart(145)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="146" data-rating="4.2"
+                        data-description="A brother gift hamper with grooming and snack goodies."
+                        data-features='["6 items","Gift boxed","Personalisable"]'>
+                        <img src="images/Brother Gift Hamper.jfif" alt="Brother Gift Hamper"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Brother Gift Hamper</h3>
+                        <p>₹1199</p>
+                        <button onclick="addToCart(146)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="147" data-rating="4.3"
+                        data-description="A sister gift hamper with accessories and self-care treats."
+                        data-features='["6 items","Gift boxed","Personalisable"]'>
+                        <img src="images/Sister Gift Hamper.jfif" alt="Sister Gift Hamper"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Sister Gift Hamper</h3>
+                        <p>₹1299</p>
+                        <button onclick="addToCart(147)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="148" data-rating="4.1"
+                        data-description="A pair of decorated dandiya sticks for Navratri Garba nights."
+                        data-features='["Pair of 2","Painted wood","Balanced"]'>
+                        <img src="images/Dandiya Sticks Pair.jfif" alt="Dandiya Sticks Pair"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Dandiya Sticks Pair</h3>
+                        <p>₹399</p>
+                        <button onclick="addToCart(148)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="149" data-rating="4.3"
+                        data-description="A vibrant Garba Chaniya Choli for traditional festive dancing."
+                        data-features='["3-piece set","Mirror work","Multiple sizes"]'>
+                        <img src="images/Garba Chaniya Choli.jfif" alt="Garba Chaniya Choli"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Garba Chaniya Choli</h3>
+                        <p>₹2499</p>
+                        <button onclick="addToCart(149)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="150" data-rating="4.4"
+                        data-description="A beautifully crafted Durga Maa idol for puja and decor."
+                        data-features='["Polyresin","Hand painted","Multiple sizes"]'>
+                        <img src="images/Durga Maa Idol.jfif" alt="Durga Maa Idol"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Durga Maa Idol</h3>
+                        <p>₹1999</p>
+                        <button onclick="addToCart(150)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="151" data-rating="4.3"
+                        data-description="A 4-foot pre-lit Christmas tree to deck the halls."
+                        data-features='["4 ft tall","Pre-lit LEDs","Foldable"]'>
+                        <img src="images/Christmas Tree.jfif" alt="Christmas Tree 4Ft"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Christmas Tree 4Ft</h3>
+                        <p>₹2999</p>
+                        <button onclick="addToCart(151)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="152" data-rating="3.9"
+                        data-description="A fun Santa Claus cap to spread Christmas cheer."
+                        data-features='["Plush trim","One size","Stretch fit"]'>
+                        <img src="images/santa claus cap.jfif" alt="Santa Claus Cap"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Santa Claus Cap</h3>
+                        <p>₹149</p>
+                        <button onclick="addToCart(152)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="153" data-rating="4.3"
+                        data-description="Christmas LED lights to adorn trees and homes festively."
+                        data-features='["Warm white","20 m","8 modes"]'>
+                        <img src="images/Christmas Lights.jfif" alt="Christmas Lights"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Christmas Lights</h3>
+                        <p>₹699</p>
+                        <button onclick="addToCart(153)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="154" data-rating="4.1"
+                        data-description="A pack of cosy gift socks perfect for stocking stuffers."
+                        data-features='["Pack of 5","Cotton blend","Unisex"]'>
+                        <img src="images/Gift Socks Pack.jfif" alt="Gift Socks Pack"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Gift Socks Pack</h3>
+                        <p>₹299</p>
+                        <button onclick="addToCart(154)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="155" data-rating="4.2"
+                        data-description="A New Year party kit with hats, blowers and decor."
+                        data-features='["20 piece kit","Reusable","Festive"]'>
+                        <img src="images/New Year Party Kit.jfif" alt="New Year Party Kit"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>New Year Party Kit</h3>
+                        <p>₹1599</p>
+                        <button onclick="addToCart(155)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="156" data-rating="4.4"
+                        data-description="An Eid gift box with dates, attar and festive treats."
+                        data-features='["Assorted items","Gift packed","Premium"]'>
+                        <img src="images/E-id Gift Pack.jfif" alt="E-id Gift Box"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>E-id Gift Box</h3>
+                        <p>₹1899</p>
+                        <button onclick="addToCart(156)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="157" data-rating="4.3"
+                        data-description="A soft prayer mat for daily namaz with elegant patterns."
+                        data-features='["Cotton blend","Compass marked","Foldable"]'>
+                        <img src="images/Prayer mat.jfif" alt="Prayer Mat"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Prayer Mat</h3>
+                        <p>₹899</p>
+                        <button onclick="addToCart(157)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="158" data-rating="4.3"
+                        data-description="A traditional attar perfume set with long-lasting natural fragrances."
+                        data-features='["Set of 3","Alcohol free","Roll-on"]'>
+                        <img src="images/Attar Perfume Set.jfif" alt="Attar Perfume Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Attar Perfume Set</h3>
+                        <p>₹1299</p>
+                        <button onclick="addToCart(158)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="159" data-rating="4.1"
+                        data-description="A colourful Baisakhi turban for festive celebrations."
+                        data-features='["Cotton","Traditional","Adjustable"]'>
+                        <img src="images/Baisakhi Turban.jfif" alt="Baisakhi Turban"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Baisakhi Turban</h3>
+                        <p>₹599</p>
+                        <button onclick="addToCart(159)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="160" data-rating="4.2"
+                        data-description="A Gurudwara gift set with prasad items and a photo frame."
+                        data-features='["Assorted items","Gift packed","Reusable"]'>
+                        <img src="images/Gurudwara Gift Set.jfif" alt="Gurudwara Gift Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Gurudwara Gift Set</h3>
+                        <p>₹999</p>
+                        <button onclick="addToCart(160)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="161" data-rating="4.1"
+                        data-description="A traditional Pongal cooking pot for the harvest festival."
+                        data-features='["Clay pot","Handmade","Authentic"]'>
+                        <img src="images/pongal pot.jfif" alt="Pongal Cooking Pot"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Pongal Cooking Pot</h3>
+                        <p>₹399</p>
+                        <button onclick="addToCart(161)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="162" data-rating="4.0"
+                        data-description="Fresh sugarcane stalks to celebrate Pongal and Makar Sankranti."
+                        data-features='["Fresh stalks","Farm sourced","Seasonal"]'>
+                        <img src="images/Sugarcane.jfif" alt="Sugarcane"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Sugarcane</h3>
+                        <p>₹199</p>
+                        <button onclick="addToCart(162)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="163" data-rating="4.3"
+                        data-description="An Onam Sadhya box with a banana-leaf style feast assortment."
+                        data-features='["Assorted dishes","Festive pack","Serves 2"]'>
+                        <img src="images/onam Sadhya pack.jfif" alt="Onam Sadhya Box"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Onam Sadhya Box</h3>
+                        <p>₹1499</p>
+                        <button onclick="addToCart(163)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="164" data-rating="4.2"
+                        data-description="A marigold garland to decorate homes and temples festively."
+                        data-features='["Fresh flowers","Hand strung","Fragrant"]'>
+                        <img src="images/Marigold Garland.jfif" alt="Marigold Garland"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Marigold Garland</h3>
+                        <p>₹299</p>
+                        <button onclick="addToCart(164)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="165" data-rating="4.4"
+                        data-description="A Ganesh idol to mark Ganesh Chaturthi with devotion."
+                        data-features='["Eco-friendly clay","Hand painted","Multiple sizes"]'>
+                        <img src="images/ganesh idol.jfif" alt="Ganesh Idol"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Ganesh Idol</h3>
+                        <p>₹1299</p>
+                        <button onclick="addToCart(165)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="166" data-rating="4.3"
+                        data-description="A Modak sweet box, lord Ganesha's favourite festive treat."
+                        data-features='["12 pieces","Ukadiche style","Sweet filling"]'>
+                        <img src="images/Modak.jfif" alt="Modak Sweet Box"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Modak Sweet Box</h3>
+                        <p>₹499</p>
+                        <button onclick="addToCart(166)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="167" data-rating="4.2"
+                        data-description="A Karva Chauth thali set with karwa, diya and decorative items."
+                        data-features='["8 piece set","Steel","Decorated"]'>
+                        <img src="images/Karva Chauth Thali.jfif" alt="Karva Chauth Thali"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Karva Chauth Thali</h3>
+                        <p>₹899</p>
+                        <button onclick="addToCart(167)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="168" data-rating="4.3"
+                        data-description="A Mehndi cone set for beautiful henna designs on festivals."
+                        data-features='["Pack of 6","Natural henna","Fine tip"]'>
+                        <img src="images/Mehndi Cone Set.jfif" alt="Mehndi Cone Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Mehndi Cone Set</h3>
+                        <p>₹199</p>
+                        <button onclick="addToCart(168)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="169" data-rating="4.1"
+                        data-description="A set of colourful glass bangles to adorn traditional outfits."
+                        data-features='["Set of 24","Mixed colours","Shatter resistant"]'>
+                        <img src="images/Glass Bangle Set.jfif" alt="Glass Bangle Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Glass Bangle Set</h3>
+                        <p>₹599</p>
+                        <button onclick="addToCart(169)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="170" data-rating="4.5"
+                        data-description="A pure silk saree with intricate zari work for grand occasions."
+                        data-features='["Pure silk","Zari border","Blouse piece"]'>
+                        <img src="images/Silk Saree.jfif" alt="Silk Saree"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Silk Saree</h3>
+                        <p>₹3999</p>
+                        <button onclick="addToCart(170)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="171" data-rating="4.2"
+                        data-description="A comfortable men's kurta for festive and casual wear."
+                        data-features='["Cotton","Regular fit","Multiple sizes"]'>
+                        <img src="images/Men's Kurta.jfif" alt="Men's Kurta"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Men's Kurta</h3>
+                        <p>₹1999</p>
+                        <button onclick="addToCart(171)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="172" data-rating="4.4"
+                        data-description="A regal sherwani with embroidery for weddings and festivals."
+                        data-features='["Ethnic wear","Embroidered","Multiple sizes"]'>
+                        <img src="images/Sherwani.jfif" alt="Sherwani"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Sherwani</h3>
+                        <p>₹7999</p>
+                        <button onclick="addToCart(172)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="173" data-rating="4.5"
+                        data-description="A stunning bridal lehenga with heavy embroidery for the big day."
+                        data-features='["3-piece set","Heavy work","Custom size"]'>
+                        <img src="images/Bridal Lehenga.jfif" alt="Bridal Lehenga"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Bridal Lehenga</h3>
+                        <p>₹12999</p>
+                        <button onclick="addToCart(173)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="174" data-rating="4.2"
+                        data-description="Traditional jutti footwear with embroidery for ethnic looks."
+                        data-features='["Leather sole","Embroidered","Unisex"]'>
+                        <img src="images/Jutti.jfif" alt="Jutti" onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Jutti</h3>
+                        <p>₹1299</p>
+                        <button onclick="addToCart(174)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="175" data-rating="4.1"
+                        data-description="A drawstring potli bag with embellishments for festive outfits."
+                        data-features='["Satin fabric","Beaded","Zip pocket"]'>
+                        <img src="images/Potli Bag.jfif" alt="Potli Bag"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Potli Bag</h3>
+                        <p>₹899</p>
+                        <button onclick="addToCart(175)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="176" data-rating="4.3"
+                        data-description="An ethnic jewelry set with necklace, earrings and maang tikka."
+                        data-features='["3 piece set","Oxidised/imitation","Gift boxed"]'>
+                        <img src="images/Jewelry Set.jfif" alt="Jewelry Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Jewelry Set</h3>
+                        <p>₹5999</p>
+                        <button onclick="addToCart(176)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="177" data-rating="4.4"
+                        data-description="A pure silver coin, an auspicious gift for prosperity."
+                        data-features='["999 purity","Lakshmi/Ganesh","Sealed pack"]'>
+                        <img src="images/Silver Coin.jfif" alt="Silver Coin"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Silver Coin</h3>
+                        <p>₹499</p>
+                        <button onclick="addToCart(177)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="178" data-rating="4.3"
+                        data-description="A silver pooja item set for rituals and festive worship."
+                        data-features='["925 silver","Pooja essentials","Gift packed"]'>
+                        <img src="images/Silver Pooja Item.jfif" alt="Silver Pooja Item"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Silver Pooja Item</h3>
+                        <p>₹2999</p>
+                        <button onclick="addToCart(178)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="179" data-rating="4.4"
+                        data-description="A shopping gift coupon redeemable across partner stores."
+                        data-features='["Digital code","No expiry","Instant"]'>
+                        <img src="images/Shopping Gift Coupon.jfif" alt="Shopping Gift Coupon"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Shopping Gift Coupon</h3>
+                        <p>₹500</p>
+                        <button onclick="addToCart(179)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="180" data-rating="4.1"
+                        data-description="A decorative wall plate with ethnic art for home accent."
+                        data-features='["Ceramic","Wall mount","Hand painted"]'>
+                        <img src="images/Decorative Plate.jfif" alt="Decorative Plate"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Decorative Plate</h3>
+                        <p>₹399</p>
+                        <button onclick="addToCart(180)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="181" data-rating="4.2"
+                        data-description="A handcrafted wall hanging to add texture and charm."
+                        data-features='["Macrame/cotton","Ready to hang","Bohemian"]'>
+                        <img src="images/Wall Hanging.jfif" alt="Wall Hanging"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Wall Hanging</h3>
+                        <p>₹799</p>
+                        <button onclick="addToCart(181)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="182" data-rating="4.3"
+                        data-description="A pack of natural incense sticks for a calming aroma."
+                        data-features='["Pack of 50","Natural","Long stick"]'>
+                        <img src="images/Incense Sticks.jfif" alt="Incense Sticks"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Incense Sticks</h3>
+                        <p>₹99</p>
+                        <button onclick="addToCart(182)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="183" data-rating="4.1"
+                        data-description="A camphor box for daily aarti and fragrant puja rituals."
+                        data-features='["Pack of 50","Pure camphor","Easy light"]'>
+                        <img src="images/Camphor Box.jfif" alt="Camphor Box"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Camphor Box</h3>
+                        <p>₹149</p>
+                        <button onclick="addToCart(183)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="184" data-rating="4.5"
+                        data-description="A copy of the Bhagavad Gita, a timeless spiritual gift."
+                        data-features='["Hardcover","Hindi/English","Gift edition"]'>
+                        <img src="images/Bhagvad Gita.jfif" alt="Potli Bag"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Bhagvad Gita</h3>
+                        <p>₹299</p>
+                        <button onclick="addToCart(184)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="185" data-rating="4.2"
+                        data-description="A Prasad box with sacred offerings for devotees."
+                        data-features='["Assorted prasad","Sealed","Festive"]'>
+                        <img src="images/Prasad Box.jfif" alt="Prasad Box"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Prasad Box</h3>
+                        <p>₹399</p>
+                        <button onclick="addToCart(185)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="186" data-rating="4.3"
+                        data-description="A festive feast box with a curated spread of delicacies."
+                        data-features='["Assorted dishes","Serves 4","Gift packed"]'>
+                        <img src="images/Festive Feast Box.jfif" alt="Festive Feast Box"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Festive Feast Box</h3>
+                        <p>₹1999</p>
+                        <button onclick="addToCart(186)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="187" data-rating="4.4"
+                        data-description="A large family dinner set for complete festive gatherings."
+                        data-features='["35 piece set","Microwave safe","Chip resistant"]'>
+                        <img src="images/Family Dinner Set.jfif" alt="Family Dinner Set"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Family Dinner Set</h3>
+                        <p>₹4999</p>
+                        <button onclick="addToCart(187)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Anniversary" data-id="188" data-rating="4.2"
+                        data-description="A family photo frame to showcase treasured group memories."
+                        data-features='["Holds 5 photos","Collage layout","Wooden"]'>
+                        <img src="images/Family Photo Frame.jfif" alt="Family Photo Frame"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Family Photo Frame</h3>
+                        <p>₹699</p>
+                        <button onclick="addToCart(188)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="189" data-rating="4.1"
+                        data-description="A wall calendar with festive artwork for the new year."
+                        data-features='["12 months","Large grid","Spiral bound"]'>
+                        <img src="images/Wall Calendar.jfif" alt="Wall Calendar"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Wall Calendar</h3>
+                        <p>₹249</p>
+                        <button onclick="addToCart(189)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="190" data-rating="4.2"
+                        data-description="A pack of assorted greeting cards for every occasion."
+                        data-features='["Pack of 10","Envelopes","Blank inside"]'>
+                        <img src="images/Greeting Cards Pack.jfif" alt="Greeting Cards Pack"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Greeting Cards Pack</h3>
+                        <p>₹199</p>
+                        <button onclick="addToCart(190)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="191" data-rating="4.0"
+                        data-description="A roll of festive wrapping paper to finish gifts beautifully."
+                        data-features='["3 m roll","Glossy","Tear resistant"]'>
+                        <img src="images/Wrapping Paper Roll.webp" alt="Wrapping Paper Roll"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Wrapping Paper Roll</h3>
+                        <p>₹149</p>
+                        <button onclick="addToCart(191)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="192" data-rating="3.9"
+                        data-description="A ribbon roll to add a finishing bow to wrapped presents."
+                        data-features='["5 m roll","Satin","Multiple colours"]'>
+                        <img src="images/Ribbon Roll.jfif" alt="Ribbon Roll"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Ribbon Roll</h3>
+                        <p>₹99</p>
+                        <button onclick="addToCart(192)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="193" data-rating="3.9"
+                        data-description="A decorative bow to embellish gifts and decor."
+                        data-features='["Reusable","Pre-tied","Glitter"]'>
+                        <img src="images/Decorative Box.jfif" alt="Decorative Bow"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Decorative Box</h3>
+                        <p>₹79</p>
+                        <button onclick="addToCart(193)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="194" data-rating="3.9"
+                        data-description="A pack of gift tags to personalise your presents."
+                        data-features='["Pack of 20","Kraft paper","String included"]'>
+                        <img src="images/Gift Tag Pack.jfif" alt="Gift Tag Pack"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Gift Tag Pack</h3>
+                        <p>₹49</p>
+                        <button onclick="addToCart(194)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="195" data-rating="4.0"
+                        data-description="A reusable shopping bag for eco-friendly gifting and errands."
+                        data-features='["Cotton canvas","Foldable","Large"]'>
+                        <img src="images/Shopping Bag.jfif" alt="Shopping Bag"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Shopping Bag</h3>
+                        <p>₹199</p>
+                        <button onclick="addToCart(195)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="196" data-rating="4.5"
+                        data-description="A premium festival hamper with sweets, dry fruits and decor."
+                        data-features='["Luxury tin","Assorted items","Gift packed"]'>
+                        <img src="images/Premium Festival Hamper.jfif" alt="Premium Festival Hamper"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Premium Festival Hamper</h3>
+                        <p>₹2999</p>
+                        <button onclick="addToCart(196)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="197" data-rating="4.6"
+                        data-description="A high-performance gaming PC built for immersive play."
+                        data-features='["Dedicated GPU","SSD storage","RGB case"]'>
+                        <img src="images/Gaming PC.jfif" alt="Gaming PC"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Gaming PC</h3>
+                        <p>₹20,000</p>
+                        <button onclick="addToCart(197)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="198" data-rating="4.5"
+                        data-description="A powerful laptop for work, study and entertainment."
+                        data-features='["Core i5/i7","16 GB RAM","SSD"]'>
+                        <img src="images/Laptop.jfif" alt="Laptop" onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Laptop</h3>
+                        <p>₹85,000</p>
+                        <button onclick="addToCart(198)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="199" data-rating="4.3"
+                        data-description="A studio PC microphone with clear voice capture for streaming."
+                        data-features='["Cardioid","USB plug","Stand included"]'>
+                        <img src="images/PC Microphone.jpg" alt="PC Microphone"
+                            onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>PC Microphone</h3>
+                        <p>₹8999</p>
+                        <button onclick="addToCart(199)">Add to Cart</button>
+                    </div>
+                    <div class="card" data-category="Festival" data-id="200" data-rating="4.1"
+                        data-description="A decorative globe with geographical detail for study and decor."
+                        data-features='["Rotating","LED base","Detailed map"]'>
+                        <img src="images/Globe.jfif" alt="Globe" onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                        <h3>Globe</h3>
+                        <p>₹999</p>
+                        <button onclick="addToCart(200)">Add to Cart</button>
+                    </div>
+
+                </section>
+            </section>
+            <section id="product-detail" class="hidden">
+                <div class="detail-container">
+                    <div class="detail-image">
+                        <img id="detail-img" src="" alt="Product Image">
+                    </div>
+                    <div class="detail-info">
+                        <button onclick="hideProductDetail()" class="back-btn"> Back to Products</button>
+                        <h2 id="detail-name"></h2>
+                        <span id="detail-category" class="detail-category"></span>
+                        <p id="detail-price" class="detail-price"></p>
+                        <p id="detail-description" class="detail-description"></p>
+                        <div class="detail-rating" id="detail-rating"></div>
+                        <h4>Key Features:</h4>
+                        <ul id="detail-features" class="detail-features"></ul>
+                        <button onclick="addToCartFromDetail()" class="detail-add-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </section>
+            <section id="cart-page" class="hidden">
+                <h2 class="page-title"> <u> Your Shopping Cart </u> </h2>
+                <div id="cart-items"></div>
+                <div class="cart-total-bar">
+                    <h2> <u> Total Amount </u> </h2>
+                    <p class="amount" id="total"></p>
+                    <button class="order-btn" onclick="placeOrder()">Proceed to Checkout</button>
+                </div>
+            </section>
+            <section id="checkout-page" class="hidden">
+                <h2 class="page-title"> <u> Payment Details </u> </h2>
+                <div class="checkout-container">
+                    <div class="checkout-form">
+                        <h3>Delivery Details</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="checkout-name" placeholder="Your Name">
+                            </div>
+                            <div class="form-group">
+                                <label>Mobile Number</label>
+                                <input type="tel" id="checkout-mobile" placeholder="Mobile Number" maxlength="10">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <textarea id="checkout-address" placeholder="Address" rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <div class="location-input-wrapper">
+                                <input type="text" id="checkout-location" placeholder="Fetch your Exact Location">
+                                <button type="button" class="location-btn" onclick="getLocation('checkout-location')"><i
+                                        class="fa-solid fa-location-dot"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>City</label>
+                                <select id="checkout-city">
+                                    <option value="">Select City</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Pin Code</label>
+                                <input type="number" id="checkout-pincode" placeholder="Pin Code" maxlength="6">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>State</label>
+                            <select id="checkout-state" onchange="populateCitiesForCheckout()">
+                                <option value="">Select State</option>
+                            </select>
+                        </div>
+                        <h3 class="checkout-section-title">Mode of Payment</h3>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="COD" checked>
+                                <span>Cash on Delivery</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="UPI">
+                                <span>UPI</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="Card">
+                                <span>Credit / Debit Card</span>
+                            </label>
+                        </div>
+                        <div id="upi-section" class="payment-detail hidden">
+                            <h3>UPI Payment</h3>
+                            <div class="payment-detail-grid">
+                                <div class="form-group">
+                                    <label>UPI ID</label>
+                                    <input type="text" id="upi-id" placeholder="yourname@upi"
+                                        oninput="autoFillFromUPI()">
+                                </div>
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" id="upi-name" placeholder="Account holder name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Mobile</label>
+                                    <input type="tel" id="upi-mobile" placeholder="Mobile number" maxlength="10">
+                                </div>
+                            </div>
+                            <div class="form-group mt-12">
+                                <label>Select UPI App / Bank</label>
+                                <div class="payment-detail-grid">
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="PhonePe"><span class="bank-logo">PhonePe</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="Google Pay"><span class="bank-logo">Google Pay</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="Paytm"><span class="bank-logo">Paytm</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="Amazon Pay"><span class="bank-logo">Amazon Pay</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="BHIM"><span class="bank-logo">BHIM</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="WhatsApp Pay"><span class="bank-logo">WhatsApp Pay</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="MobiKwik"><span class="bank-logo">MobiKwik</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="Freecharge"><span class="bank-logo">Freecharge</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="Ola Money"><span class="bank-logo">Ola Money</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="JioMoney"><span class="bank-logo">JioMoney</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="Airtel Money"><span class="bank-logo">Airtel Money</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="Samsung Pay"><span class="bank-logo">Samsung Pay</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="CRED"><span class="bank-logo">CRED</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="Slice"><span class="bank-logo">Slice</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="ZestMoney"><span class="bank-logo">ZestMoney</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="YONO SBI"><span class="bank-logo">YONO SBI</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="iMobile"><span class="bank-logo">iMobile</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="upi-bank"
+                                            value="Cointab"><span class="bank-logo">Cointab</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="card-section" class="payment-detail hidden">
+                            <h3>Card Payment</h3>
+                            <div class="payment-detail-grid">
+                                <div class="form-group full-width">
+                                    <label>Card Number</label>
+                                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19"
+                                        oninput="formatCardNumber(this)">
+                                </div>
+                                <div class="form-group full-width">
+                                    <label>Cardholder Name</label>
+                                    <input type="text" id="card-name" placeholder="Name on card">
+                                </div>
+                                <div class="form-group">
+                                    <label>Expiry Date</label>
+                                    <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5"
+                                        oninput="formatExpiry(this)">
+                                </div>
+                                <div class="form-group">
+                                    <label>CVV</label>
+                                    <input type="password" id="card-cvv" placeholder="123" maxlength="3">
+                                </div>
+                            </div>
+                            <div class="form-group mt-12">
+                                <label>Select Bank</label>
+                                <div class="payment-detail-grid">
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="SBI"><span class="bank-logo">SBI</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="HDFC"><span class="bank-logo">HDFC</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="ICICI"><span class="bank-logo">ICICI</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="Axis"><span class="bank-logo">Axis Bank</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="Kotak"><span class="bank-logo">Kotak</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="PNB"><span class="bank-logo">PNB</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="Bank of Baroda"><span class="bank-logo">Bank of Baroda</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="Canara Bank"><span class="bank-logo">Canara Bank</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="Union Bank"><span class="bank-logo">Union Bank</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="Indian Bank"><span class="bank-logo">Indian Bank</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="IDBI"><span class="bank-logo">IDBI</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="Yes Bank"><span class="bank-logo">Yes Bank</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="IndusInd Bank"><span class="bank-logo">IndusInd Bank</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="RBL Bank"><span class="bank-logo">RBL Bank</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="Federal Bank"><span class="bank-logo">Federal Bank</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="South Indian Bank"><span class="bank-logo">South Indian
+                                            Bank</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="Karnataka Bank"><span class="bank-logo">Karnataka Bank</span></label>
+                                    <label class="payment-detail-option"><input type="radio" name="card-bank"
+                                            value="Dhanlaxmi Bank"><span class="bank-logo">Dhanlaxmi Bank</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout-actions">
+                            <button class="back-btn" onclick="showPage('cart')">Back to Cart</button>
+                            <button class="order-btn" onclick="submitOrder()">Place Order</button>
+                        </div>
+                        <div class="auth-error" id="checkout-error"></div>
+
+                    </div>
+                    <div class="order-summary">
+                        <h3>Order Summary</h3>
+                        <div id="checkout-items"></div>
+                        <div class="summary-total">
+                            <span>Total</span>
+                            <span id="checkout-total"> </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="orders-page" class="hidden">
+                <div id="orders-container"></div>
+            </section>
+            <section id="ten-minute-page" class="hidden">
+                <section id="ten-minute-hero" class="hero">
+                    <div class="hero-content">
+                        <h1>10 Minute Delivery</h1>
+                        <p>Choose a category to explore items available for instant delivery</p>
+                        <div class="delivery-category-btns">
+                            <button class="delivery-cat-btn eatable" onclick="showDeliveryCategory('eatable')">
+                                <i class="fa-solid fa-utensils"></i> Eatable Items
+                            </button>
+                            <button class="delivery-cat-btn non-eatable" onclick="showDeliveryCategory('non-eatable')">
+                                <i class="fa-solid fa-gift"></i> Non-Eatable Items
+                            </button>
+                        </div>
+                    </div>
+                </section>
+                <section id="ten-minute-home">
+                    <div class="filter">
+                        <button class="filter-btn" onclick="filterDeliveryCat('All')">All</button>
+                        <button class="filter-btn" onclick="filterDeliveryCat('Birthday')">Birthday</button>
+                        <button class="filter-btn" onclick="filterDeliveryCat('Anniversary')">Anniversary</button>
+                        <button class="filter-btn" onclick="filterDeliveryCat('Festival')">Festival</button>
+                    </div>
+                    <div id="ten-minute-item-count"></div>
+                    <section id="ten-minute-product-list" class="products">
+                    </section>
+                </section>
+            </section>
+            <div id="camera-modal" class="hidden camera-modal">
+                <video id="camera-video" autoplay playsinline></video>
+                <canvas id="camera-canvas"></canvas>
+                <div class="camera-actions">
+                    <button class="auth-btn" onclick="capturePhoto()">Capture</button>
+                    <button class="auth-btn camera-close-btn" onclick="closeCamera()">Close</button>
+                </div>
+            </div>
+    </div>
+    </main>
+    <footer>
+        <p>© 2026 <span class="footer-brand"> Gift Bloom </p>
+    </footer>
+    <script src="Project.js"> </script>
+</body>
+
+</html>

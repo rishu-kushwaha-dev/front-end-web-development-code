@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Checker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #0b0b10 0%, #050508 100%);
+            color: #00ffcc;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle, rgba(0, 255, 204, 0.03) 0%, transparent 50%),
+                radial-gradient(circle, rgba(255, 51, 102, 0.02) 0%, transparent 30%);
+            pointer-events: none;
+            animation: pulse 8s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .dashboard {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 90%;
+            max-width: 750px;
+            background: linear-gradient(145deg, #11111a, #0d0d14);
+            border: 3px solid #222;
+            border-bottom: none;
+            border-radius: 40px 40px 0 0;
+            padding: 30px 20px;
+            box-shadow:
+                0 -15px 40px rgba(0, 255, 204, 0.08),
+                inset 0 0 20px rgba(0, 0, 0, 0.8),
+                0 0 50px rgba(0, 255, 204, 0.03);
+            gap: 10px;
+            box-sizing: border-box;
+            position: relative;
+            animation: dashboardGlow 4s infinite;
+        }
+
+        @keyframes dashboardGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 -15px 40px rgba(0, 255, 204, 0.08), inset 0 0 20px rgba(0, 0, 0, 0.8), 0 0 50px rgba(0, 255, 204, 0.03);
+            }
+
+            50% {
+                box-shadow: 0 -15px 40px rgba(0, 255, 204, 0.12), inset 0 0 20px rgba(0, 0, 0, 0.8), 0 0 70px rgba(0, 255, 204, 0.05);
+            }
+        }
+
+        .gauge-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gauge-svg {
+            transform: rotate(-90deg);
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 8px rgba(0, 255, 204, 0.2));
+        }
+
+        .gauge-bg {
+            fill: none;
+            stroke: #1a1a26;
+            stroke-width: 12;
+        }
+
+        .gauge-progress {
+            fill: none;
+            stroke: #00ffcc;
+            stroke-width: 12;
+            stroke-linecap: round;
+            stroke-dasharray: 440;
+            stroke-dashoffset: 440;
+            transition: stroke-dashoffset 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 0 6px rgba(0, 255, 204, 0.4));
+        }
+
+        #cpm-progress {
+            stroke: #fab387;
+            filter: drop-shadow(0 0 6px rgba(250, 179, 135, 0.4));
+        }
+
+        .gauge-data {
+            position: absolute;
+            text-align: center;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .gauge-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+            animation: valuePulse 2s infinite;
+        }
+
+        @keyframes valuePulse {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.03);
+            }
+        }
+
+        .gauge-value.cpm {
+            color: #fab387;
+            text-shadow: 0 0 15px rgba(250, 179, 135, 0.5);
+        }
+
+        .gauge-label {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 2px;
+            font-weight: bold;
+        }
+
+        .clock-box {
+            background: linear-gradient(145deg, #09090f, #050508);
+            border: 2px solid #ff3366;
+            border-radius: 20px;
+            padding: 15px 30px;
+            text-align: center;
+            box-shadow:
+                inset 0 0 15px rgba(0, 0, 0, 0.7),
+                0 0 25px rgba(255, 51, 102, 0.15),
+                0 0 0 4px rgba(255, 51, 102, 0.05);
+            min-width: 110px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .clock-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff3366, transparent);
+            animation: scanline 3s infinite;
+        }
+
+        @keyframes scanline {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .clock-label {
+            font-size: 0.85rem;
+            color: #ff3366;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .clock-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ff3366;
+            text-shadow: 0 0 20px rgba(255, 51, 102, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .clock-value.warning {
+            color: #ff6b6b;
+            text-shadow: 0 0 25px rgba(255, 107, 107, 0.7);
+            animation: warningPulse 0.5s infinite;
+        }
+
+        @keyframes warningPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .game-body {
+            width: 90%;
+            max-width: 750px;
+            background: linear-gradient(145deg, #161622, #12121a);
+            border: 3px solid #222;
+            border-top: 2px solid #333;
+            border-radius: 0 0 40px 40px;
+            padding: 45px 20px 35px;
+            text-align: center;
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.7),
+                0 0 40px rgba(0, 255, 204, 0.02);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .game-body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00ffcc, transparent);
+            opacity: 0.3;
+        }
+
+        #word-display {
+            font-size: 3.2rem;
+            margin-bottom: 35px;
+            letter-spacing: 6px;
+            font-weight: bold;
+            color: #e2e2ec;
+            min-height: 4rem;
+            text-transform: uppercase;
+            position: relative;
+            text-shadow: 0 0 15px rgba(226, 226, 236, 0.2);
+            animation: wordGlow 3s infinite;
+        }
+
+        @keyframes wordGlow {
+
+            0%,
+            100% {
+                text-shadow: 0 0 15px rgba(226, 226, 236, 0.2);
+            }
+
+            50% {
+                text-shadow: 0 0 25px rgba(226, 226, 236, 0.4);
+            }
+        }
+
+        #word-display.correct {
+            color: #00ffcc;
+            animation: wordCorrect 0.5s ease;
+        }
+
+        @keyframes wordCorrect {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15) rotate(3deg);
+                color: #00ffcc;
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        #word-display.typing {
+            color: #ff3366;
+            text-shadow: 0 0 20px rgba(255, 51, 102, 0.4);
+        }
+
+        #type-input {
+            background: linear-gradient(145deg, #09090f, #030306);
+            border: 2px solid #333;
+            border-radius: 15px;
+            color: #00ffcc;
+            font-size: 1.7rem;
+            padding: 18px;
+            text-align: center;
+            outline: none;
+            width: 80%;
+            font-family: inherit;
+            box-shadow:
+                inset 0 0 10px rgba(0, 0, 0, 0.6),
+                0 0 20px rgba(0, 255, 204, 0.05);
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+        }
+
+        #type-input:focus {
+            border-color: #00ffcc;
+            box-shadow:
+                inset 0 0 10px rgba(0, 0, 0, 0.6),
+                0 0 25px rgba(0, 255, 204, 0.3),
+                0 0 40px rgba(0, 255, 204, 0.15);
+        }
+
+        #type-input.incorrect {
+            border-color: #ff3366;
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-8px);
+            }
+
+            75% {
+                transform: translateX(8px);
+            }
+        }
+
+        #restart-btn {
+            background: linear-gradient(145deg, #00ffcc, #00d1b2);
+            color: #0b0b10;
+            border: none;
+            padding: 16px 45px;
+            font-size: 1.3rem;
+            font-family: inherit;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            display: none;
+            box-shadow:
+                0 0 25px rgba(0, 255, 204, 0.4),
+                inset 0 0 10px rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #restart-btn:hover {
+            background: linear-gradient(145deg, #ffffff, #e0e0e0);
+            box-shadow:
+                0 0 35px rgba(255, 255, 255, 0.6),
+                inset 0 0 10px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        #restart-btn:active {
+            transform: translateY(0);
+        }
+
+        .score-board {
+            margin-top: 30px;
+            font-size: 1rem;
+            color: #777;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-label {
+            color: #888;
+            font-size: 0.8rem;
+            display: block;
+        }
+
+        .stat-value {
+            color: #00ffcc;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+
+        .stat-value.cpm {
+            color: #fab387;
+        }
+
+        .stat-value.accuracy {
+            color: #ff3366;
+        }
+
+        .stat-value.highscore {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Particle Effects */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #00ffcc;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #00ffcc;
+            animation: particleBurst 0.8s ease-out forwards;
+        }
+
+        @keyframes particleBurst {
+            to {
+                transform: translate(var(--tx), var(--ty));
+                opacity: 0;
+            }
+        }
+
+        /* Sound Toggle */
+        .sound-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: #00ffcc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .sound-toggle:hover {
+            background: rgba(0, 255, 204, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+        }
+
+        .sound-toggle.muted {
+            color: #666;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .dashboard {
+                padding: 20px 10px;
+            }
+
+            .gauge-container {
+                width: 120px;
+                height: 120px;
+            }
+
+            .gauge-value {
+                font-size: 1.8rem;
+            }
+
+            #word-display {
+                font-size: 2rem;
+                letter-spacing: 3px;
+            }
+
+            #type-input {
+                font-size: 1.3rem;
+                width: 90%;
+            }
+
+            .clock-value {
+                font-size: 2.2rem;
+            }
+
+            .score-board {
+                font-size: 0.8rem;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="sound-toggle" id="sound-toggle">🔊 Sound ON</button>
+    <div class="dashboard">
+        <div class="gauge-container">
+            <svg class="gauge-svg">
+                <circle class="gauge-bg" cx="80" cy="80" r="70"></circle>
+                <circle id="wpm-progress" class="gauge-progress" cx="80" cy="80" r="70"></circle>
+            </svg>
+            <div class="gauge-data">
+                <div id="wpm-display" class="gauge-value">00</div>
+                <div class="gauge-label">WPM</div>
+            </div>
+        </div>
+
+        <div class="clock-box">
+            <div class="clock-label">Time LEFT</div>
+            <div id="time" class="clock-value">60</div>
+        </div>
+
+        <div class="gauge-container">
+            <svg class="gauge-svg">
+                <circle class="gauge-bg" cx="80" cy="80" r="70"></circle>
+                <circle id="cpm-progress" class="gauge-progress" cx="80" cy="80" r="70"></circle>
+            </svg>
+            <div class="gauge-data">
+                <div id="cpm-display" class="gauge-value cpm">00</div>
+                <div class="gauge-label">CPM</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-body">
+        <div id="word-display">Type to Start ⚡</div>
+        <input type="text" id="type-input" placeholder="ENTER THE GIVEN WORD HERE..." autofocus autocomplete="off">
+
+        <button id="restart-btn">Restart Engine 🔁</button>
+
+        <div class="score-board">
+            <div class="stat-item">
+                <span class="stat-label">Result</span>
+                <span id="score" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Accuracy</span>
+                <span id="accuracy" class="stat-value accuracy">100%</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Best</span>
+                <span id="highscore" class="stat-value highscore">0</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="particles" id="particles"></div>
+
+    <script>
+        const words = ["javascript", "developer", "coding", "interface", "canvas", "variable", "function", "computer", "algorithm", "frontend", "backend", "database", "internet", "responsive", "keyboard", "software", "pixel", "syntax", "application", "loop", "programming", "security", "server", "design", "ignition", "throttle", "engine", "gearshift", "turbo", "nitro"];
+
+        let score = 0;
+        let totalTime = 60;
+        let timeLeft = totalTime;
+        let completedWordsCharacters = 0;
+        let startTime = null;
+        let currentWord = "";
+        let gameInterval;
+        let isPlaying = false;
+        let totalTypedChars = 0;
+
+        const wordDisplay = document.getElementById('word-display');
+        const typeInput = document.getElementById('type-input');
+        const scoreDisplay = document.getElementById('score');
+        const accuracyDisplay = document.getElementById('accuracy');
+        const timeDisplay = document.getElementById('time');
+        const wpmDisplay = document.getElementById('wpm-display');
+        const cpmDisplay = document.getElementById('cpm-display');
+        const restartBtn = document.getElementById('restart-btn');
+        const particles = document.getElementById('particles');
+
+        const wpmProgress = document.getElementById('wpm-progress');
+        const cpmProgress = document.getElementById('cpm-progress');
+        const soundToggle = document.getElementById('sound-toggle');
+        const highscoreDisplay = document.getElementById('highscore');
+
+        const maxCircleLength = 440;
+        const maxExpectedWPM = 120;
+        const maxExpectedCPM = 550;
+        let soundEnabled = true;
+        let highScore = parseInt(localStorage.getItem('typingHighScore') || 0);
+        highscoreDisplay.textContent = highScore;
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            if (type === 'correct') {
+                oscillator.frequency.value = 523.25;
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            } else if (type === 'incorrect') {
+                oscillator.frequency.value = 220;
+                gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+            } else if (type === 'start') {
+                oscillator.frequency.value = 349.23;
+                gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+            }
+
+            oscillator.start();
+            let duration = 0.2;
+            if (type === 'correct') duration = 0.3;
+            oscillator.stop(audioContext.currentTime + duration);
+        }
+
+        soundToggle.addEventListener('click', () => {
+            soundEnabled = !soundEnabled;
+            soundToggle.textContent = soundEnabled ? '🔊 Sound ON' : '🔇 Sound OFF';
+            soundToggle.classList.toggle('muted', !soundEnabled);
+        });
+
+        function showWord() {
+            const randomIndex = Math.floor(Math.random() * words.length);
+            currentWord = words[randomIndex];
+            wordDisplay.textContent = currentWord;
+            wordDisplay.classList.remove('correct');
+        }
+
+        function startTimer() {
+            gameInterval = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    timeDisplay.textContent = timeLeft < 10 ? "0" + timeLeft : timeLeft;
+
+                    if (timeLeft <= 10) {
+                        timeDisplay.classList.add('warning');
+                    }
+
+                    calculateLiveStats();
+                } else {
+                    clearInterval(gameInterval);
+                    gameOver();
+                }
+            }, 1000);
+        }
+
+        function updateGauge(element, currentVal, maxVal) {
+            let percent = Math.min(1, currentVal / maxVal);
+            let offset = maxCircleLength - (percent * maxCircleLength);
+            element.style.strokeDashoffset = offset;
+        }
+
+        function calculateLiveStats() {
+            if (!startTime) return;
+
+            let timeElapsedMins = (Date.now() - startTime) / 60000;
+
+            if (timeElapsedMins > 0) {
+                let currentTypedLength = typeInput.value.trim().length;
+                let totalLetters = completedWordsCharacters + currentTypedLength;
+
+                let cpm = Math.round(totalLetters / timeElapsedMins);
+                let wpm = Math.round((totalLetters / 5) / timeElapsedMins);
+
+                wpmDisplay.textContent = wpm < 10 ? "0" + wpm : wpm;
+                cpmDisplay.textContent = cpm < 10 ? "0" + cpm : cpm;
+
+                updateGauge(wpmProgress, wpm, maxExpectedWPM);
+                updateGauge(cpmProgress, cpm, maxExpectedCPM);
+
+                let accuracy = totalTypedChars > 0 ? Math.round((completedWordsCharacters / totalTypedChars) * 100) : 100;
+                accuracy = Math.max(0, Math.min(100, accuracy));
+                accuracyDisplay.textContent = accuracy + "%";
+            }
+        }
+
+        function createParticles(x, y) {
+            for (let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+
+                const angle = (i / 12) * Math.PI * 2;
+                const distance = 40 + Math.random() * 30;
+                const tx = Math.cos(angle) * distance + 'px';
+                const ty = Math.sin(angle) * distance + 'px';
+
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.setProperty('--tx', tx);
+                particle.style.setProperty('--ty', ty);
+
+                particles.appendChild(particle);
+
+                setTimeout(() => {
+                    particle.remove();
+                }, 800);
+            }
+        }
+
+        function gameOver() {
+            isPlaying = false;
+            typeInput.disabled = true;
+            typeInput.style.display = "none";
+            restartBtn.style.display = "inline-block";
+
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('typingHighScore', highScore);
+                highscoreDisplay.textContent = highScore;
+                wordDisplay.textContent = `🏆 NEW BEST: ${highScore} WORDS!`;
+            } else {
+                wordDisplay.textContent = "🏁 RACE FINISHED!";
+            }
+            wordDisplay.style.color = "#00ffcc";
+            restartBtn.focus();
+        }
+
+        function startGame() {
+            clearInterval(gameInterval);
+            score = 0;
+            timeLeft = totalTime;
+            completedWordsCharacters = 0;
+            startTime = null;
+            isPlaying = false;
+            totalTypedChars = 0;
+
+            typeInput.disabled = false;
+            typeInput.style.display = "inline-block";
+            typeInput.value = "";
+            typeInput.classList.remove('incorrect');
+            restartBtn.style.display = "none";
+
+            wordDisplay.style.color = "#e2e2ec";
+            wordDisplay.classList.remove('correct', 'typing');
+            scoreDisplay.textContent = "0";
+            accuracyDisplay.textContent = "100%";
+            timeDisplay.textContent = timeLeft;
+            timeDisplay.classList.remove('warning');
+            wpmDisplay.textContent = "00";
+            cpmDisplay.textContent = "00";
+
+            wpmProgress.style.strokeDashoffset = maxCircleLength;
+            cpmProgress.style.strokeDashoffset = maxCircleLength;
+
+            showWord();
+            typeInput.focus();
+        }
+
+        typeInput.addEventListener('input', () => {
+            if (!isPlaying && typeInput.value.length === 1) {
+                isPlaying = true;
+                startTime = Date.now();
+                startTimer();
+                playSound('start');
+            }
+
+            totalTypedChars++;
+            calculateLiveStats();
+
+            const typedValue = typeInput.value.toLowerCase().trim();
+
+            if (typedValue.length > 0 && !currentWord.startsWith(typedValue)) {
+                typeInput.classList.add('incorrect');
+                wordDisplay.classList.add('typing');
+                playSound('incorrect');
+            } else {
+                typeInput.classList.remove('incorrect');
+                wordDisplay.classList.remove('typing');
+            }
+
+            if (typedValue === currentWord) {
+                playSound('correct');
+                const rect = wordDisplay.getBoundingClientRect();
+                createParticles(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+                score++;
+                scoreDisplay.textContent = score;
+                completedWordsCharacters += currentWord.length + 1;
+
+                typeInput.value = "";
+                typeInput.classList.remove('incorrect');
+                wordDisplay.classList.remove('typing');
+                wordDisplay.classList.add('correct');
+                showWord();
+
+                setTimeout(() => {
+                    calculateLiveStats();
+                }, 100);
+            }
+        });
+
+        restartBtn.addEventListener('click', startGame);
+        showWord();
+    </script>
+</body>
+
+</html>

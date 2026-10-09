@@ -1,0 +1,536 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-green: #00ff41;
+    --dark-green: #003b00;
+    --bg-black: #0a0a0a;
+    --panel-bg: rgba(0, 20, 0, 0.85);
+    --glow: 0 0 10px rgba(0, 255, 65, 0.5);
+    --font-mono: 'Share Tech Mono', 'Courier New', monospace;
+}
+
+body {
+    background: #000;
+    color: var(--primary-green);
+    font-family: var(--font-mono);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}
+
+/* Matrix Canvas */
+#matrixCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.15;
+}
+
+/* CRT Overlay */
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0.2) 50%,
+            rgba(0, 0, 0, 0.2));
+    background-size: 100% 4px;
+    z-index: 2;
+    pointer-events: none;
+    animation: scanlineFlicker 0.1s infinite;
+}
+
+@keyframes scanlineFlicker {
+    0% {
+        opacity: 0.9;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.9;
+    }
+}
+
+/* Boot Screen */
+.boot-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 100;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 40px;
+    overflow: hidden;
+}
+
+.boot-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--primary-green);
+    text-shadow: var(--glow);
+    white-space: pre-wrap;
+    max-width: 800px;
+}
+
+/* Main Terminal */
+.main-terminal {
+    position: relative;
+    z-index: 10;
+    width: 65%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 10, 0, 0.9);
+    border-right: 1px solid var(--dark-green);
+}
+
+.terminal-header {
+    background: var(--dark-green);
+    padding: 8px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--primary-green);
+    font-size: 12px;
+}
+
+.terminal-title {
+    text-shadow: var(--glow);
+    letter-spacing: 1px;
+}
+
+.status-connected {
+    color: var(--primary-green);
+    animation: statusPulse 2s infinite;
+}
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.terminal-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.control-btn {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.control-btn:hover {
+    opacity: 1;
+    text-shadow: var(--glow);
+}
+
+.terminal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.terminal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.terminal-body::-webkit-scrollbar-track {
+    background: #001100;
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+    background: var(--dark-green);
+    border-radius: 0;
+}
+
+.input-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.prompt {
+    color: var(--primary-green);
+    text-shadow: var(--glow);
+    white-space: nowrap;
+}
+
+.command-input {
+    background: transparent;
+    border: none;
+    color: var(--primary-green);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    outline: none;
+    flex: 1;
+    caret-color: var(--primary-green);
+    text-shadow: var(--glow);
+}
+
+.cursor-blink {
+    animation: blink 1s infinite;
+    color: var(--primary-green);
+}
+
+@keyframes blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Side Panel */
+.side-panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 35%;
+    height: 100vh;
+    background: var(--panel-bg);
+    z-index: 10;
+    overflow-y: auto;
+    padding: 20px;
+    border-left: 1px solid var(--dark-green);
+}
+
+.side-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.side-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.side-panel::-webkit-scrollbar-thumb {
+    background: var(--dark-green);
+}
+
+.panel-section {
+    margin-bottom: 25px;
+    border: 1px solid var(--dark-green);
+    padding: 15px;
+    background: rgba(0, 20, 0, 0.5);
+}
+
+.panel-title {
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    color: var(--primary-green);
+    text-shadow: var(--glow);
+    border-bottom: 1px solid var(--dark-green);
+    padding-bottom: 5px;
+}
+
+/* Status Grid */
+.status-grid {
+    display: grid;
+    gap: 10px;
+}
+
+.status-item {
+    display: grid;
+    grid-template-columns: 60px 1fr 40px;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+}
+
+.status-label {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.progress-bar {
+    height: 8px;
+    background: #001100;
+    border: 1px solid var(--dark-green);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary-green);
+    box-shadow: var(--glow);
+    transition: width 0.3s ease;
+}
+
+.progress-fill.firewall {
+    background: #ff3333;
+    box-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
+}
+
+.status-value {
+    text-align: right;
+    font-weight: bold;
+}
+
+/* Target List */
+.target-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.target-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    background: rgba(0, 40, 0, 0.3);
+    border-left: 2px solid var(--dark-green);
+    font-size: 11px;
+}
+
+.target-ip {
+    font-weight: bold;
+}
+
+.target-status {
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.target-status.scanning {
+    color: #ffff00;
+    animation: statusPulse 0.5s infinite;
+}
+
+.target-status.vulnerable {
+    color: #ff6600;
+}
+
+.target-status.secured {
+    color: #00ffff;
+}
+
+/* Network Map */
+.network-map {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background: rgba(0, 10, 0, 0.5);
+    border: 1px solid var(--dark-green);
+    overflow: hidden;
+}
+
+.map-node {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 40, 0, 0.8);
+    border: 1px solid var(--primary-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    box-shadow: var(--glow);
+    z-index: 2;
+}
+
+.map-node.active {
+    background: rgba(0, 60, 0, 0.9);
+    animation: nodePulse 2s infinite;
+}
+
+@keyframes nodePulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.8);
+    }
+}
+
+.map-connections {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.map-connections line {
+    stroke: var(--dark-green);
+    stroke-width: 1;
+    stroke-dasharray: 5, 5;
+    animation: dashMove 1s linear infinite;
+}
+
+@keyframes dashMove {
+    to {
+        stroke-dashoffset: -10;
+    }
+}
+
+/* Log Stream */
+.log-stream {
+    height: 150px;
+    overflow-y: auto;
+    font-size: 10px;
+    line-height: 1.4;
+    color: #00aa00;
+}
+
+.log-stream::-webkit-scrollbar {
+    width: 4px;
+}
+
+.log-stream::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.log-stream::-webkit-scrollbar-thumb {
+    background: var(--dark-green);
+}
+
+/* Glitch Effect */
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+
+    20% {
+        transform: translate(-2px, 2px);
+    }
+
+    40% {
+        transform: translate(-2px, -2px);
+    }
+
+    60% {
+        transform: translate(2px, 2px);
+    }
+
+    80% {
+        transform: translate(2px, -2px);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}
+
+.glitch {
+    animation: glitch 0.3s infinite;
+}
+
+/* Typing Effect */
+.typing {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--primary-green);
+    animation: typing 2s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.blink {
+    animation: blink 1s infinite;
+}
+
+.text-green {
+    color: var(--primary-green);
+    text-shadow: var(--glow);
+}
+
+.text-red {
+    color: #ff3333;
+    text-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
+}
+
+.text-yellow {
+    color: #ffff00;
+    text-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+}
+
+.text-cyan {
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .main-terminal {
+        width: 100%;
+        height: 60vh;
+    }
+
+    .side-panel {
+        width: 100%;
+        height: 40vh;
+        top: auto;
+        bottom: 0;
+        border-left: none;
+        border-top: 1px solid var(--dark-green);
+    }
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Independence Day</title>
+    <link rel="stylesheet" href="Independence Day.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <canvas id="fireworksCanvas"></canvas>
+
+    <div class="container">
+        <div class="ashoka-chakra">
+            <div class="chakra"></div>
+        </div>
+
+        <div class="main-content">
+            <div class="flag-container">
+                <img src="Flag.gif" alt="Indian Flag" class="flag-gif" onerror="this.style.display='none'">
+            </div>
+
+            <h1 class="title">
+                <span class="line1">Happy</span>
+                <span class="line2">80th</span>
+                <span class="line3">Independence Day</span>
+            </h1>
+
+            <div class="date-badge">
+                <span class="date-day">15</span>
+                <div class="date-details">
+                    <span class="date-month">August</span>
+                    <span class="date-year">2026</span>
+                </div>
+            </div>
+
+            <p class="subtitle">Celebrating 80 Years of Freedom & Unity</p>
+
+            <div class="countdown-container">
+                <div class="countdown">
+                    <div class="time-block">
+                        <span class="time-value" id="hours">00</span>
+                        <span class="time-label">Hours</span>
+                    </div>
+                    <span class="time-separator">:</span>
+                    <div class="time-block">
+                        <span class="time-value" id="minutes">00</span>
+                        <span class="time-label">Minutes</span>
+                    </div>
+                    <span class="time-separator">:</span>
+                    <div class="time-block">
+                        <span class="time-value" id="seconds">00</span>
+                        <span class="time-label">Seconds</span>
+                    </div>
+                </div>
+                <p class="countdown-text">until the next Independence Day</p>
+            </div>
+
+            <div class="message-box">
+                <p class="message">Let us remember the sacrifices of our freedom fighters and pledge to build a
+                    stronger, brighter India. Jai Hind!</p>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">80</span>
+                    <span class="stat-label">Years of Freedom</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">15</span>
+                    <span class="stat-label">August</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1947</span>
+                    <span class="stat-label">The Journey Begins</span>
+                </div>
+            </div>
+
+            <button class="celebrate-btn" id="celebrateBtn">
+                Celebrate with Fireworks!
+            </button>
+        </div>
+
+        <div class="footer">
+            <p>Jai Hind | Vande Mataram | Bharat Mata Ki Jai</p>
+        </div>
+    </div>
+
+    <script src="Independence Day.js"></script>
+</body>
+
+</html>

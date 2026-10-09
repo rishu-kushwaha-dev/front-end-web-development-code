@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kali Linux</title>
+    <link rel="icon" type="image/x-icon" href="Kali Linux.jfif">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="Hacking Simulator.css">
+</head>
+
+<body>
+    <div class="crt-overlay"></div>
+    <div class="scanlines"></div>
+    <canvas id="matrixCanvas"></canvas>
+
+    <div id="bootScreen" class="boot-screen">
+        <div class="boot-text" id="bootText"></div>
+    </div>
+
+    <div id="mainTerminal" class="main-terminal hidden">
+        <div class="terminal-header">
+            <div class="terminal-title">
+                <span class="blink">█</span> CYBER_TERMINAL v3.7.1 // CLASSIFIED ACCESS // <span id="connectionStatus"
+                    class="status-connected">CONNECTED</span>
+            </div>
+            <div class="terminal-controls">
+                <span class="control-btn">_</span>
+                <span class="control-btn">□</span>
+                <span class="control-btn">×</span>
+            </div>
+        </div>
+
+        <div class="terminal-body" id="terminalBody">
+            <div id="terminalOutput"></div>
+            <div class="input-line">
+                <span class="prompt">root@cyberdeck:<span id="promptPath">~</span>#</span>
+                <input type="text" id="commandInput" class="command-input" autocomplete="off" spellcheck="false"
+                    autofocus>
+                <span class="cursor-blink">█</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="sidePanel" class="side-panel hidden">
+        <div class="panel-section">
+            <h3 class="panel-title">SYSTEM STATUS</h3>
+            <div class="status-grid">
+                <div class="status-item">
+                    <span class="status-label">CPU</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="cpuBar" style="width: 45%"></div>
+                    </div>
+                    <span class="status-value" id="cpuVal">45%</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">RAM</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="ramBar" style="width: 62%"></div>
+                    </div>
+                    <span class="status-value" id="ramVal">62%</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">NETWORK</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="netBar" style="width: 88%"></div>
+                    </div>
+                    <span class="status-value" id="netVal">88%</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">FIREWALL</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill firewall" id="fwBar" style="width: 23%"></div>
+                    </div>
+                    <span class="status-value" id="fwVal">23%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <h3 class="panel-title">ACTIVE TARGETS</h3>
+            <div class="target-list" id="targetList">
+                <div class="target-item">
+                    <span class="target-ip">192.168.1.105</span>
+                    <span class="target-status scanning">SCANNING...</span>
+                </div>
+                <div class="target-item">
+                    <span class="target-ip">10.0.0.42</span>
+                    <span class="target-status vulnerable">VULNERABLE</span>
+                </div>
+                <div class="target-item">
+                    <span class="target-ip">172.16.0.8</span>
+                    <span class="target-status secured">SECURED</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <h3 class="panel-title">NETWORK MAP</h3>
+            <div class="network-map" id="networkMap">
+                <div class="map-node active" style="top: 20%; left: 30%;">YOU (Rishu the Great Hacker)</div>
+                <div class="map-node" style="top: 40%; left: 60%;">TARGET</div>
+                <div class="map-node" style="top: 70%; left: 20%;">TARGET</div>
+                <div class="map-node" style="top: 30%; left: 80%;">TARGET</div>
+                <svg class="map-connections" id="mapSvg"></svg>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <h3 class="panel-title">LOG STREAM</h3>
+            <div class="log-stream" id="logStream"></div>
+        </div>
+    </div>
+
+    <script src="Hacking Simulator.js"></script>
+</body>
+
+</html>

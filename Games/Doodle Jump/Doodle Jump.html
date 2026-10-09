@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doodle Jump</title>
+    <link rel="stylesheet" href="Doodle Jump.css">
+</head>
+
+<body>
+    <div id="game-container">
+        <div id="ui">
+            <div id="score">Score: 0</div>
+            <div id="high-score">High Score: 0</div>
+            <div id="game-over" class="hidden">
+                <h1>GAME OVER</h1>
+                <p id="final-score">Score: 0</p>
+                <p id="new-high" class="hidden">NEW HIGH SCORE!</p>
+                <button id="restart-btn">PLAY AGAIN</button>
+            </div>
+            <div id="start-screen">
+                <h1>DOODLE JUMP</h1>
+                <p class="subtitle"> Make the Bird Jump to the Sky </p>
+                <p> <b> Use Arrow Keys or A/D to move </b> </p>
+                <button id="start-btn">START GAME</button>
+            </div>
+        </div>
+        <canvas id="game-canvas"></canvas>
+        <div id="touch-controls">
+            <div id="touch-left"></div>
+            <div id="touch-right"></div>
+        </div>
+    </div>
+    <script src="Doodle Jump.js"></script>
+</body>
+
+</html>

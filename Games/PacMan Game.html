@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pac-Man - Time Attack Mode</title>
+    <style>
+        * { box-sizing: border-box; user-select: none; -webkit-user-select: none; }
+        body { 
+            background: #080810; 
+            color: #fff; 
+            text-align: center; 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 5px;
+            touch-action: none; 
+        }
+        h1 { margin: 5px 0 2px 0; font-size: 1.6rem; color: #ffff00; }
+        #infoPanel { 
+            display: flex; 
+            justify-content: space-between; 
+            width: 390px; 
+            margin: 0 auto 5px auto; 
+            max-width: 95vw;
+            font-size: 1.2rem; 
+            font-weight: bold; 
+        }
+        #scoreBoard { color: #00ffcc; }
+        #timerBoard { color: #ff3333; }
+        
+        canvas { 
+            background: #000; 
+            display: block; 
+            margin: 0 auto; 
+            border: 4px solid #0000ff; 
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(0, 0, 255, 0.7);
+            max-width: 95vw;
+            height: auto;
+        }
+
+        #startBtn {
+            display: block;
+            margin: 20px auto 0 auto;
+            padding: 12px 40px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #fff;
+            background: #00cc00;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+        #startBtn:hover {
+            background: #00ff00;
+        }
+        #startBtn:active {
+            transform: scale(0.95);
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <h1>PAC-MAN 2D</h1>
+    <div id="infoPanel">
+        <div id="scoreBoard">SCORE: <span id="score">0</span></div>
+        <div id="timerBoard">TIME: <span id="timer">60</span>s</div>
+    </div>
+    
+    <canvas id="gameCanvas" width="390" height="390"></canvas>
+
+    <button id="startBtn">START GAME</button>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreElement = document.getElementById("score");
+        const timerElement = document.getElementById("timer");
+
+        let score = 0;
+        let timeLeft = 60; // 60 Seconds Time Limit
+        let isGameOver = false;
+        let gameStatus = ""; // "WIN" or "LOSE"
+        let redLightSpawned = false;
+        let flashTimer = 0;
+        let gameStarted = false;
+        let countdownInterval = null;
+        const tileSize = 26;
+        
+        const redLightGridX = 7;
+        const redLightGridY = 7;
+
+        const map = [
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
+            [1,0,1,1,0,1,0,1,0,1,0,1,1,0,1],
+            [1,0,1,1,0,1,0,0,0,1,0,1,1,0,1],
+            [1,0,0,0,0,1,1,0,1,1,0,0,0,0,1],
+            [1,1,1,0,0,0,0,0,0,0,0,0,1,1,1],
+            [1,0,0,0,1,1,0,0,0,1,1,0,0,0,1],
+            [1,0,1,0,1,2,2,2,2,2,1,0,1,0,1],
+            [1,0,0,0,1,1,1,1,1,1,1,0,0,0,1],
+            [1,1,1,0,0,0,0,0,0,0,0,0,1,1,1],
+            [1,0,0,0,0,1,1,0,1,1,0,0,0,0,1],
+            [1,0,1,1,0,1,0,0,0,1,0,1,1,0,1],
+            [1,0,1,1,0,1,0,1,0,1,0,1,1,0,1],
+            [1,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+        ];
+
+        let pacman = {
+            gridX: 1,
+            gridY: 1,
+            x: 1 * tileSize + tileSize/2,
+            y: 1 * tileSize + tileSize/2,
+            radius: 11, 
+            speed: 2,
+            dirX: 0,
+            dirY: 0,
+            nextDirX: 0,
+            nextDirY: 0,
+            mouthAngle: 0.2,
+            mouthSpeed: 0.02
+        };
+
+        function startGame() {
+            if (gameStarted) return;
+            gameStarted = true;
+            document.getElementById("startBtn").style.display = "none";
+
+            countdownInterval = setInterval(() => {
+                if (!isGameOver) {
+                    timeLeft--;
+                    timerElement.innerText = timeLeft;
+                    if (timeLeft <= 0) {
+                        clearInterval(countdownInterval);
+                        isGameOver = true;
+                        gameStatus = "LOSE";
+                    }
+                }
+            }, 1000);
+        }
+
+        document.getElementById("startBtn").addEventListener("click", startGame);
+
+        function isWall(gridX, gridY) {
+            if (gridY < 0 || gridY >= map.length || gridX < 0 || gridX >= map[0].length) return true;
+            return map[gridY][gridX] === 1;
+        }
+
+        function checkRemainingDots() {
+            for (let r = 0; r < map.length; r++) {
+                for (let c = 0; c < map[r].length; c++) {
+                    if (map[r][c] === 0) return true; 
+                }
+            }
+            return false;
+        }
+
+        function setDirection(dx, dy) {
+            if (isGameOver) return;
+            pacman.nextDirX = dx;
+            pacman.nextDirY = dy;
+        }
+
+
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowUp") setDirection(0, -1);
+            if (e.key === "ArrowDown") setDirection(0, 1);
+            if (e.key === "ArrowLeft") setDirection(-1, 0);
+            if (e.key === "ArrowRight") setDirection(1, 0);
+        });
+
+        function update() {
+            if (!gameStarted || isGameOver) return;
+
+            let targetX = pacman.gridX * tileSize + tileSize / 2;
+            let targetY = pacman.gridY * tileSize + tileSize / 2;
+
+            if (Math.abs(pacman.x - targetX) < 2 && Math.abs(pacman.y - targetY) < 2) {
+                pacman.x = targetX;
+                pacman.y = targetY;
+
+                if (!isWall(pacman.gridX + pacman.nextDirX, pacman.gridY + pacman.nextDirY)) {
+                    pacman.dirX = pacman.nextDirX;
+                    pacman.dirY = pacman.nextDirY;
+                }
+
+                if (!isWall(pacman.gridX + pacman.dirX, pacman.gridY + pacman.dirY)) {
+                    pacman.gridX += pacman.dirX;
+                    pacman.gridY += pacman.dirY;
+                } else {
+                    pacman.dirX = 0;
+                    pacman.dirY = 0;
+                }
+
+                if (map[pacman.gridY][pacman.gridX] === 0) {
+                    map[pacman.gridY][pacman.gridX] = 2; 
+                    score += 10;
+                    scoreElement.innerText = score;
+                }
+
+                if (!redLightSpawned && !checkRemainingDots()) {
+                    redLightSpawned = true;
+                }
+
+                if (redLightSpawned && pacman.gridX === redLightGridX && pacman.gridY === redLightGridY) {
+                    isGameOver = true;
+                    gameStatus = "WIN";
+                    clearInterval(countdownInterval);
+                }
+            }
+
+            pacman.x += pacman.dirX * pacman.speed;
+            pacman.y += pacman.dirY * pacman.speed;
+
+            pacman.mouthAngle += pacman.mouthSpeed;
+            if (pacman.mouthAngle > 0.25 || pacman.mouthAngle < 0.05) {
+                pacman.mouthSpeed = -pacman.mouthSpeed;
+            }
+
+            flashTimer++;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let r = 0; r < map.length; r++) {
+                for (let c = 0; c < map[r].length; c++) {
+                    if (map[r][c] === 1) {
+                        ctx.fillStyle = "#1e1eff"; 
+                        ctx.fillRect(c * tileSize + 1, r * tileSize + 1, tileSize - 2, tileSize - 2);
+                    } else if (map[r][c] === 0) {
+                        ctx.fillStyle = "#ffb8ae"; 
+                        ctx.beginPath();
+                        ctx.arc(c * tileSize + tileSize/2, r * tileSize + tileSize/2, 4, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+            }
+
+            if (redLightSpawned) {
+                let alpha = 0.4 + Math.abs(Math.sin(flashTimer * 0.15)) * 0.6;
+                ctx.fillStyle = `rgba(255, 0, 0, ${alpha})`;
+                ctx.beginPath();
+                ctx.arc(redLightGridX * tileSize + tileSize/2, redLightGridY * tileSize + tileSize/2, 12, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.strokeStyle = "red";
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(redLightGridX * tileSize + tileSize/2, redLightGridY * tileSize + tileSize/2, 16, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            ctx.save();
+            ctx.translate(pacman.x, pacman.y);
+            
+            if (pacman.dirX === 1) ctx.rotate(0);
+            else if (pacman.dirX === -1) ctx.rotate(Math.PI);
+            else if (pacman.dirY === 1) ctx.rotate(0.5 * Math.PI);
+            else if (pacman.dirY === -1) ctx.rotate(1.5 * Math.PI);
+
+            ctx.beginPath();
+            ctx.arc(0, 0, pacman.radius, pacman.mouthAngle * Math.PI, (2 - pacman.mouthAngle) * Math.PI);
+            ctx.lineTo(0, 0);
+            ctx.fillStyle = "#ffff00"; 
+            ctx.fill();
+            ctx.closePath();
+            ctx.restore();
+
+            // Screen Overlay for Game Results
+            if (isGameOver) {
+                ctx.fillStyle = "rgba(0, 0, 0, 0.85)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.textAlign = "center";
+
+                if (gameStatus === "WIN") {
+                    ctx.font = "bold 40px Arial";
+                    ctx.fillStyle = "#00ff00";
+                    ctx.shadowColor = "#00ff00";
+                    ctx.shadowBlur = 15;
+                    ctx.fillText("VICTORY!", canvas.width / 2, canvas.height / 2);
+                    
+                    ctx.font = "20px Arial";
+                    ctx.fillStyle = "#ffffff";
+                    ctx.shadowBlur = 0;
+                    ctx.fillText("You cleared the maze!", canvas.width / 2, canvas.height / 2 + 40);
+                } else if (gameStatus === "LOSE") {
+                    ctx.font = "bold 40px Arial";
+                    ctx.fillStyle = "#ff0000";
+                    ctx.shadowColor = "#ff0000";
+                    ctx.shadowBlur = 15;
+                    ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
+                    
+                    ctx.font = "20px Arial";
+                    ctx.fillStyle = "#ffffff";
+                    ctx.shadowBlur = 0;
+                    ctx.fillText("Out of Time!", canvas.width / 2, canvas.height / 2 + 40);
+                }
+            } else if (!gameStarted) {
+                ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.textAlign = "center";
+                ctx.font = "bold 36px Arial";
+                ctx.fillStyle = "#ffff00";
+                ctx.shadowColor = "#ffff00";
+                ctx.shadowBlur = 15;
+                ctx.fillText("READY?", canvas.width / 2, canvas.height / 2);
+                ctx.font = "18px Arial";
+                ctx.fillStyle = "#ffffff";
+                ctx.shadowBlur = 0;
+                ctx.fillText("Press START GAME to play", canvas.width / 2, canvas.height / 2 + 40);
+            }
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+
+        gameLoop();
+    </script>
+</body>
+</html>

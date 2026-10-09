@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rishu Kushwaha (Portfolio)</title>
+  <link rel="icon" type="image/png" href="images/Portfolio Favicon.png">
+  <link rel="stylesheet" href="Portfolio.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+  <div class="bg-particles" id="bgParticles"></div>
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="logo">R<span>i</span>shu</a>
+      <ul class="nav-links">
+        <li><a href="#hero"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#about"><i class="fas fa-user"></i> About</a></li>
+        <li><a href="#skills"><i class="fas fa-tools"></i> Skills</a></li>
+        <li><a href="#projects"><i class="fas fa-briefcase"></i> Projects</a></li>
+        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <section id="hero" class="hero">
+    <div class="hero-content">
+      <p class="hero-subtitle">Hello, I'm</p>
+      <h1 class="hero-title">Rishu Kushwaha</h1>
+      <p class="hero-role">Front-End Web Developer &amp; Designer</p>
+      <p class="hero-desc">I build beautiful, performant web experiences that blend clean code with creative design.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+        <a href="#contact" class="btn btn-outline">Get In Touch</a>
+      </div>
+      <div class="hero-social">
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rishukushwaha542@gmail.com" target="_blank"
+          aria-label="Email"><i class="fa-sharp fa-solid fa-m"></i></a>
+        <a href="https://wa.me/919569614016" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://instagram.com/this_is_mr.perfect" target="_blank" aria-label="Instagram"><i
+            class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=100089068249904" target="_blank" aria-label="Facebook"><i
+            class="fab fa-facebook-f"></i></a>
+      </div>
+    </div>
+    <img src="me.png" alt="Rishu" class="hero-photo">
+  </section>
+
+  <section id="about" class="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">About Me</span>
+        <h2>Who I Am</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-card glass-card">
+          <div class="about-image">
+            <div class="avatar-large">R</div>
+          </div>
+          <div class="about-info">
+            <h3>Rishu</h3>
+            <p class="about-role">Front-End Web Developer</p>
+            <p class="about-bio">Passionate developer with a love for creating elegant solutions. I enjoy turning
+              complex problems into simple, beautiful interfaces. Always learning, always building.</p>
+            <div class="about-stats">
+              <div class="stat"><span class="stat-num" data-count="3">3</span><span class="stat-label">Years Exp</span>
+              </div>
+              <div class="stat"><span class="stat-num" data-count="5+">5+</span><span class="stat-label">Projects</span>
+              </div>
+              <div class="stat"><span class="stat-num" data-count="2">2</span><span class="stat-label">Clients</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-details">
+          <div class="detail-card glass-card">
+            <h3>My Story</h3>
+            <p>I started coding during school time and quickly fell in love with the process of building things from
+              nothing , every project taught me something new.</p>
+            <p>I believe in writing clean, maintainable code and designing interfaces that people enjoy using. When I'm
+              not coding, you'll find me exploring new technologies, contributing to open source, or experimenting with
+              creative projects.</p>
+          </div>
+          <div class="detail-card glass-card">
+            <h3>What I Do</h3>
+            <ul class="about-list">
+              <li><i class="fas fa-check-circle"></i> Frontend Development</li>
+              <li><i class="fas fa-check-circle"></i> UI/UX Design</li>
+              <li><i class="fas fa-check-circle"></i> Responsive Web Apps</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">My Toolkit</span>
+        <h2>Skills &amp; Technologies</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card glass-card">
+          <div class="skill-icon"><i class="fab fa-html5"></i></div>
+          <h4>HTML5</h4>
+          <div class="skill-color-card" data-percent="95"><span>HTML</span></div>
+          <div class="skill-bar">
+            <div class="skill-fill" data-width="95"></div><span class="skill-percent"></span>
+          </div>
+        </div>
+        <div class="skill-card glass-card">
+          <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
+          <h4>CSS3</h4>
+          <div class="skill-color-card" data-percent="90"><span>CSS</span></div>
+          <div class="skill-bar">
+            <div class="skill-fill" data-width="90"></div><span class="skill-percent"></span>
+          </div>
+        </div>
+        <div class="skill-card glass-card">
+          <div class="skill-icon"><i class="fab fa-js-square"></i></div>
+          <h4>JavaScript</h4>
+          <div class="skill-color-card" data-percent="94"><span>JS</span></div>
+          <div class="skill-bar">
+            <div class="skill-fill" data-width="94"></div><span class="skill-percent"></span>
+          </div>
+        </div>
+        <div class="skill-card glass-card">
+          <div class="skill-icon"><i class="fas fa-paint-brush"></i></div>
+          <h4>UI/UX Design</h4>
+          <div class="skill-color-card" data-percent="80"><span>Design</span></div>
+          <div class="skill-bar">
+            <div class="skill-fill" data-width="80"></div><span class="skill-percent"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="projects">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">My Work</span>
+        <h2>Projects</h2>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card glass-card" data-url="../Colour Palate Generator/Colour Palette Generator.html">
+          <div class="project-image">
+            <div class="project-thumb"><img src="images/Colour Palette Generator.png" alt="Color Palette Generator">
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>Color Palette Generator</h3>
+            <p>Displays all 148 CSS named colors with name, hex, RGB, and HSL codes. Includes search, category filters,
+              and click-to-copy.</p>
+            <div class="project-tags">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+
+          </div>
+        </div>
+        <div class="project-card glass-card" data-url="../Advanced digital clock.html">
+          <div class="project-image">
+            <div class="project-thumb"><img src="images/Advanced Digital Clock.png" alt="Advanced Digital Clock"></div>
+          </div>
+          <div class="project-info">
+            <h3>Advanced Digital Clock</h3>
+            <p>A fully functional digital clock with advanced features and sleek design.</p>
+            <div class="project-tags">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+
+          </div>
+        </div>
+        <div class="project-card glass-card" data-url="../Games/Water Sort Game/water sort game.html">
+          <div class="project-image">
+            <div class="project-thumb"><img src="images/Water Sort Game.jfif" alt="Water Sort Game"></div>
+          </div>
+          <div class="project-info">
+            <h3>Water Sort Game</h3>
+            <p>Sort colored water into the correct glasses by pouring between them. Puzzle-based sorting gameplay.</p>
+            <div class="project-tags">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+
+          </div>
+        </div>
+        <div class="project-card glass-card" data-url="../Typing Speed Checker.html">
+          <div class="project-image">
+            <div class="project-thumb"><img src="images/Typing Sspeed Checker.png" alt="Typing Speed Checker"></div>
+          </div>
+          <div class="project-info">
+            <h3>Typing Speed Checker</h3>
+            <p>Test and measure your typing speed with real-time WPM calculation and accuracy tracking.</p>
+            <div class="project-tags">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+
+          </div>
+        </div>
+        <div class="project-card glass-card" data-url="../Student Registration Form.html">
+          <div class="project-image">
+            <div class="project-thumb"><img src="images/Student Registration Form.png" alt="Student Registration Form">
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>Modern Student Registration Form</h3>
+            <p>A complete student registration form with validation, dropdowns, and structured input fields.</p>
+            <div class="project-tags">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+
+          </div>
+        </div>
+        <div class="project-card glass-card" data-url="../Games/Tic Tac Toe/Tic Tac Toe.html">
+          <div class="project-image">
+            <div class="project-thumb"><img src="images/Tic Tac Toe.jfif" alt="Tic Tac Toe"></div>
+          </div>
+          <div class="project-info">
+            <h3>Tic Tac Toe</h3>
+            <p>Classic Tic Tac Toe game with AI mode and win detection.</p>
+            <div class="project-tags">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+
+          </div>
+        </div>
+        <div class="project-card glass-card" data-url="../Games/Tank War game.html">
+          <div class="project-image">
+            <div class="project-thumb"><img src="images/Tank War Game.png" alt="Tank War Game"></div>
+          </div>
+          <div class="project-info">
+            <h3>Tank War Game</h3>
+            <p>Battle tank game with shooting mechanics and enemy AI.</p>
+            <div class="project-tags">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+
+          </div>
+        </div>
+        <div class="project-card glass-card" data-url="../Games/Shooting Game.html">
+          <div class="project-image">
+            <div class="project-thumb"><img src="images/Bubble Shooting Game.png" alt="Shooting Game"></div>
+          </div>
+          <div class="project-info">
+            <h3>Bubble Shooting Game</h3>
+            <p>Action shooting game with targets and scoring system.</p>
+            <div class="project-tags">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+
+          </div>
+        </div>
+        <div class="project-card glass-card" data-url="../Games/PacMan Game.html">
+          <div class="project-image">
+            <div class="project-thumb"><img src="images/PacmanDoddle Game.png" alt="PacMan Game"></div>
+          </div>
+          <div class="project-info">
+            <h3>PacMan Doddle Game</h3>
+            <p>Classic PacMan arcade game with maze navigation and ghost avoidance.</p>
+            <div class="project-tags">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card glass-card" data-url="../Summer Training Project/Project/Project.html">
+          <div class="project-image">
+            <div class="project-thumb"><img src="images/Gift Bloom.png" alt="Gift Bloom Shop"></div>
+          </div>
+          <div class="project-info">
+            <h3>Gift Bloom</h3>
+            <p>E-commerce platform for curated gift items with 47 products, search, cart, and order tracking.</p>
+            <div class="project-tags">
+              <span>PHP</span><span>MySQL</span><span>JavaScript</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card glass-card" data-url="../Games/Doodle Jump/Doodle Jump.html">
+          <div class="project-image">
+            <div class="project-thumb"><img src="images/Doodle Jump.png" alt="Doodle Jump"></div>
+          </div>
+          <div class="project-info">
+            <h3>Doodle Jump</h3>
+            <p>Jump between platforms and score as high as possible in this addictive arcade-style jumping game.</p>
+            <div class="project-tags">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card glass-card" data-url="../Games/Nitro Racing Game/Nitro Racing.html">
+          <div class="project-image">
+            <div class="project-thumb"><img src="images/Nitro Racing.png" alt="Nitro Racing"></div>
+          </div>
+          <div class="project-info">
+            <h3>Nitro Racing</h3>
+            <p>High-speed racing game with nitro boosts and challenging tracks. Speed through obstacles and beat your best lap time.</p>
+            <div class="project-tags">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card glass-card" data-url="../Games/Solar Smash Game/Solar Smash Game.html">
+          <div class="project-image">
+            <div class="project-thumb"><img src="images/Solar Smash.png" alt="Solar Smash Game"></div>
+          </div>
+          <div class="project-info">
+            <h3>Solar Smash Game</h3>
+            <p>Destroy planets with an arsenal of weapons including bombs, rockets, missiles, and lasers in this simulation game.</p>
+            <div class="project-tags">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card glass-card" data-url="../Form/Form.html">
+          <div class="project-image">
+            <div class="project-thumb"><img src="images/Form.png" alt="Form"></div>
+          </div>
+          <div class="project-info">
+            <h3>Form</h3>
+            <p>Comprehensive registration form with validation for personal information, contact details, and structured input fields.</p>
+            <div class="project-tags">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+          </div>
+        </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Get In Touch</span>
+        <h2>Let's Work Together</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-card glass-card">
+            <h3>Let's Talk</h3>
+            <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of something
+              meaningful.</p>
+            <div class="contact-items">
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>rishukushwaha542@gmail.com</span>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <span>+91 9569614016</span>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Prayagraj, UP</span>
+              </div>
+              <p>You can contact me on</p>
+              <div class="contact-social">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rishukushwaha542@gmail.com" target="_blank"
+                  aria-label="Email"><i class="fa-sharp fa-solid fa-m"></i></a>
+                <a href="https://wa.me/919569614016" target="_blank" aria-label="WhatsApp"><i
+                    class="fab fa-whatsapp"></i></a>
+                <a href="https://instagram.com/this_is_mr.perfect" target="_blank" aria-label="Instagram"><i
+                    class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=100089068249904" target="_blank"
+                  aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form">
+          <form id="contactForm" action="mailto:rishukushwaha542@gmail.com" method="POST" enctype="multipart/form-data"
+            class="glass-card">
+            <div class="form-group">
+              <input type="text" id="name" required>
+              <label for="name">Your Name</label>
+            </div>
+            <div class="form-group">
+              <input type="email" id="email" required>
+              <label for="email">Your Email</label>
+            </div>
+            <div class="form-group">
+              <input type="text" id="subject" required>
+              <label for="subject">Subject</label>
+            </div>
+            <div class="form-group">
+              <textarea id="message" rows="5" required></textarea>
+              <label for="message">Your Message</label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <p>&copy; 2026 Rishu. Crafted with passion.</p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#hero" class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></a>
+
+  <div id="toast" class="toast"></div>
+  <script src="Portfolio.js"></script>
+</body>
+
+</html>

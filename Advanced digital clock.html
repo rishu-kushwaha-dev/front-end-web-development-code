@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24 hour format Digital Clock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #01ecb9, #0a0a0a);
+            font-family: 'Orbitron', monospace, sans-serif;
+            color: #f0f0f3;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0, 255, 204, 0.1) 0%, transparent 70%);
+            animation: pulse 10s infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(1.2);
+                opacity: 0.7;
+            }
+        }
+
+        .clock-wrapper {
+            background-color: rgba(0, 0, 0, 0.932);
+            border: 2px solid #00ff22;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(126, 61, 70, 0.4), inset 0 0 10px rgba(202, 123, 123, 0.3);
+            padding: 40px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        #time-display {
+            font-size: 8vw;
+            font-weight: bold;
+            text-shadow: 0 0 20px #ff0000, 0 0 30px #00ffcc;
+            letter-spacing: 5px;
+            white-space: nowrap;
+            text-align: center;
+            min-width: 500px;
+        }
+
+        #date-display,
+        #day-display,
+        #timezone-display {
+            font-size: 2.4vw;
+            color: #f0f0f3;
+            letter-spacing: 1px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            background-color: rgba(10, 10, 20, 0.9);
+            border-radius: 10px;
+            border: 1px solid #00e6b3;
+            box-shadow: 0 0 15px rgba(0, 230, 179, 0.9);
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: center;
+        }
+
+        label {
+            font-size: 0.9em;
+            color: #cceeff;
+        }
+
+        button,
+        select {
+            background-color: #008060;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Orbitron', monospace;
+            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 255, 204, 0.5);
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            text-align: center;
+            outline: none;
+        }
+
+        button:hover,
+        select:hover {
+            background-color: #00b386;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.8);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        select {
+            padding-right: 30px;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .clock-wrapper {
+                padding: 30px 40px;
+            }
+
+            #time-display {
+                font-size: 12vw;
+                min-width: unset;
+                letter-spacing: 3px;
+            }
+
+            #date-display,
+            #day-display,
+            #timezone-display {
+                font-size: 3.5vw;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .clock-wrapper {
+                padding: 20px 25px;
+            }
+
+            #time-display {
+                font-size: 15vw;
+            }
+
+            #date-display,
+            #day-display,
+            #timezone-display {
+                font-size: 4.5vw;
+            }
+
+            button,
+            select {
+                padding: 6px 12px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="clock-wrapper">
+        <div id="time-display"></div>
+        <div id="day-display"></div>
+        <div id="date-display"></div>
+        <div id="timezone-display"></div>
+    </div>
+
+    <div class="controls">
+        <div class="control-group">
+            <label for="timeFormatToggle">Time Format:</label>
+            <button id="timeFormatToggle">Switch to 24-Hour</button>
+        </div>
+        <div class="control-group">
+            <label for="dateFormatSelect">Date Format:</label>
+            <select id="dateFormatSelect">
+                <option value="default">MM-DD-YYYY</option>
+                <option value="long">Month-Day-year</option>
+                <option value="full">Week-Month-Date-Year</option>
+                <option value="short">DD-MM-YYYY</option>
+                <option value="iso">YYYY-MM-DD</option>
+            </select>
+        </div>
+    </div>
+
+    <script>
+        let is24HourFormat = false;
+        let selectedDateFormat = 'default';
+
+        const timeDisplay = document.getElementById('time-display');
+        const dayDisplay = document.getElementById('day-display');
+        const dateDisplay = document.getElementById('date-display');
+        const timezoneDisplay = document.getElementById('timezone-display');
+        const timeFormatToggleButton = document.getElementById('timeFormatToggle');
+        const dateFormatSelect = document.getElementById('dateFormatSelect');
+
+        function updateClock() {
+            const now = new Date();
+
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            let ampm = '';
+
+            if (!is24HourFormat) {
+                ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+            }
+
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            hours = hours < 10 && is24HourFormat ? '0' + hours : hours;
+
+            const timeString = `${hours}:${minutes}:${seconds}${ampm ? ' ' + ampm : ''}`;
+            timeDisplay.textContent = timeString;
+
+            const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            dayDisplay.textContent = days[now.getDay()];
+
+            let dateOptions = {};
+            switch (selectedDateFormat) {
+                case 'long':
+                    dateOptions = { month: 'long', day: 'numeric', year: 'numeric' };
+                    break;
+                case 'full':
+                    dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                    break;
+                case 'short':
+                    const day = now.getDate() < 10 ? '0' + now.getDate() : now.getDate();
+                    const month = (now.getMonth() + 1) < 10 ? '0' + (now.getMonth() + 1) : (now.getMonth() + 1);
+                    const year = now.getFullYear();
+                    dateDisplay.textContent = `${day}/${month}/${year}`;
+                    break;
+                case 'iso':
+                    const isoYear = now.getFullYear();
+                    const isoMonth = (now.getMonth() + 1) < 10 ? '0' + (now.getMonth() + 1) : (now.getMonth() + 1);
+                    const isoDay = now.getDate() < 10 ? '0' + now.getDate() : now.getDate();
+                    dateDisplay.textContent = `${isoYear}-${isoMonth}-${isoDay}`;
+                    break;
+                case 'default':
+                default:
+                    dateOptions = { month: '2-digit', day: '2-digit', year: 'numeric' };
+                    break;
+            }
+
+            if (selectedDateFormat !== 'short' && selectedDateFormat !== 'iso') {
+                dateDisplay.textContent = now.toLocaleDateString('en-US', dateOptions);
+            }
+
+            const offsetMinutes = now.getTimezoneOffset();
+            const offsetHours = Math.abs(Math.floor(offsetMinutes / 60));
+            const offsetRemainderMinutes = Math.abs(offsetMinutes % 60);
+            const offsetSign = offsetMinutes > 0 ? '-' : '+';
+            const formattedOffsetMinutes = offsetRemainderMinutes < 10 ? '0' + offsetRemainderMinutes : offsetRemainderMinutes;
+
+            const timezoneString = `(UTC${offsetSign}${offsetHours}:${formattedOffsetMinutes})`;
+            timezoneDisplay.textContent = timezoneString;
+        }
+
+        timeFormatToggleButton.addEventListener('click', () => {
+            is24HourFormat = !is24HourFormat;
+            timeFormatToggleButton.textContent = is24HourFormat ? 'Switch to 12-Hour' : 'Switch to 24-Hour';
+            updateClock();
+        });
+
+        dateFormatSelect.addEventListener('change', (event) => {
+            selectedDateFormat = event.target.value;
+            updateClock();
+        });
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+
+</html>

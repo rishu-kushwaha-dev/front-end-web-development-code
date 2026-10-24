@@ -1,38 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Pac-Man - Time Attack Mode</title>
+    <title>Pac-Man</title>
     <style>
-        * { box-sizing: border-box; user-select: none; -webkit-user-select: none; }
-        body { 
-            background: #080810; 
-            color: #fff; 
-            text-align: center; 
-            font-family: Arial, sans-serif; 
-            margin: 0; 
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            background: #080810;
+            color: #fff;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
             padding: 5px;
-            touch-action: none; 
+            touch-action: none;
         }
-        h1 { margin: 5px 0 2px 0; font-size: 1.6rem; color: #ffff00; }
-        #infoPanel { 
-            display: flex; 
-            justify-content: space-between; 
-            width: 390px; 
-            margin: 0 auto 5px auto; 
+
+        h1 {
+            margin: 5px 0 2px 0;
+            font-size: 1.6rem;
+            color: #ffff00;
+        }
+
+        #infoPanel {
+            display: flex;
+            justify-content: space-between;
+            width: 390px;
+            margin: 0 auto 5px auto;
             max-width: 95vw;
-            font-size: 1.2rem; 
-            font-weight: bold; 
+            font-size: 1.2rem;
+            font-weight: bold;
         }
-        #scoreBoard { color: #00ffcc; }
-        #timerBoard { color: #ff3333; }
-        
-        canvas { 
-            background: #000; 
-            display: block; 
-            margin: 0 auto; 
-            border: 4px solid #0000ff; 
+
+        #scoreBoard {
+            color: #00ffcc;
+        }
+
+        #timerBoard {
+            color: #ff3333;
+        }
+
+        canvas {
+            background: #000;
+            display: block;
+            margin: 0 auto;
+            border: 4px solid #0000ff;
             border-radius: 10px;
             box-shadow: 0 0 25px rgba(0, 0, 255, 0.7);
             max-width: 95vw;
@@ -50,18 +68,19 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
         }
+
         #startBtn:hover {
             background: #00ff00;
         }
+
         #startBtn:active {
             transform: scale(0.95);
         }
-
-
     </style>
 </head>
+
 <body>
 
     <h1>PAC-MAN 2D</h1>
@@ -69,7 +88,7 @@
         <div id="scoreBoard">SCORE: <span id="score">0</span></div>
         <div id="timerBoard">TIME: <span id="timer">60</span>s</div>
     </div>
-    
+
     <canvas id="gameCanvas" width="390" height="390"></canvas>
 
     <button id="startBtn">START GAME</button>
@@ -89,34 +108,34 @@
         let gameStarted = false;
         let countdownInterval = null;
         const tileSize = 26;
-        
+
         const redLightGridX = 7;
         const redLightGridY = 7;
 
         const map = [
-            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-            [1,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
-            [1,0,1,1,0,1,0,1,0,1,0,1,1,0,1],
-            [1,0,1,1,0,1,0,0,0,1,0,1,1,0,1],
-            [1,0,0,0,0,1,1,0,1,1,0,0,0,0,1],
-            [1,1,1,0,0,0,0,0,0,0,0,0,1,1,1],
-            [1,0,0,0,1,1,0,0,0,1,1,0,0,0,1],
-            [1,0,1,0,1,2,2,2,2,2,1,0,1,0,1],
-            [1,0,0,0,1,1,1,1,1,1,1,0,0,0,1],
-            [1,1,1,0,0,0,0,0,0,0,0,0,1,1,1],
-            [1,0,0,0,0,1,1,0,1,1,0,0,0,0,1],
-            [1,0,1,1,0,1,0,0,0,1,0,1,1,0,1],
-            [1,0,1,1,0,1,0,1,0,1,0,1,1,0,1],
-            [1,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
-            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1],
+            [1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1],
+            [1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1],
+            [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+            [1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
+            [1, 0, 1, 0, 1, 2, 2, 2, 2, 2, 1, 0, 1, 0, 1],
+            [1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1],
+            [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+            [1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1],
+            [1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1],
+            [1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         ];
 
         let pacman = {
             gridX: 1,
             gridY: 1,
-            x: 1 * tileSize + tileSize/2,
-            y: 1 * tileSize + tileSize/2,
-            radius: 11, 
+            x: 1 * tileSize + tileSize / 2,
+            y: 1 * tileSize + tileSize / 2,
+            radius: 11,
             speed: 2,
             dirX: 0,
             dirY: 0,
@@ -154,7 +173,7 @@
         function checkRemainingDots() {
             for (let r = 0; r < map.length; r++) {
                 for (let c = 0; c < map[r].length; c++) {
-                    if (map[r][c] === 0) return true; 
+                    if (map[r][c] === 0) return true;
                 }
             }
             return false;
@@ -198,7 +217,7 @@
                 }
 
                 if (map[pacman.gridY][pacman.gridX] === 0) {
-                    map[pacman.gridY][pacman.gridX] = 2; 
+                    map[pacman.gridY][pacman.gridX] = 2;
                     score += 10;
                     scoreElement.innerText = score;
                 }
@@ -231,12 +250,12 @@
             for (let r = 0; r < map.length; r++) {
                 for (let c = 0; c < map[r].length; c++) {
                     if (map[r][c] === 1) {
-                        ctx.fillStyle = "#1e1eff"; 
+                        ctx.fillStyle = "#1e1eff";
                         ctx.fillRect(c * tileSize + 1, r * tileSize + 1, tileSize - 2, tileSize - 2);
                     } else if (map[r][c] === 0) {
-                        ctx.fillStyle = "#ffb8ae"; 
+                        ctx.fillStyle = "#ffb8ae";
                         ctx.beginPath();
-                        ctx.arc(c * tileSize + tileSize/2, r * tileSize + tileSize/2, 4, 0, Math.PI * 2);
+                        ctx.arc(c * tileSize + tileSize / 2, r * tileSize + tileSize / 2, 4, 0, Math.PI * 2);
                         ctx.fill();
                     }
                 }
@@ -246,19 +265,19 @@
                 let alpha = 0.4 + Math.abs(Math.sin(flashTimer * 0.15)) * 0.6;
                 ctx.fillStyle = `rgba(255, 0, 0, ${alpha})`;
                 ctx.beginPath();
-                ctx.arc(redLightGridX * tileSize + tileSize/2, redLightGridY * tileSize + tileSize/2, 12, 0, Math.PI * 2);
+                ctx.arc(redLightGridX * tileSize + tileSize / 2, redLightGridY * tileSize + tileSize / 2, 12, 0, Math.PI * 2);
                 ctx.fill();
-                
+
                 ctx.strokeStyle = "red";
                 ctx.lineWidth = 2;
                 ctx.beginPath();
-                ctx.arc(redLightGridX * tileSize + tileSize/2, redLightGridY * tileSize + tileSize/2, 16, 0, Math.PI * 2);
+                ctx.arc(redLightGridX * tileSize + tileSize / 2, redLightGridY * tileSize + tileSize / 2, 16, 0, Math.PI * 2);
                 ctx.stroke();
             }
 
             ctx.save();
             ctx.translate(pacman.x, pacman.y);
-            
+
             if (pacman.dirX === 1) ctx.rotate(0);
             else if (pacman.dirX === -1) ctx.rotate(Math.PI);
             else if (pacman.dirY === 1) ctx.rotate(0.5 * Math.PI);
@@ -267,7 +286,7 @@
             ctx.beginPath();
             ctx.arc(0, 0, pacman.radius, pacman.mouthAngle * Math.PI, (2 - pacman.mouthAngle) * Math.PI);
             ctx.lineTo(0, 0);
-            ctx.fillStyle = "#ffff00"; 
+            ctx.fillStyle = "#ffff00";
             ctx.fill();
             ctx.closePath();
             ctx.restore();
@@ -284,7 +303,7 @@
                     ctx.shadowColor = "#00ff00";
                     ctx.shadowBlur = 15;
                     ctx.fillText("VICTORY!", canvas.width / 2, canvas.height / 2);
-                    
+
                     ctx.font = "20px Arial";
                     ctx.fillStyle = "#ffffff";
                     ctx.shadowBlur = 0;
@@ -295,7 +314,7 @@
                     ctx.shadowColor = "#ff0000";
                     ctx.shadowBlur = 15;
                     ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
-                    
+
                     ctx.font = "20px Arial";
                     ctx.fillStyle = "#ffffff";
                     ctx.shadowBlur = 0;
@@ -326,4 +345,5 @@
         gameLoop();
     </script>
 </body>
+
 </html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shree Ice-Cream Parlour</title>
+    <link rel="stylesheet" href="Shree Ice-Cream Parlour.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🍦 Shree Ice-Cream</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button id="cart-toggle" aria-label="Open cart" class="cart-btn" title="Cart (0)">
+                    <span class="cart-icon">🛒</span>
+                    <span class="cart-count" id="cart-count">0</span>
+                </button>
+                <div class="hamburger" aria-label="Toggle menu" role="button" tabindex="0">☰</div>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Cool Treats, Warm Smiles</h1>
+            <p>Handcrafted ice-creams made with the finest ingredients.</p>
+            <a href="#menu" class="btn">Explore Menu</a>
+        </div>
+    </section>
+
+    <section id="menu" class="menu">
+        <h2>Our Menu</h2>
+        <div class="menu-grid">
+            <article class="menu-card" data-name="Vanilla Dream" data-price="99" data-img="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=300&h=200&fit=crop">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=300&h=200&fit=crop" alt="Vanilla Dream ice cream" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h3>Vanilla Dream</h3>
+                    <p>Classic creamy vanilla bean ice cream.</p>
+                    <span class="price">₹99</span>
+                    <button class="add-to-cart" aria-label="Add Vanilla Dream to cart">Add to Cart</button>
+                </div>
+            </article>
+            <article class="menu-card" data-name="Chocolate Fudge" data-price="119" data-img="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=300&h=200&fit=crop">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=300&h=200&fit=crop" alt="Chocolate Fudge ice cream" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h3>Chocolate Fudge</h3>
+                    <p>Rich chocolate with chunks of fudge.</p>
+                    <span class="price">₹119</span>
+                    <button class="add-to-cart" aria-label="Add Chocolate Fudge to cart">Add to Cart</button>
+                </div>
+            </article>
+            <article class="menu-card" data-name="Strawberry Bliss" data-price="109" data-img="https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=300&h=200&fit=crop">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=300&h=200&fit=crop" alt="Strawberry Bliss ice cream" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h3>Strawberry Bliss</h3>
+                    <p>Fresh strawberry swirl ice cream.</p>
+                    <span class="price">₹109</span>
+                    <button class="add-to-cart" aria-label="Add Strawberry Bliss to cart">Add to Cart</button>
+                </div>
+            </article>
+            <article class="menu-card" data-name="Banana Split" data-price="149" data-img="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=300&h=200&fit=crop">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=300&h=200&fit=crop" alt="Banana Split" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h3>Banana Split</h3>
+                    <p>Classic banana split with three flavors.</p>
+                    <span class="price">₹149</span>
+                    <button class="add-to-cart" aria-label="Add Banana Split to cart">Add to Cart</button>
+                </div>
+            </article>
+            <article class="menu-card" data-name="Mango Magic" data-price="99" data-img="https://images.unsplash.com/photo-1567206553064-12ded9444b74?w=300&h=200&fit=crop">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1567206553064-12ded9444b74?w=300&h=200&fit=crop" alt="Mango Magic ice cream" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h3>Mango Magic</h3>
+                    <p>Seasonal mango ice cream delight.</p>
+                    <span class="price">₹99</span>
+                    <button class="add-to-cart" aria-label="Add Mango Magic to cart">Add to Cart</button>
+                </div>
+            </article>
+            <article class="menu-card" data-name="Cookie Crunch" data-price="129" data-img="https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=300&h=200&fit=crop">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=300&h=200&fit=crop" alt="Cookie Crunch ice cream" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h3>Cookie Crunch</h3>
+                    <p>Ice cream loaded with cookie pieces.</p>
+                    <span class="price">₹129</span>
+                    <button class="add-to-cart" aria-label="Add Cookie Crunch to cart">Add to Cart</button>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <h2>Our Gallery</h2>
+        <div class="carousel" role="region" aria-label="Ice cream gallery">
+            <div class="carousel-track" id="carousel-track">
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800&h=500&fit=crop" alt="Vanilla ice cream scoops" loading="lazy">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=800&h=500&fit=crop" alt="Strawberry ice cream" loading="lazy">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800&h=500&fit=crop" alt="Banana split dessert" loading="lazy">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1567206553064-12ded9444b74?w=800&h=500&fit=crop" alt="Mango ice cream" loading="lazy">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=800&h=500&fit=crop" alt="Cookie ice cream" loading="lazy">
+                </div>
+            </div>
+            <button class="carousel-btn prev" aria-label="Previous slide">‹</button>
+            <button class="carousel-btn next" aria-label="Next slide">›</button>
+            <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Slide indicators"></div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <h2>What Our Customers Say</h2>
+        <div class="testimonials-grid">
+            <article class="testimonial-card">
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p>"Best ice cream in town! The vanilla dream is absolutely heavenly. Been coming here for 10 years!"</p>
+                <cite>— Priya Sharma</cite>
+            </article>
+            <article class="testimonial-card">
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p>"The mango magic is seasonal perfection. Fresh ingredients and you can taste the quality in every bite."</p>
+                <cite>— Rajesh Kumar</cite>
+            </article>
+            <article class="testimonial-card">
+                <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p>"Perfect place for family outings. The banana split is huge and delicious. Staff is always friendly!"</p>
+                <cite>— Anita Singh</cite>
+            </article>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <h2>About Us</h2>
+        <p>We at Shree Ice-Cream Parlour believe in serving happiness in every scoop. Since 1995, we've been crafting the finest ice-creams using traditional recipes and premium ingredients.</p>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Visit Us</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <p>123 Sweet Street, Ice City</p>
+                <p>📞 +91 98765 43210</p>
+                <p>⏰ Open daily 10 AM - 11 PM</p>
+            </div>
+            <form class="contact-form" id="contact-form" novalidate>
+                <div class="form-group">
+                    <label for="name">Name <span class="required" aria-hidden="true">*</span></label>
+                    <input type="text" id="name" name="name" required aria-required="true" autocomplete="name">
+                    <span class="error-message" aria-live="polite"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email <span class="required" aria-hidden="true">*</span></label>
+                    <input type="email" id="email" name="email" required aria-required="true" autocomplete="email">
+                    <span class="error-message" aria-live="polite"></span>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" autocomplete="tel">
+                    <span class="error-message" aria-live="polite"></span>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message <span class="required" aria-hidden="true">*</span></label>
+                    <textarea id="message" name="message" required aria-required="true" rows="5"></textarea>
+                    <span class="error-message" aria-live="polite"></span>
+                </div>
+                <button type="submit" class="btn submit-btn">Send Message</button>
+                <div class="form-status" aria-live="polite" hidden></div>
+            </form>
+        </div>
+    </section>
+
+    <aside id="cart-sidebar" class="cart-sidebar" role="dialog" aria-label="Shopping cart" hidden>
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="cart-close" aria-label="Close cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items"></div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total">₹0</span>
+            </div>
+            <button class="btn checkout-btn" id="checkout-btn" disabled>Checkout</button>
+        </div>
+    </aside>
+    <div class="cart-overlay" id="cart-overlay" hidden></div>
+
+    <footer>
+        <p>&copy; 2026 Shree Ice-Cream Parlour. All rights reserved.</p>
+    </footer>
+
+    <script src="Shree Ice-Cream Parlour.js"></script>
+</body>
+</html>

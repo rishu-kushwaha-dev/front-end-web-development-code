@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Clock</title>
+    <link rel="stylesheet" href="Digital Clock.css" />
+</head>
+
+<body>
+    <main>
+        <div class="header">
+            <div class="brand">
+                <div class="logo">CL</div>
+                <div>
+                    <div class="title">Digital Clock</div>
+                    <div class="subtitle">12/24 hour - Dark mode only</div>
+                </div>
+            </div>
+            <div class="toggle">
+                <div class="btn activeToggle" id="btn-12">12 hr</div>
+                <div class="btn" id="btn-24">24 hr</div>
+            </div>
+        </div>
+
+        <div class="display">
+            <div class="time-wrap">
+                <div class="time" id="time">00:00:00</div>
+                <div class="ampm" id="ampm">AM</div>
+            </div>
+            <div class="meta">
+                <div id="date">January 1, 2025</div>
+                <div id="day">Monday</div>
+            </div>
+        </div>
+
+        <div class="foot">
+            <div>Auto updates every second</div>
+            <div>Local Time</div>
+        </div>
+    </main>
+</body>
+<script src="Digital Clock.js"></script>
+
+</html>

@@ -1,0 +1,113 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    width: 550px;
+    background: #0a0f1c;
+    color: #9ca3af;
+    padding: 25px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    font-size: 22px;
+    padding: 15px;
+    background: #15b7b9;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.subtitle {
+    font-size: 12px;
+}
+
+.toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px;
+    border-radius: 150px;
+}
+
+.btn {
+    padding: 8px 12px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.activeToggle {
+    color: #15b7b9;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.time-wrap {
+    display: flex;
+    align-items: baseline;
+}
+
+.time {
+    font-size: 65px;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 6px;
+}
+
+.ampm {
+    font-size: 18px;
+}
+
+.meta {
+    display: flex;
+    flex-direction: column;
+    grid-area: 10px;
+    text-align: end;
+}
+
+.foot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}

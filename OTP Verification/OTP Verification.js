@@ -5,7 +5,7 @@ const CONFIG = {
     successVibrate: [30, 40, 60],
     orbitDuration: 1600,
     texts: {
-        idleTitle: 'Enter Access Code',
+        idleTitle: 'Enter OTP',
         idleSubtitle: 'A 4-digit code has been sent to your device.',
         loadingTitle: 'Verifying...',
         loadingSubtitle: 'Securely checking your credentials.',

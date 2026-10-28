@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tank War Game</title>
+    <link rel="stylesheet" href="Tank War game.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+
+    <div id="damage-flash"></div>
+    <div id="hit-marker"></div>
+
+    <div id="ui-container">
+        <div class="stat" id="score-ui">TOTAL TANKS NEUTRALIZED: 0</div>
+        <div class="stat" id="health-ui">ARMOR INTEGRITY: 100%</div>
+        <div class="stat" id="highscore-ui">PERSONAL BEST: 0</div>
+        <div style="font-size:11px; color:#88aa88; margin-top:5px;"><b>Desktop: WASD + SPACE</b> <span id="welcome-user"
+                style="cursor:pointer;color:#55ff55;text-decoration: underline;"></span></div>
+    </div>
+
+    <canvas id="minimap" width="150" height="150"></canvas>
+
+    <div id="auth-container">
+        <h2 id="auth-title">LOGIN</h2>
+        <div id="auth-error" class="error-msg"></div>
+        <div id="login-form" style="display:flex; flex-direction:column; gap:15px;">
+            <input type="text" id="username" placeholder="Enter Your Username"
+                style="padding:10px;background:#222;color:#55ff55;border:1px solid #55ff55;">
+            <input type="password" id="password" placeholder="Enter your password"
+                style="padding:10px;background:#222;color:#55ff55;border:1px solid #55ff55;">
+            <button id="btn-login"
+                style="padding:10px;background:#333;color:#55ff55;border:1px solid #55ff55;cursor:pointer;font-weight:bold;">LOGIN</button>
+            <button id="btn-show-register"
+                style="padding:10px;background:#333;color:#ffcc00;border:1px solid #ffcc00;cursor:pointer;">NEW
+                REGISTRATION</button>
+        </div>
+        <div id="register-form" style="display:none; flex-direction:column; gap:15px;">
+            <input type="text" id="reg-username" placeholder="NEW USER"
+                style="padding:10px;background:#222;color:#55ff55;border:1px solid #55ff55;">
+            <input type="password" id="reg-password" placeholder="ENTER YOUR PASSWORD"
+                style="padding:10px;background:#222;color:#55ff55;border:1px solid #55ff55;">
+            <button id="btn-register"
+                style="padding:10px;background:#333;color:#55ff55;border:1px solid #55ff55;cursor:pointer;font-weight:bold;">REGISTER</button>
+            <button id="btn-show-login"
+                style="padding:10px;background:#333;color:#ffaa00;border:1px solid #ffaa00;cursor:pointer;">ALREADY HAVE
+                AN ACCOUNT</button>
+        </div>
+    </div>
+
+    <div id="mobile-hud">
+        <div class="dpad">
+            <div class="btn" id="btn-up">▲</div>
+            <div class="btn" id="btn-left">◀</div>
+            <div class="btn" id="btn-down">▼</div>
+            <div class="btn" id="btn-right">▶</div>
+        </div>
+        <div class="action-box">
+            <button class="btn" id="btn-fire">FIRE</button>
+        </div>
+    </div>
+
+    <div id="game-over-screen">
+        <h1>TANK DESTROYED</h1>
+        <p id="final-score">Enemies Neutralized: 0</p>
+        <button id="restart-btn" onclick="resetGame()">DEPLOY NEW TANK</button>
+    </div>
+
+    <script src="Tank War game.js"></script>
+</body>
+
+</html>

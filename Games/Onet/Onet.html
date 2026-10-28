@@ -1,63 +1,19 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Onet</title>
-<style>body{font-family:sans-serif;background:#0f172a;color:#e2e8f0;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
-.wrap{text-align:center}.grid{display:grid;gap:4px;margin:10px auto}.cell{width:44px;height:44px;background:#1e293b;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer}
-.sel{outline:2px solid #facc15}button{margin:5px;padding:8px 14px;border:none;border-radius:8px;background:#3b82f6;color:#fff;cursor:pointer}
-#msg{margin-top:8px}</style></head><body>
-<div class="wrap"><h1>Onet</h1><div id="grid" class="grid"></div><button onclick="newGame()">New Game</button><p id="msg"></p></div>
-<script>
-const ROWS=6,COLS=8;
-const icons=['🍎','🍌','🍇','🍓','🍒','🥝','🍑','🍍'];
-let grid=[], sel=null;
-function newGame(){
-  const pairs=[]; for(let i=0;i<icons.length;i++) for(let j=0;j<4;j++) pairs.push(icons[i]);
-  shuffle(pairs);
-  grid=[]; let k=0;
-  for(let r=0;r<ROWS;r++){ grid[r]=[]; for(let c=0;c<COLS;c++) grid[r][c]=pairs[k++]; }
-  sel=null; render(); document.getElementById('msg').textContent='';
-}
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function render(){
-  const g=document.getElementById('grid'); g.style.gridTemplateColumns=`repeat(${COLS},44px)`; g.innerHTML='';
-  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
-    const d=document.createElement('div'); d.className='cell'; d.textContent=grid[r][c]||'';
-    d.dataset.r=r; d.dataset.c=c;
-    if(sel && sel.r===r && sel.c===c) d.classList.add('sel');
-    d.onclick=()=>click(r,c);
-    g.appendChild(d);
-  }
-}
-function click(r,c){
-  if(!grid[r][c]) return;
-  if(!sel){ sel={r,c}; render(); return; }
-  if(sel.r===r && sel.c===c){ sel=null; render(); return; }
-  if(grid[sel.r][sel.c]!==grid[r][c]){ sel={r,c}; render(); return; }
-  if(canConnect(sel.r,sel.c,r,c)){ grid[sel.r][sel.c]=null; grid[r][c]=null; sel=null; render(); checkWin(); }
-  else { sel={r,c}; render(); }
-}
-function canConnect(r1,c1,r2,c2){
-  // simple: clear line of sight horizontally/vertically with <=2 bends via boundary
-  // check direct
-  if(r1===r2){ if(clearRow(r1,c1,c2)) return true; }
-  if(c1===c2){ if(clearCol(c1,r1,r2)) return true; }
-  // one bend
-  if(clearRow(r1,c1,c2) && clearCol(c2,r1,r2)) return true;
-  if(clearCol(c1,r1,r2) && clearRow(r2,c1,c2)) return true;
-  // via outer border (r=-1 or ROWS etc) handled by clear with bounds extended? skip
-  return false;
-}
-function clearRow(r,c1,c2){
-  const step=c1<c2?1:-1;
-  for(let c=c1;c!==c2;c+=step) if(grid[r][c] && !(r===r1pos?false:true)){}
-  // check cells between exclusive
-  let ok=true;
-  for(let c=Math.min(c1,c2)+1;c<Math.max(c1,c2);c++) if(grid[r][c]) ok=false;
-  return ok;
-}
-function clearCol(c,r1,r2){
-  let ok=true;
-  for(let r=Math.min(r1,r2)+1;r<Math.max(r1,r2);r++) if(grid[r][c]) ok=false;
-  return ok;
-}
-function checkWin(){ if(grid.flat().every(x=>!x)) document.getElementById('msg').textContent='You Win!'; }
-newGame();
-</script></body></html>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Onet</title>
+  <link rel="stylesheet" href="Onet.css">
+</head>
+
+<body>
+  <div class="wrap">
+    <h1>Onet</h1>
+    <div id="grid" class="grid"></div><button onclick="newGame()">New Game</button>
+    <p id="msg"></p>
+  </div>
+  <script src="Onet.js"></script>
+</body>
+
+</html>

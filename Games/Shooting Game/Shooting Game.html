@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Shooting Game</title>
+  <link rel="stylesheet" href="Shooting Game.css">
+</head>
+
+<body>
+  <div id="login-container">
+    <h2><u>Login</u></h2>
+    <input type="text" id="login-username" placeholder="Username"><br>
+    <input type="password" id="login-password" placeholder="Password"><br><br>
+    <button onclick="login()">Login</button>
+    <button class="secondary" onclick="showCreateAccount()">Create Account</button><br>
+    <p id="login-error" style="color: red;"></p>
+  </div>
+
+  <div id="create-account-container" class="hidden">
+    <h2><u>Create Account</u></h2>
+    <input type="text" id="create-username" placeholder="Username"><br>
+    <input type="password" id="create-password" placeholder="Password"><br>
+    <button onclick="createAccount()">Create Account</button>
+    <button class="secondary" onclick="showLogin()">Already have an Account!</button>
+    <p id="create-error" style="color: red;"></p>
+  </div>
+
+  <canvas id="gameCanvas" class="hidden"></canvas>
+
+  <script src="Shooting Game.js"></script>
+</body>
+
+</html>

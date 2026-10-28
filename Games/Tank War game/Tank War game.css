@@ -1,0 +1,240 @@
+body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #050505;
+            font-family: 'Courier New', Courier, monospace;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        #auth-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(10, 15, 10, 0.95);
+            border: 2px solid #55ff55;
+            padding: 30px;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 30;
+            box-shadow: 0 0 20px rgba(85, 255, 85, 0.3), inset 0 0 20px rgba(85, 255, 85, 0.05);
+        }
+
+        #auth-container h2 {
+            color: #55ff55;
+            margin: 0 0 10px 0;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(85, 255, 85, 0.8);
+            letter-spacing: 2px;
+        }
+
+        #ui-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #55ff55;
+            text-shadow: 1px 1px 2px #000, 0 0 5px rgba(85, 255, 85, 0.5);
+            font-size: 16px;
+            pointer-events: none;
+            z-index: 10;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .stat {
+            margin-bottom: 5px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        #mobile-hud {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .dpad,
+        .action-box {
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(2, 60px);
+            gap: 10px;
+        }
+
+        .btn {
+            background: rgba(30, 40, 30, 0.6);
+            border: 2px solid #55ff55;
+            color: #55ff55;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+            box-shadow: 0 0 8px rgba(85, 255, 85, 0.3);
+        }
+
+        .btn:active {
+            background: rgba(85, 255, 85, 0.4);
+            box-shadow: 0 0 15px rgba(85, 255, 85, 0.6);
+        }
+
+        #btn-up {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        #btn-left {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        #btn-down {
+            grid-column: 2;
+            grid-row: 2;
+        }
+
+        #btn-right {
+            grid-column: 3;
+            grid-row: 2;
+        }
+
+        #btn-fire {
+            grid-column: 2 / span 2;
+            grid-row: 1 / span 2;
+            background: rgba(150, 20, 20, 0.6);
+            border-color: #ff3333;
+            color: #ffcccc;
+            font-size: 22px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 51, 51, 0.5);
+        }
+
+        #btn-fire:active {
+            background: rgba(255, 51, 51, 0.5);
+            box-shadow: 0 0 25px rgba(255, 51, 51, 0.8);
+        }
+
+        #game-over-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ff3333;
+            z-index: 20;
+            display: none;
+        }
+
+        #game-over-screen h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+            letter-spacing: 3px;
+        }
+
+        #restart-btn {
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: #222;
+            border: 2px solid #55ff55;
+            color: #55ff55;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(85, 255, 85, 0.4);
+            transition: all 0.2s;
+        }
+
+        #restart-btn:hover {
+            background: #333;
+            box-shadow: 0 0 25px rgba(85, 255, 85, 0.6);
+        }
+
+        .error-msg {
+            color: #ff3333;
+            font-size: 12px;
+            text-align: center;
+            margin-top: -5px;
+            display: none;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+        }
+
+        #damage-flash {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 30%, rgba(255, 0, 0, 0.4) 100%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s ease-out;
+            z-index: 5;
+        }
+
+        #hit-marker {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 36px;
+            color: #ff3333;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 15;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
+            letter-spacing: 3px;
+        }
+
+        #minimap {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 150px;
+            height: 150px;
+            border: 2px solid #55ff55;
+            background: rgba(0, 20, 0, 0.6);
+            z-index: 10;
+            pointer-events: none;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(85, 255, 85, 0.3);
+        }
+
+        #mobile-hud {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            #mobile-hud {
+                display: flex;
+            }
+
+            #minimap {
+                bottom: 180px;
+                width: 120px;
+                height: 120px;
+            }
+        }

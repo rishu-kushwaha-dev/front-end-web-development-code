@@ -1,261 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tank War Game</title>
-    
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #050505;
-            font-family: 'Courier New', Courier, monospace;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-        #auth-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(10, 15, 10, 0.95);
-            border: 2px solid #55ff55;
-            padding: 30px;
-            min-width: 300px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            z-index: 30;
-            box-shadow: 0 0 20px rgba(85, 255, 85, 0.3), inset 0 0 20px rgba(85, 255, 85, 0.05);
-        }
-        #auth-container h2 {
-            color: #55ff55;
-            margin: 0 0 10px 0;
-            text-align: center;
-            text-shadow: 0 0 10px rgba(85, 255, 85, 0.8);
-            letter-spacing: 2px;
-        }
-        #ui-container {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            color: #55ff55;
-            text-shadow: 1px 1px 2px #000, 0 0 5px rgba(85, 255, 85, 0.5);
-            font-size: 16px;
-            pointer-events: none;
-            z-index: 10;
-            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, transparent 70%);
-            padding: 10px;
-            border-radius: 4px;
-        }
-        .stat { margin-bottom: 5px; font-weight: bold; letter-spacing: 1px; }
-        
-        #mobile-hud {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 20px;
-            box-sizing: border-box;
-            z-index: 10;
-        }
-        .dpad, .action-box {
-            display: grid;
-            grid-template-columns: repeat(3, 60px);
-            grid-template-rows: repeat(2, 60px);
-            gap: 10px;
-        }
-        .btn {
-            background: rgba(30, 40, 30, 0.6);
-            border: 2px solid #55ff55;
-            color: #55ff55;
-            border-radius: 12px;
-            font-size: 20px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            touch-action: manipulation;
-            box-shadow: 0 0 8px rgba(85, 255, 85, 0.3);
-        }
-        .btn:active {
-            background: rgba(85, 255, 85, 0.4);
-            box-shadow: 0 0 15px rgba(85, 255, 85, 0.6);
-        }
-        #btn-up { grid-column: 2; grid-row: 1; }
-        #btn-left { grid-column: 1; grid-row: 2; }
-        #btn-down { grid-column: 2; grid-row: 2; }
-        #btn-right { grid-column: 3; grid-row: 2; }
-        
-        #btn-fire {
-            grid-column: 2 / span 2;
-            grid-row: 1 / span 2;
-            background: rgba(150, 20, 20, 0.6);
-            border-color: #ff3333;
-            color: #ffcccc;
-            font-size: 22px;
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(255, 51, 51, 0.5);
-        }
-        #btn-fire:active {
-            background: rgba(255, 51, 51, 0.5);
-            box-shadow: 0 0 25px rgba(255, 51, 51, 0.8);
-        }
-        
-        #game-over-screen {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #ff3333;
-            z-index: 20;
-            display: none;
-        }
-        #game-over-screen h1 { 
-            font-size: 48px; 
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
-            letter-spacing: 3px;
-        }
-        #restart-btn {
-            margin-top: 20px;
-            padding: 15px 40px;
-            background: #222;
-            border: 2px solid #55ff55;
-            color: #55ff55;
-            font-size: 18px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            box-shadow: 0 0 15px rgba(85, 255, 85, 0.4);
-            transition: all 0.2s;
-        }
-        #restart-btn:hover {
-            background: #333;
-            box-shadow: 0 0 25px rgba(85, 255, 85, 0.6);
-        }
-        .error-msg {
-            color: #ff3333;
-            font-size: 12px;
-            text-align: center;
-            margin-top: -5px;
-            display: none;
-            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
-        }
-        #damage-flash {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 30%, rgba(255, 0, 0, 0.4) 100%);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.15s ease-out;
-            z-index: 5;
-        }
-        #hit-marker {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 36px;
-            color: #ff3333;
-            pointer-events: none;
-            opacity: 0;
-            z-index: 15;
-            font-weight: bold;
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.9);
-            letter-spacing: 3px;
-        }
-        #minimap {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 150px;
-            height: 150px;
-            border: 2px solid #55ff55;
-            background: rgba(0, 20, 0, 0.6);
-            z-index: 10;
-            pointer-events: none;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(85, 255, 85, 0.3);
-        }
-        #mobile-hud {
-            display: none;
-        }
-        @media (max-width: 768px) {
-            #mobile-hud {
-                display: flex;
-            }
-            #minimap {
-                bottom: 180px;
-                width: 120px;
-                height: 120px;
-            }
-        }
-    </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-</head>
-<body>
-
-    <div id="damage-flash"></div>
-    <div id="hit-marker"></div>
-
-    <div id="ui-container">
-        <div class="stat" id="score-ui">TOTAL TANKS NEUTRALIZED: 0</div>
-        <div class="stat" id="health-ui">ARMOR INTEGRITY: 100%</div>
-        <div class="stat" id="highscore-ui">PERSONAL BEST: 0</div>
-        <div style="font-size:11px; color:#88aa88; margin-top:5px;"><b>Desktop: WASD + SPACE</b> <span id="welcome-user" style="cursor:pointer;color:#55ff55;text-decoration: underline;"></span></div>
-    </div>
-
-    <canvas id="minimap" width="150" height="150"></canvas>
-
-    <div id="auth-container">
-        <h2 id="auth-title">LOGIN</h2>
-        <div id="auth-error" class="error-msg"></div>
-        <div id="login-form" style="display:flex; flex-direction:column; gap:15px;">
-            <input type="text" id="username" placeholder="Enter Your Username" style="padding:10px;background:#222;color:#55ff55;border:1px solid #55ff55;">
-            <input type="password" id="password" placeholder="Enter your password" style="padding:10px;background:#222;color:#55ff55;border:1px solid #55ff55;">
-            <button id="btn-login" style="padding:10px;background:#333;color:#55ff55;border:1px solid #55ff55;cursor:pointer;font-weight:bold;">LOGIN</button>
-            <button id="btn-show-register" style="padding:10px;background:#333;color:#ffcc00;border:1px solid #ffcc00;cursor:pointer;">NEW REGISTRATION</button>
-        </div>
-        <div id="register-form" style="display:none; flex-direction:column; gap:15px;">
-            <input type="text" id="reg-username" placeholder="NEW USER" style="padding:10px;background:#222;color:#55ff55;border:1px solid #55ff55;">
-            <input type="password" id="reg-password" placeholder="ENTER YOUR PASSWORD" style="padding:10px;background:#222;color:#55ff55;border:1px solid #55ff55;">
-            <button id="btn-register" style="padding:10px;background:#333;color:#55ff55;border:1px solid #55ff55;cursor:pointer;font-weight:bold;">REGISTER</button>
-            <button id="btn-show-login" style="padding:10px;background:#333;color:#ffaa00;border:1px solid #ffaa00;cursor:pointer;">ALREADY HAVE AN ACCOUNT</button>
-        </div>
-    </div>
-
-    <div id="mobile-hud">
-        <div class="dpad">
-            <div class="btn" id="btn-up">▲</div>
-            <div class="btn" id="btn-left">◀</div>
-            <div class="btn" id="btn-down">▼</div>
-            <div class="btn" id="btn-right">▶</div>
-        </div>
-        <div class="action-box">
-            <button class="btn" id="btn-fire">FIRE</button>
-        </div>
-    </div>
-
-    <div id="game-over-screen">
-        <h1>TANK DESTROYED</h1>
-        <p id="final-score">Enemies Neutralized: 0</p>
-        <button id="restart-btn" onclick="resetGame()">DEPLOY NEW TANK</button>
-    </div>
-
-    <script>
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x87CEEB); 
+const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x87CEEB);
         scene.fog = new THREE.FogExp2(0x87CEEB, 0.004);
 
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -294,14 +38,14 @@
             const wallMat = new THREE.MeshStandardMaterial({ color: 0x3d3529, roughness: 0.8 });
             const wallGeoV = new THREE.BoxGeometry(4, 6, 1000);
             const wallGeoH = new THREE.BoxGeometry(1000, 6, 4);
-            
+
             const wallPositions = [
                 { pos: [-500, 3, 0], geo: wallGeoV },
                 { pos: [500, 3, 0], geo: wallGeoV },
                 { pos: [0, 3, -500], geo: wallGeoH },
                 { pos: [0, 3, 500], geo: wallGeoH }
             ];
-            
+
             wallPositions.forEach(w => {
                 const wall = new THREE.Mesh(w.geo, wallMat);
                 wall.position.set(...w.pos);
@@ -318,14 +62,14 @@
             const treeMat = [0x2d5a27, 0x3a6b34, 0x4a7c46, 0x5a8a55];
             const rockMat = [0x6b6b6b, 0x7a7a7a, 0x555555, 0x888888];
             const crateMat = [0x8b5e3c, 0x7a5230];
-            
+
             for (let i = 0; i < 80; i++) {
                 const x = (Math.random() - 0.5) * 900;
                 const z = (Math.random() - 0.5) * 900;
                 const type = Math.random();
-                
+
                 if (Math.abs(x) < 20 && Math.abs(z) < 20) continue;
-                
+
                 if (type < 0.5) {
                     const tree = new THREE.Group();
                     const trunk = new THREE.Mesh(
@@ -389,7 +133,7 @@
         let isGameOver = false;
         let gameActive = false;
         let currentUser = null;
-        
+
         const player = {
             mesh: null,
             speed: 0,
@@ -408,7 +152,7 @@
         function createTank(colorHex) {
             const tankGroup = new THREE.Group();
             const bodyMat = new THREE.MeshStandardMaterial({ color: colorHex, roughness: 0.6, metalness: 0.2 });
-            
+
             const bodyGeo = new THREE.BoxGeometry(3, 1.2, 4.5);
             const body = new THREE.Mesh(bodyGeo, bodyMat);
             body.position.y = 0.8;
@@ -448,7 +192,7 @@
             barrel.rotation.x = Math.PI / 2;
             barrel.position.set(0, 1.7, 2);
             tankGroup.add(barrel);
-            
+
             const barrelTipGeo = new THREE.CylinderGeometry(0.22, 0.18, 0.3, 8);
             const barrelTip = new THREE.Mesh(barrelTipGeo, barrelMat);
             barrelTip.rotation.x = Math.PI / 2;
@@ -458,7 +202,7 @@
             return tankGroup;
         }
 
-        player.mesh = createTank(0x2e402b); 
+        player.mesh = createTank(0x2e402b);
         scene.add(player.mesh);
 
         function createMuzzleFlash(position, quaternion) {
@@ -495,7 +239,7 @@
                 scene.add(particle);
                 explosions.push({ mesh: particle, velocity: velocity, age: 0, isExplosion: true });
             }
-            
+
             const smokeCount = big ? 10 : 5;
             for (let i = 0; i < smokeCount; i++) {
                 const geo = new THREE.SphereGeometry(0.6 + Math.random() * 0.4, 6, 6);
@@ -552,29 +296,29 @@
 
         function bindTouchBtn(id, targetStateProp) {
             const btn = document.getElementById(id);
-            btn.addEventListener('touchstart', (e) => { e.preventDefault(); if(gameActive) player.moveState[targetStateProp] = true; });
-            btn.addEventListener('touchend', (e) => { e.preventDefault(); if(gameActive) player.moveState[targetStateProp] = false; });
+            btn.addEventListener('touchstart', (e) => { e.preventDefault(); if (gameActive) player.moveState[targetStateProp] = true; });
+            btn.addEventListener('touchend', (e) => { e.preventDefault(); if (gameActive) player.moveState[targetStateProp] = false; });
         }
         bindTouchBtn('btn-up', 'forward');
         bindTouchBtn('btn-down', 'backward');
         bindTouchBtn('btn-left', 'left');
         bindTouchBtn('btn-right', 'right');
-        document.getElementById('btn-fire').addEventListener('touchstart', (e) => { e.preventDefault(); if(gameActive) fireShell(); });
-        document.getElementById('btn-fire').addEventListener('click', (e) => { e.preventDefault(); if(gameActive) fireShell(); });
+        document.getElementById('btn-fire').addEventListener('touchstart', (e) => { e.preventDefault(); if (gameActive) fireShell(); });
+        document.getElementById('btn-fire').addEventListener('click', (e) => { e.preventDefault(); if (gameActive) fireShell(); });
 
         function fireShell() {
             if (isGameOver || !gameActive) return;
-            
+
             const shellGeo = new THREE.SphereGeometry(0.15, 8, 8);
             const shellMat = new THREE.MeshBasicMaterial({ color: 0xffcc00 });
             const shell = new THREE.Mesh(shellGeo, shellMat);
-            
+
             shell.position.copy(player.mesh.position);
-            shell.position.y = 1.7; 
-            
+            shell.position.y = 1.7;
+
             const vector = new THREE.Vector3(0, 0, 1);
             vector.applyQuaternion(player.mesh.quaternion);
-            
+
             shells.push({ mesh: shell, dir: vector, age: 0 });
             scene.add(shell);
 
@@ -586,8 +330,8 @@
 
         function spawnEnemy() {
             if (isGameOver) return;
-            if (gameActive && enemies.length < 6) { 
-                const enemyMesh = createTank(0x73332c); 
+            if (gameActive && enemies.length < 6) {
+                const enemyMesh = createTank(0x73332c);
                 const angle = Math.random() * Math.PI * 2;
                 const distance = 60 + Math.random() * 40;
                 enemyMesh.position.set(
@@ -601,7 +345,7 @@
                     strafeDuration: 60 + Math.random() * 120,
                     hitFlash: 0
                 };
-                
+
                 scene.add(enemyMesh);
                 enemies.push(enemyMesh);
             }
@@ -609,7 +353,7 @@
         }
 
         function updateHighScore() {
-            if(!currentUser) return;
+            if (!currentUser) return;
             let users = JSON.parse(localStorage.getItem('tank_users')) || {};
             if (score > (users[currentUser].highscore || 0)) {
                 users[currentUser].highscore = score;
@@ -633,19 +377,19 @@
             const scale = 150 / 1000;
             const offsetX = canvas.width / 2;
             const offsetZ = canvas.height / 2;
-            
+
             ctx.fillStyle = 'rgba(0, 20, 0, 0.85)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
+
             ctx.strokeStyle = '#2a4a2a';
             ctx.lineWidth = 1;
             ctx.strokeRect(0, 0, canvas.width, canvas.height);
-            
+
             ctx.fillStyle = '#55ff55';
             ctx.beginPath();
             ctx.arc(offsetX, offsetZ, 3, 0, Math.PI * 2);
             ctx.fill();
-            
+
             ctx.fillStyle = '#ff3333';
             enemies.forEach(enemy => {
                 const ex = enemy.position.x * scale + offsetX;
@@ -663,7 +407,7 @@
             document.getElementById('score-ui').innerText = `TOTAL TANKS NEUTRALIZED: ${score}`;
             document.getElementById('health-ui').innerText = `ARMOR INTEGRITY: ${health}%`;
             document.getElementById('game-over-screen').style.display = 'none';
-            
+
             shells.forEach(s => scene.remove(s.mesh));
             enemies.forEach(e => scene.remove(e));
             explosions.forEach(ex => scene.remove(ex.mesh));
@@ -678,7 +422,7 @@
 
             player.mesh.position.set(0, 0, 0);
             player.mesh.rotation.set(0, 0, 0);
-            if(currentUser) gameActive = true;
+            if (currentUser) gameActive = true;
         }
 
         function animate() {
@@ -687,7 +431,7 @@
             if (gameActive && !isGameOver) {
                 if (player.moveState.forward) player.speed = Math.min(player.speed + 0.02, player.maxSpeed);
                 else if (player.moveState.backward) player.speed = Math.max(player.speed - 0.02, -player.maxSpeed / 2);
-                else player.speed *= 0.85; 
+                else player.speed *= 0.85;
 
                 player.mesh.translateZ(player.speed);
 
@@ -704,7 +448,7 @@
 
                 for (let i = shells.length - 1; i >= 0; i--) {
                     const s = shells[i];
-                    s.mesh.position.addScaledVector(s.dir, 1.2); 
+                    s.mesh.position.addScaledVector(s.dir, 1.2);
                     s.age++;
 
                     let hitTarget = false;
@@ -734,7 +478,7 @@
 
                 enemies.forEach((enemy) => {
                     const distToPlayer = enemy.position.distanceTo(player.mesh.position);
-                    
+
                     const lookTarget = player.mesh.position.clone();
                     if (enemy.userData) {
                         enemy.userData.strafeTimer++;
@@ -750,13 +494,13 @@
                         );
                         enemy.position.add(strafeOffset);
                     }
-                    
+
                     enemy.lookAt(lookTarget);
-                    enemy.translateZ(0.08); 
+                    enemy.translateZ(0.08);
                     clampToBounds(enemy);
 
                     if (distToPlayer < 3.5) {
-                        health -= 1; 
+                        health -= 1;
                         document.getElementById('health-ui').innerText = `ARMOR INTEGRITY: ${health}%`;
                         flashDamage();
                         shakeScreen(0.4);
@@ -823,7 +567,7 @@
             camera.position.x = player.mesh.position.x - Math.sin(player.mesh.rotation.y) * 15;
             camera.position.z = player.mesh.position.z - Math.cos(player.mesh.rotation.y) * 15;
             camera.position.y = player.mesh.position.y + 7;
-            
+
             if (shakeIntensity > 0.01) {
                 camera.position.x += (Math.random() - 0.5) * shakeIntensity * 2.5;
                 camera.position.y += (Math.random() - 0.5) * shakeIntensity * 2.5;
@@ -831,7 +575,7 @@
             } else {
                 shakeIntensity = 0;
             }
-            
+
             camera.lookAt(player.mesh.position);
 
             drawMinimap();
@@ -894,7 +638,7 @@
             document.getElementById('welcome-user').innerText = user.toUpperCase();
             document.getElementById('highscore-ui').innerText = `PERSONAL BEST: 0`;
             authContainer.style.display = 'none';
-            
+
             document.getElementById('reg-username').value = '';
             document.getElementById('reg-password').value = '';
             resetGame();
@@ -919,7 +663,7 @@
             document.getElementById('welcome-user').innerText = user.toUpperCase();
             document.getElementById('highscore-ui').innerText = `PERSONAL BEST: ${users[user].highscore || 0}`;
             authContainer.style.display = 'none';
-            
+
             document.getElementById('username').value = '';
             document.getElementById('password').value = '';
             resetGame();
@@ -933,6 +677,3 @@
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
-    </script>
-</body>
-</html>

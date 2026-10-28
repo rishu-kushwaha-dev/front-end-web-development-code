@@ -1,0 +1,50 @@
+body {
+    font-family: sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0
+}
+
+.wrap {
+    text-align: center
+}
+
+.grid {
+    display: grid;
+    gap: 4px;
+    margin: 10px auto
+}
+
+.cell {
+    width: 44px;
+    height: 44px;
+    background: #1e293b;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    cursor: pointer
+}
+
+.sel {
+    outline: 2px solid #facc15
+}
+
+button {
+    margin: 5px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    background: #3b82f6;
+    color: #fff;
+    cursor: pointer
+}
+
+#msg {
+    margin-top: 8px
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Unit Converter</title>
+<link rel="stylesheet" href="Unit Converter.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Unit Converter</h1>
+      <p class="sub">Length, weight, temperature, data, speed</p>
+    </header>
+    <nav class="tabs">
+      <button data-cat="length" class="active">Length</button>
+      <button data-cat="weight">Weight</button>
+      <button data-cat="temperature">Temperature</button>
+      <button data-cat="data">Data</button>
+      <button data-cat="speed">Speed</button>
+    </nav>
+    <main>
+      <div class="row">
+        <input id="fromVal" type="number" value="1" />
+        <select id="fromUnit"></select>
+      </div>
+      <div class="equals">=</div>
+      <div class="row">
+        <input id="toVal" type="number" readonly />
+        <select id="toUnit"></select>
+      </div>
+      <button id="swap">Swap</button>
+    </main>
+  </div>
+  <script src="Unit Converter.js"></script>
+</body>
+</html>

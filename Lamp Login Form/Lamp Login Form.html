@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lamp Login Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="Lamp Login Form.css">
+</head>
+
+<body data-on="false">
+
+    <div class="ambient-glow"></div>
+    <canvas id="dustCanvas"></canvas>
+
+    <div class="quick-controls">
+        <div class="color-palette" id="colorPalette" title="Choose Lamp Color">
+            <button class="color-dot-btn active" data-color="amber" style="--dot-color: #ffab3d;"
+                aria-label="Amber Light" title="Amber (Warm)"></button>
+            <button class="color-dot-btn" data-color="cyan" style="--dot-color: #00f0ff;" aria-label="Cyan Light"
+                title="Cyan (Cyber)"></button>
+            <button class="color-dot-btn" data-color="rose" style="--dot-color: #ff3385;" aria-label="Rose Light"
+                title="Rose (Sunset)"></button>
+            <button class="color-dot-btn" data-color="mint" style="--dot-color: #00e676;" aria-label="Mint Light"
+                title="Mint (Emerald)"></button>
+            <button class="color-dot-btn" data-color="moonlight" style="--dot-color: #d8e5ff;" aria-label="Moonlight"
+                title="Moonlight (Cool White)"></button>
+        </div>
+
+        <button class="sound-toggle" id="soundToggle" title="Toggle Sound" aria-label="Toggle Sound">
+            <svg class="sound-icon sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+            <svg class="sound-icon sound-off hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+            </svg>
+        </button>
+    </div>
+
+    <main class="scene-container">
+
+        <!-- Lamp -->
+        <div class="lamp-stage">
+            <div class="lamp-wrapper">
+
+                <svg class="lamp-svg" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="metalArm" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#3e434a" />
+                            <stop offset="50%" stop-color="#7a828e" />
+                            <stop offset="100%" stop-color="#24272c" />
+                        </linearGradient>
+
+                        <linearGradient id="brassJoint" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#ffe299" />
+                            <stop offset="45%" stop-color="#c99738" />
+                            <stop offset="85%" stop-color="#805915" />
+                            <stop offset="100%" stop-color="#f5d38a" />
+                        </linearGradient>
+
+                        <linearGradient id="shadeExterior" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#343840" />
+                            <stop offset="40%" stop-color="#21252a" />
+                            <stop offset="100%" stop-color="#121417" />
+                        </linearGradient>
+
+                        <linearGradient id="shadeHighlight" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+                            <stop offset="42%" stop-color="#ffffff" stop-opacity="0.16" />
+                            <stop offset="72%" stop-color="#ffffff" stop-opacity="0.025" />
+                            <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                        </linearGradient>
+
+                        <linearGradient id="shadeRim" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#ffd584" />
+                            <stop offset="50%" stop-color="#e2ab46" />
+                            <stop offset="100%" stop-color="#996a1a" />
+                        </linearGradient>
+
+                        <radialGradient id="reflectorOff" cx="50%" cy="40%" r="70%">
+                            <stop offset="0%" stop-color="#2c3036" />
+                            <stop offset="55%" stop-color="#1a1d22" />
+                            <stop offset="100%" stop-color="#0e1012" />
+                        </radialGradient>
+
+                        <radialGradient id="reflectorOn" cx="50%" cy="40%" r="70%">
+                            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+                            <stop offset="35%" stop-color="var(--lamp-glow, #ffe194)" stop-opacity="0.85" />
+                            <stop offset="70%" stop-color="var(--lamp-accent, #ffab3d)" stop-opacity="0.6" />
+                            <stop offset="100%" stop-color="#2a2015" stop-opacity="0.85" />
+                        </radialGradient>
+
+                        <linearGradient id="volumetricBeam" x1="0%" y1="0%" x2="90%" y2="70%">
+                            <stop offset="0%" stop-color="var(--beam-start, rgba(255, 220, 130, 0.45))" />
+                            <stop offset="25%" stop-color="var(--beam-mid, rgba(255, 195, 90, 0.22))" />
+                            <stop offset="65%" stop-color="var(--beam-far, rgba(255, 175, 60, 0.08))" />
+                            <stop offset="100%" stop-color="rgba(0, 0, 0, 0)" />
+                        </linearGradient>
+
+                        <filter id="bulbGlowFilter" x="-60%" y="-60%" width="220%" height="220%">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur1" />
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur2" />
+                            <feMerge>
+                                <feMergeNode in="blur2" />
+                                <feMergeNode in="blur1" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+
+                        <filter id="beamSoftFilter" x="-10%" y="-10%" width="120%" height="120%">
+                            <feGaussianBlur stdDeviation="8" />
+                        </filter>
+                    </defs>
+
+                    <ellipse class="desk-shadow" cx="190" cy="460" rx="90" ry="16" fill="rgba(0, 0, 0, 0.55)" />
+
+                    <g class="light-beam-group">
+                        <polygon class="svg-light-beam" points="182,185 308,225 820,480 340,510"
+                            fill="url(#volumetricBeam)" filter="url(#beamSoftFilter)" />
+                    </g>
+
+                    <g class="lamp-base-group">
+                        <ellipse cx="190" cy="445" rx="72" ry="14" fill="#15171a" />
+                        <ellipse cx="190" cy="443" rx="70" ry="12" fill="url(#metalArm)" />
+                        <ellipse cx="190" cy="441" rx="66" ry="10" fill="#1c1f24" />
+                        <ellipse cx="190" cy="439" rx="60" ry="7" fill="none" stroke="#8e949f" stroke-opacity=".22"
+                            stroke-width=".8" />
+                        <circle cx="190" cy="439" r="15" fill="url(#brassJoint)" />
+                        <circle cx="190" cy="439" r="7" fill="#15171a" />
+                        <circle cx="190" cy="439" r="3.2" fill="#747b86" />
+                    </g>
+
+                    <g class="lamp-arm-lower">
+                        <line x1="186" y1="439" x2="156" y2="295" stroke="url(#metalArm)" stroke-width="4.5"
+                            stroke-linecap="round" />
+                        <line x1="194" y1="439" x2="164" y2="295" stroke="url(#metalArm)" stroke-width="4.5"
+                            stroke-linecap="round" />
+                        <path d="M 188 420 Q 175 360 163 305" stroke="#606670" stroke-width="2" stroke-dasharray="3,3"
+                            fill="none" opacity="0.6" />
+                    </g>
+
+                    <g class="lamp-elbow-joint">
+                        <circle cx="160" cy="295" r="13" fill="url(#brassJoint)" />
+                        <circle cx="160" cy="295" r="6" fill="#1c1f24" />
+                        <circle cx="160" cy="295" r="3.3" fill="#858b94" />
+                        <line x1="155" y1="295" x2="165" y2="295" stroke="url(#brassJoint)" stroke-width="2" />
+                    </g>
+
+                    <g class="lamp-arm-upper">
+                        <line x1="160" y1="295" x2="215" y2="175" stroke="url(#metalArm)" stroke-width="5"
+                            stroke-linecap="round" />
+                        <path d="M 190 439 Q 168 360 160 295 Q 190 230 215 175" stroke="#101114" stroke-width="3"
+                            fill="none" stroke-linecap="round" />
+                    </g>
+
+                    <g class="lamp-neck">
+                        <circle cx="215" cy="175" r="11" fill="url(#brassJoint)" />
+                        <rect x="209" y="162" width="16" height="15" rx="3" fill="url(#metalArm)"
+                            transform="rotate(25, 217, 169)" />
+                    </g>
+
+                    <g class="lamp-shade-assembly" id="shadeAssembly">
+                        <path class="lamp-shade-body"
+                            d="M 182.3 184.6 C 188 135, 220 112, 248 115 C 275 118, 298 155, 307.7 225.4 A 66 22 18 0 1 182.3 184.6 Z"
+                            fill="url(#shadeExterior)" stroke="#16181b" stroke-width="1.8" />
+
+                        <path class="shade-enamel-highlight"
+                            d="M 187 181 C 193 139, 221 119, 247 120 C 267 122, 286 144, 297 178 C 271 163, 224 153, 187 181 Z"
+                            fill="url(#shadeHighlight)" />
+                        <path d="M 204 148 C 216 125, 235 119, 251 122" fill="none" stroke="#aeb5c2"
+                            stroke-opacity=".17" stroke-width="1.2" stroke-linecap="round" />
+
+                        <ellipse class="shade-reflector-off" cx="245" cy="205" rx="66" ry="22"
+                            transform="rotate(18, 245, 205)" fill="url(#reflectorOff)" />
+
+                        <ellipse class="shade-reflector-on" cx="245" cy="205" rx="66" ry="22"
+                            transform="rotate(18, 245, 205)" fill="url(#reflectorOn)" />
+
+                        <ellipse class="reflector-detail" cx="245" cy="205" rx="49" ry="14"
+                            transform="rotate(18, 245, 205)" fill="none" stroke="#fff3ce" stroke-opacity=".16"
+                            stroke-width=".8" />
+
+                        <ellipse cx="245" cy="205" rx="66" ry="22" transform="rotate(18, 245, 205)" fill="none"
+                            stroke="rgba(255, 213, 132, 0.25)" stroke-width="1" />
+
+                        <path class="shade-rim-trim" d="M 182.3 184.6 A 66 22 18 0 0 307.7 225.4"
+                            stroke="url(#shadeRim)" stroke-width="4" fill="none" stroke-linecap="round" />
+
+                        <g class="bulb-unit" id="bulbUnit">
+                            <ellipse class="bulb-glass" cx="245" cy="195" rx="14" ry="17"
+                                transform="rotate(18, 245, 195)" fill="rgba(255, 255, 255, 0.08)"
+                                stroke="rgba(255, 255, 255, 0.25)" stroke-width="1" />
+                            <path d="M 239 190 Q 242 181 247 183" fill="none" stroke="#fff" stroke-opacity=".55"
+                                stroke-width="1.2" stroke-linecap="round" />
+                            <path class="bulb-filament" d="M 241 189 Q 245 183 249 189" stroke="#555" stroke-width="1.8"
+                                fill="none" />
+                            <circle class="bulb-glow-core" cx="245" cy="188" r="11" fill="var(--lamp-glow, #ffe194)"
+                                filter="url(#bulbGlowFilter)" opacity="0" />
+                        </g>
+
+                        <g class="cord-socket-grommet">
+                            <rect x="242" y="206" width="6" height="6" rx="1.5" fill="url(#brassJoint)" stroke="#68420e"
+                                stroke-width="0.8" />
+                            <circle cx="245" cy="212" r="3" fill="#ffe299" stroke="#7a5513" stroke-width="0.8" />
+                            <circle cx="245" cy="212" r="1.3" fill="#181105" />
+                        </g>
+                    </g>
+
+                    <!-- Pull String System -->
+                    <g class="pull-cord-system">
+                        <path class="elastic-cord-path" id="elasticCord" d="M 245 212 L 245 300" stroke="#e8bb54"
+                            stroke-width="2.6" stroke-linecap="round" />
+
+                        <g class="cord-bead-group" id="cordBead" cursor="grab">
+                            <circle class="bead-aura" cx="0" cy="0" r="16" fill="var(--lamp-accent)" opacity="0" />
+                            <path class="bead-shape" d="M -4 -8 L 4 -8 L 7 6 C 7 10, -7 10, -7 6 Z"
+                                fill="url(#brassJoint)" stroke="#7a5513" stroke-width="0.8" />
+                            <ellipse cx="2" cy="0" rx="2" ry="4" fill="#fff" opacity="0.5" />
+                            <circle class="cord-hit-area" id="cordHit" cx="0" cy="0" r="32" fill="transparent" />
+                        </g>
+                    </g>
+
+                </svg>
+
+                <div class="cord-tooltip" id="cordTooltip">
+                    <span>Pull string to turn on</span>
+                    <div class="tooltip-arrow"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Login Form -->
+        <div class="form-stage">
+            <div class="login-card" id="loginCard">
+
+                <div class="card-header">
+                    <h1 class="card-title">Welcome</h1>
+                    <p class="card-subtitle">Sign in to continue to your account</p>
+                </div>
+
+                <div class="auth-tabs" data-active="signin">
+                    <button class="auth-tab active" data-tab="signin" id="tabSignIn">Log In</button>
+                    <button class="auth-tab" data-tab="register" id="tabRegister">Sign Up</button>
+                    <div class="tab-slider" id="tabSlider"></div>
+                </div>
+
+                <form class="auth-form" id="authForm" autocomplete="off" onsubmit="return false;">
+
+                    <div class="form-group">
+                        <label for="userField">Username or Email</label>
+                        <div class="input-wrapper" id="userWrapper">
+                            <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <input type="text" id="userField" placeholder="Enter username or email"
+                                autocomplete="username" />
+                        </div>
+                        <span class="error-text" id="userError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label for="passField">Password</label>
+                            <button type="button" class="forgot-link" id="forgotLink">Forgot?</button>
+                        </div>
+                        <div class="input-wrapper" id="passWrapper">
+                            <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                            <input type="password" id="passField" placeholder="Enter password"
+                                autocomplete="current-password" />
+                            <button type="button" class="eye-toggle" id="eyeToggle"
+                                aria-label="Toggle password visibility">
+                                <svg class="eye-icon eye-show" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                <svg class="eye-icon eye-hide hidden" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path
+                                        d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
+                                    </path>
+                                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <span class="error-text" id="passError"></span>
+                    </div>
+
+                    <div class="options-row">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="rememberMe" checked />
+                            <span class="checkbox-box">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </span>
+                            <span class="checkbox-label">Remember me</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span class="btn-glow-layer"></span>
+                        <span class="btn-content">
+                            <span class="btn-text">Log In</span>
+                            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </span>
+                        <div class="btn-spinner hidden" id="btnSpinner"></div>
+                        <div class="btn-success-icon hidden" id="btnSuccess">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                    </button>
+
+                    <div class="auth-divider">
+                        <span class="divider-line"></span>
+                        <span class="divider-text">or continue with</span>
+                        <span class="divider-line"></span>
+                    </div>
+
+                        <div class="social-row">
+                            <button type="button" class="social-btn" title="Log in with Google"
+                                aria-label="Log in with Google">
+                            <svg viewBox="0 0 24 24">
+                                <path fill="#EA4335"
+                                    d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.9C6.2 7.5 8.9 5 12 5z" />
+                                <path fill="#4285F4"
+                                    d="M23.5 12.3c0-.8-.1-1.7-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z" />
+                                <path fill="#FBBC05"
+                                    d="M5.3 14.7c-.2-.7-.4-1.5-.4-2.7s.1-2 .4-2.7L1.6 6.4C.6 8.3 0 10.1 0 12s.6 3.7 1.6 5.6l3.7-2.9z" />
+                                <path fill="#34A853"
+                                    d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.5-6.7-5.3L1.6 16c1.9 3.8 5.8 7 10.4 7z" />
+                            </svg>
+                        </button>
+                        <button type="button" class="social-btn" title="Log in with GitHub"
+                            aria-label="Log in with GitHub">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                            </svg>
+                        </button>
+                        <button type="button" class="social-btn" title="Log in with Apple"
+                            aria-label="Log in with Apple">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.89c.63-.78 1.06-1.86.94-2.94-1 .04-2.13.67-2.77 1.45-.58.68-1.08 1.79-.94 2.84 1.12.09 2.14-.57 2.77-1.35z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                </form>
+
+                <div class="success-overlay hidden" id="successOverlay">
+                    <div class="success-box">
+                        <div class="success-ring">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <h3>Logged In Successfully</h3>
+                        <p>Welcome back! Your workspace is ready.</p>
+                        <button class="reset-demo-btn" id="resetDemoBtn">Test Again</button>
+                    </div>
+
+                    <!-- Forgot Password Modal -->
+                    <div class="modal-overlay hidden" id="forgotModal">
+                        <div class="modal-card">
+                            <button class="modal-close" id="modalClose" aria-label="Close">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                            <div class="modal-header">
+                                <h3>Reset Password</h3>
+                                <p>Enter your email address and we'll send you a reset link.</p>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="resetEmail">Email</label>
+                                    <div class="input-wrapper" id="resetWrapper">
+                                        <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2">
+                                            <path d="M4 4h16v16H4z"></path>
+                                            <polyline points="22,6 12,13 2,6"></polyline>
+                                        </svg>
+                                        <input type="email" id="resetEmail" placeholder="you@example.com" />
+                                    </div>
+                                    <span class="error-text" id="resetError"></span>
+                                </div>
+                                <button type="button" class="modal-btn" id="sendResetBtn">Send Reset Link</button>
+                                <div class="modal-success hidden" id="resetSuccess">
+                                    <div class="success-ring small">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>
+                                    </div>
+                                    <p>Reset link sent! Check your email.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3/dist/Draggable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script src="Lamp Login Form.js"></script>
+</body>
+
+</html>

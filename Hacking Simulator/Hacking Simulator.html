@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hacking Simulator</title>
+    <title>HACKING SIMULATOR</title>
     <link rel="stylesheet" href="Hacking Simulator.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,37 +13,153 @@
 
 <body>
     <div class="matrix-bg" id="matrixBg"></div>
+    <div class="scanlines"></div>
+    <div class="crt-flicker"></div>
 
-    <div class="terminal-container">
-        <div class="terminal-header">
-            <div class="terminal-buttons">
-                <span class="btn red"></span>
-                <span class="btn yellow"></span>
-                <span class="btn green"></span>
+    <div class="main-layout">
+        <div class="side-panel">
+            <div class="panel-section">
+                <div class="panel-header">[MISSION_CONTROL]</div>
+                <div class="panel-content">
+                    <div class="mission-item active" id="mission1">
+                        <div class="mission-status">[IN_PROGRESS]</div>
+                        <div class="mission-title">OPERATION: GHOSTFALL</div>
+                        <div class="mission-desc">Infiltrate Target Network</div>
+                    </div>
+                    <div class="mission-item" id="mission2">
+                        <div class="mission-status">[READY]</div>
+                        <div class="mission-title">OPERATION: DARKTRACE</div>
+                        <div class="mission-desc">Extract Classified Data</div>
+                    </div>
+                    <div class="mission-item" id="mission3">
+                        <div class="mission-status">[READY]</div>
+                        <div class="mission-title">OPERATION: BLACKOUT</div>
+                        <div class="mission-desc">Disable Security Systems</div>
+                    </div>
+                </div>
             </div>
-            <div class="terminal-title">root@ghostnet:~/exploit</div>
-            <div class="terminal-time" id="terminalTime"></div>
+
+            <div class="panel-section">
+                <div class="panel-header">[TARGET_INFO]</div>
+                <div class="panel-content">
+                    <div class="info-row"><span class="info-label">IP:</span> <span
+                            class="info-value">203.45.67.89</span></div>
+                    <div class="info-row"><span class="info-label">OS:</span> <span class="info-value">Windows Server
+                            2022</span></div>
+                    <div class="info-row"><span class="info-label">OPEN_PORTS:</span> <span
+                            class="info-value warning">80, 443, 3389, 445, 1433</span></div>
+                    <div class="info-row"><span class="info-label">FIREWALL:</span> <span
+                            class="info-value error">ACTIVE</span></div>
+                    <div class="info-row"><span class="info-label">SECURITY:</span> <span
+                            class="info-value warning">HIGH</span></div>
+                    <div class="info-row"><span class="info-label">VULNS:</span> <span
+                            class="info-value error">CRITICAL</span></div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="panel-header">[SYSTEM_STATUS]</div>
+                <div class="panel-content">
+                    <div class="info-row"><span class="info-label">CONNECTION:</span> <span
+                            class="info-value success">ENCRYPTED</span></div>
+                    <div class="info-row"><span class="info-label">PROXY:</span> <span
+                            class="info-value success">TOR_ROUTED</span></div>
+                    <div class="info-row"><span class="info-label">VPN:</span> <span
+                            class="info-value success">ACTIVE</span></div>
+                    <div class="info-row"><span class="info-label">TRACE_RISK:</span> <span
+                            class="info-value warning">LOW</span></div>
+                    <div class="info-row"><span class="info-label">ROOT_ACCESS:</span> <span
+                            class="info-value error">PENDING</span></div>
+                    <div class="info-row"><span class="info-label">SESSIONS:</span> <span class="info-value success">1
+                            ACTIVE</span></div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="panel-header">[QUICK_ACTIONS]</div>
+                <div class="panel-content quick-actions">
+                    <button class="quick-btn" onclick="runQuickCommand('nmap')">PORT_SCAN</button>
+                    <button class="quick-btn" onclick="runQuickCommand('scan')">VULN_SCAN</button>
+                    <button class="quick-btn" onclick="runQuickCommand('exploit')">EXPLOIT</button>
+                    <button class="quick-btn" onclick="runQuickCommand('brute')">BRUTE_FORCE</button>
+                    <button class="quick-btn" onclick="runQuickCommand('sqlmap')">SQLMAP</button>
+                    <button class="quick-btn" onclick="runQuickCommand('metasploit')">METASPLOIT</button>
+                    <button class="quick-btn" onclick="runQuickCommand('zerologon')">ZEROLOGON</button>
+                    <button class="quick-btn" onclick="runQuickCommand('smbexec')">SMB_EXEC</button>
+                    <button class="quick-btn" onclick="runQuickCommand('mimikatz')">MIMIKATZ</button>
+                    <button class="quick-btn" onclick="runQuickCommand('hashcrack')">CRACK_HASH</button>
+                    <button class="quick-btn" onclick="runQuickCommand('decrypt')">DECRYPT</button>
+                    <button class="quick-btn" onclick="runQuickCommand('exfiltrate')">EXFIL_DATA</button>
+                    <button class="quick-btn" onclick="runQuickCommand('backdoor')">BACKDOOR</button>
+                    <button class="quick-btn" onclick="runQuickCommand('persist')">PERSIST</button>
+                    <button class="quick-btn" onclick="runQuickCommand('clearlogs')">CLEAR_LOGS</button>
+                    <button class="quick-btn" onclick="runQuickCommand('wipe')">WIPE_TRACES</button>
+                    <button class="quick-btn" onclick="runQuickCommand('sysinfo')">SYSINFO</button>
+                    <button class="quick-btn" onclick="runQuickCommand('netstat')">NETSTAT</button>
+                    <button class="quick-btn" onclick="runQuickCommand('ifconfig')">IFCONFIG</button>
+                    <button class="quick-btn" onclick="runQuickCommand('ping 8.8.8.8')">PING</button>
+                    <button class="quick-btn" onclick="runQuickCommand('route')">ROUTE</button>
+                    <button class="quick-btn" onclick="runQuickCommand('arp')">ARP</button>
+                    <button class="quick-btn" onclick="runQuickCommand('ls')">LS</button>
+                    <button class="quick-btn" onclick="runQuickCommand('pwd')">PWD</button>
+                    <button class="quick-btn" onclick="runQuickCommand('whoami')">WHOAMI</button>
+                    <button class="quick-btn" onclick="runQuickCommand('id')">ID</button>
+                    <button class="quick-btn" onclick="runQuickCommand('mission')">MISSION</button>
+                    <button class="quick-btn" onclick="runQuickCommand('tools')">TOOLS</button>
+                    <button class="quick-btn" onclick="runQuickCommand('help')">HELP</button>
+                    <button class="quick-btn" onclick="runQuickCommand('clear')">CLEAR</button>
+                </div>
+            </div>
         </div>
 
-        <div class="terminal-body" id="terminalBody">
-            <div class="output-line">
-                <span class="prompt">root@ghostnet:~$</span> <span class="command">Welcome User! to the Hacking Simulator</span>
-            </div>
-            <div class="output-line output">root</div>
+        <div class="terminal-main">
+            <div class="terminal-container">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="btn red"></span>
+                        <span class="btn yellow"></span>
+                        <span class="btn green"></span>
+                    </div>
+                    <div class="terminal-title">root@ghostnet:~/operations/ghostfall</div>
+                    <div class="terminal-time" id="terminalTime"></div>
+                </div>
 
-            <div class="output-line">
-                <span class="prompt">root@ghostnet:~$</span> <span class="command">cat /etc/motd</span>
-            </div>
-            <div class="output-line output warning">[WARNING] UNAUTHORIZED ACCESS DETECTED</div>
-            <div class="output-line output success">[SYSTEM] GhostNet OS v2.4 - Secure Shell Interface</div>
-            <div class="output-line output">Type 'help' for available commands</div>
-            <div class="output-line"></div>
-        </div>
+                <div class="terminal-body" id="terminalBody">
+                    <div class="boot-sequence">
+                        <div class="output-line output success">[BOOT] Initializing GHOSTNET Kernel v3.7...</div>
+                        <div class="output-line output">[BOOT] Loading encryption modules... OK</div>
+                        <div class="output-line output">[BOOT] Establishing secure tunnel... OK</div>
+                        <div class="output-line output">[BOOT] Routing through TOR nodes... OK</div>
+                        <div class="output-line output warning">[BOOT] Bypassing local firewall... OK</div>
+                        <div class="output-line output success">[BOOT] System ready. Connection secured.</div>
+                        <div class="output-line"></div>
+                    </div>
+                    <div class="output-line">
+                        <span class="prompt">root@ghostnet:~/operations/ghostfall$</span> <span
+                            class="command">whoami</span>
+                    </div>
+                    <div class="output-line output">root</div>
 
-        <div class="terminal-input-line">
-            <span class="prompt">root@ghostnet:~$</span>
-            <input type="text" id="terminalInput" class="terminal-input" autocomplete="off" spellcheck="false"
-                autofocus>
+                    <div class="output-line">
+                        <span class="prompt">root@ghostnet:~/operations/ghostfall$</span> <span class="command">cat
+                            mission.txt</span>
+                    </div>
+                    <div class="output-line output info">=== OPERATION GHOSTFALL ===</div>
+                    <div class="output-line output">Target: Corporate Mainframe - SecureCorp Industries</div>
+                    <div class="output-line output">Objective: Gain root access and exfiltrate database</div>
+                    <div class="output-line output warning">Priority: HIGH | Clearance: LEVEL-5</div>
+                    <div class="output-line"></div>
+                    <div class="output-line output success">Type 'help' for available commands | Click quick actions or
+                        press any key</div>
+                    <div class="output-line"></div>
+                </div>
+
+                <div class="terminal-input-line">
+                    <span class="prompt">root@ghostnet:~/operations/ghostfall$</span>
+                    <input type="text" id="terminalInput" class="terminal-input" autocomplete="off" spellcheck="false"
+                        autofocus>
+                </div>
+            </div>
         </div>
     </div>
 

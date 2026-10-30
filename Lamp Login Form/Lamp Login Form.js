@@ -580,6 +580,14 @@ document.addEventListener("DOMContentLoaded", () => {
     userField.addEventListener("input", clearErrors);
     passField.addEventListener("input", clearErrors);
 
+    // Password visibility toggle
+    eyeToggle.addEventListener("click", () => {
+        const isPassword = passField.type === "password";
+        passField.type = isPassword ? "text" : "password";
+        eyeShow.classList.toggle("hidden", isPassword);
+        eyeHide.classList.toggle("hidden", !isPassword);
+    });
+
     // Enter key support
     [userField, passField].forEach((field) => {
         field.addEventListener("keydown", (e) => {

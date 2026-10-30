@@ -470,7 +470,6 @@ const commands = {
         await delay(800);
         return [`<span class="error">[*] You are now in meterpreter shell as NT AUTHORITY\\SYSTEM</span>`, ''];
     },
-
     mimikatz: async () => {
         await typeOutput([`<span class="info">[MIMIKATZ] Loading mimikatz...</span>`]);
         await delay(1000);

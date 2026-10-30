@@ -455,3 +455,6 @@ a.contact-item:hover {
         min-width: auto;
     }
 }
+.download-btn { position: fixed; bottom: 20px; right: 20px; padding: 12px 20px; background: #2563eb; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,.2); }
+.download-btn:hover { background: #1d4ed8; }
+@media print { .download-btn { display: none; } body { background: #fff; } }

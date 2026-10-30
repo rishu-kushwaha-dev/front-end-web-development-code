@@ -35,8 +35,13 @@ body {
 }
 
 @keyframes matrixFall {
-    from { transform: translateY(-100vh); }
-    to { transform: translateY(100vh); }
+    from {
+        transform: translateY(-100vh);
+    }
+
+    to {
+        transform: translateY(100vh);
+    }
 }
 
 .scanlines {
@@ -64,12 +69,31 @@ body {
 }
 
 @keyframes flicker {
-    0%, 100% { opacity: 0.95; }
-    92% { opacity: 0.95; }
-    93% { opacity: 0.88; }
-    94% { opacity: 0.95; }
-    96% { opacity: 0.9; }
-    97% { opacity: 0.95; }
+
+    0%,
+    100% {
+        opacity: 0.95;
+    }
+
+    92% {
+        opacity: 0.95;
+    }
+
+    93% {
+        opacity: 0.88;
+    }
+
+    94% {
+        opacity: 0.95;
+    }
+
+    96% {
+        opacity: 0.9;
+    }
+
+    97% {
+        opacity: 0.95;
+    }
 }
 
 .main-layout {
@@ -246,9 +270,17 @@ body {
     border: 1px solid #000;
 }
 
-.btn.red { background-color: #ff2222; }
-.btn.yellow { background-color: #ff9900; }
-.btn.green { background-color: #00ff22; }
+.btn.red {
+    background-color: #ff2222;
+}
+
+.btn.yellow {
+    background-color: #ff9900;
+}
+
+.btn.green {
+    background-color: #00ff22;
+}
 
 .terminal-title {
     flex: 1;
@@ -375,11 +407,16 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     animation: shimmer 0.9s infinite;
 }
 
 @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
 }

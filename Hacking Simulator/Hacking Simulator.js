@@ -2,7 +2,7 @@
 function createMatrixRain() {
     const matrixBg = document.getElementById('matrixBg');
     const chars = '01ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ';
-    
+
     for (let i = 0; i < 70; i++) {
         const char = document.createElement('div');
         char.className = 'matrix-char';

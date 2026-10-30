@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Form Elements
     const loginCard = document.getElementById("loginCard");
+    const formStage = document.querySelector(".form-stage");
+    const card = loginCard;
     const tabSignIn = document.getElementById("tabSignIn");
     const tabRegister = document.getElementById("tabRegister");
     const authTabs = document.querySelector(".auth-tabs");

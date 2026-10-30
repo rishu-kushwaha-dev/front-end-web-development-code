@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacking Simulator</title>
+    <link rel="stylesheet" href="Hacking Simulator.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="matrix-bg" id="matrixBg"></div>
+
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="btn red"></span>
+                <span class="btn yellow"></span>
+                <span class="btn green"></span>
+            </div>
+            <div class="terminal-title">root@ghostnet:~/exploit</div>
+            <div class="terminal-time" id="terminalTime"></div>
+        </div>
+
+        <div class="terminal-body" id="terminalBody">
+            <div class="output-line">
+                <span class="prompt">root@ghostnet:~$</span> <span class="command">whoami</span>
+            </div>
+            <div class="output-line output">root</div>
+
+            <div class="output-line">
+                <span class="prompt">root@ghostnet:~$</span> <span class="command">cat /etc/motd</span>
+            </div>
+            <div class="output-line output warning">[WARNING] UNAUTHORIZED ACCESS DETECTED</div>
+            <div class="output-line output success">[SYSTEM] GhostNet OS v2.4 - Secure Shell Interface</div>
+            <div class="output-line output">Type 'help' for available commands</div>
+            <div class="output-line"></div>
+        </div>
+
+        <div class="terminal-input-line">
+            <span class="prompt">root@ghostnet:~$</span>
+            <input type="text" id="terminalInput" class="terminal-input" autocomplete="off" spellcheck="false"
+                autofocus>
+        </div>
+    </div>
+
+    <script src="Hacking Simulator.js"></script>
+</body>
+
+</html>

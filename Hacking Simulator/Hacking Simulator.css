@@ -1,0 +1,264 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000;
+    font-family: 'Courier Prime', 'Consolas', monospace;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.1;
+}
+
+.matrix-char {
+    position: absolute;
+    color: #00ff41;
+    font-size: 14px;
+    animation: matrixFall linear infinite;
+}
+
+@keyframes matrixFall {
+    from {
+        transform: translateY(-100vh);
+    }
+
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+.terminal-container {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    max-width: 1000px;
+    height: 85vh;
+    margin: 2.5vh auto;
+    background-color: rgba(0, 20, 0, 0.9);
+    border: 2px solid #00ff41;
+    border-radius: 5px;
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.5), inset 0 0 20px rgba(0, 255, 65, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.terminal-header {
+    background: linear-gradient(to bottom, #003300, #001100);
+    border-bottom: 1px solid #00ff41;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #00ff41;
+    font-size: 12px;
+}
+
+.terminal-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid #000;
+}
+
+.btn.red {
+    background-color: #ff5f56;
+}
+
+.btn.yellow {
+    background-color: #ffbd2e;
+}
+
+.btn.green {
+    background-color: #27c93f;
+}
+
+.terminal-title {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00ff41;
+}
+
+.terminal-time {
+    font-size: 11px;
+    opacity: 0.8;
+}
+
+.terminal-body {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    color: #00ff41;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.terminal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.terminal-body::-webkit-scrollbar-track {
+    background: #001100;
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+    background: #00ff41;
+    border-radius: 4px;
+}
+
+.terminal-body::-webkit-scrollbar-thumb:hover {
+    background: #00cc33;
+}
+
+.output-line {
+    margin-bottom: 2px;
+    word-break: break-word;
+}
+
+.prompt {
+    color: #00ffff;
+    text-shadow: 0 0 3px #00ffff;
+}
+
+.command {
+    color: #ffffff;
+}
+
+.output {
+    color: #00ff41;
+    padding-left: 2px;
+}
+
+.success {
+    color: #00ff88;
+    text-shadow: 0 0 3px #00ff88;
+}
+
+.warning {
+    color: #ff8800;
+    text-shadow: 0 0 3px #ff8800;
+}
+
+.error {
+    color: #ff0040;
+    text-shadow: 0 0 3px #ff0040;
+}
+
+.info {
+    color: #0080ff;
+    text-shadow: 0 0 3px #0080ff;
+}
+
+.blink {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    background-color: rgba(0, 10, 0, 0.8);
+    border-top: 1px solid #00ff41;
+    gap: 8px;
+}
+
+.terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-family: 'Courier Prime', 'Consolas', monospace;
+    font-size: 14px;
+    caret-color: #00ff41;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #001100;
+    border: 1px solid #00ff41;
+    margin: 5px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00ff41, #00cc33);
+    width: 0%;
+    transition: width 0.1s ease;
+    position: relative;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.table {
+    border-collapse: collapse;
+    margin: 5px 0;
+    width: 100%;
+}
+
+.table td,
+.table th {
+    border: 1px solid #00ff41;
+    padding: 4px 8px;
+    text-align: left;
+}
+
+.table th {
+    background-color: rgba(0, 255, 65, 0.1);
+    color: #00ffff;
+}

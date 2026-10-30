@@ -2,7 +2,7 @@
 function createMatrixRain() {
     const matrixBg = document.getElementById('matrixBg');
     const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-
+    
     for (let i = 0; i < 50; i++) {
         const char = document.createElement('div');
         char.className = 'matrix-char';
@@ -27,6 +27,59 @@ updateTime();
 const terminalBody = document.getElementById('terminalBody');
 const terminalInput = document.getElementById('terminalInput');
 
+const hackWords = [
+    "ACCESS_GRANTED",
+    "BYPASSING_FIREWALL",
+    "INJECTING_PAYLOAD",
+    "CRACKING_PASSWORD",
+    "ESCALATING_PRIVILEGES",
+    "DECRYPTING_FILES",
+    "ROOT_ACCESS",
+    "ESTABLISHING_SHELL",
+    "SPOOFING_IP_ADDRESS",
+    "BRUTE_FORCING_CREDS",
+    "EXPLOITING_VULNERABILITY",
+    "OVERWRITING_PERMISSIONS",
+    "UPLOADING_BACKDOOR",
+    "DOWNLOADING_DATA",
+    "CLEARING_LOGS",
+    "MASKING_IP",
+    "HANDSHAKE_ACCEPTED",
+    "AUTH_BYPASS",
+    "BUFFER_OVERFLOW",
+    "SQL_INJECTION",
+    "REMOTE_CODE_EXECUTION",
+    "SESSION_HIJACKED",
+    "FIREWALL_DISABLED",
+    "ENCRYPTION_BROKEN"
+];
+
+let autoTypingEnabled = true;
+
+function autoTypeMeaningfulWord() {
+    if (!autoTypingEnabled) return;
+    
+    const word = hackWords[Math.floor(Math.random() * hackWords.length)];
+    const div = document.createElement('div');
+    div.className = 'output-line';
+    div.innerHTML = `<span class="prompt">[GHOSTNET]</span> <span class="success">[${word}]</span>`;
+    terminalBody.appendChild(div);
+    scrollToBottom();
+}
+
+// Listen for any key press
+document.addEventListener('keydown', (e) => {
+    // Don't trigger when typing in the actual terminal input
+    if (document.activeElement === terminalInput) {
+        return;
+    }
+    
+    // Trigger auto typing on any key press
+    if (autoTypingEnabled) {
+        autoTypeMeaningfulWord();
+    }
+});
+
 const commands = {
     help: () => {
         return [
@@ -42,6 +95,7 @@ const commands = {
             '<span class="info">  trace</span>     - Trace route to target',
             '<span class="info">  decrypt</span>   - Decrypt encrypted files',
             '<span class="info">  hack</span>      - Initiate hacking sequence',
+            '<span class="info">  autotyper</span> - Toggle auto-typing on keypress',
             '<span class="info">  clear</span>     - Clear terminal',
             '<span class="info">  date</span>      - Display current date/time',
             '<span class="info">  sysinfo</span>   - System information',
@@ -49,11 +103,11 @@ const commands = {
             ''
         ];
     },
-
+    
     whoami: () => ['<span class="output">root</span>'],
-
+    
     pwd: () => ['<span class="output">/root</span>'],
-
+    
     ls: () => [
         '<span class="output">drwxr-xr-x  5 root root 4096 Oct 30 12:34 exploits/</span>',
         '<span class="output">drwxr-xr-x  3 root root 4096 Oct 30 12:33 tools/</span>',
@@ -61,9 +115,9 @@ const commands = {
         '<span class="output">-rw-r--r--  1 root root 1024 Oct 30 12:36 payload.bin</span>',
         '<span class="output">-rwxr-xr-x  1 root root 4096 Oct 30 12:37 backdoor.sh</span>'
     ],
-
+    
     date: () => [`<span class="output">${new Date().toString()}</span>`],
-
+    
     sysinfo: () => [
         '<span class="success">System Information:</span>',
         '<span class="output">OS: GhostNet OS v2.4 (Hardened)</span>',
@@ -74,7 +128,7 @@ const commands = {
         '<span class="output">Firewall: DISABLED</span>',
         '<span class="output">Status: <span class="warning">COMPROMISED</span></span>'
     ],
-
+    
     nmap: () => {
         const lines = [
             '<span class="info">Starting Nmap 7.94 ( https://nmap.org )</span>',
@@ -91,7 +145,16 @@ const commands = {
         ];
         return lines;
     },
-
+    
+    autotyper: () => {
+        autoTypingEnabled = !autoTypingEnabled;
+        if (autoTypingEnabled) {
+            return ['<span class="success">[AUTO-TYPER] Enabled - Press any key to generate meaningful words</span>'];
+        } else {
+            return ['<span class="warning">[AUTO-TYPER] Disabled</span>'];
+        }
+    },
+    
     scan: async () => {
         const lines = [
             '<span class="info">[SCAN] Initializing network scan...</span>',
@@ -107,18 +170,18 @@ const commands = {
         await delay(600);
         return ['<span class="success">[SCAN] Scan complete. 3 vulnerable targets found.</span>'];
     },
-
+    
     trace: async () => {
         await typeOutput(['<span class="info">traceroute to target-network.net (203.45.67.89)</span>']);
         await delay(500);
         for (let i = 1; i <= 12; i++) {
             await delay(300);
-            const ip = `10.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
-            await typeOutput([`<span class="output"> ${i}  ${ip}  ${Math.floor(Math.random() * 50 + 10)}ms</span>`]);
+            const ip = `10.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
+            await typeOutput([`<span class="output"> ${i}  ${ip}  ${Math.floor(Math.random()*50 + 10)}ms</span>`]);
         }
         return ['<span class="success">[TRACE] Route established. Path encrypted.</span>'];
     },
-
+    
     hack: async () => {
         await typeOutput(['<span class="warning">[INIT] Starting penetration sequence...</span>']);
         await delay(800);
@@ -134,7 +197,7 @@ const commands = {
         await delay(800);
         return ['<span class="error">[ACCESS] ROOT ACCESS GRANTED - YOU ARE IN</span>'];
     },
-
+    
     exploit: async () => {
         await typeOutput(['<span class="info">[LOAD] Loading exploit modules...</span>']);
         await delay(600);
@@ -154,39 +217,39 @@ const commands = {
         await delay(1200);
         return ['<span class="success">[SHELL] Meterpreter session opened: session #1</span>'];
     },
-
+    
     decrypt: async () => {
         await typeOutput(['<span class="info">[DECRYPT] Scanning for encrypted files...</span>']);
         await delay(800);
         await typeOutput(['<span class="output">Found: encrypted_data.enc</span>']);
         await delay(1000);
         await typeOutput(['<span class="warning">[CRACK] Brute forcing encryption key...</span>']);
-
+        
         // Fake progress bar
         const progressLine = document.createElement('div');
         progressLine.className = 'output-line';
         progressLine.innerHTML = '<div class="progress-bar"><div class="progress-fill" id="prog"></div></div>';
         terminalBody.appendChild(progressLine);
         scrollToBottom();
-
+        
         const prog = document.getElementById('prog');
         for (let i = 0; i <= 100; i += 2) {
             prog.style.width = i + '%';
             await delay(30);
         }
         progressLine.remove();
-
+        
         await delay(500);
         await typeOutput(['<span class="success">[KEY] Key found: AES-256-9f3a8b2c</span>']);
         await delay(600);
         return ['<span class="success">[DECRYPT] File decrypted: encrypted_data.txt</span>'];
     },
-
+    
     clear: () => {
         terminalBody.innerHTML = '';
         return [];
     },
-
+    
     matrix: () => {
         const bg = document.getElementById('matrixBg');
         if (bg.style.opacity === '0') {
@@ -222,16 +285,16 @@ terminalInput.addEventListener('keydown', async (e) => {
     if (e.key === 'Enter') {
         const input = terminalInput.value.trim();
         terminalInput.value = '';
-
+        
         if (input === '') {
             addCommandLine('');
             return;
         }
-
+        
         addCommandLine(input);
-
+        
         const cmd = input.toLowerCase().split(' ')[0];
-
+        
         if (commands[cmd]) {
             const result = commands[cmd]();
             if (Array.isArray(result)) {
@@ -243,10 +306,40 @@ terminalInput.addEventListener('keydown', async (e) => {
             await typeOutput([`<span class="error">bash: ${cmd}: command not found</span>`]);
             await typeOutput([`<span class="output">Type 'help' for available commands</span>`]);
         }
-
+        
         scrollToBottom();
     }
 });
+
+function addCommandLine(cmd) {
+    const div = document.createElement('div');
+    div.className = 'output-line';
+    div.innerHTML = `<span class="prompt">root@ghostnet:~$</span> <span class="command">${escapeHtml(cmd)}</span>`;
+    terminalBody.appendChild(div);
+    scrollToBottom();
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    createMatrixRain();
+    terminalInput.focus();
+    // Show initial message about auto-typer
+    setTimeout(() => {
+        typeOutput(['<span class="info">[SYSTEM] Auto-Typer ACTIVE - Press any key outside terminal to generate words</span>']);
+    }, 1000);
+});
+
+// Keep input focused
+document.addEventListener('click', () => {
+    terminalInput.focus();
+});
+
 
 function addCommandLine(cmd) {
     const div = document.createElement('div');

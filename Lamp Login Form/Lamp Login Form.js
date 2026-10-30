@@ -47,6 +47,45 @@ document.addEventListener("DOMContentLoaded", () => {
     const sendResetBtn = document.getElementById("sendResetBtn");
     const resetSuccess = document.getElementById("resetSuccess");
 
+    // Mail Login Modal
+    const mailBtn = document.getElementById("mailBtn");
+    const mailLoginModal = document.getElementById("mailLoginModal");
+    const mailModalClose = document.getElementById("mailModalClose");
+    const mailEmail = document.getElementById("mailEmail");
+    const mailPass = document.getElementById("mailPass");
+    const mailEmailWrapper = document.getElementById("mailEmailWrapper");
+    const mailPassWrapper = document.getElementById("mailPassWrapper");
+    const mailEmailError = document.getElementById("mailEmailError");
+    const mailPassError = document.getElementById("mailPassError");
+    const mailLoginBtn = document.getElementById("mailLoginBtn");
+    const mailMsg = document.getElementById("mailMsg");
+
+    // Google Login Modal
+    const googleBtn = document.getElementById("googleBtn");
+    const googleLoginModal = document.getElementById("googleLoginModal");
+    const googleModalClose = document.getElementById("googleModalClose");
+    const googleEmail = document.getElementById("googleEmail");
+    const googlePass = document.getElementById("googlePass");
+    const googleEmailWrapper = document.getElementById("googleEmailWrapper");
+    const googlePassWrapper = document.getElementById("googlePassWrapper");
+    const googleEmailError = document.getElementById("googleEmailError");
+    const googlePassError = document.getElementById("googlePassError");
+    const googleLoginBtn = document.getElementById("googleLoginBtn");
+    const googleMsg = document.getElementById("googleMsg");
+
+    // GitHub Login Modal
+    const githubBtn = document.getElementById("githubBtn");
+    const githubLoginModal = document.getElementById("githubLoginModal");
+    const githubModalClose = document.getElementById("githubModalClose");
+    const githubEmail = document.getElementById("githubEmail");
+    const githubPass = document.getElementById("githubPass");
+    const githubEmailWrapper = document.getElementById("githubEmailWrapper");
+    const githubPassWrapper = document.getElementById("githubPassWrapper");
+    const githubEmailError = document.getElementById("githubEmailError");
+    const githubPassError = document.getElementById("githubPassError");
+    const githubLoginBtn = document.getElementById("githubLoginBtn");
+    const githubMsg = document.getElementById("githubMsg");
+
     // State
     let isOn = false;
     let isSoundEnabled = true;
@@ -664,6 +703,159 @@ document.addEventListener("DOMContentLoaded", () => {
         const rememberMe = document.getElementById("rememberMe");
         if (rememberMe) rememberMe.checked = true;
     }
+
+    // Mail Login Handlers
+    function clearMailErrors() {
+        mailEmailWrapper.classList.remove("error");
+        mailPassWrapper.classList.remove("error");
+        mailEmailError.textContent = "";
+        mailPassError.textContent = "";
+        mailMsg.style.display = "none";
+        mailMsg.textContent = "";
+    }
+
+    mailBtn.addEventListener("click", () => {
+        clearMailErrors();
+        mailEmail.value = "";
+        mailPass.value = "";
+        mailLoginModal.classList.remove("hidden");
+        setTimeout(() => mailEmail.focus(), 200);
+    });
+
+    mailModalClose.addEventListener("click", () => {
+        mailLoginModal.classList.add("hidden");
+    });
+
+    mailLoginModal.addEventListener("click", (e) => {
+        if (e.target === mailLoginModal) {
+            mailLoginModal.classList.add("hidden");
+        }
+    });
+
+    mailLoginBtn.addEventListener("click", () => {
+        clearMailErrors();
+        let valid = true;
+        const emailVal = mailEmail.value.trim();
+        const passVal = mailPass.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (emailVal === "" || !emailRegex.test(emailVal)) {
+            mailEmailWrapper.classList.add("error");
+            mailEmailError.textContent = "Enter a valid email address";
+            valid = false;
+        }
+
+        if (passVal === "") {
+            mailPassWrapper.classList.add("error");
+            mailPassError.textContent = "Password is required";
+            valid = false;
+        }
+
+        if (!valid) return;
+
+        mailMsg.style.display = "block";
+        mailMsg.textContent = "Logging in...";
+        mailLoginBtn.style.pointerEvents = "none";
+
+        setTimeout(() => {
+            mailLoginModal.classList.add("hidden");
+            mailMsg.style.display = "none";
+            mailLoginBtn.style.pointerEvents = "auto";
+            // Redirect back to the website after login
+            window.location.href = window.location.origin + window.location.pathname;
+        }, 900);
+    });
+
+    // Social login helper
+    function openSocialModal(btn, modal, input) {
+        btn.addEventListener("click", () => {
+            modal.classList.remove("hidden");
+            setTimeout(() => input.focus(), 200);
+        });
+    }
+
+    function closeSocialModal(closeBtn, modal) {
+        closeBtn.addEventListener("click", () => {
+            modal.classList.add("hidden");
+        });
+    }
+
+    function modalClickOutside(modal) {
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.classList.add("hidden");
+            }
+        });
+    }
+
+    function clearSocialErrors(eWrapper, pWrapper, eError, pError, msg) {
+        eWrapper.classList.remove("error");
+        pWrapper.classList.remove("error");
+        eError.textContent = "";
+        pError.textContent = "";
+        msg.style.display = "none";
+        msg.textContent = "";
+    }
+
+    function handleSocialLogin(emailId, passId, eWrapperId, pWrapperId, eErrorId, pErrorId, btnId, msgId, modalId) {
+        const emailField = document.getElementById(emailId);
+        const passField = document.getElementById(passId);
+        const eWrapper = document.getElementById(eWrapperId);
+        const pWrapper = document.getElementById(pWrapperId);
+        const eError = document.getElementById(eErrorId);
+        const pError = document.getElementById(pErrorId);
+        const btn = document.getElementById(btnId);
+        const msg = document.getElementById(msgId);
+        const modal = document.getElementById(modalId);
+
+        btn.addEventListener("click", () => {
+            clearSocialErrors(eWrapper, pWrapper, eError, pError, msg);
+            let valid = true;
+            const emailVal = emailField.value.trim();
+            const passVal = passField.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (emailVal === "" || !emailRegex.test(emailVal)) {
+                eWrapper.classList.add("error");
+                eError.textContent = "Enter a valid email address";
+                valid = false;
+            }
+
+            if (passVal === "") {
+                pWrapper.classList.add("error");
+                pError.textContent = "Password is required";
+                valid = false;
+            }
+
+            if (!valid) return;
+
+            msg.style.display = "block";
+            msg.textContent = "Logging in...";
+            btn.style.pointerEvents = "none";
+
+            setTimeout(() => {
+                modal.classList.add("hidden");
+                msg.style.display = "none";
+                btn.style.pointerEvents = "auto";
+                // Redirect back to the website after login
+                window.location.href = window.location.origin + window.location.pathname;
+            }, 900);
+        });
+    }
+
+    // Google
+    openSocialModal(googleBtn, googleLoginModal, googleEmail);
+    closeSocialModal(googleModalClose, googleLoginModal);
+    modalClickOutside(googleLoginModal);
+    handleSocialLogin("googleEmail", "googlePass", "googleEmailWrapper", "googlePassWrapper",
+        "googleEmailError", "googlePassError", "googleLoginBtn", "googleMsg", "googleLoginModal");
+
+    // GitHub
+    openSocialModal(githubBtn, githubLoginModal, githubEmail);
+    closeSocialModal(githubModalClose, githubLoginModal);
+    modalClickOutside(githubLoginModal);
+    handleSocialLogin("githubEmail", "githubPass", "githubEmailWrapper", "githubPassWrapper",
+        "githubEmailError", "githubPassError", "githubLoginBtn", "githubMsg", "githubLoginModal");
 
     formStage.addEventListener("mousemove", (e) => {
         if (!isOn) return;

@@ -12,6 +12,7 @@ Here is a list of the projects inside this repository:
 * **Colour Palette Generator:**
 * **Digital Clock / World Clock Dashboard:**
 * **Games:**
+* **Hacking Simulator:**
 * **Independence Day:**
 * **Online Gift Store (Gift Bloom):**
 * **OTP Verification:**

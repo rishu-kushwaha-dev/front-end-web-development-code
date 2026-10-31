@@ -4,15 +4,18 @@ class TodoApp {
         this.currentFilter = 'all';
 
         this.taskInput = document.getElementById('taskInput');
+        this.prioritySelect = document.getElementById('prioritySelect');
         this.addBtn = document.getElementById('addBtn');
         this.taskList = document.getElementById('taskList');
         this.itemsLeft = document.getElementById('items-left');
         this.itemsCompleted = document.getElementById('items-completed');
         this.clearCompleted = document.getElementById('clearCompleted');
         this.filterBtns = document.querySelectorAll('.filter-btn');
+        this.dateEl = document.getElementById('date');
 
         this.createBubbles();
         this.init();
+        this.startClock();
     }
 
     createBubbles() {
@@ -37,6 +40,20 @@ class TodoApp {
 
             document.body.appendChild(bubble);
         }
+    }
+
+    startClock() {
+        const update = () => {
+            const now = new Date();
+            this.dateEl.textContent = now.toLocaleDateString(undefined, {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        };
+        update();
+        setInterval(update, 60000);
     }
 
     init() {
@@ -68,7 +85,8 @@ class TodoApp {
         const task = {
             id: Date.now().toString(),
             text: text,
-            completed: false
+            completed: false,
+            priority: this.prioritySelect.value
         };
 
         this.tasks.unshift(task);
@@ -82,19 +100,20 @@ class TodoApp {
         if (task) {
             task.completed = !task.completed;
             this.saveAndRender();
+            if (this.tasks.every(t => t.completed) && this.tasks.length > 0) {
+                this.startConfetti();
+            }
         }
     }
 
     deleteTask(id) {
         const taskEl = document.querySelector(`.task-item[data-id="${id}"]`);
         if (taskEl) {
-            taskEl.style.transition = 'all 0.2s ease';
-            taskEl.style.opacity = '0';
-            taskEl.style.transform = 'translateX(100px)';
+            taskEl.classList.add('exit');
             setTimeout(() => {
                 this.tasks = this.tasks.filter(t => t.id !== id);
                 this.saveAndRender();
-            }, 200);
+            }, 300);
         }
     }
 
@@ -137,16 +156,18 @@ class TodoApp {
         if (filteredTasks.length === 0) {
             const emptyDiv = document.createElement('div');
             emptyDiv.className = 'empty-state';
-            emptyDiv.textContent = 'No tasks here. Add one above!';
+            emptyDiv.innerHTML = '<span>🎯</span><div>No tasks here. Add one above!</div>';
             this.taskList.appendChild(emptyDiv);
         } else {
             filteredTasks.forEach((task, index) => {
                 const li = document.createElement('li');
                 li.className = 'task-item' + (task.completed ? ' completed' : '');
                 li.dataset.id = task.id;
+                li.style.animationDelay = `${index * 0.06}s`;
 
                 li.innerHTML = `
                     <div class="task-checkbox ${task.completed ? 'checked' : ''}" onclick="todoApp.toggleTask('${task.id}')"></div>
+                    <div class="priority-dot ${task.priority}" title="${task.priority} priority"></div>
                     <span class="task-text">${task.text}</span>
                     <button class="delete-btn" onclick="todoApp.deleteTask('${task.id}')">&times;</button>
                 `;
@@ -161,6 +182,49 @@ class TodoApp {
     saveAndRender() {
         localStorage.setItem('tasks', JSON.stringify(this.tasks));
         this.render();
+    }
+
+    startConfetti() {
+        const canvas = document.getElementById('confetti');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff', '#43e97b', '#38f9d7'];
+        const particles = [];
+        for (let i = 0; i < 160; i++) {
+            particles.push({
+                x: canvas.width / 2,
+                y: canvas.height / 2,
+                vx: (Math.random() - 0.5) * 24,
+                vy: (Math.random() - 0.5) * 24 - 6,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                size: Math.random() * 7 + 4,
+                life: 110
+            });
+        }
+        const animate = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let active = false;
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.6;
+                p.life--;
+                if (p.life > 0) {
+                    active = true;
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+            if (active) {
+                requestAnimationFrame(animate);
+            } else {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        };
+        animate();
     }
 }
 

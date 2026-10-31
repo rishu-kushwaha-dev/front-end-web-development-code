@@ -5,14 +5,24 @@
 }
 
 body {
-    font-family: 'Segoe UI', 'Arial', sans-serif;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: overflow-hidden;
+    overflow: hidden;
     padding: 20px;
+}
+
+#confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 50;
 }
 
 .bubble {
@@ -43,89 +53,129 @@ body {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
     overflow: hidden;
 }
 
 .header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff;
-    padding: 35px 30px 25px;
+    padding: 40px 30px 28px;
     text-align: center;
 }
 
-.header h1 {
-    font-size: 36px;
-    font-weight: 700;
+.date {
+    font-size: 13px;
+    opacity: 0.9;
     letter-spacing: 1px;
-    margin-bottom: 12px;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.header h1 {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(to right, #fff, #e0e7ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .header h1::before {
-    content: '💻';
-    margin-right: 8px;
+    content: '📋';
+    margin-right: 10px;
+}
+
+.tagline {
+    font-size: 15px;
+    opacity: 0.85;
+    margin-bottom: 18px;
+    font-weight: 400;
 }
 
 .stats {
     display: flex;
     justify-content: center;
     gap: 24px;
-    font-size: 14px;
-    opacity: 0.92;
-    font-weight: 400;
+    font-size: 13px;
+    opacity: 0.9;
+    font-weight: 500;
 }
 
 .stats span {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-}
-
-.items-left::before {
-    content: '🔔';
-}
-
-.items-completed::before {
-    content: '✅';
+    gap: 6px;
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
 }
 
 .input-section {
     display: flex;
-    padding: 24px 30px;
-    background: rgba(0, 0, 0, 0.06);
+    gap: 10px;
+    padding: 22px 30px;
+    background: rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .input-section input {
     flex: 1;
-    padding: 14px 20px;
+    padding: 14px 18px;
     font-size: 15px;
-    background: rgba(255, 255, 255, 0.15);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
     outline: none;
     color: #fff;
     transition: all 0.3s ease;
 }
 
 .input-section input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.65);
 }
 
 .input-section input:focus {
     border-color: #667eea;
-    background: rgba(255, 255, 255, 0.22);
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+}
+
+.input-section select {
+    padding: 14px 14px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 70px;
+}
+
+.input-section select:focus {
+    border-color: #667eea;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+}
+
+.input-section select option {
+    background: #1e1b4b;
+    color: #fff;
 }
 
 .add-btn {
-    margin-left: 14px;
     background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
     color: #1a1a2e;
     border: none;
-    border-radius: 12px;
-    padding: 14px 28px;
+    border-radius: 14px;
+    padding: 14px 26px;
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
@@ -151,7 +201,7 @@ body {
 
 .task-list {
     list-style: none;
-    max-height: 480px;
+    max-height: 460px;
     overflow-y: auto;
 }
 
@@ -174,29 +224,9 @@ body {
     padding: 16px 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     transition: all 0.3s ease;
-    animation: slideIn 0.3s ease forwards;
+    animation: slideIn 0.4s ease forwards;
     opacity: 0;
-    transform: translateY(10px);
-}
-
-.task-item:nth-child(1) {
-    animation-delay: 0.05s;
-}
-
-.task-item:nth-child(2) {
-    animation-delay: 0.1s;
-}
-
-.task-item:nth-child(3) {
-    animation-delay: 0.15s;
-}
-
-.task-item:nth-child(4) {
-    animation-delay: 0.2s;
-}
-
-.task-item:nth-child(5) {
-    animation-delay: 0.25s;
+    transform: translateY(12px);
 }
 
 @keyframes slideIn {
@@ -211,12 +241,23 @@ body {
     transform: translateX(4px);
 }
 
+.task-item.exit {
+    animation: slideOut 0.3s ease forwards;
+}
+
+@keyframes slideOut {
+    to {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+}
+
 .task-checkbox {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 6px;
-    margin-right: 16px;
+    border-radius: 8px;
+    margin-right: 14px;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -224,18 +265,19 @@ body {
     transition: all 0.3s ease;
     flex-shrink: 0;
     position: relative;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .task-checkbox.checked {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-color: #667eea;
     color: #fff;
-    box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+    box-shadow: 0 0 12px rgba(102, 126, 234, 0.6);
 }
 
 .task-checkbox.checked::after {
     content: '✓';
-    font-size: 14px;
+    font-size: 15px;
     font-weight: bold;
     animation: pop 0.3s ease;
 }
@@ -246,12 +288,32 @@ body {
     }
 
     70% {
-        transform: scale(1.2);
+        transform: scale(1.3);
     }
 
     100% {
         transform: scale(1);
     }
+}
+
+.priority-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px currentColor;
+}
+
+.priority-dot.low {
+    color: #4ade80;
+}
+
+.priority-dot.medium {
+    color: #facc15;
+}
+
+.priority-dot.high {
+    color: #fb7185;
 }
 
 .task-text {
@@ -264,21 +326,21 @@ body {
 
 .task-item.completed .task-text {
     text-decoration: line-through;
-    opacity: 0.6;
+    opacity: 0.55;
     color: rgba(255, 255, 255, 0.5);
 }
 
 .delete-btn {
-    margin-left: 16px;
-    background: rgba(255, 107, 107, 0.2);
+    margin-left: 14px;
+    background: rgba(255, 107, 107, 0.15);
     border: none;
     color: #ff6b6b;
     font-size: 18px;
-    width: 24px;
-    height: 24px;
-    border-radius: 6px;
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -293,18 +355,18 @@ body {
 }
 
 .delete-btn:hover {
-    background: rgba(255, 107, 107, 0.4);
-    transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(255, 107, 107, 0.4);
+    background: rgba(255, 107, 107, 0.35);
+    transform: scale(1.15) rotate(15deg);
+    box-shadow: 0 0 12px rgba(255, 107, 107, 0.5);
 }
 
 .footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 18px 30px 22px;
-    background: rgba(0, 0, 0, 0.06);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 20px 30px 26px;
+    background: rgba(0, 0, 0, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .filters {
@@ -315,7 +377,7 @@ body {
 .filter-btn {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 8px 18px;
     font-size: 13px;
     color: rgba(255, 255, 255, 0.8);
@@ -339,48 +401,64 @@ body {
 .clear-btn {
     background: transparent;
     border: 1px solid rgba(255, 107, 107, 0.3);
-    border-radius: 10px;
+    border-radius: 12px;
     color: rgba(255, 107, 107, 0.8);
     font-size: 13px;
     padding: 8px 16px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
     backdrop-filter: blur(5px);
+    font-weight: 600;
 }
 
 .clear-btn:hover {
     background: rgba(255, 107, 107, 0.15);
     color: #ff6b6b;
     border-color: rgba(255, 107, 107, 0.5);
+    transform: translateY(-1px);
 }
 
 .clear-btn:disabled {
-    opacity: 0.3;
+    opacity: 0.35;
     cursor: not-allowed;
 }
 
 .empty-state {
     text-align: center;
-    padding: 50px 20px;
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 18px;
+    padding: 60px 24px;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 17px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .empty-state::before {
-    content: '📅';
-    font-size: 48px;
+    content: '🎯';
+    font-size: 64px;
     display: block;
-    margin-bottom: 16px;
-    opacity: 0.5;
+    margin-bottom: 18px;
+    opacity: 0.55;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 @media (max-width: 520px) {
     .header h1 {
-        font-size: 28px;
+        font-size: 30px;
     }
 
     .input-section {
-        padding: 20px;
+        padding: 18px 20px;
     }
 
     .add-btn {
@@ -393,11 +471,19 @@ body {
     }
 
     .footer {
-        padding: 16px 20px 20px;
+        padding: 18px 20px 22px;
+        flex-direction: column;
+        gap: 14px;
+        align-items: stretch;
+    }
+
+    .clear-btn {
+        width: 100%;
+        text-align: center;
     }
 
     .stats {
-        gap: 16px;
-        font-size: 13px;
+        gap: 14px;
+        font-size: 12px;
     }
 }

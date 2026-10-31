@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Audio Tone & Frequency Engine</title>
+    <link rel="stylesheet" href="Disturbance Creator.css">
+</head>
+
+<body>
+    <div class="engine">
+        <header>
+            <h1>Tone & Frequency Engine</h1>
+            <div class="status-indicator" id="status">Inactive</div>
+        </header>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>Frequency (Hz)
+                    <span class="value" id="freqValue">440</span>
+                </label>
+                <input type="range" id="frequency" min="20" max="20000" step="1" value="440">
+                <input type="number" id="frequencyNum" min="20" max="20000" step="1" value="440">
+            </div>
+
+            <div class="control-group">
+                <label>Volume
+                    <span class="value" id="volValue">0.5</span>
+                </label>
+                <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
+            </div>
+
+            <div class="control-group">
+                <label>Waveform</label>
+                <select id="waveform">
+                    <option value="sine">Sine</option>
+                    <option value="square">Square</option>
+                    <option value="sawtooth">Sawtooth</option>
+                    <option value="triangle">Triangle</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Preset</label>
+                <select id="preset">
+                    <option value="none">None</option>
+                    <option value="A4">A4 (440 Hz)</option>
+                    <option value="C4">C4 (261.63 Hz)</option>
+                    <option value="E4">E4 (329.63 Hz)</option>
+                    <option value="G4">G4 (392.00 Hz)</option>
+                    <option value="A5">A5 (880 Hz)</option>
+                    <option value="C5">C5 (523.25 Hz)</option>
+                    <option value="low">Low Drone (60 Hz)</option>
+                    <option value="high">High Whistle (10000 Hz)</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Hypno Speed
+                    <span class="value" id="hypnoSpeedValue">3s</span>
+                </label>
+                <input type="range" id="hypnoSpeed" min="0.1" max="10" step="0.1" value="3">
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="playBtn" class="btn primary">Play Tone</button>
+            <button id="stopBtn" class="btn danger" disabled>Stop</button>
+        </div>
+
+        <div class="visualizer">
+            <canvas id="analyserCanvas"></canvas>
+        </div>
+
+        <div class="info">
+            <p><strong>Frequency:</strong> <span id="infoFreq">440</span> Hz</p>
+            <p><strong>Note:</strong> <span id="infoNote">A4</span></p>
+            <p><strong>Period:</strong> <span id="infoPeriod">2.27</span> ms</p>
+            <p><strong>Wavelength (air):</strong> <span id="infoWavelength">0.78</span> m</p>
+        </div>
+
+        <div class="keyboard">
+            <div class="keyboard-label">Quick Notes</div>
+            <div class="keys" id="keys"></div>
+        </div>
+
+        <div class="hypno-container">
+            <div class="hypno-disk"></div>
+            <div class="hypno-core"></div>
+        </div>
+    </div>
+
+    <script src="Disturbance Creator.js"></script>
+</body>
+
+</html>

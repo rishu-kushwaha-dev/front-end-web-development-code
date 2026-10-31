@@ -1,0 +1,327 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --accent: #38bdf8;
+    --accent-hover: #7dd3fc;
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --danger: #ef4444;
+    --danger-hover: #f87171;
+    --primary: #22d3ee;
+    --primary-hover: #67e8f9;
+}
+
+html,
+body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+}
+
+.engine {
+    max-width: 720px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #334155;
+}
+
+h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(to right, var(--accent), #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.status-indicator {
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #334155;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-indicator.active {
+    background: #064e3b;
+    color: #6ee7b7;
+}
+
+.controls {
+    background: var(--card);
+    padding: 28px;
+    border-radius: 16px;
+    border: 1px solid #334155;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.control-group label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.control-group .value {
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+}
+
+input[type="range"] {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #334155;
+    outline: none;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 8px 12px;
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 0.95rem;
+    outline: none;
+}
+
+input[type="number"]:focus {
+    border-color: var(--accent);
+}
+
+select {
+    width: 100%;
+    padding: 10px 12px;
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 0.95rem;
+    outline: none;
+    cursor: pointer;
+}
+
+select:focus {
+    border-color: var(--accent);
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.btn {
+    flex: 1;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0f172a;
+    cursor: pointer;
+    transition: transform 0.1s, filter 0.2s;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn.primary {
+    background: var(--primary);
+}
+
+.btn.primary:hover:not(:disabled) {
+    background: var(--primary-hover);
+}
+
+.btn.danger {
+    background: var(--danger);
+}
+
+.btn.danger:hover:not(:disabled) {
+    background: var(--danger-hover);
+}
+
+.visualizer {
+    background: var(--card);
+    border: 1px solid #334155;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.visualizer canvas {
+    width: 100%;
+    height: 120px;
+    display: block;
+    background: #0f172a;
+    border-radius: 8px;
+}
+
+.info {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid #334155;
+    margin-bottom: 24px;
+}
+
+.info p {
+    font-size: 0.95rem;
+    color: var(--muted);
+}
+
+.info p strong {
+    color: var(--text);
+}
+
+.info p span {
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+}
+
+.keyboard {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid #334155;
+}
+
+.keyboard-label {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.keys {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.key {
+    padding: 10px 16px;
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.key:hover {
+    border-color: var(--accent);
+    background: #1e293b;
+}
+
+.key.active {
+    background: var(--accent);
+    color: #0f172a;
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.3);
+}
+
+@media (max-width: 480px) {
+    .engine {
+        margin: 20px 16px;
+    }
+
+    .controls {
+        grid-template-columns: 1fr;
+    }
+}
+
+.hypno-container {
+    width: 100%;
+    max-width: 320px;
+    height: 320px;
+    margin: 40px auto 0;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 80px rgba(56, 189, 248, 0.25);
+}
+
+.hypno-disk {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: conic-gradient(#0f172a 0deg 45deg,
+            #38bdf8 45deg 90deg,
+            #0f172a 90deg 135deg,
+            #818cf8 135deg 180deg,
+            #0f172a 180deg 225deg,
+            #38bdf8 225deg 270deg,
+            #0f172a 270deg 315deg,
+            #818cf8 315deg 360deg);
+    animation: hypnoSpin var(--hypno-speed, 3s) linear infinite;
+}
+
+.hypno-core {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #38bdf8;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 25px #38bdf8, 0 0 50px #818cf8;
+    z-index: 10;
+    border: 3px solid #0f172a;
+}
+
+@keyframes hypnoSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.hypno-container:hover .hypno-disk {
+    animation-play-state: paused;
+}

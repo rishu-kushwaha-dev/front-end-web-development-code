@@ -67,10 +67,7 @@
         </div>
       </div>
       <div class="hero-img">
-        <img
-          src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500"
-          alt="Tiffin"
-        />
+        <img src="pic 1.jfif" alt="Tiffin" />
       </div>
     </section>
 
@@ -178,6 +175,11 @@
           <option>Special Veg</option>
           <option>Jain Special</option>
         </select>
+        <div class="thali-btn-wrap">
+          <button type="button" class="thali-btn" id="thaliBtn">
+            <i class="fas fa-sliders-h"></i> Customizable Thali
+          </button>
+        </div>
         <div class="customization">
           <p class="custom-title">Tiffin Customization</p>
           <label><input type="checkbox" id="extraRoti" /> Extra Roti</label>
@@ -212,6 +214,52 @@
           <div class="status-step">
             <i class="fas fa-motorcycle"></i><span>Out for Delivery</span>
           </div>
+        </div>
+      </div>
+      <div id="thaliModal" class="thali-modal">
+        <div class="thali-modal-content">
+          <span class="thali-close" id="thaliClose">&times;</span>
+          <h2>Customize Your Thali</h2>
+          <p class="thali-sub">Pick the items you want in your thali</p>
+          <div class="thali-grid">
+            <label class="thali-item"
+              ><input type="checkbox" value="Roti" checked /> Roti</label
+            >
+            <label class="thali-item"
+              ><input type="checkbox" value="Rice" checked /> Rice</label
+            >
+            <label class="thali-item"
+              ><input type="checkbox" value="Dal" checked /> Dal</label
+            >
+            <label class="thali-item"
+              ><input type="checkbox" value="Sabzi" checked /> Sabzi</label
+            >
+            <label class="thali-item"
+              ><input type="checkbox" value="Salad" checked /> Salad</label
+            >
+            <label class="thali-item"
+              ><input type="checkbox" value="Raita" /> Raita</label
+            >
+            <label class="thali-item"
+              ><input type="checkbox" value="Papad" /> Papad</label
+            >
+            <label class="thali-item"
+              ><input type="checkbox" value="Sweet" /> Sweet</label
+            >
+            <label class="thali-item"
+              ><input type="checkbox" value="Chutney" /> Chutney</label
+            >
+            <label class="thali-item"
+              ><input type="checkbox" value="Pickles" /> Pickles</label
+            >
+          </div>
+          <div class="thali-qty">
+            <label
+              >Quantity:
+              <input type="number" id="thaliQty" min="1" value="1" />
+            </label>
+          </div>
+          <button class="thali-confirm" id="thaliConfirm">Add to Cart</button>
         </div>
       </div>
       <div class="payment-section">
@@ -308,17 +356,6 @@
             <span><i class="fas fa-heart"></i> Pure Homemade</span>
             <span><i class="fas fa-leaf"></i> No Preservatives</span>
           </div>
-        </div>
-        <div class="footer-col">
-          <h3>Service Areas</h3>
-          <ul>
-            <li>Indore - Vijay Nagar</li>
-            <li>Indore - Palasia</li>
-            <li>Indore - Bhawarkua</li>
-            <li>Indore - Rajendra Nagar</li>
-            <li>Indore - Old Palasia</li>
-            <li>Indore - Geeta Bhawan</li>
-          </ul>
         </div>
         <div class="footer-col">
           <h3>Quick Links</h3>

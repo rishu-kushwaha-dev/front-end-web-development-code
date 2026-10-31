@@ -122,7 +122,6 @@ document.addEventListener('DOMContentLoaded', function () {
     updateActiveNav();
 
     initRoomCards();
-    initDarkMode();
 });
 
 function validateForm() {
@@ -565,42 +564,6 @@ function initRoomCards() {
             if (selectedCard) {
                 roomCards.forEach(c => c.classList.remove('selected'));
                 selectedCard.classList.add('selected');
-            }
-        });
-    }
-}
-
-function initDarkMode() {
-    const toggle = document.getElementById('darkModeToggle');
-    const icon = toggle ? toggle.querySelector('i') : null;
-
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        if (icon) {
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
-        }
-    }
-
-    if (toggle) {
-        toggle.addEventListener('click', function () {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-
-            if (isDark) {
-                document.documentElement.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'light');
-                if (icon) {
-                    icon.classList.remove('fa-sun');
-                    icon.classList.add('fa-moon');
-                }
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-                if (icon) {
-                    icon.classList.remove('fa-moon');
-                    icon.classList.add('fa-sun');
-                }
             }
         });
     }

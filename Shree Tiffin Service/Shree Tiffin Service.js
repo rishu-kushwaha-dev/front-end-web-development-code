@@ -1,3 +1,8 @@
+document.querySelectorAll('input[type="tel"]').forEach((inp) => {
+  inp.addEventListener("input", () => {
+    inp.value = inp.value.replace(/\D/g, "").slice(0, 10);
+  });
+});
 document.getElementById("contactForm").addEventListener("submit", function (e) {
   e.preventDefault();
   alert("Thank you! We will contact you soon.");

@@ -129,7 +129,6 @@
             <li>Free delivery</li>
             <li>Cancel anytime</li>
           </ul>
-          <button>Choose</button>
         </div>
         <div class="plan popular">
           <h3>Weekly</h3>
@@ -139,7 +138,6 @@
             <li>1 free sweet</li>
             <li>Priority delivery</li>
           </ul>
-          <button>Choose</button>
         </div>
         <div class="plan">
           <h3>Monthly</h3>
@@ -149,7 +147,6 @@
             <li>5 free sweets</li>
             <li>Best value</li>
           </ul>
-          <button>Choose</button>
         </div>
       </div>
     </section>
@@ -158,7 +155,15 @@
       <h2>Place Your Order</h2>
       <form id="orderForm">
         <input type="text" id="oName" placeholder="Name" required />
-        <input type="tel" id="oPhone" placeholder="Phone" required />
+        <input
+          type="tel"
+          id="oPhone"
+          placeholder="Phone"
+          inputmode="numeric"
+          pattern="[0-9]{10}"
+          maxlength="10"
+          required
+        />
         <input type="text" id="oAddr" placeholder="Delivery Address" required />
         <select id="oPlan" required>
           <option value="">Select Plan</option>

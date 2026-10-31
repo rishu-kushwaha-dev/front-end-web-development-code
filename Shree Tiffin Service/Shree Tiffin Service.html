@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shree Tiffin Service</title>
+    <link rel="stylesheet" href="Shree Tiffin Service.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo"><i class="fas fa-utensils"></i> Shree Tiffin Service</div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#menu">Menu</a>
+            <a href="#order">Order</a>
+            <a href="#about">About</a>
+            <a href="#owner">Owner</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <button class="cta">Order Now</button>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-text">
+            <h1>Hot, Fresh & Healthy Tiffins Delivered Daily</h1>
+            <p>Homestyle meals made with love. Subscribe to daily, weekly or monthly plans.</p>
+            <button class="cta">Get Started</button>
+        </div>
+        <div class="hero-img">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500" alt="Tiffin">
+        </div>
+    </section>
+
+    <section id="menu" class="menu">
+        <h2>Our Menu</h2>
+        <div class="menu-grid">
+            <div class="menu-card"><i class="fas fa-bowl-food"></i>
+                <h3>North Indian Thali</h3>
+                <p>Dal, Roti, Sabzi, Rice, Salad</p><span>₹120</span>
+            </div>
+            <div class="menu-card"><i class="fas fa-utensils"></i>
+                <h3>South Indian</h3>
+                <p>Idli, Dosa, Sambar, Chutney</p><span>₹110</span>
+            </div>
+            <div class="menu-card"><i class="fas fa-pepper-hot"></i>
+                <h3>Special Veg</h3>
+                <p>Paneer, Biryani, Raita</p><span>₹150</span>
+            </div>
+            <div class="menu-card"><i class="fas fa-fire"></i>
+                <h3>Jain Special</h3>
+                <p>No onion, no garlic</p><span>₹130</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="plans" class="plans">
+        <h2>Subscription Plans</h2>
+        <div class="plan-grid">
+            <div class="plan">
+                <h3>Daily</h3>
+                <div class="price">₹120<span>/day</span></div>
+                <ul>
+                    <li>1 Tiffin per day</li>
+                    <li>Free delivery</li>
+                    <li>Cancel anytime</li>
+                </ul><button>Choose</button>
+            </div>
+            <div class="plan popular">
+                <h3>Weekly</h3>
+                <div class="price">₹750<span>/week</span></div>
+                <ul>
+                    <li>7 Tiffins</li>
+                    <li>1 free sweet</li>
+                    <li>Priority delivery</li>
+                </ul><button>Choose</button>
+            </div>
+            <div class="plan">
+                <h3>Monthly</h3>
+                <div class="price">₹2800<span>/month</span></div>
+                <ul>
+                    <li>30 Tiffins</li>
+                    <li>5 free sweets</li>
+                    <li>Best value</li>
+                </ul><button>Choose</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="owner" class="owner-section">
+        <div class="owner-card">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200" alt="Sudha Kushwaha">
+            <h2>Sudha Kushwaha</h2>
+            <p>Founder &amp; Owner</p>
+            <p>"Cooking with love, serving with care — every tiffin is made like it's for my own family."</p>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <h2>About Us</h2>
+        <p>Shree Tiffin Service brings you the taste of home. Cooked fresh every morning with quality ingredients,
+            delivered hot to your doorstep.</p>
+    </section>
+
+    <section id="order" class="order">
+        <h2>Place Your Order</h2>
+        <form id="orderForm">
+            <input type="text" id="oName" placeholder="Name" required>
+            <input type="tel" id="oPhone" placeholder="Phone" required>
+            <input type="text" id="oAddr" placeholder="Delivery Address" required>
+            <select id="oPlan" required>
+                <option value="">Select Plan</option>
+                <option>Daily ₹120</option>
+                <option>Weekly ₹750</option>
+                <option>Monthly ₹2800</option>
+            </select>
+            <input type="number" id="oQty" min="1" value="1" placeholder="Quantity">
+            <button type="submit">Order via WhatsApp</button>
+        </form>
+    </section>
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+        <input type="text" placeholder="Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="tel" placeholder="Phone" required>
+        <textarea placeholder="Message"></textarea>
+        <button type="submit">Send</button>
+    </form>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <h2>What Customers Say</h2>
+        <div class="testi-grid">
+            <div class="testi">
+                <p>"Best tiffin in town! Tastes like home."</p><strong>- Ramesh</strong>
+            </div>
+            <div class="testi">
+                <p>"On time delivery every day. Highly recommend."</p><strong>- Priya</strong>
+            </div>
+            <div class="testi">
+                <p>"Sudha ji's food is amazing and healthy."</p><strong>- Amit</strong>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq">
+        <h2>FAQ</h2>
+        <div class="faq-item"><button class="faq-q">Do you deliver on Sundays?</button>
+            <div class="faq-a">Yes, all days including Sundays.</div>
+        </div>
+        <div class="faq-item"><button class="faq-q">Can I pause my subscription?</button>
+            <div class="faq-a">Yes, pause anytime with 1 day notice.</div>
+        </div>
+        <div class="faq-item"><button class="faq-q">Is food spicy?</button>
+            <div class="faq-a">Mild by default, custom spice on request.</div>
+        </div>
+    </section>
+
+    <a class="whatsapp" href="https://wa.me/919569614016" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <button class="topbtn" id="topBtn">↑</button>
+    <p>&copy; 2026 Shree Tiffin Service. All rights reserved.</p>
+    </footer>
+
+    <script src="Shree Tiffin Service.js"></script>
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
 :root {
   --primary: #ff6b35;
@@ -728,4 +728,192 @@ section h2 {
     width: 2px;
     height: 40px;
   }
+}
+/* ===== Attractiveness enhancements ===== */
+body {
+  background: radial-gradient(
+    circle at top right,
+    #fff3e0 0%,
+    #fff8f3 40%,
+    #ffffff 100%
+  );
+}
+.navbar {
+  backdrop-filter: blur(8px);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 107, 53, 0.95),
+    rgba(230, 74, 25, 0.95)
+  );
+}
+.logo i {
+  margin-right: 0.4rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+.cta {
+  background: linear-gradient(135deg, #fff, #ffe0b2);
+  box-shadow: 0 6px 16px rgba(230, 74, 25, 0.3);
+}
+.cta:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 24px rgba(230, 74, 25, 0.4);
+}
+.hero {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 50%, #ffd180 100%);
+  position: relative;
+}
+.hero-text h1 {
+  background: linear-gradient(135deg, #e64a19, #ff6b35);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero-img img {
+  transform: rotate(-2deg);
+  transition: transform 0.4s ease;
+}
+.hero-img img:hover {
+  transform: rotate(0deg) scale(1.05);
+}
+.badge {
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.badge:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+section h2 {
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+section h2::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+.plan,
+.menu-card,
+.testi {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.plan:hover,
+.menu-card:hover,
+.testi:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+.plan.popular {
+  background: linear-gradient(180deg, #fff 0%, #fff3e0 100%);
+  box-shadow: 0 12px 32px rgba(255, 107, 53, 0.25);
+}
+.plan.popular::before {
+  content: "Most Popular";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(230, 74, 25, 0.3);
+}
+.plan {
+  position: relative;
+}
+.owner-card {
+  background: linear-gradient(180deg, #fff 0%, #fce4ec 100%);
+  border: 1px solid rgba(255, 107, 53, 0.15);
+}
+.owner-card img {
+  box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+}
+.upi-box,
+.order-status {
+  border: 1px solid rgba(255, 107, 53, 0.1);
+}
+.order input,
+.order select,
+.contact input,
+.contact textarea {
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+.order input:focus,
+.order select:focus,
+.contact input:focus,
+.contact textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.15);
+  transform: translateY(-1px);
+}
+.faq-q {
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.faq-q:hover {
+  background: #ffe0b2;
+  color: var(--primary-dark);
+}
+.faq-item {
+  transition: box-shadow 0.2s;
+}
+.faq-item:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+.whatsapp {
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+.whatsapp:hover {
+  transform: scale(1.1) rotate(8deg);
+  box-shadow: 0 10px 24px rgba(37, 211, 102, 0.5);
+}
+.topbtn {
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+.topbtn:hover {
+  transform: translateY(-3px);
+  background: var(--primary-dark);
+}
+.footer {
+  background: linear-gradient(135deg, #b71c1c 0%, #e64a19 50%, #ff6b35 100%);
+}
+.socials a {
+  transition:
+    transform 0.2s,
+    color 0.2s;
+  display: inline-block;
+}
+.socials a:hover {
+  transform: translateY(-4px) scale(1.2);
+  color: var(--accent);
+}
+.schedule-table tbody tr {
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.schedule-table tbody tr:hover {
+  transform: scale(1.01);
 }

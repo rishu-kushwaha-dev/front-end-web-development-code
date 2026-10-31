@@ -132,7 +132,7 @@ function generatePattern() {
     }
 
     drawPattern(sequence);
-    patternOutput.value = sequence.join('-');
+    patternOutput.value = sequence.map(i => i + 1).join('-');
 }
 
 function drawPattern(sequence) {

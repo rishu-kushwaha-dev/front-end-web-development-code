@@ -18,7 +18,9 @@
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -133,7 +135,15 @@ a {
   justify-content: center;
 }
 
-.btn, .nav-links a, .hero-social a, .footer-links a, .hamburger, .skill-card, .project-card, .contact-card, .detail-card {
+.btn,
+.nav-links a,
+.hero-social a,
+.footer-links a,
+.hamburger,
+.skill-card,
+.project-card,
+.contact-card,
+.detail-card {
   cursor: pointer;
 }
 
@@ -638,7 +648,7 @@ nav.scrolled {
   margin-bottom: 8px;
 }
 
-.project-info > p {
+.project-info>p {
   color: var(--text-secondary);
   font-size: 0.9rem;
   line-height: 1.7;
@@ -713,7 +723,7 @@ nav.scrolled {
   margin-bottom: 12px;
 }
 
-.contact-card > p {
+.contact-card>p {
   color: var(--text-secondary);
   font-size: 0.95rem;
   line-height: 1.8;
@@ -827,10 +837,10 @@ nav.scrolled {
   transition: var(--transition);
 }
 
-.form-group input:focus + label,
-.form-group input:not(:placeholder-shown) + label,
-.form-group textarea:focus + label,
-.form-group textarea:not(:placeholder-shown) + label {
+.form-group input:focus+label,
+.form-group input:not(:placeholder-shown)+label,
+.form-group textarea:focus+label,
+.form-group textarea:not(:placeholder-shown)+label {
   top: -10px;
   left: 12px;
   font-size: 0.75rem;
@@ -953,6 +963,7 @@ nav.scrolled {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -964,23 +975,29 @@ nav.scrolled {
     transform: translate(0, 0) scale(0);
     opacity: 0;
   }
+
   10% {
     opacity: 0.7;
     transform: translate(10vw, -10vh) scale(1);
   }
+
   30% {
     transform: translate(-5vw, -30vh) scale(1);
   }
+
   50% {
     transform: translate(15vw, -50vh) scale(1);
   }
+
   70% {
     transform: translate(-10vw, -70vh) scale(1);
   }
+
   90% {
     transform: translate(5vw, -90vh) scale(0.8);
     opacity: 0.5;
   }
+
   100% {
     transform: translate(0, -100vh) scale(0);
     opacity: 0;
@@ -1021,7 +1038,8 @@ nav.scrolled {
   box-shadow: 0 0 10px rgba(100, 40, 65, 0.4);
 }
 
-section, footer {
+section,
+footer {
   position: relative;
   z-index: 1;
 }

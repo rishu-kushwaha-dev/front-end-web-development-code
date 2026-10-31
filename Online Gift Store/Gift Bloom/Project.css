@@ -116,7 +116,7 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
+    background:
         radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(244, 63, 94, 0.06) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(245, 158, 11, 0.04) 0%, transparent 50%);
@@ -126,16 +126,26 @@ body::before {
 }
 
 [data-theme="dark"] body::before {
-    background: 
+    background:
         radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(244, 63, 94, 0.12) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(245, 158, 11, 0.08) 0%, transparent 50%);
 }
 
 @keyframes ambientGlow {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(-2%, -1%) scale(1.02); }
-    66% { transform: translate(1%, 2%) scale(0.98); }
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+        transform: translate(-2%, -1%) scale(1.02);
+    }
+
+    66% {
+        transform: translate(1%, 2%) scale(0.98);
+    }
 }
 
 .floating-particles {
@@ -164,15 +174,19 @@ body::before {
     0% {
         transform: translate(0, 0) rotate(0deg);
     }
+
     25% {
         transform: translate(30px, -40px) rotate(90deg);
     }
+
     50% {
         transform: translate(-20px, -80px) rotate(180deg);
     }
+
     75% {
         transform: translate(-40px, -40px) rotate(270deg);
     }
+
     100% {
         transform: translate(0, 0) rotate(360deg);
     }
@@ -256,8 +270,15 @@ body::before {
 }
 
 @keyframes gradientShift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
 }
 
 .header-logo:hover {
@@ -560,7 +581,7 @@ body::before {
     position: relative;
 }
 
-.auth-input-group > svg {
+.auth-input-group>svg {
     position: absolute;
     left: 14px;
     top: 50%;
@@ -727,8 +748,15 @@ body::before {
 }
 
 @keyframes gradientFlow {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
 }
 
 .hero::before {
@@ -782,6 +810,7 @@ body::before {
         opacity: 0;
         transform: translateY(40px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -2415,7 +2444,7 @@ footer .footer-links a:hover {
     .cart-card img {
         width: 100%;
         height: 200px;
-object-fit: contain;
+        object-fit: contain;
     }
 
     .page-title {
@@ -2972,6 +3001,7 @@ object-fit: contain;
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -3042,6 +3072,7 @@ object-fit: contain;
         opacity: 0;
         transform: translateY(-8px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -3191,6 +3222,7 @@ object-fit: contain;
     from {
         transform: translateY(100%);
     }
+
     to {
         transform: translateY(0);
     }
@@ -3274,12 +3306,38 @@ body {
         transform: translate(-50%, -50%) scale(1);
         opacity: 0.8;
     }
+
     100% {
         transform: translate(-50%, -50%) scale(0);
         opacity: 0;
     }
 }
 
-a, button, .card, .header-nav-item, .header-profile, .theme-toggle, .header-mobile-toggle, .filter-btn, .delivery-cat-btn, .quick-delivery-btn, input, textarea, select, .payment-option, .payment-detail-option, .location-btn, .profile-dropdown-item, .auth-modal-close, .order-btn, .order-cancel-btn, .checkout-actions .back-btn, .profile-save-btn, .profile-delete-btn, .card button, .remove-btn, .place-order-btn {
+a,
+button,
+.card,
+.header-nav-item,
+.header-profile,
+.theme-toggle,
+.header-mobile-toggle,
+.filter-btn,
+.delivery-cat-btn,
+.quick-delivery-btn,
+input,
+textarea,
+select,
+.payment-option,
+.payment-detail-option,
+.location-btn,
+.profile-dropdown-item,
+.auth-modal-close,
+.order-btn,
+.order-cancel-btn,
+.checkout-actions .back-btn,
+.profile-save-btn,
+.profile-delete-btn,
+.card button,
+.remove-btn,
+.place-order-btn {
     cursor: none;
 }

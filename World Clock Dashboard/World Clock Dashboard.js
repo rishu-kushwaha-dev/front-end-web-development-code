@@ -286,10 +286,10 @@ function handleDrop(e) {
   e.preventDefault();
   const targetCard = e.currentTarget;
   targetCard.classList.remove("drag-over");
-  
+
   const fromIndex = parseInt(e.dataTransfer.getData("text/plain"), 10);
   const toIndex = parseInt(targetCard.dataset.index, 10);
-  
+
   if (fromIndex !== toIndex && !isNaN(fromIndex) && !isNaN(toIndex)) {
     reorderCities(fromIndex, toIndex);
   }

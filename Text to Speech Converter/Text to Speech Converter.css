@@ -1,4 +1,7 @@
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: system-ui, sans-serif;
   background: #f4f4f4;
@@ -7,15 +10,21 @@ body {
   padding: 40px;
   margin: 0;
 }
+
 .container {
   background: #fff;
   padding: 24px;
   border-radius: 12px;
   width: 100%;
   max-width: 640px;
-  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
 }
-h1 { margin-top: 0; text-align: center; }
+
+h1 {
+  margin-top: 0;
+  text-align: center;
+}
+
 textarea {
   width: 100%;
   padding: 12px;
@@ -24,24 +33,32 @@ textarea {
   border-radius: 8px;
   resize: vertical;
 }
+
 .controls {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   margin: 16px 0;
 }
+
 label {
   display: flex;
   flex-direction: column;
   font-size: 14px;
   gap: 4px;
 }
-select, input { width: 100%; }
+
+select,
+input {
+  width: 100%;
+}
+
 .buttons {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
 }
+
 button {
   padding: 10px 16px;
   border: none;
@@ -51,11 +68,50 @@ button {
   cursor: pointer;
   font-size: 14px;
 }
-button:hover { background: #4338ca; }
-button.small { padding: 6px 10px; font-size: 12px; background: #6b7280; }
-button.small:hover { background: #4b5563; }
-#status { margin-top: 12px; color: #555; font-size: 14px; }
-.toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; color: #666; }
-#history { list-style: none; padding: 0; max-height: 160px; overflow: auto; }
-#history li { padding: 6px 8px; border-bottom: 1px solid #eee; font-size: 13px; cursor: pointer; }
-#history li:hover { background: #f3f4f6; }
+
+button:hover {
+  background: #4338ca;
+}
+
+button.small {
+  padding: 6px 10px;
+  font-size: 12px;
+  background: #6b7280;
+}
+
+button.small:hover {
+  background: #4b5563;
+}
+
+#status {
+  margin-top: 12px;
+  color: #555;
+  font-size: 14px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #666;
+}
+
+#history {
+  list-style: none;
+  padding: 0;
+  max-height: 160px;
+  overflow: auto;
+}
+
+#history li {
+  padding: 6px 8px;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+#history li:hover {
+  background: #f3f4f6;
+}

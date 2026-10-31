@@ -680,19 +680,19 @@ function drawTurtle(turtle) {
     ctx.globalAlpha = alpha;
     ctx.fillStyle = turtle.color;
     ctx.beginPath();
-    ctx.arc(x + TILE_SIZE/2, y + TILE_SIZE/2, TILE_SIZE/3, 0, Math.PI * 2);
+    ctx.arc(x + TILE_SIZE / 2, y + TILE_SIZE / 2, TILE_SIZE / 3, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.fillStyle = '#27ae60';
     ctx.beginPath();
-    ctx.arc(x + TILE_SIZE/2 - 5, y + TILE_SIZE/2 - 5, 6, 0, Math.PI * 2);
+    ctx.arc(x + TILE_SIZE / 2 - 5, y + TILE_SIZE / 2 - 5, 6, 0, Math.PI * 2);
     ctx.fill();
     ctx.beginPath();
-    ctx.arc(x + TILE_SIZE/2 + 5, y + TILE_SIZE/2 - 5, 6, 0, Math.PI * 2);
+    ctx.arc(x + TILE_SIZE / 2 + 5, y + TILE_SIZE / 2 - 5, 6, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.fillStyle = '#e74c3c';
-    ctx.fillRect(x + TILE_SIZE/2 - 3, y + TILE_SIZE/2 + 2, 6, 3);
+    ctx.fillRect(x + TILE_SIZE / 2 - 3, y + TILE_SIZE / 2 + 2, 6, 3);
 
     ctx.globalAlpha = 1;
 }

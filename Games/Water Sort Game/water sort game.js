@@ -213,10 +213,10 @@ function shuffle(x) {
     return a;
 }
 
-window.ShowRules = function() {
+window.ShowRules = function () {
     document.getElementById("rules-page").classList.add("visible");
 }
 
-window.HideRules = function() {
+window.HideRules = function () {
     document.getElementById("rules-page").classList.remove("visible");
 }

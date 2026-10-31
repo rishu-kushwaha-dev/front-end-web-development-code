@@ -99,19 +99,19 @@ const exchangeRates = {
 function populateCurrencies() {
     const fromSelect = document.getElementById('fromCurrency');
     const toSelect = document.getElementById('toCurrency');
-    
+
     currencies.forEach(currency => {
         const option1 = document.createElement('option');
         option1.value = currency.code;
         option1.textContent = currency.code + ' - ' + currency.name;
         fromSelect.appendChild(option1);
-        
+
         const option2 = document.createElement('option');
         option2.value = currency.code;
         option2.textContent = currency.code + ' - ' + currency.name;
         toSelect.appendChild(option2);
     });
-    
+
     fromSelect.value = 'INR';
     toSelect.value = 'INR';
 }
@@ -119,11 +119,11 @@ function populateCurrencies() {
 function swapCurrencies() {
     const fromSelect = document.getElementById('fromCurrency');
     const toSelect = document.getElementById('toCurrency');
-    
+
     const temp = fromSelect.value;
     fromSelect.value = toSelect.value;
     toSelect.value = temp;
-    
+
     convertCurrency();
 }
 
@@ -131,38 +131,38 @@ function convertCurrency() {
     const amount = parseFloat(document.getElementById('amount').value);
     const fromCurrency = document.getElementById('fromCurrency').value;
     const toCurrency = document.getElementById('toCurrency').value;
-    
+
     if (isNaN(amount) || amount < 0) {
         alert('Please enter a valid amount');
         return;
     }
-    
+
     const fromRate = exchangeRates[fromCurrency];
     const toRate = exchangeRates[toCurrency];
-    
+
     const amountInINR = amount / fromRate;
     const convertedAmount = amountInINR * toRate;
-    
+
     const fromCurrencyData = currencies.find(c => c.code === fromCurrency);
     const toCurrencyData = currencies.find(c => c.code === toCurrency);
-    
+
     const rate = toRate / fromRate;
-    
+
     document.getElementById('fromText').textContent = amount.toLocaleString() + ' ' + fromCurrency + ' =';
-    document.getElementById('toText').textContent = convertedAmount.toLocaleString(undefined, { 
-        minimumFractionDigits: 2, 
-        maximumFractionDigits: 6 
+    document.getElementById('toText').textContent = convertedAmount.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 6
     }) + ' ' + toCurrency;
-    
+
     document.getElementById('rateText').textContent = 'Exchange Rate: 1 ' + fromCurrency + ' = ' + rate.toLocaleString(undefined, {
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
     }) + ' ' + toCurrency;
-    
+
     document.getElementById('result').style.display = 'block';
 }
 
-window.onload = function() {
+window.onload = function () {
     populateCurrencies();
     convertCurrency();
 };

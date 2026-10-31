@@ -85,8 +85,15 @@ body {
 }
 
 @keyframes titlePulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
 }
 
 .overlay p {
@@ -149,8 +156,13 @@ body {
 }
 
 @keyframes highScoreGlow {
-    from { text-shadow: 0 0 10px #f1c40f; }
-    to { text-shadow: 0 0 20px #f1c40f, 0 0 30px #e67e22; }
+    from {
+        text-shadow: 0 0 10px #f1c40f;
+    }
+
+    to {
+        text-shadow: 0 0 20px #f1c40f, 0 0 30px #e67e22;
+    }
 }
 
 #mobileControls {
@@ -197,10 +209,25 @@ body {
     transform: scale(0.95);
 }
 
-#btnUp { grid-column: 2; grid-row: 1; }
-#btnLeft { grid-column: 1; grid-row: 2; }
-#btnDown { grid-column: 2; grid-row: 2; }
-#btnRight { grid-column: 3; grid-row: 2; }
+#btnUp {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#btnLeft {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#btnDown {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+#btnRight {
+    grid-column: 3;
+    grid-row: 2;
+}
 
 .pause-btn {
     width: 60px;

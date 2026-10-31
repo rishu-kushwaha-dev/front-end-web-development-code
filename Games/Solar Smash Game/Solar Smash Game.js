@@ -57,7 +57,7 @@ function drawPlanet(planet) {
     ctx.stroke();
   }
 
-  const grad = ctx.createRadialGradient(-planet.size/3, -planet.size/3, 0, 0, 0, planet.size);
+  const grad = ctx.createRadialGradient(-planet.size / 3, -planet.size / 3, 0, 0, 0, planet.size);
   grad.addColorStop(0, '#fff');
   grad.addColorStop(0.3, planet.color);
   grad.addColorStop(1, '#000');

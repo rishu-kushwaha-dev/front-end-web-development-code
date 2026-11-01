@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Countly - Word, Character & Reading Time Counter</title>
+        <link rel="stylesheet" href="Countly.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <header>
+                <h1>Countly</h1>
+                <p class="tagline">Real-time text analytics dashboard</p>
+            </header>
+
+            <div class="editor-card">
+                <textarea id="textInput" placeholder="Start typing here..."></textarea>
+            </div>
+
+            <div class="analytics-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Characters</div>
+                    <div class="stat-value" id="charsCount">0</div>
+                    <div class="stat-sub">with spaces</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Characters</div>
+                    <div class="stat-value" id="charsNoSpaceCount">0</div>
+                    <div class="stat-sub">excluding spaces</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Words</div>
+                    <div class="stat-value" id="wordsCount">0</div>
+                    <div class="stat-sub">exact word count</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Sentences</div>
+                    <div class="stat-value" id="sentencesCount">0</div>
+                    <div class="stat-sub">sentence count</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Paragraphs</div>
+                    <div class="stat-value" id="paragraphsCount">0</div>
+                    <div class="stat-sub">paragraph count</div>
+                </div>
+
+                <div class="stat-card wide">
+                    <div class="stat-label">Reading Time</div>
+                    <div class="stat-value" id="readingTimeCount">0 min</div>
+                    <div class="stat-sub">at selected reading speed</div>
+                </div>
+
+                <div class="stat-card wide">
+                    <div class="stat-label">Avg. Reading Speed</div>
+                    <div class="stat-value" id="wpmCount">200 WPM</div>
+                    <div class="stat-sub">words per minute</div>
+                </div>
+            </div>
+
+            <div class="controls-card">
+                <label class="control-label">Reading Speed (WPM)</label>
+                <div class="speed-options">
+                    <button class="speed-btn active" data-wpm="200">Average (200)</button>
+                    <button class="speed-btn" data-wpm="150">Slow (150)</button>
+                    <button class="speed-btn" data-wpm="250">Fast (250)</button>
+                    <button class="speed-btn" data-wpm="300">Very Fast (300)</button>
+                </div>
+                <label class="control-label">Custom WPM</label>
+                <input type="number" id="customWpm" min="50" max="1000" value="200" class="custom-input">
+                <div class="speed-hint">Adjust words-per-minute to recalculate reading time.</div>
+            </div>
+
+            <div class="reading-card">
+                <div class="reading-label">Estimated Reading Time</div>
+                <div class="reading-bar">
+                    <div class="reading-progress" id="readingProgress"></div>
+                </div>
+                <div class="reading-time" id="readingTimeDisplay">0 minutes 0 seconds</div>
+            </div>
+
+            <footer>
+                <p>&copy; 2026 Countly - Text Analytics Dashboard</p>
+            </footer>
+        </div>
+
+        <script src="Countly.js"></script>
+    </body>
+
+</html>

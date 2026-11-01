@@ -9,6 +9,7 @@ Welcome to my official front-end development repository! This space contains a c
 Here is a list of the projects inside this repository:
 
 * **Age Calculator**
+* **ASCII Binary Hex**
 * **BMI Calculator**
 * **Captcha Verification**
 * **Colour Palette Generator**
@@ -19,20 +20,21 @@ Here is a list of the projects inside this repository:
 * **Hacking Simulator**
 * **Independence Day**
 * **Lamp Login Form**
-* **Online Gift Store (Gift Bloom)**
+* **Online Gift Store**
 * **OTP Verification**
 * **Password Generator**
 * **Password Tester**
 * **Portfolio**
+* **QR Code Generator**
 * **Resume**
 * **Shree Ice-Cream Parlour**
 * **Shree Palace Room Booking**
+* **Shree Tiffin Service**
 * **Student Registration Form**
 * **Text to Speech Converter**
 * **To-Do List**
-* **Typing Speed Checker**
 * **Unit Converter**
-* **World Clock Dashboard**
+* **Weather Dashboard**
 
 ---
 

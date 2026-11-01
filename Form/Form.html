@@ -4,90 +4,159 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Form</title>
+        <title>Event Registration Form</title>
         <link rel="stylesheet" href="Form.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     </head>
 
     <body>
-        <p align="center" style="font-size: 30px; font-weight: bold;">Event Registration Form</p>
 
-        <h3>About this Event</h3>
-        <br> <br>
-        <td>
-            <tr>
-                <th><b>Event Name:</b></th>
-                <td>Digital Marketing Masterclass</td>
-            </tr>
-            <br>
-            <tr>
-                <th><b>Event Date:</b></th>
-                <td>October 15th, 2026</td>
-            </tr>
-            <br>
-            <tr>
-                <th><b>Time:</b></th>
-                <td>2:00 PM - 4:00 PM</td>
-            </tr>
-            <br>
-            <tr>
-                <th><b>Speaker</b></th>
-                <td>Sarah Jhonson (Digital Marketing Expert)</td>
-            </tr>
-        </td>
-        <br>
-        <hr>
+        <div class="form-container">
+            <h1 class="form-title">Event Registration Form</h1>
 
-        <h3>Participant Information</h3>
-        <br> <br>
-        <b>Full Name:</b> <input type="text" id="name" placeholder="Enter your full name" required>
-        <br> <br>
-        <b>Date of Birth:</b> <input type="date" id="dob" required>
-        <br> <br>
-        <b>Gender:</b>
-        <br>
-        <input type="radio" name="gender" value="male" required> Male
-        <br>
-        <input type="radio" name="gender" value="female" required> Female
-        <br> <br>
-        <b>Phone Number:</b> <input type="tel" id="phone" placeholder="Enter your phone number" required>
-        <br> <br>
-        <b>Email:</b> <input type="email" id="email" placeholder="Enter your email" required>
-        <br> <br>
-        <b>Where did you hear about this virtual event?</b>
-        <br>
-        <input type="checkbox" name="source" value="social_media"> Facebook
-        <input type="checkbox" name="source" value="social_media"> Youtube
-        <input type="checkbox" name="source" value="social_media"> Instagram
-        <input type="checkbox" name="source" value="social_media"> Twitter
-        <input type="checkbox" name="source" value="social_media"> Other <input type="text" id="name"
-            placeholder="Please specify" required>
-        <br> <br>
-        <hr>
-        <h3>Payment Information</h3>
-        <br> <br>
-        Number of Tickets: <input type="number" id="tickets" min="1" max="10" required>
-        <br> <br>
-        <b>Payment Method:</b>
-        <br>
-        <input type="radio" name="payment" value="credit_card" required> Credit Card
-        <input type="radio" name="payment" value="debit_card" required> Debit Card
-        <input type="radio" name="payment" value="paypal" required> Cash
-        <input type="radio" name="payment" value="paypal" required> Check
-        <br> <br>
-        I understand that participation in ths event may involve some degrees of risk. I release WebinarPros LLc from
-        any liability for any injury, loss, or damage to personal property.
-        <br>
-        <input type="checkbox" name="agreement" value="agree" required> Yes, I Understand.
-        <br> <br>
-        Signature: <input type="text" id="signature" placeholder="Type your name as signature" required>
-        <br> <br>
-        Date Signed: <input type="date" id="date_signed" required>
-        <br> <br>
-        <hr>
-        <img src="logo.png">
+            <div class="section-block">
+                <h2 class="section-heading">About This Event</h2>
+                <table class="event-info-table">
+                    <tr>
+                        <td class="table-label">Event Name</td>
+                        <td class="table-value">Digital Marketing Masterclass</td>
+                    </tr>
+                    <tr>
+                        <td class="table-label">Date</td>
+                        <td class="table-value">October 15, 2026</td>
+                    </tr>
+                    <tr>
+                        <td class="table-label">Time</td>
+                        <td class="table-value">2:00 PM - 4:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td class="table-label">Speaker</td>
+                        <td class="table-value">Sarah Johnson (Digital Marketing Expert)</td>
+                    </tr>
+                </table>
+            </div>
 
-        Thank you for registering! Follow us at @WebinarProsLLC on social media accounts.
+            <hr class="divider">
+
+            <form id="registrationForm" onsubmit="handleSubmit(event)">
+
+                <div class="section-block">
+                    <h2 class="section-heading">Participant Information</h2>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" name="dob" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row inline-group-row">
+                        <div class="form-group inline-item">
+                            <label>Gender</label>
+                            <div class="radio-group horizontal">
+                                <label><input type="radio" name="gender" value="Male" required> Male</label>
+                                <label><input type="radio" name="gender" value="Female"> Female</label>
+                            </div>
+                        </div>
+                        <div class="form-group inline-item">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" maxlength="10"
+                                oninput="this.value = this.value.replace(/\D/g, '').slice(0, 10)" required>
+                        </div>
+                        <div class="form-group inline-item">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Where did you hear about this virtual event?</label>
+                        <div class="radio-group source-group">
+                            <label><input type="radio" name="source" value="Facebook"> Facebook</label>
+                            <label><input type="radio" name="source" value="Youtube"> Youtube</label>
+                            <label><input type="radio" name="source" value="Instagram"> Instagram</label>
+                            <label><input type="radio" name="source" value="Twitter"> Twitter</label>
+                            <label class="other-label">
+                                <input type="radio" name="source" value="Other"> Other:
+                                <input type="text" name="sourceOther" class="other-input">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <h2 class="section-heading">Payment Information</h2>
+
+                    <div class="form-row payment-row">
+                        <div class="form-group tickets-group">
+                            <label for="tickets">Number of Tickets</label>
+                            <input type="number" id="tickets" name="tickets" min="1" required>
+                        </div>
+                        <div class="form-group payment-method-group">
+                            <label>Payment Method</label>
+                            <div class="radio-group horizontal payment-options">
+                                <label><input type="radio" name="paymentMethod" value="Credit Card" required> Credit
+                                    Card</label>
+                                <label><input type="radio" name="paymentMethod" value="Debit Card"> Debit Card</label>
+                                <label><input type="radio" name="paymentMethod" value="Cash"> Cash</label>
+                                <label><input type="radio" name="paymentMethod" value="Check"> Check</label>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terms-signature-row">
+                        <div class="form-group terms-group">
+                            <p class="terms-text">
+                                I understand that participation in this event may involve some degree of risk. I release
+                                WebinarPros LLC from any liability for injury, loss, or damage to personal property.
+                            </p>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="terms" required> Yes, I understand.
+                            </label>
+                        </div>
+                        <div class="signature-block">
+                            <div class="form-group">
+                                <label for="signature">Signature</label>
+                                <input type="text" id="signature" name="signature" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dateSigned">Date Signed</label>
+                                <input type="date" id="dateSigned" name="dateSigned" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Register Now</button>
+            </form>
+
+            <hr class="divider">
+
+            <footer class="form-footer">
+                <div class="footer-logo">
+                    <div class="logo-box">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <span class="brand-name">Webinar<br><strong>Pros LLC</strong></span>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+                <div class="footer-text">
+                    Thank you for registering! For inquiries and updates, follow us at @webinarprosLLC on our social
+                    media channels.
+                </div>
+            </footer>
+        </div>
+
+        <script src="Form.js"></script>
     </body>
-    <script src="Form.js"></script>
 
 </html>

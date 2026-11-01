@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Form</title>
+        <link rel="stylesheet" href="Form.css">
+    </head>
+
+    <body>
+        <p align="center" style="font-size: 30px; font-weight: bold;">Event Registration Form</p>
+
+        <h3>About this Event</h3>
+        <br> <br>
+        <td>
+            <tr>
+                <th><b>Event Name:</b></th>
+                <td>Digital Marketing Masterclass</td>
+            </tr>
+            <br>
+            <tr>
+                <th><b>Event Date:</b></th>
+                <td>October 15th, 2026</td>
+            </tr>
+            <br>
+            <tr>
+                <th><b>Time:</b></th>
+                <td>2:00 PM - 4:00 PM</td>
+            </tr>
+            <br>
+            <tr>
+                <th><b>Speaker</b></th>
+                <td>Sarah Jhonson (Digital Marketing Expert)</td>
+            </tr>
+        </td>
+        <br>
+        <hr>
+
+        <h3>Participant Information</h3>
+        <br> <br>
+        <b>Full Name:</b> <input type="text" id="name" placeholder="Enter your full name" required>
+        <br> <br>
+        <b>Date of Birth:</b> <input type="date" id="dob" required>
+        <br> <br>
+        <b>Gender:</b>
+        <br>
+        <input type="radio" name="gender" value="male" required> Male
+        <br>
+        <input type="radio" name="gender" value="female" required> Female
+        <br> <br>
+        <b>Phone Number:</b> <input type="tel" id="phone" placeholder="Enter your phone number" required>
+        <br> <br>
+        <b>Email:</b> <input type="email" id="email" placeholder="Enter your email" required>
+        <br> <br>
+        <b>Where did you hear about this virtual event?</b>
+        <br>
+        <input type="checkbox" name="source" value="social_media"> Facebook
+        <input type="checkbox" name="source" value="social_media"> Youtube
+        <input type="checkbox" name="source" value="social_media"> Instagram
+        <input type="checkbox" name="source" value="social_media"> Twitter
+        <input type="checkbox" name="source" value="social_media"> Other <input type="text" id="name"
+            placeholder="Please specify" required>
+        <br> <br>
+        <hr>
+        <h3>Payment Information</h3>
+        <br> <br>
+        Number of Tickets: <input type="number" id="tickets" min="1" max="10" required>
+        <br> <br>
+        <b>Payment Method:</b>
+        <br>
+        <input type="radio" name="payment" value="credit_card" required> Credit Card
+        <input type="radio" name="payment" value="debit_card" required> Debit Card
+        <input type="radio" name="payment" value="paypal" required> Cash
+        <input type="radio" name="payment" value="paypal" required> Check
+        <br> <br>
+        I understand that participation in ths event may involve some degrees of risk. I release WebinarPros LLc from
+        any liability for any injury, loss, or damage to personal property.
+        <br>
+        <input type="checkbox" name="agreement" value="agree" required> Yes, I Understand.
+        <br> <br>
+        Signature: <input type="text" id="signature" placeholder="Type your name as signature" required>
+        <br> <br>
+        Date Signed: <input type="date" id="date_signed" required>
+        <br> <br>
+        <hr>
+        <img src="logo.png">
+
+        Thank you for registering! Follow us at @WebinarProsLLC on social media accounts.
+    </body>
+    <script src="Form.js"></script>
+
+</html>

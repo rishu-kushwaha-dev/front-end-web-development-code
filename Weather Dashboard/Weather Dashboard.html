@@ -5,18 +5,68 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Weather Dashboard</title>
-        <link rel="stylesheet" href="Weather Dashboard.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     </head>
 
     <body>
-        <h1>Weather Dashboard</h1>
-        <p>Enter a city name to get the current weather and 5-day forecast.</p>
+        <div class="container">
+            <header>
+                <h1><i class="fa-solid fa-cloud-sun"></i> Weather Dashboard</h1>
+                <p>Search a city or use your location for current weather and forecasts.</p>
+            </header>
 
-        <form id="city-form">
-            <input type="text" id="city-input" placeholder="Enter city name">
-            <button type="submit">Get Weather</button>
-        </form>
+            <div class="search-section">
+                <div class="search-bar">
+                    <input type="text" id="city-input" placeholder="Enter city name...">
+                    <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                    <button id="geo-btn" title="Use Current Location"><i
+                            class="fa-solid fa-location-crosshairs"></i></button>
+                </div>
+                <div id="recent-searches" class="recent-searches"></div>
+            </div>
+
+            <main id="weather-display" class="hidden">
+                <section class="current-weather">
+                    <div class="current-info">
+                        <h2 id="city-name">--</h2>
+                        <p id="current-date">--</p>
+                        <div class="temp-box">
+                            <img id="current-icon" src="" alt="Weather Icon">
+                            <span id="current-temp">--°C</span>
+                        </div>
+                        <p id="weather-description">--</p>
+                    </div>
+                    <div class="weather-details-grid">
+                        <div class="detail-card">
+                            <i class="fa-solid fa-droplet"></i>
+                            <span>Humidity</span>
+                            <strong id="humidity">--%</strong>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fa-solid fa-wind"></i>
+                            <span>Wind Speed</span>
+                            <strong id="wind-speed">-- m/s</strong>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fa-solid fa-temperature-half"></i>
+                            <span>Feels Like</span>
+                            <strong id="feels-like">--°C</strong>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="forecast-section">
+                    <h3>5-Day Forecast</h3>
+                    <div id="forecast-container" class="forecast-grid">
+                    </div>
+                </section>
+            </main>
+
+            <div id="error-message" class="error-msg hidden"></div>
+        </div>
+
+        <script src="script.js"></script>
     </body>
-    <script src="Weather Dashboard.js"></script>
 
 </html>

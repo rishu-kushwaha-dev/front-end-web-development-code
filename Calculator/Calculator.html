@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>3D Glossy Calculator</title>
+        <link rel="stylesheet" href="Calculator.css">
+    </head>
+
+    <body>
+        <div class="stage">
+            <div class="calc">
+                <div class="display">
+                    <div id="expr"></div>
+                    <div id="result">0</div>
+                </div>
+                <div class="toolbar">
+                    <button class="tbtn" data-a="history">History</button>
+                    <button class="tbtn" data-a="copy">Copy</button>
+                </div>
+                <div class="keys">
+                    <button class="key sci" data-f="sqrt">√</button>
+                    <button class="key sci" data-f="sq">x²</button>
+                    <button class="key sci" data-f="recip">1/x</button>
+                    <button class="key op" data-v="/">÷</button>
+
+                    <button class="key" data-v="7">7</button>
+                    <button class="key" data-v="8">8</button>
+                    <button class="key" data-v="9">9</button>
+                    <button class="key op" data-v="*">×</button>
+
+                    <button class="key" data-v="4">4</button>
+                    <button class="key" data-v="5">5</button>
+                    <button class="key" data-v="6">6</button>
+                    <button class="key op" data-v="-">−</button>
+
+                    <button class="key" data-v="1">1</button>
+                    <button class="key" data-v="2">2</button>
+                    <button class="key" data-v="3">3</button>
+                    <button class="key op" data-v="+">+</button>
+
+                    <button class="key fn" data-a="clear">AC</button>
+                    <button class="key fn" data-a="sign">±</button>
+                    <button class="key fn" data-a="percent">%</button>
+                    <button class="key wide" data-v="0">0</button>
+                    <button class="key" data-v=".">.</button>
+                    <button class="key eq" data-a="equals">=</button>
+                </div>
+            </div>
+        </div>
+        <script src="Calculator.js"></script>
+    </body>
+
+</html>

@@ -58,7 +58,18 @@ updateCount();
 
 document.getElementById('clear').addEventListener('click', () => { text.value = ''; updateCount(); });
 
-const HISTORY_KEY = 'tts-history';
+const loop = document.getElementById('loop');
+
+// Copy
+document.getElementById('copy').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(text.value); status.textContent = 'Copied to clipboard.'; }
+  catch { status.textContent = 'Copy failed.'; }
+});
+
+// Keyboard shortcut
+document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); speakText(text.value); }
+});
 function getHistory() { try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch { return []; } }
 function saveHistory(list) { localStorage.setItem(HISTORY_KEY, JSON.stringify(list)); }
 function renderHistory() {
@@ -90,7 +101,18 @@ function speakText(str) {
   utter.pitch = parseFloat(pitch.value);
   utter.volume = parseFloat(volume.value);
   utter.onstart = () => status.textContent = 'Speaking...';
-  utter.onend = () => status.textContent = 'Done.';
+  utter.onboundary = (e) => {
+    if (typeof e.charIndex === 'number') {
+      const end = str.indexOf(' ', e.charIndex);
+      text.setSelectionRange(e.charIndex, end === -1 ? str.length : end);
+      text.focus();
+    }
+  };
+  utter.onend = () => {
+    text.setSelectionRange(0, 0);
+    status.textContent = 'Done.';
+    if (loop.checked) speakText(str);
+  };
   utter.onerror = (e) => status.textContent = 'Error: ' + e.error;
   synth.speak(utter);
   addToHistory(str);

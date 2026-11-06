@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Advance Multi-Step Enquiry Form</title>
+        <link rel="stylesheet" href="Enquiry Form.css">
+    </head>
+
+    <body>
+
+        <div class="form-card">
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+                <div class="step-circle active">1</div>
+                <div class="step-circle">2</div>
+                <div class="step-circle">3</div>
+                <div class="step-circle">4</div>
+            </div>
+
+            <form id="multiStepForm" novalidate>
+
+                <div class="form-step active-step" id="step-1">
+                    <h3>Step 1: Contact Information</h3>
+
+                    <div class="input-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" placeholder="Enter Your Name">
+                        <p class="error-msg" id="nameError"></p>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" placeholder="Enter your Email">
+                        <p class="error-msg" id="emailError"></p>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="phone">Phone Number *</label>
+                        <div class="phone-wrapper">
+                            <span class="country-code">+91</span>
+                            <input type="tel" id="phone" placeholder="Enter your Phone Number">
+                        </div>
+                        <p class="error-msg" id="phoneError"></p>
+                    </div>
+                </div>
+
+                <div class="form-step" id="step-2">
+                    <h3>Step 2: Project Requirements</h3>
+
+                    <div class="input-group">
+                        <label>Project Type *</label>
+                        <div class="radio-grid">
+                            <div class="radio-card" data-value="Frontend Dev">Frontend Dev</div>
+                            <div class="radio-card" data-value="UI/UX Design">UI/UX Design</div>
+                            <div class="radio-card" data-value="Fullstack">Fullstack</div>
+                            <div class="radio-card" data-value="Other">Other</div>
+                        </div>
+                        <input type="hidden" id="projectType">
+                        <p class="error-msg" id="projectTypeError"></p>
+                    </div>
+
+                    <div class="input-group">
+                        <label id="descLabel" for="description">Project Description *</label>
+                        <textarea id="description" rows="4" maxlength="500"
+                            placeholder="Tell us about features, scope, or requirements..."></textarea>
+                        <div class="flex-between">
+                            <p class="error-msg" id="descriptionError"></p>
+                            <p class="char-counter"><span id="charCount">0</span>/500 chars</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-step" id="step-3">
+                    <h3>Step 3: Budget & Timeline</h3>
+
+                    <div class="input-group">
+                        <label for="budget">Estimated Budget (USD): <span id="budgetValue"
+                                class="highlight-text">$500+</span></label>
+                        <input type="range" id="budget" min="100" max="5000" step="100" value="500">
+                        <div class="range-labels">
+                            <span>$100</span>
+                            <span>$2500</span>
+                            <span>$5000+</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="deadline">Target Deadline</label>
+                        <input type="date" id="deadline">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Upload Project Brief (Max 5MB)</label>
+                        <div class="dropzone" id="dropzone">
+                            <input type="file" id="fileInput" hidden>
+                            <p id="dropzoneText">Drag & Drop or Click to Upload</p>
+                            <span class="file-subtext">PDF, DOCX, or Images up to 5MB</span>
+                        </div>
+                        <p class="error-msg" id="fileError"></p>
+                    </div>
+                </div>
+
+                <div class="form-step" id="step-4">
+                    <h3>Step 4: Additional Details</h3>
+
+                    <div class="input-group">
+                        <label for="hearAbout">How did you hear about us? *</label>
+                        <select id="hearAbout">
+                            <option value="">Select an option</option>
+                            <option value="Social Media">Social Media</option>
+                            <option value="Friend/Referral">Friend or Referral</option>
+                            <option value="Google Search">Google Search</option>
+                            <option value="Advertisement">Advertisement</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <p class="error-msg" id="hearAboutError"></p>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="contactTime">Preferred Contact Time</label>
+                        <div class="radio-grid">
+                            <div class="radio-card" data-value="Morning (9 AM - 12 PM)">Morning (9 AM - 12 PM)</div>
+                            <div class="radio-card" data-value="Afternoon (12 PM - 4 PM)">Afternoon (12 PM - 4 PM)</div>
+                            <div class="radio-card" data-value="Evening (4 PM - 8 PM)">Evening (4 PM - 8 PM)</div>
+                            <div class="radio-card" data-value="Anytime">Anytime</div>
+                        </div>
+                        <input type="hidden" id="contactTime">
+                        <p class="error-msg" id="contactTimeError"></p>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="additionalNotes">Additional Notes / Special Requests</label>
+                        <textarea id="additionalNotes" rows="3"
+                            placeholder="Any other details you want us to know..."></textarea>
+                        <div class="flex-between">
+                            <p class="error-msg" id="additionalNotesError"></p>
+                            <p class="char-counter"><span id="notesCharCount">0</span>/200 chars</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-controls">
+                    <button type="button" id="prevBtn" class="btn btn-secondary" style="display: none;">Back</button>
+                    <button type="button" id="nextBtn" class="btn btn-primary"
+                        style="margin-left: auto;">Continue</button>
+                </div>
+
+            </form>
+
+            <div class="success-screen" id="successScreen" style="display: none;">
+                <div class="success-icon">✓</div>
+                <h2>Enquiry Submitted!</h2>
+                <p id="successMessage"></p>
+            </div>
+        </div>
+
+        <script src="Enquiry Form.js"></script>
+    </body>
+
+</html>

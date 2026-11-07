@@ -57,15 +57,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const validators = {
-        name: (val) => val.trim().length >= 3 ? "" : "Please  Enter Your Name.",
-        email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) ? "" : "Please enter a valid email address.",
-        phone: (val) => /^\d{10}$/.test(val) ? "" : "Please Enter Valid Phone Number.",
+        name: (val) => val.trim().length >= 3 ? "" : "Please Enter your Name",
+        email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) ? "" : "Please enter your valid E-Mail Address.",
+        phone: (val) => /^\d{10}$/.test(val) ? "" : "Please enter your valid phone number",
         projectType: (val) => val ? "" : "Please select your project type.",
-        description: (val) => val.trim().length >= 10 ? "" : "Please describe your project (at least 10 characters).",
-        deadline: (val) => val ? "" : "Please select a target deadline.",
+        description: () => "",
         hearAbout: (val) => val ? "" : "Please select how you heard about us.",
         contactTime: (val) => val ? "" : "Please select a preferred contact time.",
-        additionalNotes: () => ""
+        additionalNotes: (val) => val.trim().length >= 0 ? "" : ""
     };
 
     function validateField(fieldId) {
@@ -103,27 +102,18 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("notesCharCount").innerText = e.target.value.length;
     });
 
-    document.getElementById("deadline").addEventListener("change", () => validateField("deadline"));
-
     function isStepValid() {
         if (currentStep === 1) {
-            const a = validateField("name");
-            const b = validateField("email");
-            const c = validateField("phone");
-            return a && b && c;
+            return validateField("name") & validateField("email") & validateField("phone");
         }
         if (currentStep === 2) {
-            const a = validateField("projectType");
-            const b = validateField("description");
-            return a && b;
+            return validateField("projectType");
         }
         if (currentStep === 3) {
-            return validateField("deadline");
+            return true;
         }
         if (currentStep === 4) {
-            const a = validateField("hearAbout");
-            const b = validateField("contactTime");
-            return a && b;
+            return validateField("hearAbout") & validateField("contactTime");
         }
         return true;
     }
@@ -162,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const hiddenInput = parent.querySelector('input[type="hidden"]');
             if (hiddenInput) hiddenInput.value = selectedValue;
 
-            if (descLabel) descLabel.innerText = `Describe your ${selectedValue} project *`;
+            if (descLabel) descLabel.innerText = `Describe your ${selectedValue} project`;
             if (hiddenInput === projectTypeInput) validateField("projectType");
             if (hiddenInput === contactTimeInput) validateField("contactTime");
         });
@@ -253,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(() => {
                 form.style.display = "none";
                 document.querySelector(".progress-container").style.display = "none";
-                document.getElementById("successMessage").innerText = `Thank you, ${name}. Your details have been sent to Telegram.`;
+                document.getElementById("successMessage").innerText = `Thank you, ${name}. Your details have been sent to the team, and we will get back to you soon to know about your project.`;
                 document.getElementById("successScreen").style.display = "block";
             })
             .catch(err => {

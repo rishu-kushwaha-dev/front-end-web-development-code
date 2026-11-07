@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const budgetInput = document.getElementById("budget");
     budgetInput.addEventListener("input", (e) => {
-        document.getElementById("budgetValue").innerText = `$${e.target.value}+`;
+        document.getElementById("budgetValue").innerText = `₹${e.target.value}+`;
     });
 
     const dropzone = document.getElementById("dropzone");
@@ -197,18 +197,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function handleFormSubmit() {
-        nextBtn.disabled = true;
-        nextBtn.innerText = "Submitting...";
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const projectType = document.getElementById("projectType").value;
+        const description = document.getElementById("description").value;
+        const budget = document.getElementById("budget").value;
+        const deadline = document.getElementById("deadline").value;
+        const hearAbout = document.getElementById("hearAbout").value;
+        const contactTime = document.getElementById("contactTime").value;
+        const additionalNotes = document.getElementById("additionalNotes").value;
 
-        setTimeout(() => {
+        const message = `*New Enquiry*\n\n*Name:* ${name}\n*Email:* ${email}\n*Phone:* ${phone}\n*Project Type:* ${projectType}\n*Description:* ${description}\n*Budget:* ₹${budget}\n*Deadline:* ${deadline}\n*Heard About:* ${hearAbout}\n*Contact Time:* ${contactTime}\n*Notes:* ${additionalNotes}`;
+
+        const BOT_TOKEN = "9243295772:AAFh0CWNbaMEjG6dG_JvD-iHZ12fRN7ORRg";
+        const CHAT_ID = "8452810767";
+
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: message,
+                parse_mode: "Markdown"
+            })
+        })
+        .then(res => res.ok ? Promise.resolve() : Promise.reject(res.statusText))
+        .then(() => {
             form.style.display = "none";
             document.querySelector(".progress-container").style.display = "none";
-
-            const name = document.getElementById("name").value;
-            const successScreen = document.getElementById("successScreen");
-            document.getElementById("successMessage").innerText = `Thank you, ${name}. We have received your request and will get back to you within 24 hours.`;
-
-            successScreen.style.display = "block";
-        }, 2000);
+            document.getElementById("successMessage").innerText = `Thank you, ${name}. Your details have been sent to Telegram.`;
+            document.getElementById("successScreen").style.display = "block";
+        })
+        .catch(err => {
+            alert("Telegram send failed. Check BOT_TOKEN and CHAT_ID in script.");
+            nextBtn.disabled = false;
+            nextBtn.innerText = "Submit Enquiry";
+        });
     }
 });

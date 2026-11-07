@@ -40,7 +40,7 @@
                         <label for="phone">Phone Number *</label>
                         <div class="phone-wrapper">
                             <span class="country-code">+91</span>
-                            <input type="tel" id="phone" placeholder="Enter your Phone Number">
+                            <input type="tel" id="phone" inputmode="numeric" maxlength="10" placeholder="Enter your Phone Number">
                         </div>
                         <p class="error-msg" id="phoneError"></p>
                     </div>
@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="input-group">
-                        <label id="descLabel" for="description">Project Description *</label>
+                        <label id="descLabel" for="description">Project Description</label>
                         <textarea id="description" rows="4" maxlength="500"
                             placeholder="Tell us about your Project that how i build your project"></textarea>
                         <div class="flex-between">

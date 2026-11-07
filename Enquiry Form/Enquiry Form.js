@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) ? "" : "Please enter a valid email address.",
         phone: (val) => /^\d{10}$/.test(val) ? "" : "Phone number must be exactly 10 digits.",
         projectType: (val) => val ? "" : "Please select a project type.",
-        description: (val) => val.trim().length >= 20 ? "" : "Please provide a bit more detail (min 20 chars).",
+        description: () => "",
         hearAbout: (val) => val ? "" : "Please select how you heard about us.",
         contactTime: (val) => val ? "" : "Please select a preferred contact time.",
         additionalNotes: (val) => val.trim().length >= 0 ? "" : ""
@@ -84,8 +84,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    ["name", "email", "phone"].forEach(id => {
+    ["name", "email"].forEach(id => {
         document.getElementById(id).addEventListener("input", () => validateField(id));
+    });
+    document.getElementById("phone").addEventListener("input", (e) => {
+        e.target.value = e.target.value.replace(/\D/g, "").slice(0, 10);
+        validateField("phone");
     });
     document.getElementById("description").addEventListener("input", (e) => {
         validateField("description");
@@ -103,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return validateField("name") & validateField("email") & validateField("phone");
         }
         if (currentStep === 2) {
-            return validateField("projectType") & validateField("description");
+            return validateField("projectType");
         }
         if (currentStep === 3) {
             return true;
@@ -148,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const hiddenInput = parent.querySelector('input[type="hidden"]');
             if (hiddenInput) hiddenInput.value = selectedValue;
 
-            if (descLabel) descLabel.innerText = `Describe your ${selectedValue} project *`;
+            if (descLabel) descLabel.innerText = `Describe your ${selectedValue} project`;
             if (hiddenInput === projectTypeInput) validateField("projectType");
             if (hiddenInput === contactTimeInput) validateField("contactTime");
         });
@@ -208,7 +212,20 @@ document.addEventListener("DOMContentLoaded", () => {
         const contactTime = document.getElementById("contactTime").value;
         const additionalNotes = document.getElementById("additionalNotes").value;
 
-        const message = `*New Enquiry*\n\n*Name:* ${name}\n*Email:* ${email}\n*Phone:* ${phone}\n*Project Type:* ${projectType}\n*Description:* ${description}\n*Budget:* ₹${budget}\n*Deadline:* ${deadline}\n*Heard About:* ${hearAbout}\n*Contact Time:* ${contactTime}\n*Notes:* ${additionalNotes}`;
+        const message = [
+            "*New Enquiry*",
+            "",
+            `*Name:* ${name}`,
+            `*Email:* ${email}`,
+            `*Phone:* +91 ${phone}`,
+            `*Project Type:* ${projectType}`,
+            description.trim() ? `*Description:* ${description.trim()}` : null,
+            `*Budget:* ₹${budget}+`,
+            deadline ? `*Deadline:* ${deadline}` : null,
+            `*Heard By:* ${hearAbout}`,
+            contactTime ? `*Contact Time:* ${contactTime}` : null,
+            additionalNotes.trim() ? `*Special Request:* ${additionalNotes.trim()}` : null
+        ].filter(Boolean).join("\n");
 
         const BOT_TOKEN = "9243295772:AAFh0CWNbaMEjG6dG_JvD-iHZ12fRN7ORRg";
         const CHAT_ID = "8452810767";

@@ -61,10 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
         email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) ? "" : "Please enter your valid E-Mail Address.",
         phone: (val) => /^\d{10}$/.test(val) ? "" : "Please enter your valid phone number",
         projectType: (val) => val ? "" : "Please select your project type.",
-        description: () => "",
         hearAbout: (val) => val ? "" : "Please select how you heard about us.",
-        contactTime: (val) => val ? "" : "Please select a preferred contact time.",
-        additionalNotes: (val) => val.trim().length >= 0 ? "" : ""
+        contactTime: (val) => val ? "" : "Please select a preferred contact time."
     };
 
     function validateField(fieldId) {
@@ -92,13 +90,11 @@ document.addEventListener("DOMContentLoaded", () => {
         validateField("phone");
     });
     document.getElementById("description").addEventListener("input", (e) => {
-        validateField("description");
         document.getElementById("charCount").innerText = e.target.value.length;
     });
 
     document.getElementById("hearAbout").addEventListener("change", () => validateField("hearAbout"));
     document.getElementById("additionalNotes").addEventListener("input", (e) => {
-        validateField("additionalNotes");
         document.getElementById("notesCharCount").innerText = e.target.value.length;
     });
 
@@ -158,48 +154,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    const budgetInput = document.getElementById("budget");
-    budgetInput.addEventListener("input", (e) => {
-        document.getElementById("budgetValue").innerText = `₹${e.target.value}+`;
-    });
-
-    const dropzone = document.getElementById("dropzone");
-    const fileInput = document.getElementById("fileInput");
-    const fileError = document.getElementById("fileError");
-    const dropzoneText = document.getElementById("dropzoneText");
-
-    dropzone.addEventListener("click", () => fileInput.click());
-
-    dropzone.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        dropzone.classList.add("dragover");
-    });
-
-    dropzone.addEventListener("dragleave", () => dropzone.classList.remove("dragover"));
-
-    dropzone.addEventListener("drop", (e) => {
-        e.preventDefault();
-        dropzone.classList.remove("dragover");
-        if (e.dataTransfer.files.length) {
-            fileInput.files = e.dataTransfer.files;
-            handleFileValidation();
-        }
-    });
-
-    fileInput.addEventListener("change", handleFileValidation);
-
-    function handleFileValidation() {
-        const file = fileInput.files[0];
-        if (file && file.size > 5 * 1024 * 1024) {
-            fileError.innerText = "File size must be less than 5MB.";
-            dropzoneText.innerText = "Drag & Drop or Click to Upload";
-            fileInput.value = "";
-        } else if (file) {
-            fileError.innerText = "";
-            dropzoneText.innerText = `Selected: ${file.name}`;
-        }
-    }
-
     function handleFormSubmit() {
         const name = document.getElementById("name").value;
         const email = document.getElementById("email").value;
@@ -220,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
             `*Phone:* +91 ${phone}`,
             `*Project Type:* ${projectType}`,
             description.trim() ? `*Description:* ${description.trim()}` : null,
-            `*Budget:* ₹${budget}+`,
+            `*Budget:* ₹${budget}`,
             deadline ? `*Deadline:* ${deadline}` : null,
             `*Heard By:* ${hearAbout}`,
             contactTime ? `*Contact Time:* ${contactTime}` : null,

@@ -57,14 +57,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const validators = {
-        name: (val) => val.trim().length >= 3 ? "" : "Name must be at least 3 characters.",
+        name: (val) => val.trim().length >= 3 ? "" : "Please  Enter Your Name.",
         email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) ? "" : "Please enter a valid email address.",
-        phone: (val) => /^\d{10}$/.test(val) ? "" : "Phone number must be exactly 10 digits.",
-        projectType: (val) => val ? "" : "Please select a project type.",
-        description: () => "",
+        phone: (val) => /^\d{10}$/.test(val) ? "" : "Please Enter Valid Phone Number.",
+        projectType: (val) => val ? "" : "Please select your project type.",
+        description: (val) => val.trim().length >= 10 ? "" : "Please describe your project (at least 10 characters).",
+        deadline: (val) => val ? "" : "Please select a target deadline.",
         hearAbout: (val) => val ? "" : "Please select how you heard about us.",
         contactTime: (val) => val ? "" : "Please select a preferred contact time.",
-        additionalNotes: (val) => val.trim().length >= 0 ? "" : ""
+        additionalNotes: () => ""
     };
 
     function validateField(fieldId) {
@@ -102,18 +103,27 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("notesCharCount").innerText = e.target.value.length;
     });
 
+    document.getElementById("deadline").addEventListener("change", () => validateField("deadline"));
+
     function isStepValid() {
         if (currentStep === 1) {
-            return validateField("name") & validateField("email") & validateField("phone");
+            const a = validateField("name");
+            const b = validateField("email");
+            const c = validateField("phone");
+            return a && b && c;
         }
         if (currentStep === 2) {
-            return validateField("projectType");
+            const a = validateField("projectType");
+            const b = validateField("description");
+            return a && b;
         }
         if (currentStep === 3) {
-            return true;
+            return validateField("deadline");
         }
         if (currentStep === 4) {
-            return validateField("hearAbout") & validateField("contactTime");
+            const a = validateField("hearAbout");
+            const b = validateField("contactTime");
+            return a && b;
         }
         return true;
     }
@@ -152,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const hiddenInput = parent.querySelector('input[type="hidden"]');
             if (hiddenInput) hiddenInput.value = selectedValue;
 
-            if (descLabel) descLabel.innerText = `Describe your ${selectedValue} project`;
+            if (descLabel) descLabel.innerText = `Describe your ${selectedValue} project *`;
             if (hiddenInput === projectTypeInput) validateField("projectType");
             if (hiddenInput === contactTimeInput) validateField("contactTime");
         });
@@ -239,17 +249,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 parse_mode: "Markdown"
             })
         })
-        .then(res => res.ok ? Promise.resolve() : Promise.reject(res.statusText))
-        .then(() => {
-            form.style.display = "none";
-            document.querySelector(".progress-container").style.display = "none";
-            document.getElementById("successMessage").innerText = `Thank you, ${name}. Your details have been sent to Telegram.`;
-            document.getElementById("successScreen").style.display = "block";
-        })
-        .catch(err => {
-            alert("Telegram send failed. Check BOT_TOKEN and CHAT_ID in script.");
-            nextBtn.disabled = false;
-            nextBtn.innerText = "Submit Enquiry";
-        });
+            .then(res => res.ok ? Promise.resolve() : Promise.reject(res.statusText))
+            .then(() => {
+                form.style.display = "none";
+                document.querySelector(".progress-container").style.display = "none";
+                document.getElementById("successMessage").innerText = `Thank you, ${name}. Your details have been sent to Telegram.`;
+                document.getElementById("successScreen").style.display = "block";
+            })
+            .catch(err => {
+                alert("Telegram send failed. Check BOT_TOKEN and CHAT_ID in script.");
+                nextBtn.disabled = false;
+                nextBtn.innerText = "Submit Enquiry";
+            });
     }
 });

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Maps Distance Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="controls">
+            <h1>Google Maps Distance Calculator</h1>
+            <div class="input-field">
+                <label for="origin">Origin</label>
+                <input type="text" id="origin" placeholder="Enter origin address">
+            </div>
+            <div class="input-field">
+                <label for="destination">Destination</label>
+                <input type="text" id="destination" placeholder="Enter destination address">
+            </div>
+            <button id="calcBtn">Calculate Distance</button>
+            <div class="results" id="results"></div>
+        </div>
+        <div id="map"></div>
+    </div>
+    <script src="app.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+</body>
+</html>

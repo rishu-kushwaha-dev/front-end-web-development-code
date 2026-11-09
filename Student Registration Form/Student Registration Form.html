@@ -1,286 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Registration Form</title>
-  <link rel="stylesheet" href="Student Registration Form.css">
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+    <link rel="stylesheet" href="Student Registration Form.css">
+  </head>
 
-<body>
-  <div class="header">
-    <h1>Student Registration Form</h1>
-    <div class="marquee">
-      <span>📚 An Academy Committed to Imparting Quality Education and instilling Patriotism & Sanskars in Centemians
-        🎓</span>
+  <body>
+    <div class="header">
+      <h1>Student Registration Form</h1>
+      <div class="marquee">
+        <span>An Academy Committed to Imparting Quality Education and instilling Patriotism & Sanskars in Centemians
+          🎓</span>
+      </div>
     </div>
-  </div>
 
-  <div class="form-container">
-    <form>
-      <!-- Student Details Section -->
-      <div class="form-section">
-        <h2>👨‍🎓 Student Details</h2>
-        <div class="form-group">
-          <div>
-            <label for="studentName">Student Name:</label>
-            <input type="text" id="studentName" name="studentName" placeholder="Enter Student Name" required>
+    <div class="form-container">
+      <form>
+        <!-- Student Details Section -->
+        <div class="form-section">
+          <h2>👨‍🎓 Student Details</h2>
+          <div class="form-group">
+            <div>
+              <label for="studentName">Student Name:</label>
+              <input type="text" id="studentName" name="studentName" placeholder="Enter Student Name" required>
+            </div>
+            <div>
+              <label for="dob">Date of Birth:</label>
+              <input type="date" id="dob" name="dob" required>
+            </div>
           </div>
-          <div>
-            <label for="dob">Date of Birth:</label>
-            <input type="date" id="dob" name="dob" required>
+
+          <div class="form-group">
+            <div>
+              <label for="aadhar">Aadhar Number:</label>
+              <input type="number" id="aadhar" name="aadhar" placeholder="Enter Aadhar Number" required>
+            </div>
+            <div>
+              <label for="bloodGroup">Blood Group:</label>
+              <select id="bloodGroup" name="bloodGroup" required>
+                <option value="">Select Blood Group</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div>
+              <label for="religion">Religion:</label>
+              <select id="religion" name="religion" required>
+                <option value="">Select Religion</option>
+                <option value="Hindu">Hindu</option>
+                <option value="Muslim">Muslim</option>
+                <option value="Sikh">Sikh</option>
+                <option value="Christian">Christian</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label for="caste">Caste:</label>
+              <select id="caste" name="caste" required>
+                <option value="">Select Caste</option>
+                <option value="SC">SC</option>
+                <option value="ST">ST</option>
+                <option value="OBC">OBC</option>
+                <option value="General">General</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group full">
+            <label>Gender:</label>
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="gender" value="Male" required> Male
+              </label>
+              <label>
+                <input type="radio" name="gender" value="Female" required> Female
+              </label>
+            </div>
           </div>
         </div>
 
-        <div class="form-group">
-          <div>
-            <label for="aadhar">Aadhar Number:</label>
-            <input type="number" id="aadhar" name="aadhar" placeholder="Enter Aadhar Number" required>
+        <!-- Parent's Details Section -->
+        <div class="form-section">
+          <h2>👨‍👩‍👧 Parent's Details</h2>
+          <div class="form-group">
+            <div>
+              <label for="fatherName">Father's Name:</label>
+              <input type="text" id="fatherName" name="fatherName" placeholder="Enter Father's Name" required>
+            </div>
+            <div>
+              <label for="fatherAadhar">Father's Aadhar Number:</label>
+              <input type="number" id="fatherAadhar" name="fatherAadhar" placeholder="Enter Aadhar Number">
+            </div>
           </div>
-          <div>
-            <label for="bloodGroup">Blood Group:</label>
-            <select id="bloodGroup" name="bloodGroup" required>
-              <option value="">Select Blood Group</option>
-              <option value="A+">A+</option>
-              <option value="A-">A-</option>
-              <option value="B+">B+</option>
-              <option value="B-">B-</option>
-              <option value="AB+">AB+</option>
-              <option value="AB-">AB-</option>
-              <option value="O+">O+</option>
-              <option value="O-">O-</option>
-            </select>
+
+          <div class="form-group">
+            <div>
+              <label for="motherName">Mother's Name:</label>
+              <input type="text" id="motherName" name="motherName" placeholder="Enter Mother's Name" required>
+            </div>
+            <div>
+              <label for="motherAadhar">Mother's Aadhar Number:</label>
+              <input type="number" id="motherAadhar" name="motherAadhar" placeholder="Enter Aadhar Number">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div>
+              <label for="fatherOccupation">Father's Occupation:</label>
+              <input type="text" id="fatherOccupation" name="fatherOccupation" placeholder="Enter Father's Occupation">
+            </div>
+            <div>
+              <label for="motherOccupation">Mother's Occupation:</label>
+              <input type="text" id="motherOccupation" name="motherOccupation" placeholder="Enter Mother's Occupation">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div>
+              <label for="fatherMobile">Father's Mobile Number:</label>
+              <input type="tel" id="fatherMobile" name="fatherMobile" placeholder="Enter Mobile Number"
+                pattern="[0-9]{10}">
+            </div>
+            <div>
+              <label for="motherMobile">Mother's Mobile Number:</label>
+              <input type="tel" id="motherMobile" name="motherMobile" placeholder="Enter Mobile Number"
+                pattern="[0-9]{10}">
+            </div>
           </div>
         </div>
 
-        <div class="form-group">
-          <div>
-            <label for="religion">Religion:</label>
-            <select id="religion" name="religion" required>
-              <option value="">Select Religion</option>
-              <option value="Hindu">Hindu</option>
-              <option value="Muslim">Muslim</option>
-              <option value="Sikh">Sikh</option>
-              <option value="Christian">Christian</option>
-              <option value="Other">Other</option>
-            </select>
+        <!-- Other Details Section -->
+        <div class="form-section">
+          <h2>📝 Other Details</h2>
+          <div class="form-group full">
+            <label for="permanentAddress">Permanent Address:</label>
+            <textarea id="permanentAddress" name="permanentAddress" rows="3"
+              placeholder="Enter Permanent Address"></textarea>
           </div>
-          <div>
-            <label for="caste">Caste:</label>
-            <select id="caste" name="caste" required>
-              <option value="">Select Caste</option>
-              <option value="SC">SC</option>
-              <option value="ST">ST</option>
-              <option value="OBC">OBC</option>
-              <option value="General">General</option>
-            </select>
+
+          <div class="form-group full">
+            <label for="temporaryAddress">Temporary Address:</label>
+            <textarea id="temporaryAddress" name="temporaryAddress" rows="3"
+              placeholder="Enter Temporary Address"></textarea>
+          </div>
+
+          <div class="form-group">
+            <div>
+              <label for="email">E-Mail:</label>
+              <input type="email" id="email" name="email" placeholder="Enter Email Address">
+            </div>
+            <div>
+              <label for="alternateMobile">Alternate Mobile Number:</label>
+              <input type="tel" id="alternateMobile" name="alternateMobile" placeholder="Enter Mobile Number"
+                pattern="[0-9]{10}">
+            </div>
           </div>
         </div>
 
-        <div class="form-group full">
-          <label>Gender:</label>
-          <div class="radio-group">
-            <label>
-              <input type="radio" name="gender" value="Male" required> Male
-            </label>
-            <label>
-              <input type="radio" name="gender" value="Female" required> Female
-            </label>
+        <!-- Siblings Details Section -->
+        <div class="form-section">
+          <h2>👫 Siblings Details</h2>
+          <div class="form-group">
+            <div>
+              <label for="sibling1Name">Sibling 1 Name:</label>
+              <input type="text" id="sibling1Name" name="sibling1Name" placeholder="Enter Sibling's Name">
+            </div>
+            <div>
+              <label for="sibling2Name">Sibling 2 Name:</label>
+              <input type="text" id="sibling2Name" name="sibling2Name" placeholder="Enter Sibling's Name">
+            </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Parent's Details Section -->
-      <div class="form-section">
-        <h2>👨‍👩‍👧 Parent's Details</h2>
-        <div class="form-group">
-          <div>
-            <label for="fatherName">Father's Name:</label>
-            <input type="text" id="fatherName" name="fatherName" placeholder="Enter Father's Name" required>
+          <div class="form-group full">
+            <label>Number of Siblings:</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" name="numSiblings" value="1"> 1</label>
+              <label><input type="checkbox" name="numSiblings" value="2"> 2</label>
+              <label><input type="checkbox" name="numSiblings" value="3"> 3</label>
+              <label><input type="checkbox" name="numSiblings" value="4"> 4</label>
+              <label><input type="checkbox" name="numSiblings" value="5"> 5</label>
+              <label><input type="checkbox" name="numSiblings" value="6"> 6</label>
+            </div>
           </div>
-          <div>
-            <label for="fatherAadhar">Father's Aadhar Number:</label>
-            <input type="number" id="fatherAadhar" name="fatherAadhar" placeholder="Enter Aadhar Number">
-          </div>
-        </div>
 
-        <div class="form-group">
-          <div>
-            <label for="motherName">Mother's Name:</label>
-            <input type="text" id="motherName" name="motherName" placeholder="Enter Mother's Name" required>
+          <div class="form-group full">
+            <label>Siblings Gender:</label>
+            <div class="radio-group">
+              <label><input type="radio" name="siblingGender" value="Male"> Male</label>
+              <label><input type="radio" name="siblingGender" value="Female"> Female</label>
+            </div>
           </div>
-          <div>
-            <label for="motherAadhar">Mother's Aadhar Number:</label>
-            <input type="number" id="motherAadhar" name="motherAadhar" placeholder="Enter Aadhar Number">
-          </div>
-        </div>
 
-        <div class="form-group">
-          <div>
-            <label for="fatherOccupation">Father's Occupation:</label>
-            <input type="text" id="fatherOccupation" name="fatherOccupation" placeholder="Enter Father's Occupation">
-          </div>
-          <div>
-            <label for="motherOccupation">Mother's Occupation:</label>
-            <input type="text" id="motherOccupation" name="motherOccupation" placeholder="Enter Mother's Occupation">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div>
-            <label for="fatherMobile">Father's Mobile Number:</label>
-            <input type="tel" id="fatherMobile" name="fatherMobile" placeholder="Enter Mobile Number"
-              pattern="[0-9]{10}">
-          </div>
-          <div>
-            <label for="motherMobile">Mother's Mobile Number:</label>
-            <input type="tel" id="motherMobile" name="motherMobile" placeholder="Enter Mobile Number"
-              pattern="[0-9]{10}">
-          </div>
-        </div>
-      </div>
-
-      <!-- Other Details Section -->
-      <div class="form-section">
-        <h2>📝 Other Details</h2>
-        <div class="form-group full">
-          <label for="permanentAddress">Permanent Address:</label>
-          <textarea id="permanentAddress" name="permanentAddress" rows="3"
-            placeholder="Enter Permanent Address"></textarea>
-        </div>
-
-        <div class="form-group full">
-          <label for="temporaryAddress">Temporary Address:</label>
-          <textarea id="temporaryAddress" name="temporaryAddress" rows="3"
-            placeholder="Enter Temporary Address"></textarea>
-        </div>
-
-        <div class="form-group">
-          <div>
-            <label for="email">E-Mail:</label>
-            <input type="email" id="email" name="email" placeholder="Enter Email Address">
-          </div>
-          <div>
-            <label for="alternateMobile">Alternate Mobile Number:</label>
-            <input type="tel" id="alternateMobile" name="alternateMobile" placeholder="Enter Mobile Number"
-              pattern="[0-9]{10}">
-          </div>
-        </div>
-      </div>
-
-      <!-- Siblings Details Section -->
-      <div class="form-section">
-        <h2>👫 Siblings Details</h2>
-        <div class="form-group">
-          <div>
-            <label for="sibling1Name">Sibling 1 Name:</label>
-            <input type="text" id="sibling1Name" name="sibling1Name" placeholder="Enter Sibling's Name">
-          </div>
-          <div>
-            <label for="sibling2Name">Sibling 2 Name:</label>
-            <input type="text" id="sibling2Name" name="sibling2Name" placeholder="Enter Sibling's Name">
+          <div class="form-group full">
+            <label>Siblings Class:</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" name="siblingClass"> Nursery</label>
+              <label><input type="checkbox" name="siblingClass"> K.G.</label>
+              <label><input type="checkbox" name="siblingClass"> Prep</label>
+              <label><input type="checkbox" name="siblingClass"> 1</label>
+              <label><input type="checkbox" name="siblingClass"> 2</label>
+              <label><input type="checkbox" name="siblingClass"> 3</label>
+              <label><input type="checkbox" name="siblingClass"> 4</label>
+              <label><input type="checkbox" name="siblingClass"> 5</label>
+              <label><input type="checkbox" name="siblingClass"> 6</label>
+              <label><input type="checkbox" name="siblingClass"> 7</label>
+              <label><input type="checkbox" name="siblingClass"> 8</label>
+              <label><input type="checkbox" name="siblingClass"> 9</label>
+              <label><input type="checkbox" name="siblingClass"> 10</label>
+              <label><input type="checkbox" name="siblingClass"> 11</label>
+              <label><input type="checkbox" name="siblingClass"> 12</label>
+            </div>
           </div>
         </div>
 
-        <div class="form-group full">
-          <label>Number of Siblings:</label>
-          <div class="checkbox-group">
-            <label><input type="checkbox" name="numSiblings" value="1"> 1</label>
-            <label><input type="checkbox" name="numSiblings" value="2"> 2</label>
-            <label><input type="checkbox" name="numSiblings" value="3"> 3</label>
-            <label><input type="checkbox" name="numSiblings" value="4"> 4</label>
-            <label><input type="checkbox" name="numSiblings" value="5"> 5</label>
-            <label><input type="checkbox" name="numSiblings" value="6"> 6</label>
+        <!-- School Details Section -->
+        <div class="form-section">
+          <h2>🏫 School Details</h2>
+
+          <div class="form-group full">
+            <label>Class Want to Take Admission:</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" name="admissionClass" required> Nursery</label>
+              <label><input type="checkbox" name="admissionClass"> K.G.</label>
+              <label><input type="checkbox" name="admissionClass"> Prep</label>
+              <label><input type="checkbox" name="admissionClass"> 1</label>
+              <label><input type="checkbox" name="admissionClass"> 2</label>
+              <label><input type="checkbox" name="admissionClass"> 3</label>
+              <label><input type="checkbox" name="admissionClass"> 4</label>
+              <label><input type="checkbox" name="admissionClass"> 5</label>
+              <label><input type="checkbox" name="admissionClass"> 6</label>
+              <label><input type="checkbox" name="admissionClass"> 7</label>
+              <label><input type="checkbox" name="admissionClass"> 8</label>
+              <label><input type="checkbox" name="admissionClass"> 9</label>
+              <label><input type="checkbox" name="admissionClass"> 10</label>
+              <label><input type="checkbox" name="admissionClass"> 11</label>
+              <label><input type="checkbox" name="admissionClass"> 12</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div>
+              <label for="lastSchool">Last School Name:</label>
+              <input type="text" id="lastSchool" name="lastSchool" placeholder="Enter Last School Name">
+            </div>
+            <div>
+              <label for="reasonLeaving">Reason of Leaving Previous School:</label>
+              <input type="text" id="reasonLeaving" name="reasonLeaving" placeholder="Enter Reason">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div>
+              <label for="registrationDate">Date:</label>
+              <input type="date" id="registrationDate" name="registrationDate" required>
+            </div>
+            <div>
+              <label for="parentSignature">Parent's Signature:</label>
+              <input type="text" id="parentSignature" name="parentSignature" placeholder="Parent's Signature">
+            </div>
           </div>
         </div>
 
-        <div class="form-group full">
-          <label>Siblings Gender:</label>
-          <div class="radio-group">
-            <label><input type="radio" name="siblingGender" value="Male"> Male</label>
-            <label><input type="radio" name="siblingGender" value="Female"> Female</label>
-          </div>
+        <!-- Button Group -->
+        <div class="button-group">
+          <input type="submit" value="Register">
+          <input type="button" value="Reset">
         </div>
-
-        <div class="form-group full">
-          <label>Siblings Class:</label>
-          <div class="checkbox-group">
-            <label><input type="checkbox" name="siblingClass"> Nursery</label>
-            <label><input type="checkbox" name="siblingClass"> K.G.</label>
-            <label><input type="checkbox" name="siblingClass"> Prep</label>
-            <label><input type="checkbox" name="siblingClass"> 1</label>
-            <label><input type="checkbox" name="siblingClass"> 2</label>
-            <label><input type="checkbox" name="siblingClass"> 3</label>
-            <label><input type="checkbox" name="siblingClass"> 4</label>
-            <label><input type="checkbox" name="siblingClass"> 5</label>
-            <label><input type="checkbox" name="siblingClass"> 6</label>
-            <label><input type="checkbox" name="siblingClass"> 7</label>
-            <label><input type="checkbox" name="siblingClass"> 8</label>
-            <label><input type="checkbox" name="siblingClass"> 9</label>
-            <label><input type="checkbox" name="siblingClass"> 10</label>
-            <label><input type="checkbox" name="siblingClass"> 11</label>
-            <label><input type="checkbox" name="siblingClass"> 12</label>
-          </div>
-        </div>
-      </div>
-
-      <!-- School Details Section -->
-      <div class="form-section">
-        <h2>🏫 School Details</h2>
-
-        <div class="form-group full">
-          <label>Class Want to Take Admission:</label>
-          <div class="checkbox-group">
-            <label><input type="checkbox" name="admissionClass" required> Nursery</label>
-            <label><input type="checkbox" name="admissionClass"> K.G.</label>
-            <label><input type="checkbox" name="admissionClass"> Prep</label>
-            <label><input type="checkbox" name="admissionClass"> 1</label>
-            <label><input type="checkbox" name="admissionClass"> 2</label>
-            <label><input type="checkbox" name="admissionClass"> 3</label>
-            <label><input type="checkbox" name="admissionClass"> 4</label>
-            <label><input type="checkbox" name="admissionClass"> 5</label>
-            <label><input type="checkbox" name="admissionClass"> 6</label>
-            <label><input type="checkbox" name="admissionClass"> 7</label>
-            <label><input type="checkbox" name="admissionClass"> 8</label>
-            <label><input type="checkbox" name="admissionClass"> 9</label>
-            <label><input type="checkbox" name="admissionClass"> 10</label>
-            <label><input type="checkbox" name="admissionClass"> 11</label>
-            <label><input type="checkbox" name="admissionClass"> 12</label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div>
-            <label for="lastSchool">Last School Name:</label>
-            <input type="text" id="lastSchool" name="lastSchool" placeholder="Enter Last School Name">
-          </div>
-          <div>
-            <label for="reasonLeaving">Reason of Leaving Previous School:</label>
-            <input type="text" id="reasonLeaving" name="reasonLeaving" placeholder="Enter Reason">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div>
-            <label for="registrationDate">Date:</label>
-            <input type="date" id="registrationDate" name="registrationDate" required>
-          </div>
-          <div>
-            <label for="parentSignature">Parent's Signature:</label>
-            <input type="text" id="parentSignature" name="parentSignature" placeholder="Parent's Signature">
-          </div>
-        </div>
-      </div>
-
-      <!-- Button Group -->
-      <div class="button-group">
-        <input type="submit" value="Register">
-        <input type="button" value="Reset">
-      </div>
-    </form>
-  </div>
-  <script src="Student Registration Form.js"></script>
-</body>
+      </form>
+    </div>
+    <script src="Student Registration Form.js"></script>
+  </body>
 
 </html>

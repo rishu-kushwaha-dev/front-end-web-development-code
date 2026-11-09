@@ -280,6 +280,46 @@ h3 {
     background: transparent;
 }
 
+.budget-wrapper {
+    display: flex;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.03),
+        0 0 0 4px rgba(255, 255, 255, 0.8) inset;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.budget-wrapper:focus-within {
+    border-color: #667eea;
+    box-shadow:
+        0 0 0 3px rgba(102, 126, 234, 0.15),
+        0 0 0 4px rgba(255, 255, 255, 0.8) inset;
+    transform: translateY(-2px);
+}
+
+.currency-symbol {
+    background: #f7fafc;
+    padding: 14px 16px;
+    color: #718096;
+    font-size: 15px;
+    font-weight: 600;
+    border-right: 1px solid #e2e8f0;
+    user-select: none;
+}
+
+.budget-wrapper input {
+    border: none;
+    width: 100%;
+    padding: 14px 16px;
+    outline: none;
+    font-size: 15px;
+    color: #2d3748;
+    background: transparent;
+}
+
 .radio-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -573,16 +613,240 @@ textarea.input-error {
     transform: none !important;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1024px) {
+    .form-card {
+        max-width: 520px;
+        padding: 36px 28px;
+    }
+}
+
+@media (max-width: 768px) {
     body {
-        padding: 20px 16px;
+        padding: 24px 16px;
+        align-items: flex-start;
     }
 
     .form-card {
+        max-width: 540px;
         padding: 32px 24px;
+        border-radius: 20px;
+    }
+
+    h3 {
+        font-size: 22px;
+        margin-bottom: 22px;
+    }
+
+    .progress-container {
+        margin-bottom: 28px;
+    }
+
+    .step-circle {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+
+    .input-group input[type="text"],
+    .input-group input[type="email"],
+    .input-group input[type="date"],
+    .input-group select,
+    .input-group textarea {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+
+    .phone-wrapper input,
+    .budget-wrapper input {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+
+    .country-code,
+    .currency-symbol {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+
+    .radio-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .radio-card {
+        padding: 14px 10px;
+        font-size: 13px;
+    }
+
+    .btn-controls {
+        margin-top: 30px;
+        padding-top: 20px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+
+    .btn-primary {
+        margin-left: 0;
+        order: 2;
+    }
+
+    .btn-secondary {
+        order: 1;
+    }
+
+    .success-screen {
+        padding: 40px 20px;
+    }
+
+    .success-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 36px;
+    }
+
+    .success-screen h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 16px 12px;
+    }
+
+    .form-card {
+        padding: 24px 18px;
+        border-radius: 16px;
+        max-width: 100%;
+    }
+
+    h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .progress-container {
+        margin-bottom: 24px;
+        gap: 6px;
+    }
+
+    .step-circle {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+
+    .input-group label {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+
+    .input-group input[type="text"],
+    .input-group input[type="email"],
+    .input-group input[type="date"],
+    .input-group select,
+    .input-group textarea {
+        padding: 10px 12px;
+        font-size: 13px;
+        border-radius: 10px;
+    }
+
+    .phone-wrapper input,
+    .budget-wrapper input {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .country-code,
+    .currency-symbol {
+        padding: 10px 12px;
+        font-size: 13px;
     }
 
     .radio-grid {
         grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .radio-card {
+        padding: 12px 10px;
+        font-size: 12px;
+        border-radius: 12px;
+    }
+
+    .btn-controls {
+        margin-top: 24px;
+        padding-top: 16px;
+        gap: 8px;
+    }
+
+    .btn {
+        padding: 12px 20px;
+        font-size: 13px;
+        border-radius: 12px;
+    }
+
+    .success-screen {
+        padding: 32px 18px;
+    }
+
+    .success-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 32px;
+        margin-bottom: 16px;
+    }
+
+    .success-screen h2 {
+        font-size: 22px;
+    }
+
+    #successMessage {
+        font-size: 14px;
+    }
+
+    .char-counter {
+        font-size: 11px;
+    }
+
+    .error-msg {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 360px) {
+    .form-card {
+        padding: 20px 14px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    .input-group input[type="text"],
+    .input-group input[type="email"],
+    .input-group input[type="date"],
+    .input-group select,
+    .input-group textarea {
+        padding: 9px 10px;
+        font-size: 12px;
+    }
+
+    .phone-wrapper input,
+    .budget-wrapper input {
+        padding: 9px 10px;
+        font-size: 12px;
+    }
+
+    .country-code,
+    .currency-symbol {
+        padding: 9px 10px;
+        font-size: 12px;
     }
 }

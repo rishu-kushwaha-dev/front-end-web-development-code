@@ -290,13 +290,13 @@ select:focus {
     height: 100%;
     border-radius: 50%;
     background: conic-gradient(#0f172a 0deg 45deg,
-            #38bdf8 45deg 90deg,
+            #fdfeff 45deg 90deg,
             #0f172a 90deg 135deg,
-            #818cf8 135deg 180deg,
+            #f8f8f8 135deg 180deg,
             #0f172a 180deg 225deg,
-            #38bdf8 225deg 270deg,
+            #ffffff 225deg 270deg,
             #0f172a 270deg 315deg,
-            #818cf8 315deg 360deg);
+            #ffffff 315deg 360deg);
     animation: hypnoSpin var(--hypno-speed, 3s) linear infinite;
 }
 
@@ -304,14 +304,14 @@ select:focus {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: #38bdf8;
+    background: #fffefe;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 0 25px #38bdf8, 0 0 50px #818cf8;
+    box-shadow: 0 0 25px #ffffff, 0 0 50px #fefeff;
     z-index: 10;
-    border: 3px solid #0f172a;
+    border: 3px solid #ffffff;
 }
 
 @keyframes hypnoSpin {

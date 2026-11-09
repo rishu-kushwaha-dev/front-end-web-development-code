@@ -11,15 +11,20 @@ Here is a list of the projects inside this repository:
 * **Age Calculator**
 * **ASCII Binary Hex**
 * **BMI Calculator**
+* **Calculator**
 * **Captcha Verification**
 * **Colour Palette Generator**
+* **Countly**
 * **Currency Converter**
 * **Disturbance Creator**
 * **Digital Clock**
+* **Enquiry Form**
 * **Games**
+* **Google Maps Distance Calculator**
 * **Hacking Simulator**
 * **Independence Day**
 * **Lamp Login Form**
+* **Online DJ**
 * **Online Gift Store**
 * **OTP Verification**
 * **Password Generator**

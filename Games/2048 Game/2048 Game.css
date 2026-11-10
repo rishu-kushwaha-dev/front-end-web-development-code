@@ -93,7 +93,7 @@ body {
 
 .grid-container {
     position: relative;
-    background: #bbada0;
+    background: #9162c7;
     border-radius: 10px;
     padding: 15px;
     width: 100%;
@@ -112,7 +112,7 @@ body {
 }
 
 .cell {
-    background: rgba(238, 228, 218, 0.35);
+    background: rgba(107, 55, 156, 0.35);
     border-radius: 6px;
     width: 100%;
     height: 100%;
@@ -130,8 +130,8 @@ body {
 }
 
 .tile-2 {
-    background: #eee4da;
-    color: #776e65;
+    background: #04232c;
+    color: #a034ca;
     font-size: 45px;
 }
 

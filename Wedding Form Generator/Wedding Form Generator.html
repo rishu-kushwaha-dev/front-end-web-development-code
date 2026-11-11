@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Wedding Form Generator</title>
+        <link rel="stylesheet" href="Wedding Form Generator.css">
+    </head>
+
+    <body>
+        <main class="app">
+            <section class="panel form-panel">
+                <h1>Wedding Form Generator</h1>
+                <p class="subtitle">Fill in the details to generate a wedding invitation preview.</p>
+                <form id="wedding-form">
+                    <label>
+                        Bride's Name
+                        <input type="text" id="brideName" placeholder="e.g. Ananya" required>
+                    </label>
+                    <label>
+                        Groom's Name
+                        <input type="text" id="groomName" placeholder="e.g. Rohan" required>
+                    </label>
+                    <label>
+                        Wedding Date
+                        <input type="date" id="weddingDate" required>
+                    </label>
+                    <label>
+                        Time
+                        <input type="time" id="weddingTime" required>
+                    </label>
+                    <label>
+                        Venue
+                        <input type="text" id="venue" placeholder="Venue name" required>
+                    </label>
+                    <label>
+                        Address
+                        <textarea id="address" rows="2" placeholder="Full address" required></textarea>
+                    </label>
+                    <label>
+                        Hosted By
+                        <input type="text" id="hostedBy" placeholder="e.g. The Sharma Family">
+                    </label>
+                    <label>
+                        RSVP Contact
+                        <input type="text" id="rsvp" placeholder="Phone or email">
+                    </label>
+                    <label>
+                        Personal Message
+                        <textarea id="message" rows="3" placeholder="We joyfully invite you to celebrate..."></textarea>
+                    </label>
+                    <label>
+                        Theme Color
+                        <input type="color" id="themeColor" value="#b08968">
+                    </label>
+                    <div class="actions">
+                        <button type="submit">Generate Invitation</button>
+                        <button type="button" id="reset-btn" class="secondary">Reset</button>
+                        <button type="button" id="print-btn" class="secondary">Print</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="panel preview-panel">
+                <h2>Preview</h2>
+                <div id="invitation" class="invitation">
+                    <p class="invite-top">Together with their families</p>
+                    <h3 id="out-names">Bride &amp; Groom</h3>
+                    <p class="invite-line">request the pleasure of your company at their wedding</p>
+                    <div class="invite-details">
+                        <p id="out-date">Date</p>
+                        <p id="out-time">Time</p>
+                        <p id="out-venue" class="venue">Venue</p>
+                        <p id="out-address">Address</p>
+                    </div>
+                    <p id="out-message" class="invite-message"></p>
+                    <p id="out-hosted" class="invite-hosted"></p>
+                    <p id="out-rsvp" class="invite-rsvp"></p>
+                </div>
+            </section>
+        </main>
+        <script src="Wedding Form Generator.js"></script>
+    </body>
+
+</html>

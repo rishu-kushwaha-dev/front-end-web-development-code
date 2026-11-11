@@ -1,0 +1,379 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+    font-family: "Courier New", monospace;
+    background: #000;
+    color: #0f0;
+}
+
+#desktop {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, #001100 0%, #000 70%);
+}
+
+#topbar {
+    height: 36px;
+    background: rgba(0, 20, 0, 0.95);
+    border-bottom: 1px solid #0f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    font-size: 13px;
+}
+
+.brand {
+    color: #7fff7f;
+    letter-spacing: 1px;
+}
+
+.top-actions button {
+    background: #002200;
+    color: #0f0;
+    border: 1px solid #0f0;
+    padding: 4px 10px;
+    margin-left: 6px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.top-actions button:hover,
+.top-actions button.active {
+    background: #0f0;
+    color: #000;
+}
+
+#icons {
+    position: absolute;
+    top: 50px;
+    right: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 2;
+}
+
+.icon {
+    width: 84px;
+    background: rgba(0, 30, 0, 0.7);
+    border: 1px solid #064;
+    color: #0f0;
+    padding: 8px 4px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-family: inherit;
+}
+
+.icon span {
+    font-size: 22px;
+}
+
+.icon label {
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.icon:hover {
+    border-color: #0f0;
+    background: rgba(0, 60, 0, 0.8);
+}
+
+#windows {
+    position: absolute;
+    inset: 36px 110px 0 0;
+    z-index: 5;
+}
+
+.window {
+    position: absolute;
+    background: rgba(5, 10, 5, 0.98);
+    border: 1px solid #0f0;
+    box-shadow: 0 0 18px rgba(0, 255, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    min-width: 280px;
+    min-height: 180px;
+}
+
+.window.hidden {
+    display: none;
+}
+
+.titlebar {
+    height: 28px;
+    background: linear-gradient(#003300, #001800);
+    border-bottom: 1px solid #0f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    cursor: move;
+    font-size: 12px;
+    user-select: none;
+}
+
+.titlebar .controls button {
+    background: #300;
+    color: #fff;
+    border: 1px solid #600;
+    width: 22px;
+    height: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.content {
+    flex: 1;
+    overflow: auto;
+    padding: 10px;
+    position: relative;
+}
+
+.typer-content {
+    background: #000;
+}
+
+#codeOutput {
+    color: #00ff41;
+    font-size: 13px;
+    line-height: 1.35;
+    white-space: pre-wrap;
+    word-break: break-all;
+    min-height: 100%;
+}
+
+.hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #0a0;
+    opacity: 0.7;
+    pointer-events: none;
+    text-align: center;
+}
+
+.hint.hidden {
+    display: none;
+}
+
+.terminal-content {
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+}
+
+#termOutput {
+    flex: 1;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    margin-bottom: 6px;
+}
+
+.term-input-line {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.prompt {
+    color: #0f0;
+}
+
+#termInput {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font: inherit;
+    outline: none;
+}
+
+.line-err {
+    color: #ff4444;
+}
+
+.line-sys {
+    color: #00d4ff;
+}
+
+.access-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    text-align: center;
+}
+
+#accessStatus {
+    font-size: 28px;
+    font-weight: bold;
+    padding: 8px 16px;
+    border: 2px solid;
+}
+
+#accessStatus.denied {
+    color: #ff3333;
+    border-color: #ff3333;
+    text-shadow: 0 0 10px #f00;
+}
+
+#accessStatus.granted {
+    color: #00ff66;
+    border-color: #00ff66;
+    text-shadow: 0 0 10px #0f6;
+}
+
+.access-content button,
+.trace-content button,
+.btc-content button {
+    background: #002200;
+    color: #0f0;
+    border: 1px solid #0f0;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.access-content button:hover,
+.trace-content button:hover,
+.btc-content button:hover {
+    background: #0f0;
+    color: #000;
+}
+
+.trace-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.trace-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 12px;
+}
+
+.progress {
+    height: 12px;
+    border: 1px solid #0f0;
+    background: #001100;
+}
+
+#traceBar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #0f0, #0a0);
+    transition: width 0.2s;
+}
+
+#traceCanvas {
+    width: 100%;
+    border: 1px solid #040;
+    background: #000;
+}
+
+.btc-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.btc-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    font-size: 13px;
+}
+
+.btc-stats div {
+    border: 1px solid #040;
+    padding: 6px;
+}
+
+.btc-stats label {
+    display: block;
+    color: #7f7;
+    font-size: 11px;
+}
+
+.miner-log {
+    flex: 1;
+    background: #000;
+    border: 1px solid #040;
+    padding: 6px;
+    font-size: 11px;
+    overflow: auto;
+    color: #0c0;
+    min-height: 120px;
+}
+
+.matrix-content {
+    padding: 0;
+    overflow: hidden;
+    background: #000;
+}
+
+#matrixCanvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #001100;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #0a0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0f0;
+}
+
+@media (max-width: 700px) {
+    #windows {
+        inset: 36px 0 0 0;
+    }
+
+    #icons {
+        top: auto;
+        bottom: 8px;
+        right: 8px;
+        left: 8px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .icon {
+        width: 70px;
+    }
+
+    .window {
+        left: 10px !important;
+        top: 50px !important;
+        width: calc(100% - 20px) !important;
+        height: calc(100% - 120px) !important;
+    }
+}

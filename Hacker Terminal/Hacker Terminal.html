@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hacker Typer Simulator</title>
+        <link rel="stylesheet" href="Hacker Terminal.css">
+    </head>
+
+    <body>
+        <div id="desktop">
+            <div id="topbar">
+                <div class="brand">Welcome Hacker</div>
+                <div class="top-actions">
+                    <button id="fullscreenBtn" title="Fullscreen">⛶ Fullscreen</button>
+                    <button id="autoBtn" title="Automate typing">▶ Automate</button>
+                </div>
+            </div>
+
+            <div id="icons">
+                <button class="icon" data-window="typer"><span>⌨</span><label>Hacker Command Area</label></button>
+                <button class="icon" data-window="terminal"><span>&gt;_</span><label>Terminal</label></button>
+                <button class="icon" data-window="access"><span>🔒</span><label>Access</label></button>
+                <button class="icon" data-window="trace"><span>🛰</span><label>Satellite</label></button>
+                <button class="icon" data-window="bitcoin"><span>₿</span><label>Bitcoin</label></button>
+                <button class="icon" data-window="matrix"><span>▦</span><label>Matrix</label></button>
+            </div>
+
+            <div id="windows">
+                <div class="window" id="win-typer" style="left: 120px; top: 70px; width: 620px; height: 420px;">
+                    <div class="titlebar"><span>Hacker Command Area</span>
+                        <div class="controls"><button data-close="typer">×</button></div>
+                    </div>
+                    <div class="content typer-content">
+                        <pre id="codeOutput"></pre>
+                        <div class="hint">Enter your hacking command</div>
+                    </div>
+                </div>
+
+                <div class="window hidden" id="win-terminal"
+                    style="left: 160px; top: 110px; width: 560px; height: 360px;">
+                    <div class="titlebar"><span>Terminal</span>
+                        <div class="controls"><button data-close="terminal">×</button></div>
+                    </div>
+                    <div class="content terminal-content" id="termBody">
+                        <div id="termOutput"></div>
+                        <div class="term-input-line">
+                            <span class="prompt">root@server:~$</span>
+                            <input type="text" id="termInput" autocomplete="off" spellcheck="false">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="window hidden small" id="win-access"
+                    style="left: 420px; top: 140px; width: 360px; height: 220px;">
+                    <div class="titlebar"><span>Security Alert</span>
+                        <div class="controls"><button data-close="access">×</button></div>
+                    </div>
+                    <div class="content access-content">
+                        <div id="accessStatus" class="denied">ACCESS DENIED</div>
+                        <p id="accessMsg">Unauthorized access attempt detected.</p>
+                        <button id="toggleAccess">Request Access</button>
+                    </div>
+                </div>
+
+                <div class="window hidden" id="win-trace" style="left: 260px; top: 160px; width: 480px; height: 320px;">
+                    <div class="titlebar"><span>Satellite Tracking</span>
+                        <div class="controls"><button data-close="trace">×</button></div>
+                    </div>
+                    <div class="content trace-content">
+                        <div class="trace-grid">
+                            <div>Target IP: <span id="ipAddr">23.86.111.0</span></div>
+                            <div>Status: <span id="traceStatus">Standby</span></div>
+                            <div>Signal: <span id="signal">--%</span></div>
+                            <div>Location: <span id="location">Unknown</span></div>
+                        </div>
+                        <div class="progress">
+                            <div id="traceBar"></div>
+                        </div>
+                        <canvas id="traceCanvas" width="440" height="140"></canvas>
+                        <button id="startTrace">Start Trace</button>
+                    </div>
+                </div>
+
+                <div class="window hidden" id="win-bitcoin"
+                    style="left: 200px; top: 120px; width: 520px; height: 340px;">
+                    <div class="titlebar"><span>BTC Miner</span>
+                        <div class="controls"><button data-close="bitcoin">×</button></div>
+                    </div>
+                    <div class="content btc-content">
+                        <div class="btc-stats">
+                            <div><label>Wallet</label><span id="btcWallet">0.000000</span> BTC</div>
+                            <div><label>Hashrate</label><span id="hashrate">0.00</span> GH/s</div>
+                            <div><label>Accepted</label><span id="accepted">0</span></div>
+                            <div><label>Rejected</label><span id="rejected">0</span></div>
+                        </div>
+                        <pre id="minerLog" class="miner-log"></pre>
+                        <button id="mineBtn">Start Mining</button>
+                    </div>
+                </div>
+
+                <div class="window hidden" id="win-matrix" style="left: 300px; top: 90px; width: 500px; height: 360px;">
+                    <div class="titlebar"><span>Matrix Rain</span>
+                        <div class="controls"><button data-close="matrix">×</button></div>
+                    </div>
+                    <div class="content matrix-content">
+                        <canvas id="matrixCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="Hacker Terminal.js"></script>
+    </body>
+
+</html>

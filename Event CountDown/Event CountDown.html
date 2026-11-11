@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Event CountDown</title>
+        <link rel="stylesheet" href="Event CountDown.css">
+    </head>
+
+    <body>
+        <main class="container">
+            <h1><u><strong>Event Count Down</strong></u></h1>
+
+            <form id="countdown-form" class="form">
+                <label for="event-name">Event name</label>
+                <input id="event-name" type="text" placeholder="Enter Event Name" required>
+
+                <label for="event-date">Event date and time</label>
+                <input id="event-date" type="datetime-local" required>
+
+                <button type="submit">Start Countdown</button>
+            </form>
+
+            <h2 id="event-title"></h2>
+            <div id="message" class="message"></div>
+
+            <div id="countdown" class="countdown" aria-live="polite">
+                <div class="time-box">
+                    <span id="days">00</span>
+                    <small>Days</small>
+                </div>
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <small>Hours</small>
+                </div>
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <small>Minutes</small>
+                </div>
+                <div class="time-box">
+                    <span id="seconds">00</span>
+                    <small>Seconds</small>
+                </div>
+            </div>
+        </main>
+
+        <script src="Event CountDown.js"></script>
+    </body>
+
+</html>

@@ -1,4 +1,3 @@
-// Hacker Typer Simulator - geekprank-style
 const codeSource = `#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -151,7 +150,6 @@ function setAutomate(on) {
     }
 }
 
-// Windows
 function bringToFront(win) {
     zTop += 1;
     win.style.zIndex = zTop;
@@ -192,7 +190,6 @@ document.querySelectorAll(".window").forEach((win) => {
     win.addEventListener("mousedown", () => bringToFront(win));
 });
 
-// Drag windows
 document.querySelectorAll(".titlebar").forEach((bar) => {
     let dragging = false, ox = 0, oy = 0;
     const win = bar.parentElement;
@@ -217,14 +214,12 @@ document.querySelectorAll(".titlebar").forEach((bar) => {
     window.addEventListener("mouseup", () => { dragging = false; });
 });
 
-// Fullscreen & automate
 document.getElementById("fullscreenBtn").addEventListener("click", () => {
     if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => { });
     else document.exitFullscreen().catch(() => { });
 });
 document.getElementById("autoBtn").addEventListener("click", () => setAutomate(!automate));
 
-// Keyboard: numbers open windows, typing feeds typer
 const keyMap = { "1": "typer", "2": "terminal", "3": "access", "4": "trace", "5": "bitcoin", "6": "matrix" };
 document.addEventListener("keydown", (e) => {
     if (e.target === document.getElementById("termInput")) return;
@@ -242,7 +237,6 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-// Terminal window
 const termOutput = document.getElementById("termOutput");
 const termInput = document.getElementById("termInput");
 const termBody = document.getElementById("termBody");
@@ -283,7 +277,6 @@ termInput.addEventListener("keydown", (e) => {
     }
 });
 
-// Access denied/granted
 const accessStatus = document.getElementById("accessStatus");
 const accessMsg = document.getElementById("accessMsg");
 let granted = false;
@@ -300,7 +293,6 @@ document.getElementById("toggleAccess").addEventListener("click", () => {
     }
 });
 
-// Satellite trace
 let traceTimer = null, traceProgress = 0;
 const traceBar = document.getElementById("traceBar");
 const traceCanvas = document.getElementById("traceCanvas");
@@ -349,7 +341,6 @@ function stopTrace() {
 document.getElementById("startTrace").addEventListener("click", startTrace);
 drawTraceBg();
 
-// Bitcoin miner
 let mineTimer = null, btc = 0, accepted = 0, rejected = 0;
 const minerLog = document.getElementById("minerLog");
 const mineBtn = document.getElementById("mineBtn");
@@ -381,7 +372,6 @@ function stopMining() {
 }
 mineBtn.addEventListener("click", startMining);
 
-// Matrix rain
 let matrixRAF = null, matrixRunning = false;
 const matrixCanvas = document.getElementById("matrixCanvas");
 const mctx = matrixCanvas ? matrixCanvas.getContext("2d") : null;
@@ -391,7 +381,7 @@ function startMatrix() {
     const parent = matrixCanvas.parentElement;
     matrixCanvas.width = parent.clientWidth || 500;
     matrixCanvas.height = parent.clientHeight || 320;
-    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const chars = "RISHU KUSHWAHA";
     const fontSize = 14;
     const cols = Math.floor(matrixCanvas.width / fontSize);
     const drops = Array(cols).fill(1);
@@ -417,6 +407,5 @@ function stopMatrix() {
     matrixRAF = null;
 }
 
-// Boot: open typer
 openWindow("typer");
 termPrint("Welcome to root@server. Type 'help' for commands.", "line-sys");

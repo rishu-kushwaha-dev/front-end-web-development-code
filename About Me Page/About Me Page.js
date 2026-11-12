@@ -1,4 +1,3 @@
-const themeToggle = document.getElementById("theme-toggle");
 const mobileToggle = document.getElementById("mobile-toggle");
 const navLinks = document.getElementById("nav-links");
 const navbar = document.getElementById("navbar");
@@ -6,27 +5,6 @@ const backToTop = document.getElementById("back-to-top");
 const contactForm = document.getElementById("contact-form");
 const formMessage = document.getElementById("form-message");
 const yearEl = document.getElementById("year");
-
-const savedTheme = localStorage.getItem("theme");
-const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-if (savedTheme === "dark" || (!savedTheme && systemDark)) {
-    document.documentElement.setAttribute("data-theme", "dark");
-    themeToggle.querySelector(".theme-icon").textContent = "☀️";
-}
-
-themeToggle.addEventListener("click", () => {
-    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-    if (isDark) {
-        document.documentElement.removeAttribute("data-theme");
-        localStorage.setItem("theme", "light");
-        themeToggle.querySelector(".theme-icon").textContent = "🌙";
-    } else {
-        document.documentElement.setAttribute("data-theme", "dark");
-        localStorage.setItem("theme", "dark");
-        themeToggle.querySelector(".theme-icon").textContent = "☀️";
-    }
-});
 
 mobileToggle.addEventListener("click", () => {
     const isOpen = navLinks.classList.contains("open");

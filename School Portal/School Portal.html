@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Central Academy</title>
+        <link rel="stylesheet" href="School Portal.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fa-solid fa-school"></i>
+                    <span>Central Academy</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+                    <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+                    <li><a href="#academics" class="nav-link" data-section="academics">Academics</a></li>
+                    <li><a href="#admissions" class="nav-link" data-section="admissions">Admissions</a></li>
+                    <li><a href="#faculty" class="nav-link" data-section="faculty">Faculty</a></li>
+                    <li><a href="#events" class="nav-link" data-section="events">Events</a></li>
+                    <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+                </ul>
+                <div class="auth-btns">
+                    <a href="#login" class="btn btn-outline" id="loginBtn">Login</a>
+                    <a href="#register" class="btn btn-primary" id="registerBtn">Register</a>
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </header>
+
+        <section id="home" class="section active">
+            <div class="hero">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fa-solid fa-award"></i>
+                        <span>Admissions Open for 2026-27</span>
+                    </div>
+                    <h1>Central Academy</h1>
+                    <p>Building bright futures through quality education, values, and excellence since 1995.</p>
+                    <div class="hero-actions">
+                        <a href="#admissions" class="btn btn-primary btn-large">Apply Now</a>
+                        <a href="#academics" class="btn btn-outline btn-large">Explore Academics</a>
+                    </div>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <h3>30+</h3>
+                        <p>Years of Excellence</p>
+                    </div>
+                    <div class="stat">
+                        <h3>2000+</h3>
+                        <p>Students Enrolled</p>
+                    </div>
+                    <div class="stat">
+                        <h3>100+</h3>
+                        <p>Expert Faculty</p>
+                    </div>
+                    <div class="stat">
+                        <h3>98%</h3>
+                        <p>Board Results</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container about-grid">
+                <div class="about-image">
+                    <div class="placeholder-img">
+                        <i class="fa-solid fa-school"></i>
+                        <p>Campus View</p>
+                    </div>
+                </div>
+                <div class="about-content">
+                    <h2 class="section-title">About Central Academy</h2>
+                    <p>Central Academy is a leading educational institution committed to nurturing young minds with
+                        knowledge, discipline, and values. We provide a holistic learning environment where every
+                        student can thrive academically and personally.</p>
+                    <p>Our mission is to empower students to become confident, responsible, and successful individuals
+                        ready to face the challenges of the modern world.</p>
+                    <ul class="about-features">
+                        <li><i class="fa-solid fa-check"></i> Smart classrooms with digital learning</li>
+                        <li><i class="fa-solid fa-check"></i> Well-equipped science and computer labs</li>
+                        <li><i class="fa-solid fa-check"></i> Large library with digital resources</li>
+                        <li><i class="fa-solid fa-check"></i> Sports and extracurricular activities</li>
+                        <li><i class="fa-solid fa-check"></i> Personal attention and counseling</li>
+                        <li><i class="fa-solid fa-check"></i> Safe and secure campus</li>
+                    </ul>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">1:20</span>
+                            <span class="stat-label">Teacher Student Ratio</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">10</span>
+                            <span class="stat-label">Acres of Campus</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Clubs & Activities</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="academics" class="section">
+            <div class="container">
+                <h2 class="section-title">Academic Programs</h2>
+                <p class="section-subtitle">Comprehensive curriculum for every stage of learning</p>
+                <div class="program-tabs">
+                    <button class="tab-btn active" data-program="primary">Primary (1-5)</button>
+                    <button class="tab-btn" data-program="middle">Middle (6-8)</button>
+                    <button class="tab-btn" data-program="secondary">Secondary (9-10)</button>
+                    <button class="tab-btn" data-program="senior">Senior Secondary (11-12)</button>
+                </div>
+                <div class="program-content" id="program-primary">
+                    <div class="program-grid">
+                        <div class="program-card">
+                            <i class="fa-solid fa-pen-nib"></i>
+                            <h3>English</h3>
+                            <p>Reading, writing, grammar, and communication skills development.</p>
+                        </div>
+                        <div class="program-card">
+                            <i class="fa-solid fa-calculator"></i>
+                            <h3>Mathematics</h3>
+                            <p>Foundation in numbers, shapes, and logical problem-solving.</p>
+                        </div>
+                        <div class="program-card">
+                            <i class="fa-solid fa-leaf"></i>
+                            <h3>Environmental Studies</h3>
+                            <p>Learning about nature, environment, and our surroundings.</p>
+                        </div>
+                        <div class="program-card">
+                            <i class="fa-solid fa-paintbrush"></i>
+                            <h3>Art & Craft</h3>
+                            <p>Creativity and expression through drawing, painting, and crafts.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="program-content" id="program-middle" style="display:none;">
+                    <div class="program-grid">
+                        <div class="program-card">
+                            <i class="fa-solid fa-pen-nib"></i>
+                            <h3>English & Hindi</h3>
+                            <p>Advanced language skills, literature, and composition.</p>
+                        </div>
+                        <div class="program-card">
+                            <i class="fa-solid fa-calculator"></i>
+                            <h3>Mathematics</h3>
+                            <p>Algebra, geometry, and mathematical reasoning.</p>
+                        </div>
+                        <div class="program-card">
+                            <i class="fa-solid fa-microscope"></i>
+                            <h3>Science</h3>
+                            <p>Physics, chemistry, and biology with practical experiments.</p>
+                        </div>
+                        <div class="program-card">
+                            <i class="fa-solid fa-landmark"></i>
+                            <h3>Social Studies</h3>
+                            <p>History, geography, civics, and cultural awareness.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="program-content" id="program-secondary" style="display:none;">
+                    <div class="program-grid">
+                        <div class="program-card">
+                            <i class="fa-solid fa-book"></i>
+                            <h3>English & Hindi</h3>
+                            <p>Board exam preparation with literature and grammar.</p>
+                        </div>
+                        <div class="program-card">
+                            <i class="fa-solid fa-calculator"></i>
+                            <h3>Mathematics</h3>
+                            <p>Advanced algebra, trigonometry, and geometry.</p>
+                        </div>
+                        <div class="program-card">
+                            <i class="fa-solid fa-dna"></i>
+                            <h3>Science</h3>
+                            <p>Comprehensive physics, chemistry, and biology.</p>
+                        </div>
+                        <div class="program-card">
+                            <i class="fa-solid fa-globe"></i>
+                            <h3>Social Science</h3>
+                            <p>History, geography, political science, economics.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="program-content" id="program-senior" style="display:none;">
+                    <div class="program-grid">
+                        <div class="program-card">
+                            <i class="fa-solid fa-laptop-code"></i>
+                            <h3>Science Stream</h3>
+                            <p>Physics, Chemistry, Biology/Mathematics for competitive exams.</p>
+                        </div>
+                        <div class="program-card">
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                            <h3>Commerce Stream</h3>
+                            <p>Accountancy, Business Studies, Economics, Mathematics.</p>
+                        </div>
+                        <div class="program-card">
+                            <i class="fa-solid fa-users"></i>
+                            <h3>Humanities Stream</h3>
+                            <p>History, Political Science, Sociology, Psychology, English.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="admissions" class="section">
+            <div class="container">
+                <div class="admissions-container">
+                    <div class="admissions-info">
+                        <h2 class="section-title">Admissions Open</h2>
+                        <p class="section-subtitle">Join Central Academy for the academic year 2026-27</p>
+                        <div class="admission-steps">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <h4>Online Registration</h4>
+                                <p>Fill the admission form on our website.</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <h4>Document Verification</h4>
+                                <p>Submit required documents for verification.</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <h4>Interaction Session</h4>
+                                <p>Student and parent interaction with faculty.</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">4</div>
+                                <h4>Admission Confirmation</h4>
+                                <p>Complete fee payment to confirm admission.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="admissions-form">
+                        <div class="form-card">
+                            <h3>Admission Enquiry</h3>
+                            <form id="admissionForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Student Name</label>
+                                        <input type="text" id="stuName" placeholder="Enter full name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Class Applying For</label>
+                                        <select id="stuClass" required>
+                                            <option value="">Select Class</option>
+                                            <option value="1">Class 1</option>
+                                            <option value="2">Class 2</option>
+                                            <option value="3">Class 3</option>
+                                            <option value="4">Class 4</option>
+                                            <option value="5">Class 5</option>
+                                            <option value="6">Class 6</option>
+                                            <option value="7">Class 7</option>
+                                            <option value="8">Class 8</option>
+                                            <option value="9">Class 9</option>
+                                            <option value="10">Class 10</option>
+                                            <option value="11">Class 11</option>
+                                            <option value="12">Class 12</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Parent Name</label>
+                                        <input type="text" id="parentName" placeholder="Parent/Guardian name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mobile Number</label>
+                                        <input type="tel" id="mobile" placeholder="10-digit mobile number" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input type="email" id="email" placeholder="you@example.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Message (Optional)</label>
+                                    <textarea id="message" rows="3" placeholder="Any additional information"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Submit Enquiry</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faculty" class="section">
+            <div class="container">
+                <h2 class="section-title">Our Faculty</h2>
+                <p class="section-subtitle">Dedicated educators shaping young minds</p>
+                <div class="teacher-grid" id="teacherGrid">
+                </div>
+            </div>
+        </section>
+
+        <section id="events" class="section">
+            <div class="container">
+                <h2 class="section-title">Upcoming Events</h2>
+                <p class="section-subtitle">Stay connected with school activities</p>
+                <div class="event-grid" id="eventGrid">
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="container contact-container">
+                <div class="contact-info">
+                    <h2 class="section-title">Contact Us</h2>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                <h4>Campus Address</h4>
+                                <p>Central Academy, Education Nagar,<br>Learning City, State - 123456</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fa-solid fa-phone"></i>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+91 98765 43210<br>+91 98765 43211</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>info@centralacademy.edu<br>admissions@centralacademy.edu</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fa-solid fa-clock"></i>
+                            <div>
+                                <h4>Office Hours</h4>
+                                <p>Mon - Fri: 8:00 AM - 4:00 PM<br>Sat: 8:00 AM - 1:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <div class="form-card">
+                        <h3>Send us a Message</h3>
+                        <form id="contactForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Your Name</label>
+                                    <input type="text" id="contName" placeholder="Enter your name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input type="email" id="contEmail" placeholder="you@example.com" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="tel" id="contPhone" placeholder="Your phone number">
+                                </div>
+                                <div class="form-group">
+                                    <label>Subject</label>
+                                    <input type="text" id="contSubject" placeholder="Subject of your message" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Message</label>
+                                <textarea id="contMessage" rows="5" placeholder="How can we help you?"
+                                    required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="modal" id="loginModal">
+            <div class="modal-content">
+                <span class="close" id="closeLogin">&times;</span>
+                <h2 class="modal-title">Parent / Student Login</h2>
+                <p class="modal-subtitle">Access the Central Academy portal</p>
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select id="loginRole" required>
+                            <option value="parent">Parent</option>
+                            <option value="student">Student</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="loginEmail" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </form>
+                <p class="auth-switch">Don't have an account? <a href="#register" id="switchToRegister">Register
+                        here</a></p>
+            </div>
+        </div>
+
+        <div class="modal" id="registerModal">
+            <div class="modal-content">
+                <span class="close" id="closeRegister">&times;</span>
+                <h2 class="modal-title">Create Account</h2>
+                <p class="modal-subtitle">Join the Central Academy community</p>
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="regName" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="regEmail" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="regPassword" placeholder="Create a password" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select id="regRole" required>
+                            <option value="parent">Parent</option>
+                            <option value="student">Student</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                </form>
+                <p class="auth-switch">Already have an account? <a href="#login" id="switchToLogin">Sign in</a></p>
+            </div>
+        </div>
+
+        <footer>
+            <div class="container footer-content">
+                <div class="footer-brand">
+                    <i class="fa-solid fa-school"></i>
+                    <span>Central Academy</span>
+                    <p>Excellence in Education since 1995</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#academics">Academics</a></li>
+                        <li><a href="#admissions">Admissions</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-envelope"></i> info@centralacademy.edu</li>
+                        <li><i class="fa-solid fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fa-solid fa-location-dot"></i> Education Nagar, Learning City</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Central Academy. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <script src="School Portal.js"></script>
+    </body>
+
+</html>

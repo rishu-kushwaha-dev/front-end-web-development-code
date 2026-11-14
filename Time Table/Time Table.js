@@ -1,12 +1,8 @@
-// Time Table Application
-// Manages weekly schedule entries with add, edit, delete, and search functionality
-
 const STORAGE_KEY = 'timetableEntries';
 let entries = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 let currentDay = 'Monday';
 let searchQuery = '';
 
-// DOM Elements
 const timetableBody = document.getElementById('timetableBody');
 const daySelect = document.getElementById('daySelect');
 const searchInput = document.getElementById('searchInput');
@@ -17,7 +13,6 @@ const modalTitle = document.getElementById('modalTitle');
 const addBtn = document.getElementById('addBtn');
 const cancelBtn = document.getElementById('cancelBtn');
 
-// Initialize app
 document.addEventListener('DOMContentLoaded', () => {
     renderTable();
     setupEventListeners();
@@ -38,7 +33,6 @@ function setupEventListeners() {
     cancelBtn.addEventListener('click', closeModal);
     entryForm.addEventListener('submit', handleSubmit);
 
-    // Close modal when clicking outside
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
@@ -76,13 +70,11 @@ function handleSubmit(e) {
     const notes = document.getElementById('notes').value;
 
     if (entryId) {
-        // Edit existing entry
         const index = entries.findIndex(e => e.id === entryId);
         if (index !== -1) {
             entries[index] = { ...entries[index], time, activity, location, notes };
         }
     } else {
-        // Add new entry
         entries.push({
             id: Date.now().toString(),
             day: currentDay,
@@ -111,7 +103,6 @@ function saveEntries() {
 }
 
 function renderTable() {
-    // Filter entries by day and search query
     let filtered = entries.filter(e => e.day === currentDay);
 
     if (searchQuery) {
@@ -122,10 +113,8 @@ function renderTable() {
         );
     }
 
-    // Sort by time
     filtered.sort((a, b) => a.time.localeCompare(b.time));
 
-    // Clear table
     timetableBody.innerHTML = '';
 
     if (filtered.length === 0) {
@@ -135,7 +124,6 @@ function renderTable() {
 
     emptyMsg.style.display = 'none';
 
-    // Render entries
     filtered.forEach(entry => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -167,6 +155,5 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-// Make functions available globally for inline onclick handlers
 window.openEditModal = openEditModal;
 window.deleteEntry = deleteEntry;

@@ -51,7 +51,8 @@ header h1 {
     color: #333;
 }
 
-#daySelect, .search-box {
+#daySelect,
+.search-box {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -60,7 +61,8 @@ header h1 {
     transition: border 0.3s;
 }
 
-#daySelect:focus, .search-box:focus {
+#daySelect:focus,
+.search-box:focus {
     border-color: #667eea;
 }
 
@@ -69,7 +71,6 @@ header h1 {
     min-width: 200px;
 }
 
-/* Buttons */
 .btn-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
@@ -103,7 +104,6 @@ header h1 {
     background: #5a6268;
 }
 
-/* Table */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -142,7 +142,6 @@ tbody tr:hover {
     font-style: italic;
 }
 
-/* Action buttons in table */
 .action-btn {
     padding: 6px 12px;
     border: none;
@@ -167,7 +166,6 @@ tbody tr:hover {
     opacity: 0.8;
 }
 
-/* Modal */
 .modal {
     display: none;
     position: fixed;
@@ -235,21 +233,21 @@ tbody tr:hover {
     margin-top: 20px;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
         text-align: center;
     }
-    
+
     table {
         font-size: 0.9rem;
     }
-    
-    th, td {
+
+    th,
+    td {
         padding: 10px;
     }
-    
+
     .action-btn {
         padding: 5px 8px;
         font-size: 0.75rem;

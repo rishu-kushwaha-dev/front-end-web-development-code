@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Time Table</title>
+        <link rel="stylesheet" href="Time Table.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <header>
+                <h1>Weekly Time Table</h1>
+                <button id="addBtn" class="btn-primary">+ Add Entry</button>
+            </header>
+
+            <div class="controls">
+                <label for="daySelect">Day:</label>
+                <select id="daySelect">
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                </select>
+                <input type="text" id="searchInput" placeholder="Search activities..." class="search-box">
+            </div>
+
+            <table id="timetable">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Activity</th>
+                        <th>Location</th>
+                        <th>Notes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="timetableBody">
+                </tbody>
+            </table>
+
+            <p id="emptyMsg" class="empty-msg">No entries for this day. Click "Add Entry" to get started.</p>
+        </div>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <h2 id="modalTitle">Add Entry</h2>
+                <form id="entryForm">
+                    <input type="hidden" id="entryId">
+                    <div class="form-group">
+                        <label for="time">Time</label>
+                        <input type="time" id="time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="activity">Activity</label>
+                        <input type="text" id="activity" placeholder="e.g. Math Class" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" placeholder="e.g. Room 101">
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" rows="2" placeholder="Optional notes"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="cancelBtn" class="btn-secondary">Cancel</button>
+                        <button type="submit" class="btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script src="Time Table.js"></script>
+    </body>
+
+</html>

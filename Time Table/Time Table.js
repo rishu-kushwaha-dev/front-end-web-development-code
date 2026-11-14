@@ -19,7 +19,6 @@ const elements = {
     modal: document.getElementById('modal'),
     form: document.getElementById('entryForm'),
     modalTitle: document.getElementById('modalTitle'),
-    scheduleTitle: document.getElementById('scheduleTitle'),
     todayLabel: document.getElementById('todayLabel')
 };
 
@@ -51,6 +50,7 @@ function bindEvents() {
     document.getElementById('entryForm').addEventListener('submit', handleSubmit);
     document.getElementById('printBtn').addEventListener('click', () => window.print());
     document.getElementById('clearDayBtn').addEventListener('click', clearDay);
+    document.getElementById('clearAllBtn').addEventListener('click', clearAll);
     elements.daySelect.addEventListener('change', (event) => {
         currentDay = event.target.value;
         localStorage.setItem('academicTimetableDay', currentDay);
@@ -191,6 +191,14 @@ function clearDay() {
     render();
 }
 
+function clearAll() {
+    if (!entries.length) return;
+    if (!confirm('Delete all timetable entries?')) return;
+    entries.length = 0;
+    saveEntries();
+    render();
+}
+
 function saveEntries() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
 }
@@ -206,7 +214,6 @@ function getFilteredEntries(day) {
 
 function render() {
     const isDayView = currentView === 'day';
-    elements.scheduleTitle.textContent = isDayView ? `${currentDay} Schedule` : 'Weekly Schedule';
     elements.daySelect.parentElement.style.display = isDayView ? '' : 'none';
     document.getElementById('dayView').hidden = !isDayView;
     elements.weekView.hidden = isDayView;

@@ -4,75 +4,252 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Time Table</title>
+        <meta name="theme-color" content="#172554">
+        <title>School & College Time Table</title>
         <link rel="stylesheet" href="Time Table.css">
     </head>
 
     <body>
-        <div class="container">
-            <header>
-                <h1>Weekly Time Table</h1>
-                <button id="addBtn" class="btn-primary">+ Add Entry</button>
-            </header>
+        <div class="app-shell">
+            <aside class="sidebar">
+                <a class="brand" href="#" aria-label="Time Table home">
+                    <span class="brand-mark" aria-hidden="true">TT</span>
+                    <span>
+                        <strong>DayPlan</strong>
+                        <small>Academic Planner</small>
+                    </span>
+                </a>
 
-            <div class="controls">
-                <label for="daySelect">Day:</label>
-                <select id="daySelect">
-                    <option value="Monday">Monday</option>
-                    <option value="Tuesday">Tuesday</option>
-                    <option value="Wednesday">Wednesday</option>
-                    <option value="Thursday">Thursday</option>
-                    <option value="Friday">Friday</option>
-                    <option value="Saturday">Saturday</option>
-                    <option value="Sunday">Sunday</option>
-                </select>
-                <input type="text" id="searchInput" placeholder="Search activities..." class="search-box">
-            </div>
+                <nav class="sidebar-nav" aria-label="Main navigation">
+                    <span class="nav-label">Workspace</span>
+                    <button class="nav-item active" type="button" data-view="day">
+                        <span class="nav-icon" aria-hidden="true">□</span>
+                        Day View
+                    </button>
+                    <button class="nav-item" type="button" data-view="week">
+                        <span class="nav-icon" aria-hidden="true">▦</span>
+                        Week View
+                    </button>
+                </nav>
 
-            <table id="timetable">
-                <thead>
-                    <tr>
-                        <th>Time</th>
-                        <th>Activity</th>
-                        <th>Location</th>
-                        <th>Notes</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="timetableBody">
-                </tbody>
-            </table>
+                <div class="sidebar-card">
+                    <span class="sidebar-card-icon" aria-hidden="true">✦</span>
+                    <strong>Stay organized</strong>
+                    <p>Plan classes, labs, and study time in one place.</p>
+                </div>
+            </aside>
 
-            <p id="emptyMsg" class="empty-msg">No entries for this day. Click "Add Entry" to get started.</p>
+            <main class="main-content">
+                <header class="topbar">
+                    <div>
+                        <div class="eyebrow">My Schedule</div>
+                        <h1>Weekly Time Table</h1>
+                        <p class="subtitle">Plan your classes and academic activities.</p>
+                    </div>
+                    <div class="topbar-actions">
+                        <button id="printBtn" class="btn btn-secondary" type="button">
+                            <span aria-hidden="true">⎙</span> Print
+                        </button>
+                        <button id="addBtn" class="btn btn-primary" type="button">
+                            <span aria-hidden="true">+</span> Add Class
+                        </button>
+                    </div>
+                </header>
+
+                <section class="stats-grid" id="stats" aria-label="Timetable summary">
+                    <article class="stat-card stat-blue">
+                        <div class="stat-icon" aria-hidden="true">▤</div>
+                        <div>
+                            <span class="stat-label">Total Classes</span>
+                            <strong class="stat-value" id="statEntries">0</strong>
+                            <small>this day</small>
+                        </div>
+                    </article>
+                    <article class="stat-card stat-green">
+                        <div class="stat-icon" aria-hidden="true">◷</div>
+                        <div>
+                            <span class="stat-label">Scheduled Time</span>
+                            <strong class="stat-value" id="statTime">0h 0m</strong>
+                            <small>this day</small>
+                        </div>
+                    </article>
+                    <article class="stat-card stat-orange">
+                        <div class="stat-icon" aria-hidden="true">◇</div>
+                        <div>
+                            <span class="stat-label">Main Subject</span>
+                            <strong class="stat-value" id="statCategory">-</strong>
+                            <small>this day</small>
+                        </div>
+                    </article>
+                </section>
+
+                <section class="schedule-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <div class="eyebrow">Timetable</div>
+                            <h2 id="scheduleTitle">Monday Schedule</h2>
+                        </div>
+                        <div class="panel-date" id="todayLabel"></div>
+                    </div>
+
+                    <div class="toolbar" aria-label="Timetable filters">
+                        <div class="segmented-control" id="viewSwitcher" aria-label="Calendar view">
+                            <button class="segment active" type="button" data-view="day">Day</button>
+                            <button class="segment" type="button" data-view="week">Week</button>
+                        </div>
+                        <label class="sr-only" for="daySelect">Select day</label>
+                        <select id="daySelect">
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+                        </select>
+                        <label class="sr-only" for="categoryFilter">Filter by subject category</label>
+                        <select id="categoryFilter" class="filter-select">
+                            <option value="all">All Subjects</option>
+                            <option value="Class">Class</option>
+                            <option value="Laboratory">Laboratory</option>
+                            <option value="Study">Study</option>
+                            <option value="Activity">Activity</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <label class="search-wrap" for="searchInput">
+                            <span aria-hidden="true">⌕</span>
+                            <input type="search" id="searchInput" placeholder="Search subject, teacher, room...">
+                        </label>
+                        <button id="clearDayBtn" class="icon-button danger" type="button" title="Clear current day"
+                            aria-label="Clear current day">⌫</button>
+                    </div>
+
+                    <div id="dayView">
+                        <div class="table-wrap">
+                            <table id="timetable">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Subject</th>
+                                        <th>Type</th>
+                                        <th>Teacher</th>
+                                        <th>Room</th>
+                                        <th>Notes</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="timetableBody"></tbody>
+                            </table>
+                        </div>
+                        <div id="emptyMsg" class="empty-state" hidden>
+                            <div class="empty-icon" aria-hidden="true">▦</div>
+                            <h3>No classes scheduled</h3>
+                            <p>Add a class for this day to build your weekly timetable.</p>
+                            <button class="btn btn-primary compact" type="button" data-add-entry>Add your first
+                                class</button>
+                        </div>
+                    </div>
+
+                    <div id="weekView" class="week-view" hidden>
+                        <div id="weekGrid" class="week-grid"></div>
+                    </div>
+
+                    <div id="weekEmpty" class="empty-state" hidden>
+                        <div class="empty-icon" aria-hidden="true">▦</div>
+                        <h3>Your week is empty</h3>
+                        <p>Add classes to see your complete weekly schedule.</p>
+                    </div>
+                </section>
+            </main>
         </div>
 
-        <div id="modal" class="modal">
-            <div class="modal-content">
-                <h2 id="modalTitle">Add Entry</h2>
+        <div id="modal" class="modal" role="presentation">
+            <section class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+                <div class="modal-header">
+                    <div>
+                        <div class="eyebrow">Timetable entry</div>
+                        <h2 id="modalTitle">Add Class</h2>
+                    </div>
+                    <button type="button" class="modal-close" id="closeModalBtn" aria-label="Close dialog">×</button>
+                </div>
                 <form id="entryForm">
                     <input type="hidden" id="entryId">
-                    <div class="form-group">
-                        <label for="time">Time</label>
-                        <input type="time" id="time" required>
+                    <div class="form-grid two-column">
+                        <div class="form-group">
+                            <label for="day">Day</label>
+                            <select id="day" required>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                                <option value="Sunday">Sunday</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Subject type</label>
+                            <select id="category">
+                                <option value="Class">Class</option>
+                                <option value="Laboratory">Laboratory</option>
+                                <option value="Study">Study</option>
+                                <option value="Activity">Activity</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-grid two-column">
+                        <div class="form-group">
+                            <label for="startTime">Start time</label>
+                            <input type="time" id="startTime" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="endTime">End time</label>
+                            <input type="time" id="endTime">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="activity">Activity</label>
-                        <input type="text" id="activity" placeholder="e.g. Math Class" required>
+                        <label for="activity">Subject / activity</label>
+                        <input type="text" id="activity" placeholder="e.g. Mathematics" required>
                     </div>
-                    <div class="form-group">
-                        <label for="location">Location</label>
-                        <input type="text" id="location" placeholder="e.g. Room 101">
+                    <div class="form-grid two-column">
+                        <div class="form-group">
+                            <label for="teacher">Teacher</label>
+                            <input type="text" id="teacher" placeholder="e.g. Prof. Sharma">
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Room / location</label>
+                            <input type="text" id="location" placeholder="e.g. Room 204">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="notes">Notes</label>
-                        <textarea id="notes" rows="2" placeholder="Optional notes"></textarea>
+                        <textarea id="notes" rows="3" placeholder="Optional notes"></textarea>
+                    </div>
+                    <div class="form-grid form-grid-settings">
+                        <div class="form-group">
+                            <label for="color">Subject color</label>
+                            <input type="color" id="color" value="#2563eb">
+                        </div>
+                        <div class="form-group recurring">
+                            <label>Repeat on</label>
+                            <div class="checkboxes" id="recurringCheckboxes">
+                                <label class="checkbox-label"><input type="checkbox" value="Monday"> Mon</label>
+                                <label class="checkbox-label"><input type="checkbox" value="Tuesday"> Tue</label>
+                                <label class="checkbox-label"><input type="checkbox" value="Wednesday"> Wed</label>
+                                <label class="checkbox-label"><input type="checkbox" value="Thursday"> Thu</label>
+                                <label class="checkbox-label"><input type="checkbox" value="Friday"> Fri</label>
+                                <label class="checkbox-label"><input type="checkbox" value="Saturday"> Sat</label>
+                                <label class="checkbox-label"><input type="checkbox" value="Sunday"> Sun</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-actions">
-                        <button type="button" id="cancelBtn" class="btn-secondary">Cancel</button>
-                        <button type="submit" class="btn-primary">Save</button>
+                        <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Class</button>
                     </div>
                 </form>
-            </div>
+            </section>
         </div>
 
         <script src="Time Table.js"></script>

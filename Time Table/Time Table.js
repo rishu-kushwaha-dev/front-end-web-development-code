@@ -183,7 +183,7 @@ function deleteEntry(id) {
 
 function clearDay() {
     if (!entries.some((entry) => entry.day === currentDay)) return;
-    if (!confirm(`Delete all entries for ${currentDay}?`)) return;
+    if (!confirm(`Are you sure you want to delete all entries for ${currentDay}?`)) return;
     for (let i = entries.length - 1; i >= 0; i -= 1) {
         if (entries[i].day === currentDay) entries.splice(i, 1);
     }
@@ -193,7 +193,7 @@ function clearDay() {
 
 function clearAll() {
     if (!entries.length) return;
-    if (!confirm('Are you sure you want to delete all timetable entries because this action can\'t be undone')) return;
+    if (!confirm('Are you sure you want to delete all timetable entries because this action can\'t be undone.')) return;
     entries.length = 0;
     saveEntries();
     render();

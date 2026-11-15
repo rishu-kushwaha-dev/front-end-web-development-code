@@ -193,7 +193,7 @@ function clearDay() {
 
 function clearAll() {
     if (!entries.length) return;
-    if (!confirm('Delete all timetable entries?')) return;
+    if (!confirm('Are you sure you want to delete all timetable entries becausee this action can\'t be undone )) return;
     entries.length = 0;
     saveEntries();
     render();

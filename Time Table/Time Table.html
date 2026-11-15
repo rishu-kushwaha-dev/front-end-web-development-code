@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="theme-color" content="#172554">
         <title>Time Table</title>
+        <link rel="icon" type="image/png" href="Favicon.png">
         <link rel="stylesheet" href="Time Table.css">
     </head>
 
@@ -130,11 +131,11 @@
                                 <thead>
                                     <tr>
                                         <th>Time</th>
-                                        <th>Subject</th>
+                                        <th>Subject Name</th>
                                         <th>Type</th>
-                                        <th>Teacher</th>
-                                        <th>Room</th>
-                                        <th>Notes</th>
+                                        <th>Teacher Name</th>
+                                        <th>Room Number</th>
+                                        <th>Special Notes</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -144,7 +145,7 @@
                         <div id="emptyMsg" class="empty-state" hidden>
                             <div class="empty-icon" aria-hidden="true">▦</div>
                             <h3>No classes scheduled</h3>
-                            <p>Add a class for this day to build your weekly timetable.</p>
+                            <p>Add a class for this day to build your timetable.</p>
                             <button class="btn btn-primary compact" type="button" data-add-entry>Add your first
                                 class</button>
                         </div>
@@ -156,7 +157,7 @@
 
                     <div id="weekEmpty" class="empty-state" hidden>
                         <div class="empty-icon" aria-hidden="true">▦</div>
-                        <h3>Your week is empty</h3>
+                        <h3>Your weekly timetamble schedule is empty</h3>
                         <p>Add classes to see your complete weekly schedule.</p>
                     </div>
                 </section>
@@ -188,7 +189,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="category">Subject type</label>
+                            <label for="category">Type</label>
                             <select id="category">
                                 <option value="Class">Class</option>
                                 <option value="Laboratory">Laboratory</option>
@@ -209,22 +210,22 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="activity">Subject / activity</label>
-                        <input type="text" id="activity" placeholder="e.g. Mathematics" required>
+                        <label for="activity">Subject Name</label>
+                        <input type="text" id="activity" placeholder="Enter the Subject Name" required>
                     </div>
                     <div class="form-grid two-column">
                         <div class="form-group">
-                            <label for="teacher">Teacher</label>
-                            <input type="text" id="teacher" placeholder="e.g. Prof. Sharma">
+                            <label for="teacher">Teacher Name</label>
+                            <input type="text" id="teacher" placeholder="Enter the Teacher's Name">
                         </div>
                         <div class="form-group">
-                            <label for="location">Room / location</label>
-                            <input type="text" id="location" placeholder="e.g. Room 204">
+                            <label for="location">Room Number</label>
+                            <input type="text" id="location" placeholder="Enter the Room Number">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="notes">Notes</label>
-                        <textarea id="notes" rows="3" placeholder="Optional notes"></textarea>
+                        <label for="notes">Special Notes</label>
+                        <textarea id="notes" rows="3" placeholder="Enter the Special Notes (if any instructions for he students)"></textarea>
                     </div>
                     <div class="form-grid form-grid-settings">
                         <div class="form-group">

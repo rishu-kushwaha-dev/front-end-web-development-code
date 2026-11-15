@@ -10,6 +10,10 @@
     --orange: #d97706;
     --red: #dc4c64;
     --shadow: 0 18px 50px rgba(35, 49, 79, .11);
+    --glass: rgba(255, 255, 255, .58);
+    --glass-strong: rgba(255, 255, 255, .74);
+    --glass-border: rgba(255, 255, 255, .72);
+    --glass-highlight: rgba(255, 255, 255, .48);
 }
 
 * {
@@ -20,7 +24,11 @@
 
 html {
     min-width: 320px;
-    background: #f3f5f9;
+    height: 100%;
+    background:
+        radial-gradient(circle at 8% 4%, rgba(112, 151, 255, .3), transparent 29rem),
+        radial-gradient(circle at 92% 20%, rgba(102, 210, 190, .2), transparent 31rem),
+        linear-gradient(135deg, #eef3ff 0%, #f7f8fc 48%, #eaf5f5 100%);
 }
 
 body {
@@ -73,7 +81,11 @@ button {
     height: 100vh;
     padding: 30px 20px;
     color: #e9eefc;
-    background: #15204c;
+    background: linear-gradient(155deg, rgba(21, 32, 76, .9), rgba(33, 58, 128, .76));
+    border-right: 1px solid rgba(255, 255, 255, .12);
+    box-shadow: 12px 0 35px rgba(28, 43, 91, .08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     display: flex;
     flex-direction: column;
 }
@@ -165,9 +177,12 @@ button {
 .sidebar-card {
     margin-top: auto;
     padding: 18px;
-    border: 1px solid rgba(255, 255, 255, .1);
+    border: 1px solid rgba(255, 255, 255, .18);
     border-radius: 14px;
-    background: rgba(255, 255, 255, .055);
+    background: rgba(255, 255, 255, .09);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .sidebar-card-icon {
@@ -264,8 +279,12 @@ h1 {
 
 .btn-secondary {
     color: #34415a;
-    background: #fff;
-    border: 1px solid #dfe4ed;
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .58);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .56);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .btn-secondary:hover {
@@ -288,10 +307,12 @@ h1 {
 .stat-card {
     min-height: 116px;
     padding: 20px;
-    border: 1px solid rgba(225, 230, 240, .8);
+    border: 1px solid var(--glass-border);
     border-radius: 15px;
-    background: rgba(255, 255, 255, .88);
-    box-shadow: 0 8px 30px rgba(38, 52, 83, .055);
+    background: var(--glass);
+    box-shadow: 0 8px 30px rgba(38, 52, 83, .07), inset 0 1px 0 var(--glass-highlight);
+    backdrop-filter: blur(16px) saturate(125%);
+    -webkit-backdrop-filter: blur(16px) saturate(125%);
     display: flex;
     align-items: center;
     gap: 15px;
@@ -352,10 +373,12 @@ h1 {
 .schedule-panel {
     margin-top: 22px;
     padding: 25px;
-    border: 1px solid var(--line);
+    border: 1px solid var(--glass-border);
     border-radius: 17px;
-    background: var(--white);
-    box-shadow: var(--shadow);
+    background: var(--glass-strong);
+    box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .62);
+    backdrop-filter: blur(22px) saturate(130%);
+    -webkit-backdrop-filter: blur(22px) saturate(130%);
 }
 
 .panel-heading {
@@ -391,8 +414,12 @@ h1 {
 
 .segmented-control {
     padding: 3px;
+    border: 1px solid rgba(255, 255, 255, .56);
     border-radius: 9px;
-    background: #edf0f5;
+    background: rgba(226, 232, 242, .62);
+    box-shadow: inset 0 1px 3px rgba(41, 54, 81, .04);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     display: flex;
 }
 
@@ -409,17 +436,18 @@ h1 {
 
 .segment.active {
     color: var(--ink);
-    background: #fff;
-    box-shadow: 0 2px 7px rgba(31, 45, 72, .1);
+    background: rgba(255, 255, 255, .76);
+    box-shadow: 0 2px 7px rgba(31, 45, 72, .1), inset 0 1px 0 rgba(255, 255, 255, .72);
 }
 
 .toolbar select,
 .search-wrap input {
     height: 38px;
-    border: 1px solid #dfe4ed;
+    border: 1px solid var(--glass-border);
     border-radius: 9px;
     color: #3f4a5e;
-    background: #fff;
+    background: rgba(255, 255, 255, .56);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .42);
     outline: 0;
     font-size: .78rem;
 }
@@ -441,10 +469,13 @@ h1 {
     align-items: center;
     gap: 7px;
     padding: 0 11px;
-    border: 1px solid #dfe4ed;
+    border: 1px solid var(--glass-border);
     border-radius: 9px;
-    background: #fff;
+    background: rgba(255, 255, 255, .5);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .42);
     color: #8993a4;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .search-wrap:focus-within {
@@ -462,9 +493,12 @@ h1 {
 .icon-button {
     width: 38px;
     height: 38px;
-    border: 1px solid #dfe4ed;
+    border: 1px solid var(--glass-border);
     border-radius: 9px;
-    background: #fff;
+    background: rgba(255, 255, 255, .5);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .42);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     font-size: 1rem;
 }
 
@@ -478,8 +512,12 @@ h1 {
 
 .table-wrap {
     overflow: auto;
-    border: 1px solid var(--line);
+    border: 1px solid rgba(255, 255, 255, .64);
     border-radius: 12px;
+    background: rgba(255, 255, 255, .34);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .44);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 table {
@@ -489,7 +527,7 @@ table {
 }
 
 thead {
-    background: #f8f9fc;
+    background: rgba(234, 240, 250, .68);
 }
 
 th {
@@ -516,7 +554,7 @@ tbody tr:last-child td {
 }
 
 tbody tr:hover {
-    background: #fafbfe;
+    background: rgba(255, 255, 255, .42);
 }
 
 .time-cell {
@@ -627,22 +665,26 @@ tbody tr:hover {
 
 .week-view {
     overflow: auto;
-    border: 1px solid var(--line);
+    border: 1px solid rgba(255, 255, 255, .64);
     border-radius: 12px;
+    background: rgba(255, 255, 255, .3);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .44);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .week-grid {
     min-width: 980px;
     display: grid;
     grid-template-columns: 75px repeat(7, minmax(115px, 1fr));
-    background: #fff;
+    background: rgba(255, 255, 255, .34);
 }
 
 .week-corner,
 .week-day {
     padding: 12px 8px;
     border-bottom: 1px solid var(--line);
-    background: #f8f9fc;
+    background: rgba(239, 244, 251, .64);
 }
 
 .week-day {
@@ -691,7 +733,11 @@ tbody tr:hover {
     border-left: 3px solid var(--blue);
     border-radius: 5px;
     color: #354158;
-    background: #eff4ff;
+    background: rgba(239, 244, 255, .68);
+    border: 1px solid rgba(255, 255, 255, .62);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .48);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     font-size: .64rem;
     line-height: 1.25;
     overflow-wrap: anywhere;
@@ -710,17 +756,17 @@ tbody tr:hover {
 
 .class-chip.study {
     border-left-color: var(--green);
-    background: #eaf7f0;
+    background: rgba(234, 247, 240, .72);
 }
 
 .class-chip.laboratory {
     border-left-color: var(--orange);
-    background: #fff4e5;
+    background: rgba(255, 244, 229, .72);
 }
 
 .class-chip.activity {
     border-left-color: #8752b3;
-    background: #f3ecfa;
+    background: rgba(243, 236, 250, .72);
 }
 
 .modal {
@@ -731,7 +777,7 @@ tbody tr:hover {
     display: none;
     align-items: center;
     justify-content: center;
-    background: rgba(16, 27, 52, .55);
+    background: rgba(18, 31, 64, .46);
     backdrop-filter: blur(3px);
 }
 
@@ -744,9 +790,12 @@ tbody tr:hover {
     max-height: 92vh;
     overflow: auto;
     padding: 26px;
+    border: 1px solid rgba(255, 255, 255, .72);
     border-radius: 17px;
-    background: #fff;
-    box-shadow: 0 25px 70px rgba(10, 23, 54, .3);
+    background: rgba(248, 251, 255, .78);
+    box-shadow: 0 25px 70px rgba(10, 23, 54, .28), inset 0 1px 0 rgba(255, 255, 255, .7);
+    backdrop-filter: blur(24px) saturate(130%);
+    -webkit-backdrop-filter: blur(24px) saturate(130%);
 }
 
 .modal-header {
@@ -809,7 +858,7 @@ tbody tr:hover {
     border: 1px solid #dde3ec;
     border-radius: 9px;
     color: #3c485d;
-    background: #fff;
+    background: rgba(255, 255, 255, .62);
     outline: 0;
     font-size: .83rem;
 }
@@ -1083,11 +1132,18 @@ tbody tr:hover {
         margin-top: 15px;
         padding: 10px;
         border: 0;
+        background: #fff;
         box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
     }
 
     .stat-card,
     .schedule-panel {
+        background: #fff;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
         break-inside: avoid;
     }
 

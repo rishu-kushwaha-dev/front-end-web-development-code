@@ -1,0 +1,167 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.keyboard-container {
+    background: #1e1e2e;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 24px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.keyboard-header {
+    margin-bottom: 20px;
+}
+
+.keyboard-header h2 {
+    color: #cdd6f4;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.keyboard-output {
+    width: 100%;
+    min-height: 100px;
+    background: #181825;
+    border: 2px solid #313244;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 1rem;
+    color: #cdd6f4;
+    font-family: 'Monospace', monospace;
+    resize: vertical;
+    outline: none;
+    margin-bottom: 20px;
+    transition: border-color 0.2s ease;
+}
+
+.keyboard-output:focus {
+    border-color: #89b4fa;
+}
+
+.keyboard-output::placeholder {
+    color: #6c7086;
+}
+
+.keyboard-wrapper {
+    background: #181825;
+    border: 3px solid #89b4fa;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: inset 0 0 20px rgba(137, 180, 250, 0.1);
+    overflow: hidden;
+}
+
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.key {
+    background: #313244;
+    border: none;
+    border-radius: 8px;
+    color: #cdd6f4;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    min-width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.key:hover {
+    background: #45475a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.key:active {
+    transform: translateY(0);
+    background: #585b70;
+}
+
+.key:focus-visible {
+    outline: 2px solid #89b4fa;
+    outline-offset: 2px;
+}
+
+.key-wide {
+    min-width: 72px;
+}
+
+.key-extra-wide {
+    min-width: 280px;
+}
+
+.key.modifier-active {
+    background: #89b4fa;
+    color: #1e1e2e;
+}
+
+@media (max-width: 768px) {
+    .keyboard-container {
+        padding: 16px;
+    }
+
+    .key {
+        min-width: 40px;
+        height: 44px;
+        font-size: 0.8rem;
+    }
+
+    .key-wide {
+        min-width: 60px;
+    }
+
+    .key-extra-wide {
+        min-width: 200px;
+    }
+
+    .keyboard-row {
+        gap: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .key {
+        min-width: 32px;
+        height: 40px;
+        font-size: 0.75rem;
+    }
+
+    .key-wide {
+        min-width: 48px;
+    }
+
+    .key-extra-wide {
+        min-width: 160px;
+    }
+}

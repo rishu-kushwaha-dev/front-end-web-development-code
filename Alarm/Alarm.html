@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Alarm</title>
+        <link rel="stylesheet" href="Alarm.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <header>
+                <h1>⏰ Alarm</h1>
+            </header>
+
+            <div class="current-time" id="currentTime">00:00:00</div>
+
+            <section class="alarms-section">
+                <h2>Active Alarms</h2>
+                <div class="alarms-list" id="alarmsList">
+                    <div class="empty-state">No alarms set.</div>
+                </div>
+            </section>
+
+            <section class="add-alarm-section">
+                <h2>Set Alarm</h2>
+                <form id="alarmForm" class="alarm-form">
+                    <div class="form-group">
+                        <label for="alarmTime">Time</label>
+                        <input type="time" id="alarmTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alarmLabel">Label (optional)</label>
+                        <input type="text" id="alarmLabel" placeholder="Wake up, Meeting, etc." maxlength="30">
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="alarmRepeat" checked>
+                            <span>Repeat daily</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="alarmSoundSelect">Alarm Sound</label>
+                        <div class="sound-row">
+                            <select id="alarmSoundSelect" class="sound-select"></select>
+                            <button type="button" id="previewSound" class="btn btn-secondary btn-sm">▶ Preview</button>
+                        </div>
+                    </div>
+                    <div class="form-group" id="customSoundGroup" hidden>
+                        <label for="customSoundFile">Upload your own sound</label>
+                        <input type="file" id="customSoundFile" accept="audio/*">
+                        <span class="hint" id="customSoundHint">MP3, WAV, OGG etc. Stored locally in your
+                            browser.</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Alarm</button>
+                </form>
+            </section>
+
+            <section class="settings-section">
+                <h2>Settings</h2>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="notificationsEnabled" checked>
+                            <span>Browser Notifications</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <button id="testNotification" class="btn btn-secondary">Test Notification</button>
+                    </div>
+                    <div class="setting-item">
+                        <button id="clearAllAlarms" class="btn btn-danger">Clear All Alarms</button>
+                    </div>
+                    <div class="setting-item" id="customSoundsManager">
+                        <label>My Sounds</label>
+                        <div id="customSoundsList" class="custom-sounds-list">
+                            <span class="empty-state">No custom sounds uploaded.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="status-bar" id="statusBar">
+                <span id="statusText">Ready</span>
+            </div>
+        </div>
+
+        <script src="Alarm.js"></script>
+    </body>
+
+</html>

@@ -115,6 +115,8 @@ keyboard.addEventListener('click', (e) => {
     const key = e.target.closest('.key');
     if (key) {
         const keyValue = key.dataset.key;
+        key.classList.add('kbd-press');
+        setTimeout(() => key.classList.remove('kbd-press'), 100);
         handleKeyClick(keyValue);
     }
 });

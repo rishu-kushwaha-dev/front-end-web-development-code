@@ -10,6 +10,7 @@ Here is a list of the projects inside this repository:
    
 *  **About Me Page**
 *  **Age Calculator**
+*  **Alarm**
 *  **ASCII Binary Hex**
 *  **BMI Calculator**
 *  **Calculator**
@@ -17,8 +18,8 @@ Here is a list of the projects inside this repository:
 *  **Colour Palette Generator**
 *  **Countly**
 *  **Currency Converter**
-*  **Disturbance Creator**
 *  **Digital Clock**
+*  **Disturbance Creator**
 *  **Enquiry Form**
 *  **Event CountDown**
 *  **Games Folder**
@@ -36,6 +37,7 @@ Here is a list of the projects inside this repository:
   12. **Water Sort Game**
 *  **Google Maps Distance Calculator**
 *  **Hacker Terminal**
+*  **KeyBoard**
 *  **Lamp Login Form**
 *  **Online Gift Store**
 *  **OTP Verification**
@@ -49,7 +51,7 @@ Here is a list of the projects inside this repository:
 *  **Shree Tiffin Service**
 *  **Student Registration Form**
 *  **Text to Speech Converter**
-*  **To-Do List**
+*  **To-Do-List**
 *  **Typing Speed Tester**
 *  **Unit Converter**
 

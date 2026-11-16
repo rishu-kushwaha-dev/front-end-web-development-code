@@ -48,11 +48,10 @@ Here is a list of the projects inside this repository:
 *  **Resume**
 *  **Shree Ice-Cream Parlour**
 *  **Shree Palace Room Booking**
-*  **Shree Tiffin Service**
 *  **Student Registration Form**
 *  **Text to Speech Converter**
+*  **Time Table**
 *  **To-Do-List**
-*  **Typing Speed Tester**
 *  **Unit Converter**
 
 ---

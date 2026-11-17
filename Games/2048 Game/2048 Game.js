@@ -13,7 +13,6 @@ class Game2048 {
         this.gameMessage = document.getElementById('gameMessage');
         this.gameMessageText = document.getElementById('gameMessageText');
         this.retryBtn = document.getElementById('retryBtn');
-        this.newGameBtn = document.getElementById('newGameBtn');
 
         this.tiles = [];
         this.init();
@@ -39,7 +38,6 @@ class Game2048 {
     setupEventListeners() {
         document.addEventListener('keydown', (e) => this.handleKeyPress(e));
         this.retryBtn.addEventListener('click', () => this.restart());
-        this.newGameBtn.addEventListener('click', () => this.restart());
 
         let startX, startY;
         const gridContainer = document.querySelector('.grid-container');

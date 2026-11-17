@@ -75,22 +75,6 @@ body {
     font-weight: bold;
 }
 
-.new-game-btn {
-    background: #8f7a66;
-    color: #f9f6f2;
-    border: none;
-    border-radius: 6px;
-    padding: 12px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.new-game-btn:hover {
-    background: #9f8b77;
-}
-
 .grid-container {
     position: relative;
     background: #9162c7;

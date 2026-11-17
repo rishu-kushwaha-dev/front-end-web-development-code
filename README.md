@@ -5,7 +5,6 @@ Welcome to my official front-end development repository! This space contains a c
 ## 📂 Projects Included
 
 Here is a list of the projects inside this repository:
-<<<<<<< HEAD
    
 *  **About Me Page**
 *  **Age Calculator**
@@ -44,6 +43,7 @@ Here is a list of the projects inside this repository:
 *  **Password Tester**
 *  **Portfolio**
 *  **QR Code Generator**
+*  **Registration Form**
 *  **Resume**
 *  **Shree Ice-Cream Parlour**
 *  **Shree Palace Room Booking**

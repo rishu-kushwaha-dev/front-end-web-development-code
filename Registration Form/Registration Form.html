@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registration Form</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+    <body>
+        <h1>Student Registration Form</h1>
+        <form>
+            Name:-
+            <input type="text" name="name" required><br><br>
+            Father Name:-
+            <input type="text" name="father_name" required><br><br>
+            Fathger Occupation:-
+            <input type="text" name="father_occupation" required><br><br>
+            Mother Name:-
+            <input type="text" name="mother_name" required><br><br>
+            Mother Occupation:-
+            <input type="text" name="mother_occupation" required><br><br>
+            Phone Number:-
+            <input type="tel" name="phone" required><br><br>
+            Alternate Phone Number:-
+            <input type="tel" name="alternate_phone"><br><br>
+            Email:-
+            <input type="email" name="email" required><br><br>
+            Gender:-
+            <input type="radio" name="gender" value="male" required> Male
+            <input type="radio" name="gender" value="female" required> Female<br><br>
+            Date of Birth:-
+            <input type="date" name="dob" required><br><br>
+            Religion:-
+            <select name="religion" required>
+                <option value="">Select</option>
+                <option value="hindu">Hindu</option>
+                <option value="muslim">Muslim</option>
+                <option value="christian">Christian</option>
+                <option value="sikh">Sikh</option>
+                <option value="buddhist">Buddhist</option>
+                <option value="jain">Jain</option>
+                <option value="other">Other</option>
+            </select><br><br>
+            Caste:-
+            <input type="text" name="caste" required><br><br>
+            Permanent Address:-
+            <textarea name="address" rows="4" cols="50" required></textarea><br><br>
+            Temporary Address:-
+            <textarea name="temp_address" rows="4" cols="50"></textarea><br><br>
+            Blood Group:- <select name="blood_group" required>
+                <option value="">Select</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+            </select><br><br>
+            Class Want to take admission:-
+            <select name="class" required>
+                <option value="">Select</option>
+                <option value="1">1st Class</option>
+                <option value="2">2nd Class</option>
+                <option value="3">3rd Class</option>
+                <option value="4">4th Class</option>
+                <option value="5">5th Class</option>
+                <option value="6">6th Class</option>
+                <option value="7">7th Class</option>
+                <option value="8">8th Class</option>
+                <option value="9">9th Class</option>
+                <option value="10">10th Class</option>
+                <option value="11">11th Class</option>
+                <option value="12">12th Class</option>
+            </select><br><br>
+            Any Disease:-
+            <input type="text" name="disease"><br><br>
+            Siblings:-
+            <input type="number" name="siblings" min="0"><br><br>
+            Siblings in the same school:-
+            <input type="number" name="siblings_school" min="0"><br><br>
+            Siblings Class:-
+            <input type="text" name="siblings_class"><br><br>
+            Last School Name:-
+            <input type="text" name="last_school"><br><br>
+            Reason for Leaving Last School:-
+            <textarea name="reason" rows="4" cols="50"></textarea><br><br>
+            Date of Admission:-
+            <input type="date" name="admission_date" required><br><br>
+            Parents Signature:-
+            <input type="text" name="parents_signature" required><br><br>
+            Newsletter:-
+            <input type="checkbox" name="newsletter"> I want to receive the newsletter<br><br>
+            <input type="checkbox" name="terms" required> I agree to the terms and conditions<br><br>
+            <input type="submit" value="Register"
+                onclick="alert('Dear Parents, You are informed that uour child has been admitted to the class as per your wish.')">
+        </form>
+    </body>
+    <strong>Note:</strong> Please fill out the form carefully and ensure all required fields are completed before
+    submitting.
+    <script>
+        // Optional: You can add JavaScript validation here if needed
+    </script>
+
+</html>

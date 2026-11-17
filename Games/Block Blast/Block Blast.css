@@ -6,7 +6,7 @@
 
 body {
     font-family: system-ui, sans-serif;
-    background: #0f172a;
+    background: #6582c5;
     color: #e2e8f0;
     min-height: 100vh;
     display: flex;
@@ -32,7 +32,7 @@ h1 {
 }
 
 canvas {
-    background: #1e293b;
+    background: #3c5e96;
     border-radius: 8px;
 }
 

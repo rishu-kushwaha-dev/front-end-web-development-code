@@ -1,6 +1,6 @@
 body {
     font-family: sans-serif;
-    background: #0f172a;
+    background: #29334b;
     color: #e2e8f0;
     display: flex;
     align-items: center;
@@ -22,7 +22,7 @@ body {
 .cell {
     width: 44px;
     height: 44px;
-    background: #1e293b;
+    background: #6799e9;
     border-radius: 6px;
     display: flex;
     align-items: center;

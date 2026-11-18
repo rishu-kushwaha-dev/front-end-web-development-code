@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
     <head>
@@ -14,179 +14,234 @@
             <div class="fill" id="progressFill"></div>
         </div>
         <form id="regForm">
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Student Photo</label>
-                    <label for="photoInput" class="upload-btn">Upload Student Photo</label>
-                    <input type="file" name="photo" accept="image/*" id="photoInput" hidden>
-                    <img id="photoPreview" class="photo-preview" alt="Preview">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label>Father Name</label>
-                    <input type="text" name="father_name" required>
-                </div>
-                <div class="form-group">
-                    <label>Father's Occupation</label>
-                    <input type="text" name="father_occupation" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Mother Name</label>
-                    <input type="text" name="mother_name" required>
-                </div>
-                <div class="form-group">
-                    <label>Mother's Occupation</label>
-                    <input type="text" name="mother_occupation" required>
-                </div>
-                <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="tel" name="phone" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Alternate Phone Number</label>
-                    <input type="tel" name="alternate_phone">
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label>Date of Birth</label>
-                    <input type="date" name="dob" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Gender</label>
-                    <div class="radio-group">
-                        <input type="radio" name="gender" value="male" required> Male
-                        <input type="radio" name="gender" value="female" required> Female
+            <fieldset class="form-section">
+                <legend>Student Photo</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Student Photo</label>
+                        <label for="photoInput" class="upload-btn">Upload Student Photo</label>
+                        <input type="file" name="photo" accept="image/*" id="photoInput" hidden required>
+                        <img id="photoPreview" class="photo-preview" alt="Preview">
+                    </div>
+                    <div class="form-group">
+                        <label>Father Photo</label>
+                        <label for="fatherPhotoInput" class="upload-btn">Upload Father Photo</label>
+                        <input type="file" name="father_photo" accept="image/*" id="fatherPhotoInput" hidden required>
+                        <img id="fatherPhotoPreview" class="photo-preview" alt="Preview">
+                    </div>
+                    <div class="form-group">
+                        <label>Mother Photo</label>
+                        <label for="motherPhotoInput" class="upload-btn">Upload Mother Photo</label>
+                        <input type="file" name="mother_photo" accept="image/*" id="motherPhotoInput" hidden required>
+                        <img id="motherPhotoPreview" class="photo-preview" alt="Preview">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Religion</label>
-                    <select name="religion" required>
-                        <option value="">Select</option>
-                        <option value="Hindu">Hindu</option>
-                        <option value="Muslim">Muslim</option>
-                        <option value="Christian">Christian</option>
-                        <option value="Sikh">Sikh</option>
-                        <option value="Buddhist">Buddhist</option>
-                        <option value="Jain">Jain</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Caste</label>
-                    <input type="text" name="caste" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Blood Group</label>
-                    <select name="blood_group" required>
-                        <option value="">Select</option>
-                        <option value="A+">A+</option>
-                        <option value="A-">A-</option>
-                        <option value="B+">B+</option>
-                        <option value="B-">B-</option>
-                        <option value="O+">O+</option>
-                        <option value="O-">O-</option>
-                        <option value="AB+">AB+</option>
-                        <option value="AB-">AB-</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Class Want to take admission</label>
-                    <select name="class" required>
-                        <option value="">Select</option>
-                        <option value="1">1st Class</option>
-                        <option value="2">2nd Class</option>
-                        <option value="3">3rd Class</option>
-                        <option value="4">4th Class</option>
-                        <option value="5">5th Class</option>
-                        <option value="6">6th Class</option>
-                        <option value="7">7th Class</option>
-                        <option value="8">8th Class</option>
-                        <option value="9">9th Class</option>
-                        <option value="10">10th Class</option>
-                        <option value="11">11th Class</option>
-                        <option value="12">12th Class</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Date of Admission</label>
-                    <input type="date" name="admission_date" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Any Disease</label>
-                    <input type="text" name="disease">
-                </div>
-                <div class="form-group">
-                    <label>Siblings</label>
-                    <input type="number" name="siblings" min="0">
-                </div>
-                <div class="form-group">
-                    <label>Siblings in the same school</label>
-                    <input type="number" name="siblings_school" min="0">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Siblings Class</label>
-                    <input type="text" name="siblings_class">
-                </div>
-                <div class="form-group">
-                    <label>Last School Name</label>
-                    <input type="text" name="last_school">
-                </div>
-                <div class="form-group">
-                    <label>Parents Signature</label>
-                    <input type="text" name="parents_signature" required>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Permanent Address</label>
-                    <textarea name="address" rows="4" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Temporary Address</label>
-                    <textarea name="temp_address" rows="4"></textarea>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Reason for Leaving Last School</label>
-                    <textarea name="reason" rows="4"></textarea>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <div class="checkbox-group">
-                        <input type="checkbox" name="newsletter"> I want to receive the newsletter
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend>Student Details</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" name="dob" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <div class="radio-group">
+                            <input type="radio" name="gender" value="male" required> Male
+                            <input type="radio" name="gender" value="female" required> Female
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="checkbox-group">
-                        <input type="checkbox" name="terms" required> I agree to the terms and conditions
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Religion</label>
+                        <select name="religion" required>
+                            <option value="">Select</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Muslim">Muslim</option>
+                            <option value="Christian">Christian</option>
+                            <option value="Sikh">Sikh</option>
+                            <option value="Buddhist">Buddhist</option>
+                            <option value="Jain">Jain</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Caste</label>
+                        <select name="caste" required>
+                            <option value="">Select</option>
+                            <option value="General">General</option>
+                            <option value="OBC">OBC</option>
+                            <option value="SC">SC</option>
+                            <option value="ST">ST</option>
+                            <option value="EWS">EWS</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Blood Group</label>
+                        <select name="blood_group" required>
+                            <option value="">Select</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
                     </div>
                 </div>
-            </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend>Parents Details</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Father Name</label>
+                        <input type="text" name="father_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Father's Occupation</label>
+                        <input type="text" name="father_occupation" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Mother Name</label>
+                        <input type="text" name="mother_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mother's Occupation</label>
+                        <input type="text" name="mother_occupation" required>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend>Contact Details</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" name="phone" inputmode="numeric" pattern="[0-9]{10}" maxlength="10"
+                            title="Enter a valid 10-digit phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Alternate Phone Number</label>
+                        <input type="tel" name="alternate_phone" inputmode="numeric" pattern="[0-9]{10}" maxlength="10"
+                            title="Enter a valid 10-digit phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                            title="Enter a valid email address" required>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend>Admission Details</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Class Want to take admission</label>
+                        <select name="class" required>
+                            <option value="">Select</option>
+                            <option value="1">1st Class</option>
+                            <option value="2">2nd Class</option>
+                            <option value="3">3rd Class</option>
+                            <option value="4">4th Class</option>
+                            <option value="5">5th Class</option>
+                            <option value="6">6th Class</option>
+                            <option value="7">7th Class</option>
+                            <option value="8">8th Class</option>
+                            <option value="9">9th Class</option>
+                            <option value="10">10th Class</option>
+                            <option value="11">11th Class</option>
+                            <option value="12">12th Class</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Admission</label>
+                        <input type="date" name="admission_date" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Any Disease</label>
+                        <input type="text" name="disease" required>
+                    </div>
+                    <div class="form-group">
+                        <label> Number of Siblings</label>
+                        <input type="number" name="siblings" inputmode="numeric" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Siblings in the same school</label>
+                        <div class="radio-group"><input type="radio" name="siblings_school" value="yes" required> Yes
+                            <input type="radio" name="siblings_school" value="no" required> No
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Siblings Class</label>
+                        <input type="text" name="siblings_class" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last School Name</label>
+                        <input type="text" name="last_school" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Parents Signature</label>
+                        <input type="text" name="parents_signature" required>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend>Address Details</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Permanent Address</label>
+                        <textarea name="address" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Temporary Address</label>
+                        <textarea name="temp_address" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Reason for Leaving Last School</label>
+                        <textarea name="reason" rows="4" required></textarea>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend>Consent</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="newsletter" required> I want to receive the newsletter
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="terms" required> I agree to the terms and conditions
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
             <div class="button-row">
-                <input type="reset" value="Reset">
-                <input type="submit" value="Register">
+                <input type="reset" value="Reset" required>
+                <input type="submit" value="Register" required>
             </div>
         </form>
         <div class="modal" id="successModal">
@@ -196,8 +251,6 @@
                 <button id="closeModal">OK</button>
             </div>
         </div>
-        <p class="note">Please fill out the form carefully and ensure all required fields are completed before
-            submitting.</p>
         <script src="Registration Form.js"></script>
 
 </html>

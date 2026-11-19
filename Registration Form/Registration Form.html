@@ -23,19 +23,22 @@
                     <div class="form-group">
                         <label for="photoInput">Student Photo <span class="req">*</span></label>
                         <label for="photoInput" class="upload-btn">Upload Student's Photo</label>
-                        <input type="file" name="photo" id="photoInput" hidden>
+                        <input type="file" name="photo" id="photoInput" hidden
+                            accept="image/*,.jpg,.jpeg,.png,.gif,.webp,.bmp,.svg,.avif,.heic,.heif,.tif,.tiff,.ico,.jfif,.jxl">
                         <img id="photoPreview" class="photo-preview" alt="Student photo preview">
                     </div>
                     <div class="form-group">
                         <label for="fatherPhotoInput">Father Photo <span class="req">*</span></label>
                         <label for="fatherPhotoInput" class="upload-btn">Upload Father's Photo</label>
-                        <input type="file" name="father_photo" id="fatherPhotoInput" hidden>
+                        <input type="file" name="father_photo" id="fatherPhotoInput" hidden
+                            accept="image/*,.jpg,.jpeg,.png,.gif,.webp,.bmp,.svg,.avif,.heic,.heif,.tif,.tiff,.ico,.jfif,.jxl">
                         <img id="fatherPhotoPreview" class="photo-preview" alt="Father photo preview">
                     </div>
                     <div class="form-group">
                         <label for="motherPhotoInput">Mother Photo <span class="req">*</span></label>
                         <label for="motherPhotoInput" class="upload-btn">Upload Mother's Photo</label>
-                        <input type="file" name="mother_photo" id="motherPhotoInput" hidden>
+                        <input type="file" name="mother_photo" id="motherPhotoInput" hidden
+                            accept="image/*,.jpg,.jpeg,.png,.gif,.webp,.bmp,.svg,.avif,.heic,.heif,.tif,.tiff,.ico,.jfif,.jxl">
                         <img id="motherPhotoPreview" class="photo-preview" alt="Mother photo preview">
                     </div>
                 </div>
@@ -174,9 +177,9 @@
                     <div class="form-group">
                         <label for="parents_signature">Parents Signature <span class="req">*</span></label>
                         <label for="parents_signature" class="upload-btn">Upload Scanned Signature</label>
-                        <input type="file" name="parents_signature" id="parents_signature" hidden accept="image/*,.pdf">
+                        <input type="file" name="parents_signature" id="parents_signature" hidden
+                            accept="image/*,.pdf,.jpg,.jpeg,.png,.gif,.webp,.bmp,.svg,.avif,.heic,.heif,.tif,.tiff">
                         <img id="parentsSignaturePreview" class="photo-preview" alt="Signature preview">
-                        <p class="field-hint">Accepted: JPG/PNG/PDF, max 2 MB</p>
                     </div>
                 </div>
             </fieldset>
@@ -353,20 +356,22 @@
                     <div class="form-group">
                         <label for="aadhaarInput">Aadhaar Card Copy <span class="req">*</span></label>
                         <label for="aadhaarInput" class="upload-btn">Upload Aadhaar Copy</label>
-                        <input type="file" name="aadhaar_copy" id="aadhaarInput" hidden accept="image/*,.pdf">
+                        <input type="file" name="aadhaar_copy" id="aadhaarInput" hidden
+                            accept="image/*,.pdf,.jpg,.jpeg,.png,.gif,.webp,.bmp,.svg,.avif,.heic,.heif,.tif,.tiff">
                         <img id="aadhaarPreview" class="photo-preview" alt="Aadhaar preview">
-                        <p class="field-hint">Accepted: JPG/PNG/PDF, max 2 MB</p>
                     </div>
                     <div class="form-group">
                         <label for="birthCertInput">Birth Certificate <span class="req">*</span></label>
                         <label for="birthCertInput" class="upload-btn">Upload Birth Certificate</label>
-                        <input type="file" name="birth_cert" id="birthCertInput" hidden accept="image/*,.pdf">
+                        <input type="file" name="birth_cert" id="birthCertInput" hidden
+                            accept="image/*,.pdf,.jpg,.jpeg,.png,.gif,.webp,.bmp,.svg,.avif,.heic,.heif,.tif,.tiff">
                         <img id="birthCertPreview" class="photo-preview" alt="Birth certificate preview">
                     </div>
                     <div class="form-group">
                         <label for="tcInput">Transfer Certificate / Marksheet <span class="req">*</span></label>
                         <label for="tcInput" class="upload-btn">Upload TC / Marksheet</label>
-                        <input type="file" name="tc" id="tcInput" hidden accept="image/*,.pdf">
+                        <input type="file" name="tc" id="tcInput" hidden
+                            accept="image/*,.pdf,.jpg,.jpeg,.png,.gif,.webp,.bmp,.svg,.avif,.heic,.heif,.tif,.tiff">
                         <img id="tcPreview" class="photo-preview" alt="TC preview">
                     </div>
                 </div>

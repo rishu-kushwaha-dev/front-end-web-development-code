@@ -87,16 +87,54 @@ function labelTextFor(el) {
     return label.textContent.replace('*', '').trim();
 }
 
+function formatFileSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
+    if (bytes < 1024 * 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    return (bytes / (1024 * 1024 * 1024)).toFixed(2) + ' GB';
+}
+
+function setFileChip(input, text) {
+    const group = getGroup(input);
+    if (!group) return;
+    let chip = group.querySelector('.file-chip');
+    if (!text) {
+        if (chip) chip.remove();
+        return;
+    }
+    if (!chip) {
+        chip = document.createElement('p');
+        chip.className = 'file-chip';
+        group.appendChild(chip);
+    }
+    chip.textContent = text;
+}
+
+function showFileInfo(input, preview, file) {
+    preview.removeAttribute('src');
+    preview.style.display = 'none';
+    setFileChip(input, `Selected: ${file.name} · ${formatFileSize(file.size)}`);
+}
+
 function setupPhotoPreview(config) {
     const { input, preview, label } = config;
 
     input.addEventListener('change', () => {
         clearGroupError(input);
+        setFileChip(input, '');
         const file = input.files[0];
 
         if (!file) {
             preview.removeAttribute('src');
             preview.style.display = 'none';
+            return;
+        }
+
+        const isImage = file.type.startsWith('image/') || /\.(jpe?g|png|gif|webp|bmp|svg|avif|heic|heif|tiff?|ico|jfif|jxl)$/i.test(file.name);
+
+        if (!isImage) {
+            showFileInfo(input, preview, file);
+            saveDraft();
             return;
         }
 
@@ -129,7 +167,15 @@ function setupPhotoPreview(config) {
                 preview.style.display = 'block';
                 saveDraft();
             };
+            img.onerror = () => {
+                showFileInfo(input, preview, file);
+                saveDraft();
+            };
             img.src = event.target.result;
+        };
+        reader.onerror = () => {
+            showFileInfo(input, preview, file);
+            saveDraft();
         };
         reader.readAsDataURL(file);
     });
@@ -437,7 +483,7 @@ let receiptNumber = '';
 let saveTimer;
 
 function saveDraft() {
-    const data = { values: {}, radios: {}, checks: {}, photos: {} };
+    const data = { values: {}, radios: {}, checks: {}, photos: {}, fileChips: {} };
 
     Array.from(form.elements).forEach((el) => {
         if (!el.name || el.type === 'file' || el.disabled) return;
@@ -453,6 +499,10 @@ function saveDraft() {
     photoConfigs.forEach((config) => {
         if (config.preview.getAttribute('src')) {
             data.photos[config.input.name] = config.preview.src;
+        }
+        const chip = getGroup(config.input) && getGroup(config.input).querySelector('.file-chip');
+        if (chip && chip.textContent) {
+            data.fileChips[config.input.name] = chip.textContent;
         }
     });
 
@@ -498,6 +548,8 @@ function restoreDraft() {
             config.preview.src = src;
             config.preview.style.display = 'block';
         }
+        const chipText = data.fileChips && data.fileChips[config.input.name];
+        if (chipText) setFileChip(config.input, chipText);
     });
 }
 
@@ -508,6 +560,7 @@ function resetForm() {
         config.input.value = '';
         config.preview.removeAttribute('src');
         config.preview.style.display = 'none';
+        setFileChip(config.input, '');
     });
     sameAsPermanent.checked = false;
     tempAddress.readOnly = false;

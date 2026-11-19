@@ -214,6 +214,18 @@ form::before {
     color: var(--muted);
 }
 
+.file-chip {
+    margin: 8px 0 0;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--brand-deep);
+    background: var(--brand-soft);
+    border: 1px dashed rgba(99, 102, 241, 0.45);
+    border-radius: 8px;
+    word-break: break-all;
+}
+
 .condition-note {
     margin: 6px 0 0;
     padding: 5px 10px;

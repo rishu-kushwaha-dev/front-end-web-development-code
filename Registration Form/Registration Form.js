@@ -17,6 +17,8 @@ const photoConfigs = [
 ];
 
 const siblingsClass = form.elements.siblings_class;
+const siblingsCount = form.elements.siblings;
+const siblingsCountGroup = document.getElementById('siblingsCountGroup');
 const lastSchool = form.elements.last_school;
 const reason = form.elements.reason;
 const permanentAddress = form.elements.address;
@@ -191,6 +193,9 @@ function applySiblingsLogic() {
     const noSelected = form.querySelector('input[name="siblings_school"][value="no"]').checked;
     siblingsClassGroup.hidden = noSelected;
     siblingsClass.disabled = noSelected;
+    siblingsCount.disabled = noSelected;
+    siblingsCountGroup.classList.toggle('is-disabled', noSelected);
+    if (noSelected) clearGroupError(siblingsCount);
 }
 
 function applyClassLogic() {
@@ -345,7 +350,7 @@ function buildReceipt() {
                 ['Class', className],
                 ['Date of Admission', valueOf('admission_date')],
                 ['Any Disease', valueOf('disease')],
-                ['Number of Siblings', valueOf('siblings')],
+                ['Number of Siblings', siblingsCount.disabled ? '' : valueOf('siblings')],
                 ['Siblings in the same school', checkedValue('siblings_school')],
                 ['Siblings Class', siblingsClass.disabled ? '' : valueOf('siblings_class')],
                 ['Last School Name', lastSchool.disabled ? 'N/A (1st Class)' : valueOf('last_school')],

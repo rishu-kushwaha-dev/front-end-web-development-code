@@ -1,3 +1,11 @@
 {
-    "github.copilot.chat.localIndex.enabled": false
+    "github.copilot.chat.localIndex.enabled": false,
+    "git.addAICoAuthor": "all",
+    "git.allowForcePush": true,
+    "git.allowNoVerifyCommit": true,
+    "git.alwaysShowStagedChangesResourceGroup": true,
+    "git.detectWorktrees": true,
+    "git.enableSmartCommit": true,
+    "git.fetchOnPull": true,
+    "git.followTagsWhenSync": true
 }

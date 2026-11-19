@@ -10,30 +10,33 @@
 
     <body>
         <h1>Student Registration Form</h1>
-        <div class="progress-bar">
-            <div class="fill" id="progressFill"></div>
+        <div class="progress-wrap">
+            <div class="progress-bar">
+                <div class="fill" id="progressFill"></div>
+            </div>
+            <span class="progress-text" id="progressText">0% complete</span>
         </div>
-        <form id="regForm">
+        <form id="regForm" novalidate>
             <fieldset class="form-section">
                 <legend>Student Photo</legend>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Student Photo</label>
+                        <label for="photoInput">Student Photo <span class="req">*</span></label>
                         <label for="photoInput" class="upload-btn">Upload Student Photo</label>
-                        <input type="file" name="photo" accept="image/*" id="photoInput" hidden required>
-                        <img id="photoPreview" class="photo-preview" alt="Preview">
+                        <input type="file" name="photo" id="photoInput" hidden>
+                        <img id="photoPreview" class="photo-preview" alt="Student photo preview">
                     </div>
                     <div class="form-group">
-                        <label>Father Photo</label>
+                        <label for="fatherPhotoInput">Father Photo <span class="req">*</span></label>
                         <label for="fatherPhotoInput" class="upload-btn">Upload Father Photo</label>
-                        <input type="file" name="father_photo" accept="image/*" id="fatherPhotoInput" hidden required>
-                        <img id="fatherPhotoPreview" class="photo-preview" alt="Preview">
+                        <input type="file" name="father_photo" id="fatherPhotoInput" hidden>
+                        <img id="fatherPhotoPreview" class="photo-preview" alt="Father photo preview">
                     </div>
                     <div class="form-group">
-                        <label>Mother Photo</label>
+                        <label for="motherPhotoInput">Mother Photo <span class="req">*</span></label>
                         <label for="motherPhotoInput" class="upload-btn">Upload Mother Photo</label>
-                        <input type="file" name="mother_photo" accept="image/*" id="motherPhotoInput" hidden required>
-                        <img id="motherPhotoPreview" class="photo-preview" alt="Preview">
+                        <input type="file" name="mother_photo" id="motherPhotoInput" hidden>
+                        <img id="motherPhotoPreview" class="photo-preview" alt="Mother photo preview">
                     </div>
                 </div>
             </fieldset>
@@ -42,25 +45,26 @@
                 <legend>Student Details</legend>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" name="name" required>
+                        <label for="name">Name <span class="req">*</span></label>
+                        <input type="text" id="name" name="name" autocomplete="name">
                     </div>
                     <div class="form-group">
-                        <label>Date of Birth</label>
-                        <input type="date" name="dob" required>
+                        <label for="dob">Date of Birth <span class="req">*</span></label>
+                        <input type="date" id="dob" name="dob">
+                        <p class="age-display" id="ageDisplay"></p>
                     </div>
                     <div class="form-group">
-                        <label>Gender</label>
+                        <label>Gender <span class="req">*</span></label>
                         <div class="radio-group">
-                            <input type="radio" name="gender" value="male" required> Male
-                            <input type="radio" name="gender" value="female" required> Female
+                            <label><input type="radio" name="gender" value="male" required> Male</label>
+                            <label><input type="radio" name="gender" value="female" required> Female</label>
                         </div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Religion</label>
-                        <select name="religion" required>
+                        <label for="religion">Religion <span class="req">*</span></label>
+                        <select id="religion" name="religion">
                             <option value="">Select</option>
                             <option value="Hindu">Hindu</option>
                             <option value="Muslim">Muslim</option>
@@ -72,8 +76,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Caste</label>
-                        <select name="caste" required>
+                        <label for="caste">Caste <span class="req">*</span></label>
+                        <select id="caste" name="caste">
                             <option value="">Select</option>
                             <option value="General">General</option>
                             <option value="OBC">OBC</option>
@@ -84,8 +88,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Blood Group</label>
-                        <select name="blood_group" required>
+                        <label for="blood_group">Blood Group <span class="req">*</span></label>
+                        <select id="blood_group" name="blood_group">
                             <option value="">Select</option>
                             <option value="A+">A+</option>
                             <option value="A-">A-</option>
@@ -97,6 +101,11 @@
                             <option value="AB-">AB-</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="aadhaar">Aadhaar Number <span class="req">*</span></label>
+                        <input type="text" id="aadhaar" name="aadhaar" inputmode="numeric" maxlength="12"
+                            placeholder="12 digit Aadhaar number">
+                    </div>
                 </div>
             </fieldset>
 
@@ -104,22 +113,27 @@
                 <legend>Parents Details</legend>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Father Name</label>
-                        <input type="text" name="father_name" required>
+                        <label for="father_name">Father Name <span class="req">*</span></label>
+                        <input type="text" id="father_name" name="father_name">
                     </div>
                     <div class="form-group">
-                        <label>Father's Occupation</label>
-                        <input type="text" name="father_occupation" required>
+                        <label for="father_occupation">Father's Occupation <span class="req">*</span></label>
+                        <input type="text" id="father_occupation" name="father_occupation">
+                    </div>
+                    <div class="form-group">
+                        <label for="annual_income">Parents' Annual Income <span class="req">*</span></label>
+                        <input type="number" id="annual_income" name="annual_income" inputmode="numeric" min="0"
+                            placeholder="Amount in rupees">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Mother Name</label>
-                        <input type="text" name="mother_name" required>
+                        <label for="mother_name">Mother Name <span class="req">*</span></label>
+                        <input type="text" id="mother_name" name="mother_name">
                     </div>
                     <div class="form-group">
-                        <label>Mother's Occupation</label>
-                        <input type="text" name="mother_occupation" required>
+                        <label for="mother_occupation">Mother's Occupation <span class="req">*</span></label>
+                        <input type="text" id="mother_occupation" name="mother_occupation">
                     </div>
                 </div>
             </fieldset>
@@ -128,19 +142,23 @@
                 <legend>Contact Details</legend>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="tel" name="phone" inputmode="numeric" pattern="[0-9]{10}" maxlength="10"
-                            title="Enter a valid 10-digit phone number" required>
+                        <label for="phone">Phone Number <span class="req">*</span></label>
+                        <input type="tel" id="phone" name="phone" inputmode="numeric" maxlength="10"
+                            placeholder="10 digit mobile number">
                     </div>
                     <div class="form-group">
-                        <label>Alternate Phone Number</label>
-                        <input type="tel" name="alternate_phone" inputmode="numeric" pattern="[0-9]{10}" maxlength="10"
-                            title="Enter a valid 10-digit phone number" required>
+                        <label for="alternate_phone">Alternate Phone Number</label>
+                        <input type="tel" id="alternate_phone" name="alternate_phone" inputmode="numeric" maxlength="10"
+                            placeholder="10 digit mobile number">
                     </div>
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                            title="Enter a valid email address" required>
+                        <label for="email">Email <span class="req">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="emergency_contact">Emergency Contact Number <span class="req">*</span></label>
+                        <input type="tel" id="emergency_contact" name="emergency_contact" inputmode="numeric"
+                            maxlength="10" placeholder="10 digit emergency number">
                     </div>
                 </div>
             </fieldset>
@@ -149,8 +167,8 @@
                 <legend>Admission Details</legend>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Class Want to take admission</label>
-                        <select name="class" required>
+                        <label for="class">Class Want to take admission <span class="req">*</span></label>
+                        <select id="class" name="class">
                             <option value="">Select</option>
                             <option value="1">1st Class</option>
                             <option value="2">2nd Class</option>
@@ -167,38 +185,54 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Date of Admission</label>
-                        <input type="date" name="admission_date" required>
+                        <label for="admission_date">Date of Admission <span class="req">*</span></label>
+                        <input type="date" id="admission_date" name="admission_date">
+                    </div>
+                    <div class="form-group">
+                        <label for="disease">Any Disease</label>
+                        <input type="text" id="disease" name="disease" placeholder="Write 'None' if not applicable">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Any Disease</label>
-                        <input type="text" name="disease" required>
+                        <label for="siblings">Number of Siblings <span class="req">*</span></label>
+                        <input type="number" id="siblings" name="siblings" inputmode="numeric" min="0">
                     </div>
                     <div class="form-group">
-                        <label> Number of Siblings</label>
-                        <input type="number" name="siblings" inputmode="numeric" min="0" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Siblings in the same school</label>
-                        <div class="radio-group"><input type="radio" name="siblings_school" value="yes" required> Yes
-                            <input type="radio" name="siblings_school" value="no" required> No
+                        <label>Siblings in the same school <span class="req">*</span></label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="siblings_school" value="yes" required> Yes</label>
+                            <label><input type="radio" name="siblings_school" value="no" required> No</label>
                         </div>
                     </div>
+                    <div class="form-group" id="siblingsClassGroup">
+                        <label for="siblings_class">Siblings Class <span class="req">*</span></label>
+                        <input type="text" id="siblings_class" name="siblings_class" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" id="lastSchoolGroup">
+                        <label for="last_school">Last School Name <span class="req">*</span></label>
+                        <input type="text" id="last_school" name="last_school" required>
+                        <p class="condition-note" id="classNote" hidden>Not required for 1st Class admission.</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Transport Facility <span class="req">*</span></label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="transport" value="yes" required> Yes</label>
+                            <label><input type="radio" name="transport" value="no" required> No</label>
+                        </div>
+                    </div>
+                    <div class="form-group" id="routeGroup" hidden>
+                        <label for="transport_route">Transport Route <span class="req">*</span></label>
+                        <input type="text" id="transport_route" name="transport_route"
+                            placeholder="e.g. Route 4 - Gandhi Nagar">
+                    </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Siblings Class</label>
-                        <input type="text" name="siblings_class" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Last School Name</label>
-                        <input type="text" name="last_school" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Parents Signature</label>
-                        <input type="text" name="parents_signature" required>
+                        <label for="parents_signature">Parents Signature <span class="req">*</span></label>
+                        <input type="text" id="parents_signature" name="parents_signature">
                     </div>
                 </div>
             </fieldset>
@@ -207,18 +241,22 @@
                 <legend>Address Details</legend>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Permanent Address</label>
-                        <textarea name="address" rows="4" required></textarea>
+                        <label for="address">Permanent Address <span class="req">*</span></label>
+                        <textarea id="address" name="address" rows="4"></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Temporary Address</label>
-                        <textarea name="temp_address" rows="4" required></textarea>
+                        <label for="temp_address">Temporary Address <span class="req">*</span></label>
+                        <textarea id="temp_address" name="temp_address" rows="4"></textarea>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" id="sameAsPermanent" name="same_as_permanent"> Same as
+                                Permanent Address</label>
+                        </div>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group">
-                        <label>Reason for Leaving Last School</label>
-                        <textarea name="reason" rows="4" required></textarea>
+                    <div class="form-group" id="reasonGroup">
+                        <label for="reason">Reason for Leaving Last School <span class="req">*</span></label>
+                        <textarea id="reason" name="reason" rows="3" required></textarea>
                     </div>
                 </div>
             </fieldset>
@@ -228,29 +266,39 @@
                 <div class="form-row">
                     <div class="form-group">
                         <div class="checkbox-group">
-                            <input type="checkbox" name="newsletter" required> I want to receive the newsletter
+                            <label><input type="checkbox" name="newsletter"> I want to receive the newsletter</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="checkbox-group">
-                            <input type="checkbox" name="terms" required> I agree to the terms and conditions
+                            <label><input type="checkbox" name="terms"> I agree to the terms and conditions <span
+                                    class="req">*</span></label>
                         </div>
                     </div>
                 </div>
             </fieldset>
 
             <div class="button-row">
-                <input type="reset" value="Reset" required>
-                <input type="submit" value="Register" required>
+                <button type="button" class="btn-secondary" id="resetBtn">Reset</button>
+                <button type="submit" class="btn-primary" id="registerBtn">Register</button>
             </div>
         </form>
-        <div class="modal" id="successModal">
-            <div class="modal-content">
-                <h2>Registration Successful!</h2>
-                <p>Dear Parents, your child has been registered.</p>
-                <button id="closeModal">OK</button>
+
+        <div class="modal" id="summaryModal">
+            <div class="modal-content receipt" id="receipt">
+                <div class="receipt-header">
+                    <h2>Registration Summary</h2>
+                    <p class="receipt-sub">Student Admission Receipt</p>
+                </div>
+                <div id="receiptBody"></div>
+                <div class="receipt-actions">
+                    <button type="button" class="btn-primary" id="printBtn">Print</button>
+                    <button type="button" class="btn-secondary" id="closeModal">Close</button>
+                </div>
             </div>
         </div>
+
         <script src="Registration Form.js"></script>
+    </body>
 
 </html>

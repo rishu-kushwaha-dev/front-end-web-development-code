@@ -70,7 +70,6 @@ function updateProgress() {
 form.addEventListener('input', updateProgress);
 form.addEventListener('change', updateProgress);
 
-// Allow only digits in phone fields
 ['phone', 'alternate_phone', 'siblings'].forEach((name) => {
     const el = form.querySelector(`[name="${name}"]`);
     if (el) {

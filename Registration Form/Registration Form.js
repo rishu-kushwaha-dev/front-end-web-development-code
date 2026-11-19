@@ -13,7 +13,11 @@ const STORAGE_KEY = 'studentRegistrationDraft';
 const photoConfigs = [
     { input: document.getElementById('photoInput'), preview: document.getElementById('photoPreview'), label: 'Student photo' },
     { input: document.getElementById('fatherPhotoInput'), preview: document.getElementById('fatherPhotoPreview'), label: 'Father photo' },
-    { input: document.getElementById('motherPhotoInput'), preview: document.getElementById('motherPhotoPreview'), label: 'Mother photo' }
+    { input: document.getElementById('motherPhotoInput'), preview: document.getElementById('motherPhotoPreview'), label: 'Mother photo' },
+    { input: document.getElementById('birthCertInput'), preview: document.getElementById('birthCertPreview'), label: 'Birth certificate' },
+    { input: document.getElementById('tcInput'), preview: document.getElementById('tcPreview'), label: 'TC / Marksheet' },
+    { input: document.getElementById('aadhaarInput'), preview: document.getElementById('aadhaarPreview'), label: 'Aadhaar copy' },
+    { input: document.getElementById('parents_signature'), preview: document.getElementById('parentsSignaturePreview'), label: 'Parents signature' }
 ];
 
 const siblingsClass = form.elements.siblings_class;
@@ -33,7 +37,7 @@ const formatRules = {
     phone: { test: (v) => /^\d{10}$/.test(v), msg: 'Enter a valid 10-digit phone number' },
     alternate_phone: { test: (v) => /^\d{10}$/.test(v), msg: 'Enter a valid 10-digit phone number' },
     emergency_contact: { test: (v) => /^\d{10}$/.test(v), msg: 'Enter a valid 10-digit emergency contact number' },
-    aadhaar: { test: (v) => /^\d{12}$/.test(v), msg: 'Aadhaar number must be exactly 12 digits' },
+    pincode: { test: (v) => /^\d{6}$/.test(v), msg: 'PIN code must be exactly 6 digits' },
     annual_income: { test: (v) => /^\d+$/.test(v), msg: 'Enter a valid annual income amount' },
     email: { test: (v) => /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v), msg: 'Enter a valid email address' },
     dob: { test: (v) => new Date(v) < new Date(), msg: 'Date of birth cannot be in the future' }
@@ -195,7 +199,12 @@ function applySiblingsLogic() {
     siblingsClass.disabled = noSelected;
     siblingsCount.disabled = noSelected;
     siblingsCountGroup.classList.toggle('is-disabled', noSelected);
-    if (noSelected) clearGroupError(siblingsCount);
+    if (noSelected) {
+        siblingsClass.removeAttribute('required');
+        clearGroupError(siblingsCount);
+    } else {
+        siblingsClass.setAttribute('required', '');
+    }
 }
 
 function applyClassLogic() {
@@ -205,8 +214,23 @@ function applyClassLogic() {
     document.getElementById('lastSchoolGroup').classList.toggle('is-disabled', isFirstClass);
     document.getElementById('reasonGroup').classList.toggle('is-disabled', isFirstClass);
     classNote.hidden = !isFirstClass;
+    if (isFirstClass) {
+        lastSchool.removeAttribute('required');
+        reason.removeAttribute('required');
+    } else {
+        lastSchool.setAttribute('required', '');
+        reason.setAttribute('required', '');
+    }
 }
 
+function applyStreamLogic() {
+    const isSenior = form.elements['class'].value === '11' || form.elements['class'].value === '12';
+    document.getElementById('streamGroup').hidden = !isSenior;
+    const stream = form.elements.stream;
+    stream.disabled = !isSenior;
+    if (!isSenior) stream.removeAttribute('required');
+    else stream.setAttribute('required', '');
+}
 function applyTransportLogic() {
     const yesSelected = form.querySelector('input[name="transport"][value="yes"]').checked;
     routeGroup.hidden = !yesSelected;
@@ -513,7 +537,7 @@ form.addEventListener('change', (event) => {
     scheduleSave();
 });
 
-['phone', 'alternate_phone', 'emergency_contact', 'aadhaar'].forEach((name) => {
+['phone', 'alternate_phone', 'emergency_contact', 'aadhaar', 'father_mobile', 'mother_mobile', 'pincode'].forEach((name) => {
     const el = form.elements[name];
     if (el) {
         el.addEventListener('input', () => {
@@ -538,6 +562,7 @@ form.querySelectorAll('input[name="siblings_school"]').forEach((radio) => {
 
 form.elements['class'].addEventListener('change', () => {
     applyClassLogic();
+    applyStreamLogic();
     updateProgress();
     scheduleSave();
 });
@@ -594,7 +619,10 @@ modal.addEventListener('click', (event) => {
     }
 });
 
-resetBtn.addEventListener('click', resetForm);
+resetBtn.addEventListener('click', () => {
+    if (!confirm('Are you sure you want to clear all fields?')) return;
+    resetForm();
+});
 
 const today = new Date().toISOString().split('T')[0];
 form.elements.dob.setAttribute('max', today);
@@ -602,6 +630,7 @@ form.elements.dob.setAttribute('max', today);
 restoreDraft();
 applySiblingsLogic();
 applyClassLogic();
+applyStreamLogic();
 applyTransportLogic();
 applySameAddressLogic();
 updateAge();

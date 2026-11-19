@@ -18,23 +18,23 @@
         </div>
         <form id="regForm" novalidate>
             <fieldset class="form-section">
-                <legend>Student Photo</legend>
+                <legend>Photo Section</legend>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="photoInput">Student Photo <span class="req">*</span></label>
-                        <label for="photoInput" class="upload-btn">Upload Student Photo</label>
+                        <label for="photoInput" class="upload-btn">Upload Student's Photo</label>
                         <input type="file" name="photo" id="photoInput" hidden>
                         <img id="photoPreview" class="photo-preview" alt="Student photo preview">
                     </div>
                     <div class="form-group">
                         <label for="fatherPhotoInput">Father Photo <span class="req">*</span></label>
-                        <label for="fatherPhotoInput" class="upload-btn">Upload Father Photo</label>
+                        <label for="fatherPhotoInput" class="upload-btn">Upload Father's Photo</label>
                         <input type="file" name="father_photo" id="fatherPhotoInput" hidden>
                         <img id="fatherPhotoPreview" class="photo-preview" alt="Father photo preview">
                     </div>
                     <div class="form-group">
                         <label for="motherPhotoInput">Mother Photo <span class="req">*</span></label>
-                        <label for="motherPhotoInput" class="upload-btn">Upload Mother Photo</label>
+                        <label for="motherPhotoInput" class="upload-btn">Upload Mother's Photo</label>
                         <input type="file" name="mother_photo" id="motherPhotoInput" hidden>
                         <img id="motherPhotoPreview" class="photo-preview" alt="Mother photo preview">
                     </div>
@@ -58,6 +58,7 @@
                         <div class="radio-group">
                             <label><input type="radio" name="gender" value="male" required> Male</label>
                             <label><input type="radio" name="gender" value="female" required> Female</label>
+                            <label><input type="radio" name="gender" value="other" required> Other</label>
                         </div>
                     </div>
                 </div>
@@ -101,10 +102,19 @@
                             <option value="AB-">AB-</option>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="max-width:320px">
                         <label for="aadhaar">Aadhaar Number <span class="req">*</span></label>
                         <input type="text" id="aadhaar" name="aadhaar" inputmode="numeric" maxlength="12"
                             placeholder="12 digit Aadhaar number">
+                    </div>
+                    <div class="form-group">
+                        <label for="nationality">Nationality <span class="req">*</span></label>
+                        <input type="text" id="nationality" name="nationality" value="Indian">
+                    </div>
+                    <div class="form-group">
+                        <label for="allergies">Allergies / Special Needs</label>
+                        <input type="text" id="allergies" name="allergies"
+                            placeholder="Food/medication allergies, learning support needs">
                     </div>
                 </div>
             </fieldset>
@@ -121,9 +131,13 @@
                         <input type="text" id="father_occupation" name="father_occupation">
                     </div>
                     <div class="form-group">
-                        <label for="annual_income">Parents' Annual Income <span class="req">*</span></label>
-                        <input type="number" id="annual_income" name="annual_income" inputmode="numeric" min="0"
-                            placeholder="Amount in rupees">
+                        <label for="father_mobile">Father's Mobile Number <span class="req">*</span></label>
+                        <input type="tel" id="father_mobile" name="father_mobile" inputmode="numeric" maxlength="10"
+                            placeholder="10 digit mobile number">
+                    </div>
+                    <div class="form-group">
+                        <label for="father_email">Father's Email</label>
+                        <input type="email" id="father_email" name="father_email" placeholder="name@example.com">
                     </div>
                 </div>
                 <div class="form-row">
@@ -134,6 +148,35 @@
                     <div class="form-group">
                         <label for="mother_occupation">Mother's Occupation <span class="req">*</span></label>
                         <input type="text" id="mother_occupation" name="mother_occupation">
+                    </div>
+                    <div class="form-group">
+                        <label for="mother_mobile">Mother's Mobile Number <span class="req">*</span></label>
+                        <input type="tel" id="mother_mobile" name="mother_mobile" inputmode="numeric" maxlength="10"
+                            placeholder="10 digit mobile number">
+                    </div>
+                    <div class="form-group">
+                        <label for="mother_email">Mother's Email</label>
+                        <input type="email" id="mother_email" name="mother_email" placeholder="name@example.com">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="guardian_name">Legal Guardian Name (if applicable)</label>
+                        <input type="text" id="guardian_name" name="guardian_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="annual_income">Parents' Annual Income <span class="req">*</span></label>
+                        <input type="number" id="annual_income" name="annual_income" inputmode="numeric" min="0"
+                            placeholder="Amount in rupees">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="parents_signature">Parents Signature <span class="req">*</span></label>
+                        <label for="parents_signature" class="upload-btn">Upload Scanned Signature</label>
+                        <input type="file" name="parents_signature" id="parents_signature" hidden accept="image/*,.pdf">
+                        <img id="parentsSignaturePreview" class="photo-preview" alt="Signature preview">
+                        <p class="field-hint">Accepted: JPG/PNG/PDF, max 2 MB</p>
                     </div>
                 </div>
             </fieldset>
@@ -184,8 +227,18 @@
                             <option value="12">12th Class</option>
                         </select>
                     </div>
+                    <div class="form-group" id="streamGroup" hidden>
+                        <label for="stream">Stream <span class="req">*</span></label>
+                        <select id="stream" name="stream">
+                            <option value="">Select</option>
+                            <option value="pcm">Science (PCM)</option>
+                            <option value="pcb">Science (PCB)</option>
+                            <option value="commerce">Commerce</option>
+                            <option value="arts">Arts/Humanities</option>
+                        </select>
+                    </div>
                     <div class="form-group">
-                        <label for="admission_date">Date of Admission <span class="req">*</span></label>
+                        <label for="admission_date">Admission Date</label>
                         <input type="date" id="admission_date" name="admission_date">
                     </div>
                     <div class="form-group">
@@ -211,29 +264,53 @@
                     </div>
                 </div>
                 <div class="form-row">
+                    <div class="form-group">
+                        <label for="prev_class">Previous Class</label>
+                        <input type="text" id="prev_class" name="prev_class" placeholder="e.g. 8th">
+                    </div>
+                    <div class="form-group">
+                        <label for="prev_marks">Percentage / Marks Obtained</label>
+                        <input type="text" id="prev_marks" name="prev_marks" placeholder="e.g. 85%">
+                    </div>
+                    <div class="form-group">
+                        <label for="prev_medium">Medium of Instruction (Prev School)</label>
+                        <input type="text" id="prev_medium" name="prev_medium" placeholder="English / Hindi">
+                    </div>
+                    <div class="form-group">
+                        <label for="prev_board">Board of Previous School</label>
+                        <select id="prev_board" name="prev_board">
+                            <option value="">Select</option>
+                            <option value="CBSE">CBSE</option>
+                            <option value="ICSE">ICSE</option>
+                            <option value="State Board">State Board</option>
+                            <option value="IB">IB</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
                     <div class="form-group" id="lastSchoolGroup">
                         <label for="last_school">Last School Name <span class="req">*</span></label>
                         <input type="text" id="last_school" name="last_school" required>
                         <p class="condition-note" id="classNote" hidden>Not required for 1st Class admission.</p>
                     </div>
-                    <div class="form-group">
-                        <label>Transport Facility <span class="req">*</span></label>
-                        <div class="radio-group">
-                            <label><input type="radio" name="transport" value="yes" required> Yes</label>
-                            <label><input type="radio" name="transport" value="no" required> No</label>
-                        </div>
-                    </div>
-                    <div class="form-group" id="routeGroup" hidden>
-                        <label for="transport_route">Transport Route <span class="req">*</span></label>
-                        <input type="text" id="transport_route" name="transport_route"
-                            placeholder="e.g. Route 4 - Gandhi Nagar">
+                    <div class="form-group" id="reasonGroup">
+                        <label for="reason">Reason for Leaving Last School <span class="req">*</span></label>
+                        <textarea id="reason" name="reason" rows="3" required></textarea>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="parents_signature">Parents Signature <span class="req">*</span></label>
-                        <input type="text" id="parents_signature" name="parents_signature">
+                <div class="form-group">
+                    <label>Transport Facility <span class="req">*</span></label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="transport" value="yes" required> Yes</label>
+                        <label><input type="radio" name="transport" value="no" required> No</label>
                     </div>
+                </div>
+                <div class="form-group" id="routeGroup" hidden>
+                    <label for="transport_route">Transport Route <span class="req">*</span></label>
+                    <input type="text" id="transport_route" name="transport_route"
+                        placeholder="e.g. Route 4 - Gandhi Nagar">
+                </div>
                 </div>
             </fieldset>
 
@@ -254,9 +331,43 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group" id="reasonGroup">
-                        <label for="reason">Reason for Leaving Last School <span class="req">*</span></label>
-                        <textarea id="reason" name="reason" rows="3" required></textarea>
+                    <div class="form-group">
+                        <label for="city">City / District <span class="req">*</span></label>
+                        <input type="text" id="city" name="city">
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State <span class="req">*</span></label>
+                        <input type="text" id="state" name="state">
+                    </div>
+                    <div class="form-group">
+                        <label for="pincode">PIN Code <span class="req">*</span></label>
+                        <input type="text" id="pincode" name="pincode" inputmode="numeric" maxlength="6"
+                            placeholder="6 digit PIN code">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend>Documents Upload</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="aadhaarInput">Aadhaar Card Copy <span class="req">*</span></label>
+                        <label for="aadhaarInput" class="upload-btn">Upload Aadhaar Copy</label>
+                        <input type="file" name="aadhaar_copy" id="aadhaarInput" hidden accept="image/*,.pdf">
+                        <img id="aadhaarPreview" class="photo-preview" alt="Aadhaar preview">
+                        <p class="field-hint">Accepted: JPG/PNG/PDF, max 2 MB</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthCertInput">Birth Certificate <span class="req">*</span></label>
+                        <label for="birthCertInput" class="upload-btn">Upload Birth Certificate</label>
+                        <input type="file" name="birth_cert" id="birthCertInput" hidden accept="image/*,.pdf">
+                        <img id="birthCertPreview" class="photo-preview" alt="Birth certificate preview">
+                    </div>
+                    <div class="form-group">
+                        <label for="tcInput">Transfer Certificate / Marksheet <span class="req">*</span></label>
+                        <label for="tcInput" class="upload-btn">Upload TC / Marksheet</label>
+                        <input type="file" name="tc" id="tcInput" hidden accept="image/*,.pdf">
+                        <img id="tcPreview" class="photo-preview" alt="TC preview">
                     </div>
                 </div>
             </fieldset>

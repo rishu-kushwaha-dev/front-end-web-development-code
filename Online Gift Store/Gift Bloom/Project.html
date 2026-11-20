@@ -316,20 +316,25 @@
                             </select>
                         </div>
                         <div class="budget-pills" id="budget-pills">
-                            <button class="budget-pill" onclick="applyBudgetFilter(500)" data-max="500">Under ₹500</button>
-                            <button class="budget-pill" onclick="applyBudgetFilter(1500)" data-max="1500">Under ₹1,500</button>
-                            <button class="budget-pill" onclick="applyBudgetFilter(5000)" data-max="5000">Under ₹5,000</button>
-                            <button class="budget-pill active" onclick="applyBudgetFilter(null)" data-max="">All Prices</button>
+                            <button class="budget-pill" onclick="applyBudgetFilter(500)" data-max="500">Under
+                                ₹500</button>
+                            <button class="budget-pill" onclick="applyBudgetFilter(1500)" data-max="1500">Under
+                                ₹1,500</button>
+                            <button class="budget-pill" onclick="applyBudgetFilter(5000)" data-max="5000">Under
+                                ₹5,000</button>
+                            <button class="budget-pill active" onclick="applyBudgetFilter(null)" data-max="">All
+                                Prices</button>
                         </div>
                     </div>
                     <div id="item-count"></div>
                     <section id="product-list" class="products">
-<div class="card" data-category="Birthday" data-id="1" data-rating="4.7"
+                        <div class="card" data-category="Birthday" data-id="1" data-rating="4.7"
                             data-description="Soft, freshly baked eggless birthday cake with creamy vanilla frosting and cheerful sprinkles — the perfect sweet centerpiece for any celebration."
                             data-features='["Eggless & freshly baked","Serves 4-6 people","Same-day delivery available","100% vegetarian"]'>
                             <img src="images/cake.jpg" alt="Birthday Cake"
                                 onerror="this.onerror=null;this.src=FALLBACK_IMG">
-                            <button class="wishlist-btn" onclick="event.stopPropagation();toggleWishlist(1)" aria-label="Add to wishlist">
+                            <button class="wishlist-btn" onclick="event.stopPropagation();toggleWishlist(1)"
+                                aria-label="Add to wishlist">
                                 <i class="fa-regular fa-heart"></i>
                             </button>
                             <h3>Birthday Cake</h3>
@@ -341,7 +346,8 @@
                             data-features='["12 fresh long-stem roses","Elegant floral wrapping","Express delivery","Includes greeting card"]'>
                             <img src="images/rose.jpg" alt="Rose Bouquet"
                                 onerror="this.onerror=null;this.src=FALLBACK_IMG">
-                            <button class="wishlist-btn" onclick="event.stopPropagation();toggleWishlist(2)" aria-label="Add to wishlist">
+                            <button class="wishlist-btn" onclick="event.stopPropagation();toggleWishlist(2)"
+                                aria-label="Add to wishlist">
                                 <i class="fa-regular fa-heart"></i>
                             </button>
                             <h3>Rose Bouquet</h3>
@@ -2209,7 +2215,8 @@
                                     <label class="checkbox-wrapper">
                                         <input type="checkbox" id="gift-wrap" value="true">
                                         <span class="checkmark"></span>
-                                        <span class="gift-option-label">Add Gift Wrap <span class="gift-option-price">(Free)</span></span>
+                                        <span class="gift-option-label">Add Gift Wrap <span
+                                                class="gift-option-price">(Free)</span></span>
                                     </label>
                                     <p class="gift-option-desc">Premium gift wrapping with ribbon and gift tag</p>
                                 </div>
@@ -2217,9 +2224,12 @@
                                     <label class="checkbox-wrapper">
                                         <input type="checkbox" id="gift-message" value="true">
                                         <span class="checkmark"></span>
-                                        <span class="gift-option-label">Add Gift Message <span class="gift-option-price">(Free)</span></span>
+                                        <span class="gift-option-label">Add Gift Message <span
+                                                class="gift-option-price">(Free)</span></span>
                                     </label>
-                                    <textarea id="gift-message-text" placeholder="Write your personal message here (max 200 characters)..." maxlength="200" rows="3" class="hidden"></textarea>
+                                    <textarea id="gift-message-text"
+                                        placeholder="Write your personal message here (max 200 characters)..."
+                                        maxlength="200" rows="3" class="hidden"></textarea>
                                     <p class="gift-option-desc">Your message will be printed on a beautiful card</p>
                                 </div>
                             </div>
@@ -2378,8 +2388,10 @@
                             <div id="checkout-items"></div>
                             <div class="coupon-section">
                                 <div class="coupon-input-wrapper">
-                                    <input type="text" id="coupon-code" placeholder="Enter promo code (e.g., BLOOM10)" maxlength="20">
-                                    <button type="button" class="coupon-apply-btn" onclick="applyCoupon()">Apply</button>
+                                    <input type="text" id="coupon-code" placeholder="Enter promo code (e.g., BLOOM10)"
+                                        maxlength="20">
+                                    <button type="button" class="coupon-apply-btn"
+                                        onclick="applyCoupon()">Apply</button>
                                 </div>
                                 <div id="coupon-message" class="coupon-message hidden"></div>
                             </div>

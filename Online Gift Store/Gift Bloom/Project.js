@@ -98,36 +98,6 @@ function saveCart(cartData) {
     localStorage.setItem("cart", JSON.stringify(cartData));
 }
 
-function getTheme() {
-    return localStorage.getItem("theme") || "light";
-}
-
-function setTheme(theme) {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-    const btn = document.getElementById("theme-btn");
-    if (btn) {
-        const sunIcon = btn.querySelector(".theme-icon-sun");
-        const moonIcon = btn.querySelector(".theme-icon-moon");
-        if (sunIcon && moonIcon) {
-            if (theme === "dark") {
-                sunIcon.style.display = "flex";
-                moonIcon.style.display = "none";
-            } else {
-                sunIcon.style.display = "none";
-                moonIcon.style.display = "flex";
-            }
-        }
-    }
-}
-
-function toggleTheme() {
-    const current = document.documentElement.getAttribute("data-theme");
-    setTheme(current === "dark" ? "light" : "dark");
-}
-
-setTheme(getTheme());
-
 function renderProfile() {
     const profileEl = document.getElementById("profile-bar");
     if (profileEl) {
@@ -1387,7 +1357,7 @@ addPlaceOrderButtons();
 
 const deliveryProducts = [
     { id: 1, name: "Birthday Cake", price: 599, category: "Birthday", img: "images/cake.jpg", rating: "4.7", description: "Soft, freshly baked eggless birthday cake with creamy vanilla frosting and cheerful sprinkles.", features: ["Eggless & freshly baked", "Serves 4-6 people", "Same-day delivery available", "100% vegetarian"], type: "eatable" },
-    { id: 5, name: "Chocolate Box", price: 399, category: "Birthday", img: "images/chocolate.jpg", rating: "4.7", description: "A luxurious box of assorted Belgian chocolates with ganache fillings.", features: ["Assorted flavours", "Premium gift packaging", "Shelf life 6 months", "Hand-crafted Belgian chocolates"], type: "eatable" },
+    { id: 5, name: "Chocolate Box", price: 399, category: "Birthday", img: "images/Chocolate box.jpg", rating: "4.7", description: "A luxurious box of assorted Belgian chocolates with ganache fillings.", features: ["Assorted flavours", "Premium gift packaging", "Shelf life 6 months", "Hand-crafted Belgian chocolates"], type: "eatable" },
     { id: 7, name: "Chocolate Truffle Cake", price: 649, category: "Birthday", img: "images/chocolate truffle cake.jfif", rating: "4.5", description: "A rich and moist chocolate truffle cake layered with dark ganache.", features: ["Eggless option available", "Serves 4-6", "Chilled delivery", "Dark chocolate ganache"], type: "eatable" },
     { id: 13, name: "Cupcake Box 6pc", price: 349, category: "Birthday", img: "images/Cupcake Box 6pc.jfif", rating: "4.6", description: "A box of 6 freshly baked cupcakes in assorted flavours.", features: ["Box of 6 cupcakes", "Multiple flavours", "Freshly baked", "Eggless option"], type: "eatable" },
     { id: 26, name: "Cake Pop Set", price: 399, category: "Birthday", img: "images/cake pop set.jfif", rating: "4.1", description: "A DIY cake pop set with sticks, wrappers and decorating supplies.", features: ["Pack of 12 sticks", "Decorating wraps", "Reusable mold", "Recipe booklet"], type: "eatable" },
@@ -1516,7 +1486,6 @@ function initApp() {
     });
     if (isLoggedIn()) {
         currentUser = loadSavedProfile(localStorage.getItem("giftStoreCurrentEmail")) || currentUser;
-        setTheme(getTheme());
     }
     updateProfileMenu();
     renderProfile();
@@ -1534,70 +1503,4 @@ function initApp() {
 
 initApp();
 
-const cursorCircle = document.createElement("div");
-cursorCircle.className = "cursor-circle";
-document.body.appendChild(cursorCircle);
-
-const cursorDot = document.createElement("div");
-cursorDot.className = "cursor-dot";
-document.body.appendChild(cursorDot);
-
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
-let circleX = mouseX;
-let circleY = mouseY;
-
-document.addEventListener("mousemove", function (e) {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    cursorDot.style.left = mouseX + "px";
-    cursorDot.style.top = mouseY + "px";
-
-    const trail = document.createElement("div");
-    trail.className = "cursor-trail";
-    trail.style.left = mouseX + "px";
-    trail.style.top = mouseY + "px";
-    const size = 3 + Math.random() * 5;
-    trail.style.width = size + "px";
-    trail.style.height = size + "px";
-    trail.style.background = ["#6366f1", "#ec4899", "#f59e0b", "#10b981", "#3b82f6", "#a855f7", "#f43f5e", "#06b6d4"][Math.floor(Math.random() * 8)];
-    document.body.appendChild(trail);
-    setTimeout(function () {
-        if (trail.parentNode) {
-            trail.parentNode.removeChild(trail);
-        }
-    }, 600);
-});
-
-function animateCursor() {
-    circleX += (mouseX - circleX) * 0.15;
-    circleY += (mouseY - circleY) * 0.15;
-    cursorCircle.style.left = circleX + "px";
-    cursorCircle.style.top = circleY + "px";
-    requestAnimationFrame(animateCursor);
-}
-animateCursor();
-
-document.addEventListener("mouseenter", function () {
-    cursorCircle.style.opacity = "1";
-    cursorDot.style.opacity = "1";
-});
-
-document.addEventListener("mouseleave", function () {
-    cursorCircle.style.opacity = "0";
-    cursorDot.style.opacity = "0";
-});
-
-const interactiveElements = document.querySelectorAll("a, button, .card, .header-nav-item, .header-profile, .theme-toggle, .header-mobile-toggle, .filter-btn, .delivery-cat-btn, .quick-delivery-btn, input, textarea, select, .payment-option, .payment-detail-option, .location-btn, .profile-dropdown-item, .auth-modal-close, .order-btn, .order-cancel-btn, .checkout-actions .back-btn, .profile-save-btn, .profile-delete-btn, .card button, .remove-btn, .place-order-btn");
-interactiveElements.forEach(function (el) {
-    el.addEventListener("mouseenter", function () {
-        cursorCircle.style.width = "48px";
-        cursorCircle.style.height = "48px";
-        cursorCircle.style.borderColor = "#ec4899";
-    });
-    el.addEventListener("mouseleave", function () {
-        cursorCircle.style.width = "32px";
-        cursorCircle.style.height = "32px";
-        cursorCircle.style.borderColor = "#6366f1";
-    });
-});
+const interactiveElements = document.querySelectorAll("a, button, .card, .header-nav-item, .header-profile, .header-mobile-toggle, .filter-btn, .delivery-cat-btn, .quick-delivery-btn, input, textarea, select, .payment-option, .payment-detail-option, .location-btn, .profile-dropdown-item, .auth-modal-close, .order-btn, .order-cancel-btn, .checkout-actions .back-btn, .profile-save-btn, .profile-delete-btn, .card button, .remove-btn, .place-order-btn");

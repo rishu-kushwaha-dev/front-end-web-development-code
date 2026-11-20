@@ -1043,16 +1043,18 @@ function updateOrderSummary(subtotal) {
     const finalTotal = subtotal - discount;
     
     if (discount > 0) {
-        discountEl.classList.remove("hidden");
-        discountAmountEl.innerText = "-₹" + discount.toLocaleString("en-IN");
-        finalTotalEl.innerText = "₹" + finalTotal.toLocaleString("en-IN");
-        document.getElementById("summary-final").classList.remove("hidden");
+        if (discountEl) discountEl.classList.remove("hidden");
+        if (discountAmountEl) discountAmountEl.innerText = "-₹" + discount.toLocaleString("en-IN");
+        if (finalTotalEl) finalTotalEl.innerText = "₹" + finalTotal.toLocaleString("en-IN");
+        const summaryFinal = document.getElementById("summary-final");
+        if (summaryFinal) summaryFinal.classList.remove("hidden");
     } else {
-        discountEl.classList.add("hidden");
-        document.getElementById("summary-final").classList.add("hidden");
+        if (discountEl) discountEl.classList.add("hidden");
+        const summaryFinal = document.getElementById("summary-final");
+        if (summaryFinal) summaryFinal.classList.add("hidden");
     }
     
-    checkoutTotalEl.innerText = "₹" + subtotal.toLocaleString("en-IN");
+    if (checkoutTotalEl) checkoutTotalEl.innerText = "₹" + subtotal.toLocaleString("en-IN");
 }
 
 function applyCoupon() {
@@ -1100,17 +1102,20 @@ function autoFillCheckoutDetails() {
     const nameEl = document.getElementById("checkout-name");
     const mobileEl = document.getElementById("checkout-mobile");
     const addressEl = document.getElementById("checkout-address");
+    const locationEl = document.getElementById("checkout-location");
     const cityEl = document.getElementById("checkout-city");
     const stateEl = document.getElementById("checkout-state");
     const pincodeEl = document.getElementById("checkout-pincode");
-    if (nameEl && profile.name && !nameEl.value) nameEl.value = profile.name;
-    if (mobileEl && profile.phone && !mobileEl.value) mobileEl.value = profile.phone;
-    if (addressEl && profile.address && !addressEl.value) addressEl.value = profile.address;
-    if (cityEl && profile.city && !cityEl.value) cityEl.value = profile.city;
-    if (stateEl && profile.state && !stateEl.value) stateEl.value = profile.state;
-    if (pincodeEl && profile.pincode && !pincodeEl.value) pincodeEl.value = profile.pincode;
-    if (stateEl && profile.state) populateCitiesForCheckout();
+    if (nameEl && profile.name) nameEl.value = profile.name;
+    if (mobileEl && profile.phone) mobileEl.value = profile.phone;
+    if (addressEl && profile.address) addressEl.value = profile.address;
+    if (locationEl && profile.location) locationEl.value = profile.location;
+    if (stateEl && profile.state) {
+        stateEl.value = profile.state;
+        populateCitiesForCheckout();
+    }
     if (cityEl && profile.city) cityEl.value = profile.city;
+    if (pincodeEl && profile.pincode) pincodeEl.value = profile.pincode;
 }
 
 function submitOrder() {
@@ -1406,7 +1411,7 @@ const giftOptionsHtml = (order.giftWrap || order.giftMessage) ? `
                         ${timelineHtml}
                     </div>
                     <div class="delivery-estimate">
-                        🚚 Order Delivery Date: <strong>${estimatedDelivery}</strong>
+                        🚚 Your Order will be delivered at: <strong>${estimatedDelivery}</strong>
                     </div>
                 </div>
                 <div class="order-actions">

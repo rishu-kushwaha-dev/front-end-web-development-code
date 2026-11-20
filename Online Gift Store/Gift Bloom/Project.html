@@ -304,13 +304,34 @@
                         <button class="filter-btn" onclick="applyFilter('Anniversary')">Anniversary</button>
                         <button class="filter-btn" onclick="applyFilter('Festival')">Festival</button>
                     </div>
+                    <div class="filter-controls">
+                        <div class="sort-wrapper">
+                            <label for="sort-select" class="sort-label">Sort by:</label>
+                            <select id="sort-select" onchange="applySort(this.value)">
+                                <option value="default">Default</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="rating">Highest Rated</option>
+                                <option value="newest">Newest First</option>
+                            </select>
+                        </div>
+                        <div class="budget-pills" id="budget-pills">
+                            <button class="budget-pill" onclick="applyBudgetFilter(500)" data-max="500">Under ₹500</button>
+                            <button class="budget-pill" onclick="applyBudgetFilter(1500)" data-max="1500">Under ₹1,500</button>
+                            <button class="budget-pill" onclick="applyBudgetFilter(5000)" data-max="5000">Under ₹5,000</button>
+                            <button class="budget-pill active" onclick="applyBudgetFilter(null)" data-max="">All Prices</button>
+                        </div>
+                    </div>
                     <div id="item-count"></div>
                     <section id="product-list" class="products">
-                        <div class="card" data-category="Birthday" data-id="1" data-rating="4.7"
+<div class="card" data-category="Birthday" data-id="1" data-rating="4.7"
                             data-description="Soft, freshly baked eggless birthday cake with creamy vanilla frosting and cheerful sprinkles — the perfect sweet centerpiece for any celebration."
-                            data-features='["Eggless &amp; freshly baked","Serves 4-6 people","Same-day delivery available","100% vegetarian"]'>
+                            data-features='["Eggless & freshly baked","Serves 4-6 people","Same-day delivery available","100% vegetarian"]'>
                             <img src="images/cake.jpg" alt="Birthday Cake"
                                 onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                            <button class="wishlist-btn" onclick="event.stopPropagation();toggleWishlist(1)" aria-label="Add to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
                             <h3>Birthday Cake</h3>
                             <p>₹599</p>
                             <button onclick="addToCart(1)">Add to Cart</button>
@@ -320,6 +341,9 @@
                             data-features='["12 fresh long-stem roses","Elegant floral wrapping","Express delivery","Includes greeting card"]'>
                             <img src="images/rose.jpg" alt="Rose Bouquet"
                                 onerror="this.onerror=null;this.src=FALLBACK_IMG">
+                            <button class="wishlist-btn" onclick="event.stopPropagation();toggleWishlist(2)" aria-label="Add to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
                             <h3>Rose Bouquet</h3>
                             <p>₹349</p>
                             <button onclick="addToCart(2)">Add to Cart</button>
@@ -2179,6 +2203,26 @@
                                     <option value="">Select State</option>
                                 </select>
                             </div>
+                            <div class="gift-options-section">
+                                <h3 class="checkout-section-title">Gift Options</h3>
+                                <div class="gift-option">
+                                    <label class="checkbox-wrapper">
+                                        <input type="checkbox" id="gift-wrap" value="true">
+                                        <span class="checkmark"></span>
+                                        <span class="gift-option-label">Add Gift Wrap <span class="gift-option-price">(Free)</span></span>
+                                    </label>
+                                    <p class="gift-option-desc">Premium gift wrapping with ribbon and gift tag</p>
+                                </div>
+                                <div class="gift-option">
+                                    <label class="checkbox-wrapper">
+                                        <input type="checkbox" id="gift-message" value="true">
+                                        <span class="checkmark"></span>
+                                        <span class="gift-option-label">Add Gift Message <span class="gift-option-price">(Free)</span></span>
+                                    </label>
+                                    <textarea id="gift-message-text" placeholder="Write your personal message here (max 200 characters)..." maxlength="200" rows="3" class="hidden"></textarea>
+                                    <p class="gift-option-desc">Your message will be printed on a beautiful card</p>
+                                </div>
+                            </div>
                             <h3 class="checkout-section-title">Mode of Payment</h3>
                             <div class="payment-options">
                                 <label class="payment-option">
@@ -2332,9 +2376,24 @@
                         <div class="order-summary">
                             <h3>Order Summary</h3>
                             <div id="checkout-items"></div>
+                            <div class="coupon-section">
+                                <div class="coupon-input-wrapper">
+                                    <input type="text" id="coupon-code" placeholder="Enter promo code (e.g., BLOOM10)" maxlength="20">
+                                    <button type="button" class="coupon-apply-btn" onclick="applyCoupon()">Apply</button>
+                                </div>
+                                <div id="coupon-message" class="coupon-message hidden"></div>
+                            </div>
                             <div class="summary-total">
                                 <span>Total</span>
                                 <span id="checkout-total"> </span>
+                            </div>
+                            <div class="summary-discount hidden" id="summary-discount">
+                                <span>Discount</span>
+                                <span id="discount-amount"> </span>
+                            </div>
+                            <div class="summary-final">
+                                <span>Final Total</span>
+                                <span id="final-total"> </span>
                             </div>
                         </div>
                     </div>

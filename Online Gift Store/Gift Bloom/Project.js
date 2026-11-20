@@ -77,7 +77,98 @@ function populateCitiesForCheckout() {
 }
 
 let cart = [];
+let wishlist = [];
+let currentSort = "default";
+let currentBudgetMax = null;
+let appliedCoupon = null;
 let currentUser = null;
+
+const COUPON_CODES = {
+    "BLOOM10": { type: "percent", value: 10, description: "10% off on all orders" },
+    "FIRST100": { type: "flat", value: 100, description: "₹100 off on first order", minOrder: 500 },
+    "WELCOME50": { type: "flat", value: 50, description: "₹50 off", minOrder: 300 },
+    "GIFT20": { type: "percent", value: 20, description: "20% off on gifts above ₹1000", minOrder: 1000 }
+};
+
+function getWishlistKey() {
+    const email = localStorage.getItem("giftStoreCurrentEmail") || (currentUser && currentUser.email) || "";
+    return "giftStoreWishlist_" + (email ? email.replace(/[^a-zA-Z0-9]/g, "_") : "guest");
+}
+
+function loadWishlist() {
+    const key = getWishlistKey();
+    const raw = localStorage.getItem(key);
+    if (!raw) return [];
+    try { return JSON.parse(raw); } catch (e) { return []; }
+}
+
+function saveWishlist() {
+    const key = getWishlistKey();
+    localStorage.setItem(key, JSON.stringify(wishlist));
+}
+
+function isInWishlist(id) {
+    return wishlist.some(item => item.id === id);
+}
+
+function toggleWishlist(id) {
+    if (!requireLogin()) return;
+    const index = wishlist.findIndex(item => item.id === id);
+    if (index >= 0) {
+        wishlist.splice(index, 1);
+        showToast("Removed from wishlist");
+    } else {
+        const card = document.querySelector(`#product-list .card[data-id="${id}"]`) || document.querySelector(`#ten-minute-product-list .card[data-id="${id}"]`);
+        if (card) {
+            const product = {
+                id: id,
+                name: card.querySelector("h3").innerText,
+                price: parseInt(card.querySelector("p").innerText.replace("₹", "").replace(/,/g, "")),
+                category: card.dataset.category,
+                img: card.querySelector("img").src,
+                rating: card.dataset.rating,
+                description: card.dataset.description,
+                features: card.dataset.features
+            };
+            wishlist.push(product);
+            showToast("Added to wishlist");
+        }
+    }
+    saveWishlist();
+    updateWishlistButtons();
+}
+
+function updateWishlistButtons() {
+    document.querySelectorAll(".wishlist-btn").forEach(btn => {
+        const id = parseInt(btn.getAttribute("onclick").match(/toggleWishlist\((\d+)\)/)?.[1] || "0");
+        if (isInWishlist(id)) {
+            btn.classList.add("active");
+            btn.querySelector("i").classList.remove("fa-regular");
+            btn.querySelector("i").classList.add("fa-solid");
+        } else {
+            btn.classList.remove("active");
+            btn.querySelector("i").classList.remove("fa-solid");
+            btn.querySelector("i").classList.add("fa-regular");
+        }
+    });
+}
+
+function addWishlistButtonsToCards() {
+    document.querySelectorAll("#product-list .card, #ten-minute-product-list .card").forEach(card => {
+        if (card.querySelector(".wishlist-btn")) return;
+        const id = card.dataset.id;
+        if (!id) return;
+        const img = card.querySelector("img");
+        if (!img) return;
+        const btn = document.createElement("button");
+        btn.className = "wishlist-btn";
+        btn.setAttribute("onclick", `event.stopPropagation();toggleWishlist(${id})`);
+        btn.setAttribute("aria-label", "Add to wishlist");
+        btn.innerHTML = '<i class="fa-regular fa-heart"></i>';
+        card.insertBefore(btn, img.nextSibling);
+    });
+    updateWishlistButtons();
+}
 
 function getUsers() {
     const raw = localStorage.getItem("giftStoreUsers");
@@ -638,55 +729,138 @@ function applyActiveNav(page) {
     }
 }
 
+function showEmptyStateIfNeeded(visibleCount) {
+    const productList = document.getElementById("product-list");
+    if (!productList) return;
+    let emptyState = document.getElementById("empty-state");
+    if (visibleCount === 0) {
+        if (!emptyState) {
+            emptyState = document.createElement("div");
+            emptyState.id = "empty-state";
+            emptyState.className = "empty-state";
+            emptyState.innerHTML = `
+                <div class="empty-state-icon">🎁</div>
+                <h3>No Gifts Found</h3>
+                <p>Try adjusting your search or filters to find the perfect gift.</p>
+                <button class="reset-filters-btn" onclick="resetAllFilters()">Reset All Filters</button>
+            `;
+            productList.parentNode.insertBefore(emptyState, productList.nextSibling);
+        }
+        emptyState.style.display = "flex";
+    } else {
+        if (emptyState) {
+            emptyState.style.display = "none";
+        }
+    }
+}
+
+function resetAllFilters() {
+    document.getElementById("search-input").value = "";
+    document.getElementById("sort-select").value = "default";
+    currentSort = "default";
+    document.querySelectorAll(".budget-pill").forEach(pill => {
+        pill.classList.remove("active");
+        if (pill.dataset.max === "") pill.classList.add("active");
+    });
+    currentBudgetMax = null;
+    filterCat("All");
+    const emptyState = document.getElementById("empty-state");
+    if (emptyState) emptyState.style.display = "none";
+}
+
+function applySort(sortValue) {
+    currentSort = sortValue;
+    renderFilteredProducts();
+}
+
+function applyBudgetFilter(maxPrice) {
+    currentBudgetMax = maxPrice;
+    document.querySelectorAll(".budget-pill").forEach(pill => {
+        pill.classList.remove("active");
+        if ((maxPrice === null && pill.dataset.max === "") || (maxPrice !== null && parseInt(pill.dataset.max) === maxPrice)) {
+            pill.classList.add("active");
+        }
+    });
+    renderFilteredProducts();
+}
+
+function renderFilteredProducts() {
+    let cards = document.querySelectorAll("#product-list .card");
+    let visibleCards = [];
+    
+    cards.forEach(card => {
+        const categoryMatch = currentFilterCat === "All" || card.dataset.category === currentFilterCat;
+        const price = parseInt(card.querySelector("p").innerText.replace("₹", "").replace(/,/g, ""));
+        const budgetMatch = currentBudgetMax === null || price <= currentBudgetMax;
+        const searchTerm = document.getElementById("search-input").value.toLowerCase().trim();
+        const name = card.querySelector("h3").innerText.toLowerCase();
+        const category = (card.dataset.category || "").toLowerCase();
+        const desc = (card.dataset.description || "").toLowerCase();
+        const searchMatch = !searchTerm || name.includes(searchTerm) || category.includes(searchTerm) || desc.includes(searchTerm);
+        
+        if (categoryMatch && budgetMatch && searchMatch) {
+            visibleCards.push({ card, price, rating: parseFloat(card.dataset.rating || "0") });
+        }
+    });
+    
+    // Apply sorting
+    switch (currentSort) {
+        case "price-low":
+            visibleCards.sort((a, b) => a.price - b.price);
+            break;
+        case "price-high":
+            visibleCards.sort((a, b) => b.price - a.price);
+            break;
+        case "rating":
+            visibleCards.sort((a, b) => b.rating - a.rating);
+            break;
+        case "newest":
+            visibleCards.sort((a, b) => parseInt(b.card.dataset.id) - parseInt(a.card.dataset.id));
+            break;
+        default:
+            visibleCards.sort((a, b) => parseInt(a.card.dataset.id) - parseInt(b.card.dataset.id));
+    }
+    
+    // Hide all cards first
+    cards.forEach(card => card.style.display = "none");
+    
+    // Show sorted cards
+    visibleCards.forEach(({ card }, index) => {
+        card.style.display = "";
+        card.style.order = index;
+        card.style.animation = 'none';
+        card.offsetHeight;
+        card.style.animation = null;
+    });
+    
+    document.getElementById("item-count").innerText = `Showing ${visibleCards.length} Gifts`;
+    addWishlistButtonsToCards();
+    updateWishlistButtons();
+    showEmptyStateIfNeeded(visibleCards.length);
+}
+
+let currentFilterCat = "All";
+
 function applyFilter(cat) {
     if (!requireLogin()) return;
     filterCat(cat);
 }
 
 function filterCat(cat) {
-    let cards = document.querySelectorAll("#product-list .card");
-    let visibleCount = 0;
-    cards.forEach(card => {
-        if (cat === "All" || card.dataset.category === cat) {
-            card.style.display = "";
-            card.style.animation = 'none';
-            card.offsetHeight;
-            card.style.animation = null;
-            visibleCount++;
-        } else {
-            card.style.display = "none";
-        }
-    });
-    document.getElementById("item-count").innerText = `Showing ${visibleCount} Gifts`;
-    document.getElementById("search-input").value = "";
-
+    currentFilterCat = cat;
     document.querySelectorAll(".filter-btn").forEach(btn => {
         btn.classList.remove("active");
         if (btn.getAttribute("onclick").includes(`'${cat}'`)) {
             btn.classList.add("active");
         }
     });
+    renderFilteredProducts();
 }
 
 function searchProducts(query) {
-    const term = query.toLowerCase().trim();
-    let cards = document.querySelectorAll("#product-list .card");
-    let visibleCount = 0;
-    cards.forEach(card => {
-        const name = card.querySelector("h3").innerText.toLowerCase();
-        const category = (card.dataset.category || "").toLowerCase();
-        const desc = (card.dataset.description || "").toLowerCase();
-        if (!term || name.includes(term) || category.includes(term) || desc.includes(term)) {
-            card.style.display = "";
-            card.style.animation = 'none';
-            card.offsetHeight;
-            card.style.animation = null;
-            visibleCount++;
-        } else {
-            card.style.display = "none";
-        }
-    });
-    document.getElementById("item-count").innerText = `Showing ${visibleCount} Gifts`;
+    renderFilteredProducts();
+}
+    showEmptyStateIfNeeded(visibleCount);
 }
 
 function requireLogin() {
@@ -832,6 +1006,83 @@ function renderCheckoutSummary() {
         `;
     });
     document.getElementById("checkout-total").innerText = "₹" + total.toLocaleString("en-IN");
+    updateOrderSummary(total);
+}
+
+function updateOrderSummary(subtotal) {
+    let discount = 0;
+    const discountEl = document.getElementById("summary-discount");
+    const discountAmountEl = document.getElementById("discount-amount");
+    const finalTotalEl = document.getElementById("final-total");
+    const checkoutTotalEl = document.getElementById("checkout-total");
+    
+    if (appliedCoupon && COUPON_CODES[appliedCoupon]) {
+        const coupon = COUPON_CODES[appliedCoupon];
+        if (coupon.type === "percent") {
+            discount = Math.round(subtotal * coupon.value / 100);
+        } else if (coupon.type === "flat") {
+            if (subtotal >= (coupon.minOrder || 0)) {
+                discount = coupon.value;
+            } else {
+                // Coupon no longer valid for this subtotal
+                appliedCoupon = null;
+                document.getElementById("coupon-code").value = "";
+            }
+        }
+    }
+    
+    const finalTotal = subtotal - discount;
+    
+    if (discount > 0) {
+        discountEl.classList.remove("hidden");
+        discountAmountEl.innerText = "-₹" + discount.toLocaleString("en-IN");
+        finalTotalEl.innerText = "₹" + finalTotal.toLocaleString("en-IN");
+        document.getElementById("summary-final").classList.remove("hidden");
+    } else {
+        discountEl.classList.add("hidden");
+        document.getElementById("summary-final").classList.add("hidden");
+    }
+    
+    checkoutTotalEl.innerText = "₹" + subtotal.toLocaleString("en-IN");
+}
+
+function applyCoupon() {
+    const codeInput = document.getElementById("coupon-code");
+    const messageEl = document.getElementById("coupon-message");
+    const code = codeInput.value.trim().toUpperCase();
+    
+    if (!code) {
+        showCouponMessage("Please enter a promo code", "error");
+        return;
+    }
+    
+    if (!COUPON_CODES[code]) {
+        showCouponMessage("Invalid promo code", "error");
+        return;
+    }
+    
+    const coupon = COUPON_CODES[code];
+    const subtotal = cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
+    
+    if (coupon.minOrder && subtotal < coupon.minOrder) {
+        showCouponMessage(`Minimum order of ₹${coupon.minOrder} required for this code`, "error");
+        return;
+    }
+    
+    appliedCoupon = code;
+    showCouponMessage(`Promo code applied: ${coupon.description}`, "success");
+    updateOrderSummary(subtotal);
+    codeInput.blur();
+}
+
+function showCouponMessage(message, type) {
+    const messageEl = document.getElementById("coupon-message");
+    messageEl.textContent = message;
+    messageEl.className = "coupon-message " + type;
+    messageEl.classList.remove("hidden");
+    setTimeout(() => {
+        messageEl.classList.add("hidden");
+    }, 3000);
 }
 
 function autoFillCheckoutDetails() {
@@ -865,6 +1116,9 @@ function submitOrder() {
     const payment = document.querySelector('input[name="payment"]:checked')?.value || "";
     const upiBank = document.querySelector('input[name="upi-bank"]:checked')?.value || "";
     const cardBank = document.querySelector('input[name="card-bank"]:checked')?.value || "";
+    const giftWrap = document.getElementById("gift-wrap")?.checked || false;
+    const giftMessage = document.getElementById("gift-message")?.checked || false;
+    const giftMessageText = document.getElementById("gift-message-text")?.value.trim() || "";
     const errorEl = document.getElementById("checkout-error");
 
     if (!name || !mobile || !address || !location || !city || !pincode || !state) {
@@ -907,22 +1161,50 @@ function submitOrder() {
         paymentDetail = `Card (${cardBank})`;
     }
 
-    const total = cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
+    const subtotal = cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
+    let discount = 0;
+    let couponCode = null;
+    let couponDescription = "";
+    if (appliedCoupon && COUPON_CODES[appliedCoupon]) {
+        const coupon = COUPON_CODES[appliedCoupon];
+        if (coupon.type === "percent") {
+            discount = Math.round(subtotal * coupon.value / 100);
+        } else if (coupon.type === "flat") {
+            if (subtotal >= (coupon.minOrder || 0)) {
+                discount = coupon.value;
+            }
+        }
+        couponCode = appliedCoupon;
+        couponDescription = coupon.description;
+    }
+    const total = subtotal - discount;
 
     const order = {
         order_number: "GA" + Date.now().toString().slice(-8),
         date: new Date().toISOString(),
         items: cart.map(item => ({ ...item })),
+        subtotal: subtotal,
+        discount: discount,
+        couponCode: couponCode,
+        couponDescription: couponDescription,
         total: total,
         payment: payment,
         paymentDetail: paymentDetail,
+        giftWrap: giftWrap,
+        giftMessage: giftMessage,
+        giftMessageText: giftMessageText,
         name, mobile, address, location, city, state, pincode
     };
     saveOrderToStorage(order);
 
-    showToast(`Order Placed Successfully! Total: ₹${total.toLocaleString("en-IN")} via ${paymentDetail}`);
+    let toastMsg = `Order Placed Successfully! Total: ₹${total.toLocaleString("en-IN")} via ${paymentDetail}`;
+    if (discount > 0) {
+        toastMsg += ` (₹${discount.toLocaleString("en-IN")} off with ${couponCode})`;
+    }
+    showToast(toastMsg);
     cart = [];
     saveCart(cart);
+    appliedCoupon = null;
     displayCart();
     updateCartCount();
     setTimeout(() => showPage("home"), 1200);
@@ -1009,6 +1291,20 @@ function cancelOrder(index) {
     }
 }
 
+function reorderItems(itemsJson) {
+    if (!requireLogin()) return;
+    try {
+        const items = JSON.parse(itemsJson);
+        cart = items.map(item => ({ ...item, quantity: item.quantity || 1 }));
+        saveCart(cart);
+        updateCartCount();
+        showToast("Items added to cart for reorder");
+        showPage("cart");
+    } catch (e) {
+        showToast("Error adding items to cart");
+    }
+}
+
 function renderOrders() {
     const container = document.getElementById("orders-container");
     const orders = getOrders();
@@ -1053,6 +1349,30 @@ function renderOrders() {
                 </div>`;
         });
 
+const giftOptionsHtml = (order.giftWrap || order.giftMessage) ? `
+            <div class="gift-options-display">
+                <h4>Gift Options</h4>
+                <ul>
+                    ${order.giftWrap ? '<li><i class="fa-solid fa-gift"></i> Gift Wrap (Free)</li>' : ''}
+                    ${order.giftMessage ? `<li><i class="fa-solid fa-envelope"></i> Gift Message: "${order.giftMessageText}"</li>` : ''}
+                </ul>
+            </div>
+        ` : '';
+
+        const couponHtml = (order.discount && order.discount > 0) ? `
+            <div class="coupon-display">
+                <h4>Discount Applied</h4>
+                <p>Promo Code: <strong>${order.couponCode}</strong> - ${order.couponDescription}</p>
+                <p>Subtotal: ₹${order.subtotal.toLocaleString("en-IN")} | Discount: -₹${order.discount.toLocaleString("en-IN")} | Total: ₹${order.total.toLocaleString("en-IN")}</p>
+            </div>
+        ` : '';
+
+        const statusLabel = tracking.status.charAt(0).toUpperCase() + tracking.status.slice(1);
+        const statusClass = tracking.status === "delivered" ? "status-delivered" : 
+                           tracking.status === "out" ? "status-out" : 
+                           tracking.status === "shipped" ? "status-shipped" : 
+                           tracking.status === "confirmed" ? "status-confirmed" : "status-placed";
+
         container.innerHTML += `
             <div class="order-card">
                 <div class="order-header">
@@ -1062,9 +1382,15 @@ function renderOrders() {
                     </div>
                     <div class="order-total">₹${order.total.toLocaleString("en-IN")}</div>
                 </div>
+                <div class="order-meta">
+                    <span class="order-status ${statusClass}">${statusLabel}</span>
+                    <span class="order-payment">${order.paymentDetail}</span>
+                </div>
                 <div class="order-items">
                     ${itemsHtml}
                 </div>
+                ${giftOptionsHtml}
+                ${couponHtml}
                 <div class="tracking-section">
                     <div class="tracking-title">Track Order</div>
                     <div class="tracking-timeline">
@@ -1074,7 +1400,10 @@ function renderOrders() {
                         🚚 Order Delivery Date: <strong>${estimatedDelivery}</strong>
                     </div>
                 </div>
-                <button class="order-cancel-btn" onclick="cancelOrder(${orders.indexOf(order)})">Cancel Order</button>
+                <div class="order-actions">
+                    <button class="order-cancel-btn" onclick="cancelOrder(${orders.indexOf(order)})" ${tracking.status === "delivered" ? "disabled style='opacity:0.5;cursor:not-allowed;'" : ""}>Cancel Order</button>
+                    <button class="order-reorder-btn" onclick="reorderItems(${JSON.stringify(order.items).replace(/"/g, '"')})">Reorder</button>
+                </div>
             </div>`;
     };
 }
@@ -1282,7 +1611,10 @@ function savePaymentDetails() {
     const cardExpiry = document.getElementById("card-expiry")?.value || "";
     const upiBank = document.querySelector('input[name="upi-bank"]:checked')?.value || "";
     const cardBank = document.querySelector('input[name="card-bank"]:checked')?.value || "";
-    localStorage.setItem("giftStorePaymentDetails", JSON.stringify({ upiId, upiName, upiMobile, cardNumber, cardName, cardExpiry, upiBank, cardBank }));
+    const giftWrap = document.getElementById("gift-wrap")?.checked || false;
+    const giftMessage = document.getElementById("gift-message")?.checked || false;
+    const giftMessageText = document.getElementById("gift-message-text")?.value || "";
+    localStorage.setItem("giftStorePaymentDetails", JSON.stringify({ upiId, upiName, upiMobile, cardNumber, cardName, cardExpiry, upiBank, cardBank, giftWrap, giftMessage, giftMessageText }));
 }
 
 function loadPaymentDetails() {
@@ -1297,6 +1629,9 @@ function loadPaymentDetails() {
         const cardNumberEl = document.getElementById("card-number");
         const cardNameEl = document.getElementById("card-name");
         const cardExpiryEl = document.getElementById("card-expiry");
+        const giftWrapEl = document.getElementById("gift-wrap");
+        const giftMessageEl = document.getElementById("gift-message");
+        const giftMessageTextEl = document.getElementById("gift-message-text");
         if (upiIdEl && data.upiId) upiIdEl.value = data.upiId;
         if (upiNameEl && data.upiName) upiNameEl.value = data.upiName;
         if (upiMobileEl && data.upiMobile) upiMobileEl.value = data.upiMobile;
@@ -1310,6 +1645,16 @@ function loadPaymentDetails() {
         if (data.cardBank) {
             const cardRadio = document.querySelector(`input[name="card-bank"][value="${data.cardBank}"]`);
             if (cardRadio) cardRadio.checked = true;
+        }
+        if (giftWrapEl && data.giftWrap) {
+            giftWrapEl.checked = true;
+        }
+        if (giftMessageEl && data.giftMessage) {
+            giftMessageEl.checked = true;
+            if (giftMessageTextEl) giftMessageTextEl.classList.remove("hidden");
+        }
+        if (giftMessageTextEl && data.giftMessageText) {
+            giftMessageTextEl.value = data.giftMessageText;
         }
     } catch (e) { return; }
 }
@@ -1348,6 +1693,28 @@ function initPaymentListeners() {
         input.addEventListener("input", savePaymentDetails);
         input.addEventListener("change", savePaymentDetails);
     });
+    
+    // Gift options listeners
+    const giftWrap = document.getElementById("gift-wrap");
+    const giftMessage = document.getElementById("gift-message");
+    const giftMessageText = document.getElementById("gift-message-text");
+    
+    if (giftWrap) {
+        giftWrap.addEventListener("change", function() {
+            savePaymentDetails();
+        });
+    }
+    if (giftMessage) {
+        giftMessage.addEventListener("change", function() {
+            if (giftMessageText) {
+                giftMessageText.classList.toggle("hidden", !this.checked);
+            }
+            savePaymentDetails();
+        });
+    }
+    if (giftMessageText) {
+        giftMessageText.addEventListener("input", savePaymentDetails);
+    }
 }
 
 attachCardClicks();
@@ -1414,6 +1781,9 @@ function renderDeliveryProducts() {
         card.setAttribute("data-features", JSON.stringify(product.features));
         card.innerHTML = `
             <img src="${product.img}" alt="${product.name}" onerror="this.onerror=null;this.src=FALLBACK_IMG">
+            <button class="wishlist-btn" onclick="event.stopPropagation();toggleWishlist(${product.id})" aria-label="Add to wishlist">
+                <i class="fa-regular fa-heart"></i>
+            </button>
             <h3>${product.name}</h3>
             <p>₹${product.price}</p>
             <button onclick="event.stopPropagation();addToCart(${product.id})">Add to Cart</button>
@@ -1425,6 +1795,7 @@ function renderDeliveryProducts() {
         });
         container.appendChild(card);
     });
+    updateWishlistButtons();
 }
 
 function showDeliveryCategory(type) {
@@ -1486,6 +1857,7 @@ function initApp() {
     });
     if (isLoggedIn()) {
         currentUser = loadSavedProfile(localStorage.getItem("giftStoreCurrentEmail")) || currentUser;
+        wishlist = loadWishlist();
     }
     updateProfileMenu();
     renderProfile();
@@ -1499,6 +1871,7 @@ function initApp() {
     });
     initParticles();
     initScrollReveal();
+    addWishlistButtonsToCards();
 }
 
 initApp();

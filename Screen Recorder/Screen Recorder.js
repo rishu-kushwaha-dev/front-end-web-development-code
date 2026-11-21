@@ -3,11 +3,16 @@ class ScreenRecorder {
         this.mediaRecorder = null;
         this.recordedChunks = [];
         this.stream = null;
+        this.webcamStream = null;
         this.startTime = null;
         this.timerInterval = null;
         this.pausedTime = 0;
         this.isPaused = false;
         this.recordings = [];
+        this.currentRecordingBlob = null;
+        this.currentRecordingUrl = null;
+        this.currentRecordingMimeType = null;
+        this.countdownInterval = null;
 
         this.initializeElements();
         this.bindEvents();
@@ -16,7 +21,12 @@ class ScreenRecorder {
 
     initializeElements() {
         this.preview = document.getElementById('preview');
+        this.webcamPreview = document.getElementById('webcamPreview');
         this.previewOverlay = document.getElementById('previewOverlay');
+        this.countdownOverlay = document.getElementById('countdownOverlay');
+        this.countdownNumber = document.getElementById('countdownNumber');
+        this.recordingIndicator = document.getElementById('recordingIndicator');
+        this.recText = document.getElementById('recText');
         this.startBtn = document.getElementById('startBtn');
         this.pauseBtn = document.getElementById('pauseBtn');
         this.stopBtn = document.getElementById('stopBtn');
@@ -24,9 +34,16 @@ class ScreenRecorder {
         this.timerText = this.timer.querySelector('span');
         this.audioCheckbox = document.getElementById('audioCheckbox');
         this.micCheckbox = document.getElementById('micCheckbox');
+        this.webcamCheckbox = document.getElementById('webcamCheckbox');
         this.qualitySelect = document.getElementById('qualitySelect');
+        this.fpsSelect = document.getElementById('fpsSelect');
         this.recordingsSection = document.getElementById('recordingsSection');
         this.recordingsList = document.getElementById('recordingsList');
+        this.previewPlayerSection = document.getElementById('previewPlayerSection');
+        this.previewPlayer = document.getElementById('previewPlayer');
+        this.downloadWebmBtn = document.getElementById('downloadWebmBtn');
+        this.downloadMp4Btn = document.getElementById('downloadMp4Btn');
+        this.discardBtn = document.getElementById('discardBtn');
         this.toastContainer = document.getElementById('toastContainer');
     }
 
@@ -35,16 +52,75 @@ class ScreenRecorder {
         this.pauseBtn.addEventListener('click', () => this.togglePause());
         this.stopBtn.addEventListener('click', () => this.stopRecording());
         this.micCheckbox.addEventListener('change', () => this.updateAudioConstraints());
+        this.webcamCheckbox.addEventListener('change', () => this.updateWebcamPreview());
+        this.downloadWebmBtn.addEventListener('click', () => this.downloadCurrentRecording('webm'));
+        this.downloadMp4Btn.addEventListener('click', () => this.downloadCurrentRecording('mp4'));
+        this.discardBtn.addEventListener('click', () => this.discardCurrentRecording());
+
+        document.addEventListener('keydown', (e) => this.handleKeyboardShortcuts(e));
+
+        this.stream?.getVideoTracks().forEach(track => {
+            track.addEventListener('ended', () => this.handleTrackEnded());
+        });
+    }
+
+    handleKeyboardShortcuts(e) {
+        if (e.ctrlKey && e.shiftKey) {
+            if (e.key.toLowerCase() === 'r') {
+                e.preventDefault();
+                if (this.mediaRecorder && this.mediaRecorder.state === 'recording') {
+                    this.stopRecording();
+                } else if (this.mediaRecorder && this.mediaRecorder.state === 'paused') {
+                    this.mediaRecorder.resume();
+                    this.startTimer();
+                    this.isPaused = false;
+                    this.recordingIndicator.classList.remove('paused');
+                    this.recText.textContent = 'REC';
+                } else {
+                    this.startRecording();
+                }
+            } else if (e.key.toLowerCase() === 'p') {
+                e.preventDefault();
+                if (this.mediaRecorder && (this.mediaRecorder.state === 'recording' || this.mediaRecorder.state === 'paused')) {
+                    this.togglePause();
+                }
+            }
+        }
+    }
+
+    async updateWebcamPreview() {
+        if (this.webcamCheckbox.checked) {
+            try {
+                this.webcamStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'user', width: { ideal: 320 }, height: { ideal: 180 } },
+                    audio: false
+                });
+                this.webcamPreview.srcObject = this.webcamStream;
+                this.webcamPreview.hidden = false;
+            } catch (err) {
+                console.warn('Webcam access denied:', err);
+                this.showToast('Webcam access denied', 'error');
+                this.webcamCheckbox.checked = false;
+            }
+        } else {
+            if (this.webcamStream) {
+                this.webcamStream.getTracks().forEach(track => track.stop());
+                this.webcamStream = null;
+            }
+            this.webcamPreview.srcObject = null;
+            this.webcamPreview.hidden = true;
+        }
     }
 
     async startRecording() {
         try {
             this.showToast('Requesting screen access...', 'info');
 
+            const fps = parseInt(this.fpsSelect.value);
             const displayMediaOptions = {
                 video: {
                     cursor: 'always',
-                    frameRate: 30
+                    frameRate: { ideal: fps, max: fps }
                 },
                 audio: this.audioCheckbox.checked
             };
@@ -69,6 +145,12 @@ class ScreenRecorder {
                 }
             }
 
+            if (this.webcamCheckbox.checked && !this.webcamStream) {
+                await this.updateWebcamPreview();
+            }
+
+            await this.runCountdown();
+
             this.setupMediaRecorder();
             this.preview.srcObject = this.stream;
             this.previewOverlay.classList.add('hidden');
@@ -76,6 +158,9 @@ class ScreenRecorder {
             this.mediaRecorder.start(1000);
             this.startTimer();
             this.updateUI('recording');
+            this.recordingIndicator.hidden = false;
+            this.recordingIndicator.classList.remove('paused');
+            this.recText.textContent = 'REC';
 
             this.showToast('Recording started', 'success');
 
@@ -93,7 +178,33 @@ class ScreenRecorder {
                 this.showToast('Failed to start recording: ' + err.message, 'error');
             }
             this.resetUI();
+            this.hideCountdown();
+            this.recordingIndicator.hidden = true;
         }
+    }
+
+    async runCountdown() {
+        this.countdownOverlay.hidden = false;
+        const numbers = ['3', '2', '1', 'GO!'];
+
+        for (let i = 0; i < numbers.length; i++) {
+            this.countdownNumber.textContent = numbers[i];
+            this.countdownNumber.style.animation = 'none';
+            this.countdownNumber.offsetHeight;
+            this.countdownNumber.style.animation = 'countdownPulse 1s ease-in-out';
+            await this.sleep(1000);
+        }
+
+        this.hideCountdown();
+    }
+
+    hideCountdown() {
+        this.countdownOverlay.hidden = true;
+        this.countdownNumber.textContent = '';
+    }
+
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     setupMediaRecorder() {
@@ -169,6 +280,8 @@ class ScreenRecorder {
                 <span>Pause</span>
             `;
             this.timer.classList.remove('paused');
+            this.recordingIndicator.classList.remove('paused');
+            this.recText.textContent = 'REC';
             this.isPaused = false;
             this.showToast('Recording resumed', 'info');
         } else {
@@ -181,6 +294,8 @@ class ScreenRecorder {
                 <span>Resume</span>
             `;
             this.timer.classList.add('paused');
+            this.recordingIndicator.classList.add('paused');
+            this.recText.textContent = 'PAUSED';
             this.isPaused = true;
             this.showToast('Recording paused', 'info');
         }
@@ -193,6 +308,7 @@ class ScreenRecorder {
         this.stopTimer();
         this.cleanupStream();
         this.updateUI('stopped');
+        this.recordingIndicator.hidden = true;
     }
 
     onRecordingStop() {
@@ -221,7 +337,116 @@ class ScreenRecorder {
         this.renderRecordings();
         this.recordingsSection.hidden = false;
 
+        this.currentRecordingBlob = blob;
+        this.currentRecordingUrl = url;
+        this.currentRecordingMimeType = this.mediaRecorder.mimeType;
+        this.showPreviewPlayer(url, this.mediaRecorder.mimeType);
+
         this.showToast(`Recording saved as ${filename}`, 'success');
+    }
+
+    showPreviewPlayer(url, mimeType) {
+        this.previewPlayer.src = url;
+        this.previewPlayerSection.hidden = false;
+
+        const isMp4Supported = MediaRecorder.isTypeSupported('video/mp4');
+        this.downloadMp4Btn.disabled = !isMp4Supported;
+        this.downloadMp4Btn.title = isMp4Supported ? '' : 'MP4 not supported in this browser';
+    }
+
+    async downloadCurrentRecording(format) {
+        if (!this.currentRecordingBlob) return;
+
+        if (format === 'webm' || this.currentRecordingMimeType.includes('webm')) {
+            this.downloadBlob(this.currentRecordingBlob, 'webm');
+        } else if (format === 'mp4') {
+            if (this.currentRecordingMimeType.includes('mp4')) {
+                this.downloadBlob(this.currentRecordingBlob, 'mp4');
+            } else {
+                this.showToast('Converting to MP4...', 'info');
+                try {
+                    const mp4Blob = await this.convertToMp4(this.currentRecordingBlob);
+                    this.downloadBlob(mp4Blob, 'mp4');
+                } catch (err) {
+                    console.error('MP4 conversion failed:', err);
+                    this.showToast('MP4 conversion failed, downloading WebM instead', 'error');
+                    this.downloadBlob(this.currentRecordingBlob, 'webm');
+                }
+            }
+        }
+    }
+
+    downloadBlob(blob, extension) {
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const filename = `recording-${timestamp}.${extension}`;
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        this.showToast(`Downloaded ${filename}`, 'success');
+    }
+
+    async convertToMp4(webmBlob) {
+        return new Promise((resolve, reject) => {
+            const video = document.createElement('video');
+            video.src = URL.createObjectURL(webmBlob);
+            video.muted = true;
+
+            video.onloadeddata = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const ctx = canvas.getContext('2d');
+
+                const stream = canvas.captureStream(30);
+                const mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/mp4' });
+                const chunks = [];
+
+                mediaRecorder.ondataavailable = (e) => {
+                    if (e.data.size > 0) chunks.push(e.data);
+                };
+
+                mediaRecorder.onstop = () => {
+                    URL.revokeObjectURL(video.src);
+                    resolve(new Blob(chunks, { type: 'video/mp4' }));
+                };
+
+                mediaRecorder.start(1000);
+
+                const drawFrame = () => {
+                    if (video.paused || video.ended) {
+                        mediaRecorder.stop();
+                        return;
+                    }
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    requestAnimationFrame(drawFrame);
+                };
+
+                video.play();
+                drawFrame();
+            };
+
+            video.onerror = () => {
+                URL.revokeObjectURL(video.src);
+                reject(new Error('Video load failed'));
+            };
+        });
+    }
+
+    discardCurrentRecording() {
+        if (this.currentRecordingUrl) {
+            URL.revokeObjectURL(this.currentRecordingUrl);
+        }
+        this.currentRecordingBlob = null;
+        this.currentRecordingUrl = null;
+        this.currentRecordingMimeType = null;
+        this.previewPlayer.src = '';
+        this.previewPlayerSection.hidden = true;
+        this.showToast('Recording discarded', 'info');
     }
 
     getExtensionFromMimeType(mimeType) {
@@ -268,7 +493,9 @@ class ScreenRecorder {
                 this.stopBtn.disabled = false;
                 this.audioCheckbox.disabled = true;
                 this.micCheckbox.disabled = true;
+                this.webcamCheckbox.disabled = true;
                 this.qualitySelect.disabled = true;
+                this.fpsSelect.disabled = true;
                 this.timer.classList.add('recording');
                 this.startBtn.innerHTML = `
                     <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -289,7 +516,9 @@ class ScreenRecorder {
         this.stopBtn.disabled = true;
         this.audioCheckbox.disabled = false;
         this.micCheckbox.disabled = false;
+        this.webcamCheckbox.disabled = false;
         this.qualitySelect.disabled = false;
+        this.fpsSelect.disabled = false;
         this.timer.classList.remove('recording', 'paused');
         this.isPaused = false;
         this.pausedTime = 0;
@@ -313,8 +542,20 @@ class ScreenRecorder {
             this.stream.getTracks().forEach(track => track.stop());
             this.stream = null;
         }
+        if (this.webcamStream) {
+            this.webcamStream.getTracks().forEach(track => track.stop());
+            this.webcamStream = null;
+        }
         this.preview.srcObject = null;
+        this.webcamPreview.srcObject = null;
+        this.webcamPreview.hidden = true;
         this.previewOverlay.classList.remove('hidden');
+    }
+
+    handleTrackEnded() {
+        if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
+            this.stopRecording();
+        }
     }
 
     async updateAudioConstraints() {

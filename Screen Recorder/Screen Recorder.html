@@ -12,13 +12,37 @@
         <div class="container">
             <header>
                 <h1>Screen Recorder</h1>
-                <p class="subtitle">Record your screen with audio</p>
             </header>
 
             <main>
                 <div class="preview-section">
                     <video id="preview" autoplay muted playsinline></video>
                     <video id="webcamPreview" autoplay muted playsinline class="webcam-preview" hidden></video>
+                    <canvas id="drawingCanvas" class="drawing-canvas" hidden></canvas>
+                    <div class="drawing-toolbar" id="drawingToolbar" hidden>
+                        <button class="draw-tool-btn" data-tool="pen" title="Pen (P)" aria-label="Pen">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 19l7-7 3 3-7 7-3 3z"></path>
+                                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                                <path d="M2 2l7.586 7.586"></path>
+                                <circle cx="11" cy="11" r="2"></circle>
+                            </svg>
+                        </button>
+                        <button class="draw-tool-btn" data-tool="highlighter" title="Highlighter (H)"
+                            aria-label="Highlighter">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 3v18"></path>
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z">
+                                </path>
+                            </svg>
+                        </button>
+                        <button class="draw-tool-btn" data-tool="arrow" title="Arrow (A)" aria-label="Arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
+                    </div>
                     <div class="preview-overlay" id="previewOverlay">
                         <svg class="play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polygon points="5 3 19 12 5 21 5 3"></polygon>
@@ -55,6 +79,42 @@
                             </svg>
                             <span>Stop</span>
                         </button>
+                        <button id="screenshotBtnRecording" class="btn btn-secondary" disabled
+                            aria-label="Take Screenshot" title="Take Snapshot (S)">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+                                </path>
+                                <circle cx="12" cy="12" r="4"></circle>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="audio-visualizer" id="audioVisualizer" hidden>
+                        <div class="visualizer-bars">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                        </div>
+                        <span class="mic-label">MIC</span>
                     </div>
 
                     <div class="timer" id="timer" aria-live="polite">
@@ -63,6 +123,7 @@
                             <polyline points="12 6 12 12 16 14"></polyline>
                         </svg>
                         <span>00:00:00</span>
+                        <span class="file-size" id="fileSizeDisplay" hidden>• 0 MB</span>
                     </div>
                 </div>
 

@@ -854,7 +854,7 @@ function applyBudgetFilter(maxPrice) {
 function renderFilteredProducts() {
     let cards = document.querySelectorAll("#product-list .card");
     let visibleCards = [];
-    
+
     cards.forEach(card => {
         const categoryMatch = currentFilterCat === "All" || card.dataset.category === currentFilterCat;
         const price = parseInt(card.querySelector("p").innerText.replace("₹", "").replace(/,/g, ""));
@@ -864,12 +864,12 @@ function renderFilteredProducts() {
         const category = (card.dataset.category || "").toLowerCase();
         const desc = (card.dataset.description || "").toLowerCase();
         const searchMatch = !searchTerm || name.includes(searchTerm) || category.includes(searchTerm) || desc.includes(searchTerm);
-        
+
         if (categoryMatch && budgetMatch && searchMatch) {
             visibleCards.push({ card, price, rating: parseFloat(card.dataset.rating || "0") });
         }
     });
-    
+
     // Apply sorting
     switch (currentSort) {
         case "price-low":
@@ -887,10 +887,10 @@ function renderFilteredProducts() {
         default:
             visibleCards.sort((a, b) => parseInt(a.card.dataset.id) - parseInt(b.card.dataset.id));
     }
-    
+
     // Hide all cards first
     cards.forEach(card => card.style.display = "none");
-    
+
     // Show sorted cards
     visibleCards.forEach(({ card }, index) => {
         card.style.display = "";
@@ -899,7 +899,7 @@ function renderFilteredProducts() {
         card.offsetHeight;
         card.style.animation = null;
     });
-    
+
     document.getElementById("item-count").innerText = `Showing ${visibleCards.length} Gifts`;
     addWishlistButtonsToCards();
     updateWishlistButtons();
@@ -1091,7 +1091,7 @@ function updateOrderSummary(subtotal) {
     const discountAmountEl = document.getElementById("discount-amount");
     const finalTotalEl = document.getElementById("final-total");
     const checkoutTotalEl = document.getElementById("checkout-total");
-    
+
     if (appliedCoupon && COUPON_CODES[appliedCoupon]) {
         const coupon = COUPON_CODES[appliedCoupon];
         if (coupon.type === "percent") {
@@ -1106,9 +1106,9 @@ function updateOrderSummary(subtotal) {
             }
         }
     }
-    
+
     const finalTotal = subtotal - discount;
-    
+
     if (discount > 0) {
         if (discountEl) discountEl.classList.remove("hidden");
         if (discountAmountEl) discountAmountEl.innerText = "-₹" + discount.toLocaleString("en-IN");
@@ -1120,7 +1120,7 @@ function updateOrderSummary(subtotal) {
         const summaryFinal = document.getElementById("summary-final");
         if (summaryFinal) summaryFinal.classList.add("hidden");
     }
-    
+
     if (checkoutTotalEl) checkoutTotalEl.innerText = "₹" + subtotal.toLocaleString("en-IN");
 }
 
@@ -1128,25 +1128,25 @@ function applyCoupon() {
     const codeInput = document.getElementById("coupon-code");
     const messageEl = document.getElementById("coupon-message");
     const code = codeInput.value.trim().toUpperCase();
-    
+
     if (!code) {
         showCouponMessage("Please enter a promo code", "error");
         return;
     }
-    
+
     if (!COUPON_CODES[code]) {
         showCouponMessage("Invalid promo code", "error");
         return;
     }
-    
+
     const coupon = COUPON_CODES[code];
     const subtotal = cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
-    
+
     if (coupon.minOrder && subtotal < coupon.minOrder) {
         showCouponMessage(`Minimum order of ₹${coupon.minOrder} required for this code`, "error");
         return;
     }
-    
+
     appliedCoupon = code;
     showCouponMessage(`Promo code applied: ${coupon.description}`, "success");
     updateOrderSummary(subtotal);
@@ -1430,7 +1430,7 @@ function renderOrders() {
                 </div>`;
         });
 
-const giftOptionsHtml = (order.giftWrap || order.giftMessage) ? `
+        const giftOptionsHtml = (order.giftWrap || order.giftMessage) ? `
             <div class="gift-options-display">
                 <h4>Gift Options</h4>
                 <ul>
@@ -1449,10 +1449,10 @@ const giftOptionsHtml = (order.giftWrap || order.giftMessage) ? `
         ` : '';
 
         const statusLabel = tracking.status.charAt(0).toUpperCase() + tracking.status.slice(1);
-        const statusClass = tracking.status === "delivered" ? "status-delivered" : 
-                           tracking.status === "out" ? "status-out" : 
-                           tracking.status === "shipped" ? "status-shipped" : 
-                           tracking.status === "confirmed" ? "status-confirmed" : "status-placed";
+        const statusClass = tracking.status === "delivered" ? "status-delivered" :
+            tracking.status === "out" ? "status-out" :
+                tracking.status === "shipped" ? "status-shipped" :
+                    tracking.status === "confirmed" ? "status-confirmed" : "status-placed";
 
         container.innerHTML += `
             <div class="order-card">
@@ -1774,19 +1774,19 @@ function initPaymentListeners() {
         input.addEventListener("input", savePaymentDetails);
         input.addEventListener("change", savePaymentDetails);
     });
-    
+
     // Gift options listeners
     const giftWrap = document.getElementById("gift-wrap");
     const giftMessage = document.getElementById("gift-message");
     const giftMessageText = document.getElementById("gift-message-text");
-    
+
     if (giftWrap) {
-        giftWrap.addEventListener("change", function() {
+        giftWrap.addEventListener("change", function () {
             savePaymentDetails();
         });
     }
     if (giftMessage) {
-        giftMessage.addEventListener("change", function() {
+        giftMessage.addEventListener("change", function () {
             if (giftMessageText) {
                 giftMessageText.classList.toggle("hidden", !this.checked);
             }

@@ -3748,6 +3748,6 @@ select,
 .profile-delete-btn,
 .card button,
 .remove-btn,
-.place-order-btn save{
+.place-order-btn {
     cursor: default;
 }

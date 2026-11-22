@@ -1839,6 +1839,8 @@ const deliveryProducts = [
 
 let currentDeliveryType = "all";
 let currentDeliveryCat = "All";
+let currentDeliverySort = "default";
+let currentDeliveryBudgetMax = null;
 
 function renderDeliveryProducts() {
     const container = document.getElementById("ten-minute-product-list");
@@ -1850,6 +1852,26 @@ function renderDeliveryProducts() {
     }
     if (currentDeliveryCat !== "All") {
         filtered = filtered.filter(p => p.category === currentDeliveryCat);
+    }
+    if (currentDeliveryBudgetMax !== null) {
+        filtered = filtered.filter(p => p.price <= currentDeliveryBudgetMax);
+    }
+    // Apply sorting
+    switch (currentDeliverySort) {
+        case "price-low":
+            filtered.sort((a, b) => a.price - b.price);
+            break;
+        case "price-high":
+            filtered.sort((a, b) => b.price - a.price);
+            break;
+        case "rating":
+            filtered.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+            break;
+        case "newest":
+            filtered.sort((a, b) => b.id - a.id);
+            break;
+        default:
+            filtered.sort((a, b) => a.id - b.id);
     }
     document.getElementById("ten-minute-item-count").innerText = `Showing ${filtered.length} Items`;
     filtered.forEach(product => {
@@ -1890,6 +1912,22 @@ function showDeliveryCategory(type) {
 function filterDeliveryCat(cat) {
     if (!requireLogin()) return;
     currentDeliveryCat = cat;
+    renderDeliveryProducts();
+}
+
+function applyDeliverySort(sortValue) {
+    currentDeliverySort = sortValue;
+    renderDeliveryProducts();
+}
+
+function applyDeliveryBudgetFilter(maxPrice) {
+    currentDeliveryBudgetMax = maxPrice;
+    document.querySelectorAll("#ten-minute-budget-pills .budget-pill").forEach(pill => {
+        pill.classList.remove("active");
+        if ((maxPrice === null && pill.dataset.max === "") || (maxPrice !== null && parseInt(pill.dataset.max) === maxPrice)) {
+            pill.classList.add("active");
+        }
+    });
     renderDeliveryProducts();
 }
 

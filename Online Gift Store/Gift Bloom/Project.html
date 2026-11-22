@@ -2447,6 +2447,24 @@
                             <button class="filter-btn" onclick="filterDeliveryCat('Anniversary')">Anniversary</button>
                             <button class="filter-btn" onclick="filterDeliveryCat('Festival')">Festival</button>
                         </div>
+                        <div class="filter-controls">
+                            <div class="sort-wrapper">
+                                <label for="ten-minute-sort-select" class="sort-label">Sort by:</label>
+                                <select id="ten-minute-sort-select" onchange="applyDeliverySort(this.value)">
+                                    <option value="default">Default</option>
+                                    <option value="price-low">Price: Low to High</option>
+                                    <option value="price-high">Price: High to Low</option>
+                                    <option value="rating">Highest Rated</option>
+                                    <option value="newest">Newest First</option>
+                                </select>
+                            </div>
+                            <div class="budget-pills" id="ten-minute-budget-pills">
+                                <button class="budget-pill" onclick="applyDeliveryBudgetFilter(500)" data-max="500">Under ₹500</button>
+                                <button class="budget-pill" onclick="applyDeliveryBudgetFilter(1500)" data-max="1500">Under ₹1,500</button>
+                                <button class="budget-pill" onclick="applyDeliveryBudgetFilter(5000)" data-max="5000">Under ₹5,000</button>
+                                <button class="budget-pill active" onclick="applyDeliveryBudgetFilter(null)" data-max="">All Prices</button>
+                            </div>
+                        </div>
                         <div id="ten-minute-item-count"></div>
                         <section id="ten-minute-product-list" class="products">
                         </section>

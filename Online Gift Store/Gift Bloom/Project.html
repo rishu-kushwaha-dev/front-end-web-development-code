@@ -17,11 +17,17 @@
                 <div class="header-left">
                     <div class="header-logo" onclick="showPage('home')">Gift Bloom</div>
                     <nav id="header-nav">
-                        <button class="header-nav-item" onclick="showPage('home')"><i class="fa-solid fa-house"></i>
+                        <button class="header-nav-item" data-page="home" onclick="showPage('home')"><i
+                                class="fa-solid fa-house"></i>
                             Home</button>
-                        <button class="header-nav-item" onclick="showPage('orders')"><i class="fa-solid fa-box"></i> My
+                        <button class="header-nav-item" data-page="wishlist" onclick="showPage('wishlist')">
+                            <i class="fa-solid fa-heart"></i> Wishlist
+                            <span id="wishlist-count">0</span>
+                        </button>
+                        <button class="header-nav-item" data-page="orders" onclick="showPage('orders')"><i
+                                class="fa-solid fa-box"></i> My
                             Orders</button>
-                        <button class="header-nav-item cart-wrapper" onclick="showPage('cart')">
+                        <button class="header-nav-item cart-wrapper" data-page="cart" onclick="showPage('cart')">
                             <i class="fa-solid fa-cart-shopping"></i> Cart
                             <span id="cart-count">0</span>
                         </button>
@@ -297,6 +303,7 @@
                         </div>
                     </div>
                 </section>
+                <hr>
                 <section id="home-page">
                     <div class="filter">
                         <button class="filter-btn" onclick="applyFilter('All')">All Gifts</button>
@@ -2153,6 +2160,10 @@
                             <button onclick="addToCartFromDetail()" class="detail-add-btn">Add to Cart</button>
                         </div>
                     </div>
+                </section>
+                <section id="wishlist-page" class="hidden">
+                    <h2 class="page-title"> <u> My Wishlist </u> </h2>
+                    <div id="wishlist-items" class="products"></div>
                 </section>
                 <section id="cart-page" class="hidden">
                     <h2 class="page-title"> <u> Your Shopping Cart </u> </h2>

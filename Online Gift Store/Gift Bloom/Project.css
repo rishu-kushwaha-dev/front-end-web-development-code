@@ -650,7 +650,8 @@ body::before {
     position: relative;
 }
 
-#cart-count {
+#cart-count,
+#wishlist-count {
     background: var(--accent);
     color: white;
     font-size: 11px;
@@ -1094,6 +1095,7 @@ body::before {
 }
 
 .card {
+    position: relative;
     background: transparent;
     border-radius: 16px;
     overflow: hidden;
@@ -1180,12 +1182,13 @@ body::before {
     z-index: 2;
 }
 
-.wishlist-btn {
+.card .wishlist-btn {
     position: absolute;
     top: 10px;
     right: 10px;
     width: 36px;
     height: 36px;
+    padding: 0;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(4px);
@@ -1194,29 +1197,30 @@ body::before {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: var(--text-secondary);
+    color: #64748b;
     font-size: 16px;
+    line-height: 1;
     box-shadow: var(--shadow-sm);
-    z-index: 2;
+    z-index: 3;
     transition: all var(--transition-fast);
 }
 
-.wishlist-btn:hover {
+.card .wishlist-btn:hover {
     background: var(--accent);
     color: white;
     transform: scale(1.1);
 }
 
-.wishlist-btn.active {
+.card .wishlist-btn.active {
     background: var(--accent);
     color: white;
 }
 
-.wishlist-btn.active i {
+.card .wishlist-btn.active i {
     font-weight: 900;
 }
 
-.wishlist-btn i {
+.card .wishlist-btn i {
     transition: all var(--transition-fast);
 }
 
@@ -2717,6 +2721,27 @@ footer .footer-links a:hover {
     font-size: 20px;
     margin-bottom: 8px;
     color: var(--text);
+}
+
+.wishlist-empty {
+    grid-column: 1 / -1;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.wishlist-empty .cart-empty-icon {
+    display: flex;
+    justify-content: center;
+    color: var(--accent);
+}
+
+.wishlist-empty p {
+    color: var(--text-secondary);
+}
+
+.wishlist-empty .order-btn {
+    margin: 20px auto 0;
+    width: fit-content;
 }
 
 .cart-total-bar {

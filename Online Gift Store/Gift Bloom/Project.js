@@ -105,6 +105,12 @@ function loadWishlist() {
 function saveWishlist() {
     const key = getWishlistKey();
     localStorage.setItem(key, JSON.stringify(wishlist));
+    updateWishlistCount();
+}
+
+function updateWishlistCount() {
+    const countEl = document.getElementById("wishlist-count");
+    if (countEl) countEl.innerText = wishlist.length;
 }
 
 function isInWishlist(id) {
@@ -136,6 +142,10 @@ function toggleWishlist(id) {
     }
     saveWishlist();
     updateWishlistButtons();
+    const wishlistPage = document.getElementById("wishlist-page");
+    if (wishlistPage && !wishlistPage.classList.contains("hidden")) {
+        renderWishlist();
+    }
 }
 
 function updateWishlistButtons() {
@@ -168,6 +178,48 @@ function addWishlistButtonsToCards() {
         card.insertBefore(btn, img.nextSibling);
     });
     updateWishlistButtons();
+}
+
+function renderWishlist() {
+    const container = document.getElementById("wishlist-items");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    if (wishlist.length === 0) {
+        container.innerHTML = `
+            <div class="cart-empty wishlist-empty">
+                <div class="cart-empty-icon"><i class="fa-regular fa-heart"></i></div>
+                <h3>Your Wishlist is Empty</h3>
+                <p>Tap the heart on any gift to save it here.</p>
+                <button class="order-btn" onclick="showPage('home')">Explore Gifts</button>
+            </div>`;
+        updateWishlistCount();
+        return;
+    }
+
+    wishlist.forEach(product => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.setAttribute("data-category", product.category || "");
+        card.setAttribute("data-id", product.id);
+        card.setAttribute("data-rating", product.rating || "");
+        card.setAttribute("data-description", product.description || "");
+        card.setAttribute("data-features", typeof product.features === "string" ? product.features : JSON.stringify(product.features || []));
+        card.innerHTML = `
+            <img src="${product.img}" alt="${product.name}" onerror="this.onerror=null;this.src=FALLBACK_IMG">
+            <button class="wishlist-btn active" onclick="event.stopPropagation();toggleWishlist(${product.id})" aria-label="Remove from wishlist">
+                <i class="fa-solid fa-heart"></i>
+            </button>
+            <h3>${product.name}</h3>
+            <p>₹${product.price}</p>
+            <button onclick="event.stopPropagation();addToCart(${product.id})">Add to Cart</button>
+        `;
+        container.appendChild(card);
+    });
+
+    updateWishlistButtons();
+    updateWishlistCount();
 }
 
 function getUsers() {
@@ -353,6 +405,9 @@ function handleLogin() {
         document.getElementById("login-password").value = "";
         errorEl.classList.remove("visible");
         closeAuthModal();
+        wishlist = loadWishlist();
+        updateWishlistCount();
+        updateWishlistButtons();
         updateProfileMenu();
         renderProfile();
         showToast("Welcome back, " + (currentUser.name || "User") + "!");
@@ -399,6 +454,9 @@ function handleSignup() {
     document.getElementById("signup-password").value = "";
     errorEl.classList.remove("visible");
     closeAuthModal();
+    wishlist = loadWishlist();
+    updateWishlistCount();
+    updateWishlistButtons();
     updateProfileMenu();
     renderProfile();
     showToast("Account created successfully! Welcome, " + name + "!");
@@ -408,6 +466,9 @@ function logout() {
     currentUser = null;
     localStorage.removeItem("giftStoreUser");
     localStorage.removeItem("giftStoreCurrentEmail");
+    wishlist = [];
+    updateWishlistCount();
+    updateWishlistButtons();
     updateProfileMenu();
     renderProfile();
     showPage("home");
@@ -419,6 +480,7 @@ function deleteAccount() {
     const email = localStorage.getItem("giftStoreCurrentEmail") || (currentUser && currentUser.email) || "";
     if (email) {
         localStorage.removeItem(getProfileKey(email));
+        localStorage.removeItem(getWishlistKey());
     }
     localStorage.removeItem("giftStoreUser");
     localStorage.removeItem("giftStoreCurrentEmail");
@@ -427,9 +489,12 @@ function deleteAccount() {
     const orders = getOrders().filter(o => o.name !== (currentUser && currentUser.name));
     localStorage.setItem("giftStoreOrders", JSON.stringify(orders));
     currentUser = null;
+    wishlist = [];
     cart = [];
     saveCart(cart);
     updateCartCount();
+    updateWishlistCount();
+    updateWishlistButtons();
     updateProfileMenu();
     renderProfile();
     showPage("home");
@@ -439,6 +504,8 @@ function deleteAccount() {
 function showProfilePage() {
     const homePage = document.getElementById("home-page");
     if (homePage) homePage.classList.add("hidden");
+    const wishlistPage = document.getElementById("wishlist-page");
+    if (wishlistPage) wishlistPage.classList.add("hidden");
     const cartPage = document.getElementById("cart-page");
     if (cartPage) cartPage.classList.add("hidden");
     const productDetail = document.getElementById("product-detail");
@@ -676,7 +743,8 @@ function showPage(page) {
     if (nav) nav.classList.remove("open");
     if (overlay) overlay.classList.remove("active");
     if (toggle) toggle.classList.remove("open");
-    const pages = ["home-page", "cart-page", "product-detail", "hero-section", "checkout-page", "profile-page", "orders-page", "ten-minute-page", "ten-minute-home"];
+    if (page === "wishlist" && !requireLogin()) return;
+    const pages = ["home-page", "wishlist-page", "cart-page", "product-detail", "hero-section", "checkout-page", "profile-page", "orders-page", "ten-minute-page", "ten-minute-home"];
     pages.forEach(p => {
         const el = document.getElementById(p);
         if (el) el.classList.add("hidden");
@@ -687,6 +755,9 @@ function showPage(page) {
         const hero = document.getElementById("hero-section");
         if (hero) hero.classList.remove("hidden");
         filterCat("All");
+    }
+    if (page === "wishlist") {
+        renderWishlist();
     }
     if (page === "ten-minute") {
         const tenHero = document.getElementById("ten-minute-hero");
@@ -721,12 +792,8 @@ function applyActiveNav(page) {
     });
     const nav = document.getElementById("header-nav");
     if (!nav) return;
-    const buttons = nav.querySelectorAll(".header-nav-item");
-    const pageMap = { home: 0, orders: 1, cart: 2 };
-    const idx = pageMap[page];
-    if (idx !== undefined && buttons[idx]) {
-        buttons[idx].classList.add("active");
-    }
+    const activeItem = nav.querySelector(`.header-nav-item[data-page="${page}"]`);
+    if (activeItem) activeItem.classList.add("active");
 }
 
 function showEmptyStateIfNeeded(visibleCount) {
@@ -872,7 +939,7 @@ function requireLogin() {
 
 function addToCart(id) {
     if (!requireLogin()) return;
-    const card = document.querySelector(`#product-list .card[data-id="${id}"]`);
+    const card = document.querySelector(`#product-list .card[data-id="${id}"]`) || document.querySelector(`#wishlist-items .card[data-id="${id}"]`) || document.querySelector(`#ten-minute-product-list .card[data-id="${id}"]`);
     if (!card) return;
     const product = {
         id: id,
@@ -1875,6 +1942,7 @@ function initApp() {
     }
     updateProfileMenu();
     renderProfile();
+    updateWishlistCount();
     applyActiveNav("home");
     document.addEventListener("click", function (e) {
         const profileBar = document.getElementById("profile-bar");

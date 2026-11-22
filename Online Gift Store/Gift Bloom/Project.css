@@ -1689,12 +1689,12 @@ footer .footer-links a:hover {
     margin-top: 2px;
 }
 
-.checkbox-wrapper input[type="checkbox"]:checked + .checkmark {
+.checkbox-wrapper input[type="checkbox"]:checked+.checkmark {
     background: var(--primary);
     border-color: var(--primary);
 }
 
-.checkbox-wrapper input[type="checkbox"]:checked + .checkmark::after {
+.checkbox-wrapper input[type="checkbox"]:checked+.checkmark::after {
     content: "\f00c";
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
@@ -3748,6 +3748,6 @@ select,
 .profile-delete-btn,
 .card button,
 .remove-btn,
-.place-order-btn {
+.place-order-btn save{
     cursor: default;
 }

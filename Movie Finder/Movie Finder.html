@@ -10,68 +10,26 @@
 
     <body>
         <header>
-            <div class="header-content">
-                <h1>Movie Finder</h1>
-                <button id="watchlist-btn" class="watchlist-btn">
-                    My Watchlist <span id="watchlist-count">0</span>
-                </button>
-            </div>
+            <h1>Movie Finder</h1>
         </header>
 
         <div class="container">
-            <div class="search-section">
-                <div class="search-row">
-                    <input type="text" id="movie-input" placeholder="Search for a movie, series..." autocomplete="off">
-                    <select id="type-filter">
-                        <option value="">All Types</option>
-                        <option value="movie">Movies</option>
-                        <option value="series">Series</option>
-                        <option value="episode">Episodes</option>
-                    </select>
-                    <select id="year-filter">
-                        <option value="">Any Year</option>
-                    </select>
-                    <button id="search-btn">Search</button>
-                </div>
-                <div id="recent-searches" class="recent-searches">
-                    <span class="recent-label">Recent:</span>
-                </div>
+            <div class="search-box">
+                <input type="text" id="movie-input" placeholder="Search for a movie..." autocomplete="off">
+                <button id="search-btn">Search</button>
             </div>
 
-            <div id="loading" class="loading hidden">
-                <div class="spinner"></div>
-                <p>Loading movies...</p>
-            </div>
-
-            <div id="error-msg" class="error-msg hidden"></div>
+            <div id="error-msg" class="error hidden"></div>
 
             <div id="movie-grid" class="movie-grid"></div>
-
-            <div id="load-more-container" class="load-more-container hidden">
-                <button id="load-more-btn">Load More</button>
-                <span id="page-info"></span>
-            </div>
-        </div>
-
-        <div id="watchlist-modal" class="modal hidden">
-            <div class="modal-content">
-                <button class="close-btn">&times;</button>
-                <h2>My Watchlist</h2>
-                <div id="watchlist-grid" class="movie-grid"></div>
-                <p id="watchlist-empty" class="hidden">Your watchlist is empty.</p>
-            </div>
         </div>
 
         <div id="movie-modal" class="modal hidden">
             <div class="modal-content">
                 <button class="close-btn">&times;</button>
-                <div class="modal-body" id="modal-body"></div>
+                <div id="modal-body"></div>
             </div>
         </div>
-
-        <footer>
-            <p>Powered by OMDb API</p>
-        </footer>
 
         <script src="Movie Finder.js"></script>
     </body>

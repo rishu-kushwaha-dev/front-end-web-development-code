@@ -4,6 +4,7 @@ const BASE_URL = 'https://www.omdbapi.com/';
 const input = document.getElementById('movie-input');
 const searchBtn = document.getElementById('search-btn');
 const movieGrid = document.getElementById('movie-grid');
+const trendingGrid = document.getElementById('trending-grid');
 const errorMsg = document.getElementById('error-msg');
 
 const modal = document.getElementById('movie-modal');
@@ -24,6 +25,24 @@ function getPoster(poster) {
     return poster && poster !== 'N/A' ? poster : 'https://via.placeholder.com/300x450?text=No+Poster';
 }
 
+const POPULAR_TITLES = ['Avatar', 'Avengers', 'Titanic', 'The Dark Knight', 'Inception', 'Interstellar', 'Spider-Man', 'Batman', 'Iron Man', 'The Matrix', 'Gladiator', 'The Godfather', 'Pulp Fiction', 'Forrest Gump', 'The Lion King', 'Jurassic Park', 'Star Wars', 'Harry Potter'];
+
+async function fetchPopular() {
+    hideError();
+    trendingGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">Loading trending movies...</div>';
+    const movies = [];
+    for (const title of POPULAR_TITLES) {
+        try {
+            const res = await fetch(`${BASE_URL}?apikey=${API_KEY}&t=${encodeURIComponent(title)}`);
+            const data = await res.json();
+            if (data.Response === 'True') movies.push(data);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+    renderInto(trendingGrid, movies);
+}
+
 function createCard(movie) {
     const card = document.createElement('div');
     card.className = 'movie-card';
@@ -38,9 +57,13 @@ function createCard(movie) {
     return card;
 }
 
+function renderInto(container, movies) {
+    container.innerHTML = '';
+    movies.forEach(m => container.appendChild(createCard(m)));
+}
+
 function renderGrid(movies) {
-    movieGrid.innerHTML = '';
-    movies.forEach(m => movieGrid.appendChild(createCard(m)));
+    renderInto(movieGrid, movies);
 }
 
 async function fetchMovies(query) {
@@ -86,6 +109,9 @@ async function openModal(imdbID) {
                 <div class="meta-row"><strong>Director</strong>${m.Director}</div>
                 <div class="meta-row"><strong>Cast</strong>${m.Actors}</div>
                 <div class="meta-row"><strong>IMDB Rating</strong>${m.imdbRating}</div>
+                <div style="grid-column: 1 / -1; margin-top: 1rem;">
+                    <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(m.Title + ' ' + m.Year + ' trailer')}" target="_blank" style="display:inline-block; padding: 0.75rem 1.5rem; background: var(--primary); color: #fff; border-radius: 6px; text-decoration: none; font-weight: 600;">▶ Watch Trailer on YouTube</a>
+                </div>
                 <div class="movie-plot">${m.Plot}</div>
             </div>
         `;
@@ -117,3 +143,5 @@ input.addEventListener('keypress', (e) => {
 
 closeBtn.addEventListener('click', closeModal);
 modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+fetchPopular();

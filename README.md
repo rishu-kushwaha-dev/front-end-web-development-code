@@ -20,6 +20,7 @@ Here is a list of the projects inside this repository:
 *    **Disturbance Creator**
 *    **Enquiry Form**
 *    **Event CountDown**
+
 *    **Games**
   1. **2048 Game**
   2. **Block Blast**
@@ -31,7 +32,7 @@ Here is a list of the projects inside this repository:
   8. **Tank War Game**
   9. **Tic Tac Toe**
  10. **Water Sort Game**
-*    **Google Maps Distance Calculator**
+
 *    **Hacker Terminal**
 *    **Lamp Login Form**
 *    **Online Gift Store**
@@ -46,7 +47,7 @@ Here is a list of the projects inside this repository:
 *    **Text to Speech Converter**
 *    **Time Table**
 *    **To-Do-List**
-*   **Unit Converter**
+*    **Unit Converter**
 
 
 ## 🛠️ Tech Stack

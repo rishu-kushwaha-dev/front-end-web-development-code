@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Image Format Converter</title>
+        <link rel="stylesheet" href="Image Format Converter.css">
+        <link rel="icon" type="image/svg+xml" href="Favicon.png">
+        <link rel="apple-touch-icon" href="Favicon.png">
+    </head>
+
+    <body>
+        <div class="container">
+            <header>
+                <h1>Image Format Converter</h1>
+                <p>Convert images between PNG, JPEG, WebP, and BMP formats</p>
+            </header>
+
+            <div class="card upload-section">
+                <div class="drop-zone" id="dropZone">
+                    <p>Drag &amp; drop an image here</p>
+                    <p>or</p>
+                    <button class="btn btn-primary" id="browseBtn">Choose File</button>
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                </div>
+            </div>
+
+            <div class="card controls-section" id="controlsSection" hidden>
+                <div class="format-row">
+                    <label>Output Format</label>
+                    <select id="formatSelect">
+                        <option value="image/png">PNG</option>
+                        <option value="image/jpeg">JPEG</option>
+                        <option value="image/webp">WebP</option>
+                        <option value="image/bmp">BMP</option>
+                    </select>
+                </div>
+
+                <div class="quality-row" id="qualityRow" hidden>
+                    <label>Quality <span id="qualityValue">90</span>%</label>
+                    <input type="range" id="qualityInput" min="0" max="100" value="90">
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-success" id="convertBtn">Convert</button>
+                    <button class="btn btn-outline" id="downloadBtn" hidden>Download</button>
+                </div>
+            </div>
+
+            <div class="card preview-section" id="previewSection" hidden>
+                <div class="preview-pair">
+                    <div class="preview-box">
+                        <h3>Original</h3>
+                        <img id="originalImg" alt="Original image">
+                        <p id="originalInfo"></p>
+                    </div>
+                    <div class="preview-box">
+                        <h3>Converted</h3>
+                        <img id="convertedImg" alt="Converted image">
+                        <p id="convertedInfo"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="Image Format Converter.js"></script>
+    </body>
+
+</html>

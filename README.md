@@ -32,7 +32,6 @@ Here is a list of the projects inside this repository:
   9. **Tic Tac Toe**
  10. **Water Sort Game**
 *    **Google Maps Distance Calculator**
-*    **Hacker Terminal**
 *    **Lamp Login Form**
 *    **Online Gift Store**
 *    **OTP Verification**

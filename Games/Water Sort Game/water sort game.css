@@ -429,7 +429,6 @@
     background-color: rgb(150, 255, 150);
 }
 
-/* Color variations for levels */
 #easy {
     border-left: 5px solid #4CAF50;
 }
@@ -450,7 +449,6 @@
     border-left: 5px solid #000000;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .game-buttons {
         width: 120px;
@@ -479,7 +477,6 @@
     }
 }
 
-/* Water colors with gradients */
 .colors[style*="red"] {
     background: linear-gradient(180deg, #ff6b6b, #c92a2a);
 }

@@ -1,9 +1,15 @@
+/* ============================================
+   Shree Hotel & Restaurant — Restaurant Website
+   Interactivity & UX enhancements
+   ============================================ */
 (function () {
     "use strict";
 
+    /* ---------- Helpers ---------- */
     const $ = (sel, ctx = document) => ctx.querySelector(sel);
     const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
+    /* ---------- Mobile navigation ---------- */
     const navToggle = $("#navToggle");
     const navLinks = $("#navLinks");
 
@@ -33,15 +39,23 @@
         }
     });
 
+    /* ---------- Navbar scroll state ---------- */
     const navbar = $("#navbar");
+    const backToTop = $("#backToTop");
 
     const onScroll = () => {
         const y = window.scrollY;
         navbar.classList.toggle("scrolled", y > 30);
+        backToTop.classList.toggle("show", y > 500);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
+    backToTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    /* ---------- Active nav link on scroll ---------- */
     const sections = $$("main section[id]");
     const navAnchors = $$(".nav-link");
 
@@ -60,6 +74,7 @@
     );
     sections.forEach((s) => spy.observe(s));
 
+    /* ---------- Reveal on scroll ---------- */
     const revealEls = $$(".reveal");
     if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         const revealObserver = new IntersectionObserver(
@@ -249,7 +264,7 @@
                     data.name.split(" ")[0] +
                     "! Your table for " +
                     data.guests +
-                    " people  on " +
+                    " on " +
                     data.date +
                     " at " +
                     data.time +

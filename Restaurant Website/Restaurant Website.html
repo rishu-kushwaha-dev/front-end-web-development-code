@@ -15,7 +15,6 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
             rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         <link rel="stylesheet" href="Restaurant Website.css">
     </head>
 
@@ -125,20 +124,7 @@
                 </div>
             </section>
 
-            <section class="section chef-special" id="chef-special">
-            <div class="container">
-                <div class="chef-special-card reveal">
-                    <div class="chef-badge">Chef's Signature</div>
-                    <h2>Today's Special</h2>
-                    <h3>Truffle &amp; Wild Mushroom Risotto</h3>
-                    <p>Arborio rice, forest mushrooms, parmesan, truffle oil, fresh herbs. <em>Veg</em></p>
-                    <span class="special-price">₹349</span>
-                    <a href="#menu" class="btn btn-primary">Order Now</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="section menu-section" id="menu">
+            <section class="section menu-section" id="menu">
                 <div class="container">
                     <div class="section-head reveal">
                         <p class="section-eyebrow">Our Menu</p>
@@ -147,127 +133,116 @@
                     </div>
 
                     <div class="menu-filters reveal">
-        <div class="menu-search">
-            <label for="menuSearch" class="visually-hidden">Search dishes</label>
-            <input type="search" id="menuSearch" placeholder="Search dishes..." autocomplete="off">
-        </div>
-        <div class="menu-filters-btns">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="starters">Starters</button>
-            <button class="filter-btn" data-filter="mains">Mains</button>
-            <button class="filter-btn" data-filter="desserts">Desserts</button>
-            <button class="filter-btn" data-filter="drinks">Drinks</button>
-        </div>
-        <div class="veg-filter">
-            <button class="veg-btn active" data-veg="all">All</button>
-            <button class="veg-btn" data-veg="veg">Veg <span class="veg-dot"></span></button>
-            <button class="veg-btn" data-veg="non-veg">Non-Veg <span class="nonveg-dot"></span></button>
-        </div>
-    </div>
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="starters">Starters</button>
+                        <button class="filter-btn" data-filter="mains">Mains</button>
+                        <button class="filter-btn" data-filter="desserts">Desserts</button>
+                        <button class="filter-btn" data-filter="drinks">Drinks</button>
+                    </div>
 
                     <div class="menu-grid" id="menuGrid">
-<article class="menu-card reveal" data-category="starters" data-veg="veg">
-                                <div class="menu-card-img">
-                                    <img src="images/menu-burrata.jpg" alt="Burrata salad" loading="lazy">
+                        <article class="menu-card reveal" data-category="starters">
+                            <div class="menu-card-img">
+                                <img src="images/menu-burrata.jpg" alt="Burrata salad" loading="lazy">
                                 <span class="menu-tag">Popular</span>
                             </div>
                             <div class="menu-card-body">
                                 <div class="menu-card-top">
                                     <h3>Burrata &amp; Heirloom</h3>
-                                    <span class="menu-price">₹16</span>
+                                    <span class="menu-price">$16</span>
                                 </div>
                                 <p>Creamy burrata, heirloom tomatoes, basil oil, aged balsamic.</p>
                             </div>
                         </article>
 
-<article class="menu-card reveal" data-category="starters" data-veg="non-veg">
-                                <div class="menu-card-img">
-                                    <img src="images/menu-tuna.jpg" alt="Tuna tartare" loading="lazy">
+                        <article class="menu-card reveal" data-category="starters">
+                            <div class="menu-card-img">
+                                <img src="images/menu-tuna.jpg" alt="Tuna tartare" loading="lazy">
                             </div>
                             <div class="menu-card-body">
                                 <div class="menu-card-top">
                                     <h3>Yellowfin Tartare</h3>
-                                    <span class="menu-price">₹19</span>
+                                    <span class="menu-price">$19</span>
                                 </div>
                                 <p>Sashimi-grade tuna, avocado, sesame, citrus ponzu.</p>
                             </div>
                         </article>
 
-<article class="menu-card reveal" data-category="mains" data-veg="non-veg">
-                                <div class="menu-card-img">
-                                    <img src="images/menu-ribeye.jpg" alt="Grilled ribeye steak" loading="lazy">
+                        <article class="menu-card reveal" data-category="mains">
+                            <div class="menu-card-img">
+                                <img src="images/menu-ribeye.jpg" alt="Grilled ribeye steak" loading="lazy">
                                 <span class="menu-tag">Chef's Pick</span>
                             </div>
                             <div class="menu-card-body">
                                 <div class="menu-card-top">
                                     <h3>Wood-Fired Ribeye</h3>
-                                    <span class="menu-price">₹38</span>
+                                    <span class="menu-price">$38</span>
                                 </div>
                                 <p>28-day aged ribeye, truffle jus, roasted garlic, seasonal greens.</p>
                             </div>
                         </article>
 
-<article class="menu-card reveal" data-category="mains" data-veg="non-veg">
-                                <div class="menu-card-img">
-                                    <img src="images/menu-salmon.jpg" alt="Pan-seared salmon" loading="lazy">
+                        <article class="menu-card reveal" data-category="mains">
+                            <div class="menu-card-img">
+                                <img src="images/menu-salmon.jpg" alt="Pan-seared salmon" loading="lazy">
                             </div>
                             <div class="menu-card-body">
                                 <div class="menu-card-top">
                                     <h3>Seared Atlantic Salmon</h3>
-                                    <span class="menu-price">₹29</span>
+                                    <span class="menu-price">$29</span>
                                 </div>
                                 <p>Crispy-skin salmon, lemon beurre blanc, asparagus, capers.</p>
                             </div>
                         </article>
 
-<article class="menu-card reveal" data-category="mains" data-veg="veg">
-                                <div class="menu-card-img">
-                                    <img src="images/menu-risotto.jpg" alt="Wild mushroom risotto" loading="lazy">
+                        <article class="menu-card reveal" data-category="mains">
+                            <div class="menu-card-img">
+                                <img src="images/menu-risotto.jpg" alt="Wild mushroom risotto" loading="lazy">
                             </div>
                             <div class="menu-card-body">
                                 <div class="menu-card-top">
                                     <h3>Wild Mushroom Risotto</h3>
-                                    <span class="menu-price">₹24</span>
+                                    <span class="menu-price">$24</span>
                                 </div>
                                 <p>Arborio rice, forest mushrooms, parmesan, fresh herbs. <em>Veg</em></p>
                             </div>
                         </article>
 
-<article class="menu-card reveal" data-category="desserts" data-veg="veg">
-                                <div class="menu-card-img">
-                                    <img src="images/menu-fondant.jpg" alt="Chocolate fondant" loading="lazy">
+                        <article class="menu-card reveal" data-category="desserts">
+                            <div class="menu-card-img">
+                                <img src="images/menu-fondant.jpg" alt="Chocolate fondant" loading="lazy">
                                 <span class="menu-tag">Sweet</span>
                             </div>
                             <div class="menu-card-body">
                                 <div class="menu-card-top">
                                     <h3>Dark Chocolate Fondant</h3>
-                                    <span class="menu-price">₹12</span>
+                                    <span class="menu-price">$12</span>
                                 </div>
                                 <p>Warm molten center, vanilla bean ice cream, berry coulis.</p>
                             </div>
                         </article>
 
-<article class="menu-card reveal" data-category="desserts" data-veg="veg">
-                                <div class="menu-card-img">
-                                    <img src="images/menu-lemon-tart.jpg" alt="Lemon tart" loading="lazy">
+                        <article class="menu-card reveal" data-category="desserts">
+                            <div class="menu-card-img">
+                                <img src="images/menu-lemon-tart.jpg" alt="Lemon tart" loading="lazy">
                             </div>
                             <div class="menu-card-body">
                                 <div class="menu-card-top">
                                     <h3>Meyer Lemon Tart</h3>
-                                    <span class="menu-price">₹11</span>
+                                    <span class="menu-price">$11</span>
                                 </div>
                                 <p>Silky lemon curd, toasted meringue, buttery shell.</p>
                             </div>
                         </article>
 
-<article class="menu-card reveal" data-category="drinks" data-veg="veg">
-                                <div class="menu-card-img">
-                                    <img src="images/menu-cocktail.jpg" alt="Signature cocktail" loading="lazy">
+                        <article class="menu-card reveal" data-category="drinks">
+                            <div class="menu-card-img">
+                                <img src="images/menu-cocktail.jpg" alt="Signature cocktail" loading="lazy">
                             </div>
                             <div class="menu-card-body">
                                 <div class="menu-card-top">
                                     <h3>Sage &amp; Smoke Old Fashioned</h3>
-                                    <span class="menu-price">₹15</span>
+                                    <span class="menu-price">$15</span>
                                 </div>
                                 <p>Bourbon, sage-infused syrup, aromatic bitters, smoked orange.</p>
                             </div>
@@ -305,55 +280,7 @@
                 </div>
             </section>
 
-            <section class="section rooms-section" id="rooms">
-            <div class="container">
-                <div class="section-head reveal">
-                    <p class="section-eyebrow">Stay With Us</p>
-                    <h2 class="section-title">Luxury Rooms &amp; Suites</h2>
-                    <p class="section-desc">Elegant stays designed for comfort, with city views and warm hospitality.</p>
-                </div>
-                <div class="rooms-grid reveal">
-                    <article class="room-card">
-                        <div class="room-img">
-                            <img src="images/room-deluxe.jpg" alt="Deluxe Room" loading="lazy">
-                            <span class="room-tag">Popular</span>
-                        </div>
-                        <div class="room-body">
-                            <h3>Deluxe Room</h3>
-                            <p>King-size bed, city view, minibar, complimentary Wi-Fi.</p>
-                            <div class="room-price"><span class="room-num">₹4,999</span><span class="room-per">per night</span></div>
-                            <a href="#reservation" class="btn btn-primary btn-block">Book Room</a>
-                        </div>
-                    </article>
-                    <article class="room-card">
-                        <div class="room-img">
-                            <img src="images/room-executive.jpg" alt="Executive Suite" loading="lazy">
-                            <span class="room-tag">Suite</span>
-                        </div>
-                        <div class="room-body">
-                            <h3>Executive Suite</h3>
-                            <p>Spacious suite, separate living area, premium amenities, city skyline view.</p>
-                            <div class="room-price"><span class="room-num">₹8,999</span><span class="room-per">per night</span></div>
-                            <a href="#reservation" class="btn btn-primary btn-block">Book Room</a>
-                        </div>
-                    </article>
-                    <article class="room-card">
-                        <div class="room-img">
-                            <img src="images/room-presidential.jpg" alt="Presidential Suite" loading="lazy">
-                            <span class="room-tag">Premium</span>
-                        </div>
-                        <div class="room-body">
-                            <h3>Presidential Suite</h3>
-                            <p>Luxury penthouse suite, butler service, private dining, panoramic views.</p>
-                            <div class="room-price"><span class="room-num">₹15,999</span><span class="room-per">per night</span></div>
-                            <a href="#reservation" class="btn btn-primary btn-block">Book Room</a>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="section testimonials" id="testimonials">
+            <section class="section testimonials" id="testimonials">
                 <div class="container">
                     <div class="section-head reveal">
                         <p class="section-eyebrow">Guest Love</p>
@@ -385,8 +312,7 @@
                         <h2 class="section-title">Reserve Your Table</h2>
                         <p>Book ahead and let us prepare an unforgettable dining experience for you and your guests.</p>
                         <ul class="reservation-points">
-                            <li>Open Tue &ndash; Thu: 5:00 PM &ndash; 10:00 PM &middot; Fri &ndash; Sat: 5:00 PM &ndash;
-                                11:00 PM &middot; Sun: 5:00 PM &ndash; 9:00 PM &middot; Mon: Closed</li>
+                            <li>Open Tuesday &ndash; Sunday, 5:00 PM &ndash; 11:00 PM</li>
                             <li>Walk-ins welcome, reservations recommended</li>
                             <li>Private dining &amp; events available on request</li>
                         </ul>
@@ -395,13 +321,12 @@
                         <div class="form-row">
                             <div class="form-field">
                                 <label for="resName">Full Name</label>
-                                <input type="text" id="resName" name="name" placeholder="Enter your name" required>
+                                <input type="text" id="resName" name="name" placeholder="Your name" required>
                                 <small class="field-error"></small>
                             </div>
                             <div class="form-field">
                                 <label for="resEmail">Email</label>
-                                <input type="email" id="resEmail" name="email" placeholder="Enter your Email I'd"
-                                    required>
+                                <input type="email" id="resEmail" name="email" placeholder="you@example.com" required>
                                 <small class="field-error"></small>
                             </div>
                         </div>
@@ -432,8 +357,8 @@
                                 <small class="field-error"></small>
                             </div>
                             <div class="form-field">
-                                <label for="resPhone">Mobile Number</label>
-                                <input type="tel" id="resPhone" name="phone" placeholder="Enter your Mobile Number">
+                                <label for="resPhone">Phone</label>
+                                <input type="tel" id="resPhone" name="phone" placeholder="(555) 000-0000">
                                 <small class="field-error"></small>
                             </div>
                         </div>
@@ -453,13 +378,13 @@
                     <div class="contact-item reveal">
                         <span class="contact-icon">&#128205;</span>
                         <h4>Visit Us</h4>
-                        <p>128 MG Road<br>Indiranagar, Bengaluru<br>Karnataka 560038</p>
+                        <p>128 Alder Street<br>Downtown District<br>Metro City, 10001</p>
                     </div>
                     <div class="contact-item reveal">
                         <span class="contact-icon">&#128222;</span>
                         <h4>Call Us</h4>
-                        <p><a href="tel:+919876543210">+91 98765 43210</a><br><a
-                                href="mailto:hello@shreehotel.in">hello@shreehotel.in</a></p>
+                        <p><a href="tel:+15550001234">(555) 000-1234</a><br><a
+                                href="mailto:hello@shreehotel.com">hello@shreehotel.com</a></p>
                     </div>
                     <div class="contact-item reveal">
                         <span class="contact-icon">&#128337;</span>
@@ -468,43 +393,11 @@
                             &ndash; 9 PM<br>Mon: Closed</p>
                     </div>
                 </div>
-                <div class="contact-map reveal">
-                    <iframe src="https://www.google.com/maps?q=128+MG+Road+Indiranagar+Bengaluru+Karnataka&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;" allowfullscreen="" aria-hidden="false"></iframe>
-                </div>
             </section>
 
         </main>
 
-        <div class="modal" id="bookingModal" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="modal-overlay"></div>
-    <div class="modal-content">
-        <button class="modal-close" aria-label="Close booking confirmation">&times;</button>
-        <div class="modal-icon">&#10003;</div>
-        <h2>Booking Confirmed!</h2>
-        <p>Thank you for reserving with Shree Hotel &amp; Restaurant.</p>
-        <div class="booking-summary">
-            <div class="summary-row"><span>Booking ID</span><span id="modalBookingId">#SHR0000</span></div>
-            <div class="summary-row"><span>Name</span><span id="modalName"></span></div>
-            <div class="summary-row"><span>Date</span><span id="modalDate"></span></div>
-            <div class="summary-row"><span>Time</span><span id="modalTime"></span></div>
-            <div class="summary-row"><span>Guests</span><span id="modalGuests"></span></div>
-        </div>
-        <button class="btn btn-primary btn-block" id="modalCloseBtn">Done</button>
-    </div>
-</div>
-
-<div class="lightbox" id="galleryLightbox" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="lightbox-overlay"></div>
-    <div class="lightbox-content">
-        <button class="lightbox-close" aria-label="Close gallery">&times;</button>
-        <button class="lightbox-nav lightbox-prev" aria-label="Previous image">&#10094;</button>
-        <img class="lightbox-img" src="" alt="">
-        <button class="lightbox-nav lightbox-next" aria-label="Next image">&#10095;</button>
-        <div class="lightbox-caption"></div>
-    </div>
-</div>
-
-<footer class="footer">
+        <footer class="footer">
             <div class="container footer-inner">
                 <div class="footer-brand">
                     <a href="#home" class="logo">
@@ -523,9 +416,9 @@
                 <div class="footer-social">
                     <h5>Follow</h5>
                     <div class="social-row">
-                        <a href="#" aria-label="Instagram" class="social-btn"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="Facebook" class="social-btn"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Twitter" class="social-btn"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#" aria-label="Instagram" class="social-btn">&#128247;</a>
+                        <a href="#" aria-label="Facebook" class="social-btn">&#61590;</a>
+                        <a href="#" aria-label="Twitter" class="social-btn">&#61593;</a>
                     </div>
                 </div>
             </div>
@@ -535,9 +428,9 @@
             </div>
         </footer>
 
-        <script src="Restaurant Website.js"></script>
-<a href="https://wa.me/919876543210" class="whatsapp-float" aria-label="WhatsApp us"><i class="fab fa-whatsapp"></i></a>
+        <button class="back-to-top" id="backToTop" aria-label="Back to top">&#8679;</button>
 
+        <script src="Restaurant Website.js"></script>
     </body>
 
 </html>

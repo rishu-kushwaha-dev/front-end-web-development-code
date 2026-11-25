@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — Shree Hotel & Restaurant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="Restaurant Website.css">
+    <style>
+        :root {
+            --clr-bg: #0f0d0b;
+            --clr-surface: #17130f;
+            --clr-card: #211a14;
+            --clr-text: #f5efe6;
+            --clr-muted: #b6ab9c;
+            --clr-primary: #e0a43b;
+            --clr-line: rgba(245, 239, 230, 0.1);
+            --radius: 12px;
+            --font-head: "Playfair Display", Georgia, serif;
+            --font-body: "Inter", system-ui, -apple-system, sans-serif;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--font-body);
+            background: var(--clr-bg);
+            color: var(--clr-text);
+        }
+        .admin-nav {
+            position: sticky; top: 0; z-index: 100;
+            border-bottom: 1px solid var(--clr-line);
+            background: rgba(15,13,11,0.8); backdrop-filter: blur(10px);
+        }
+        .admin-nav .container {
+            max-width: 1180px; margin: 0 auto; padding: 0 24px;
+            display: flex; align-items: center; justify-content: space-between; height: 64px;
+        }
+        .admin-brand {
+            font-family: var(--font-head); font-weight: 700; font-size: 1.25rem;
+            color: var(--clr-primary); display: flex; align-items: center; gap: 10px;
+            text-decoration: none;
+        }
+        .admin-brand i { font-size: 1.4rem; }
+        .admin-nav a.btn-back {
+            padding: 8px 16px; border: 1px solid var(--clr-line); border-radius: var(--radius);
+            color: var(--clr-text); font-size: 0.88rem; text-decoration: none;
+            transition: 0.3s;
+        }
+        .admin-nav a.btn-back:hover { border-color: var(--clr-primary); color: var(--clr-primary); }
+        .container { max-width: 1180px; margin: 0 auto; padding: 40px 24px; }
+        h1 { font-family: var(--font-head); font-size: 2rem; margin-bottom: 8px; letter-spacing: -0.01em; }
+        .sub { color: var(--clr-muted); font-size: 0.95rem; margin-bottom: 32px; }
+        .stats {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px;
+        }
+        .stat-card {
+            background: var(--clr-card); border: 1px solid var(--clr-line); border-radius: var(--radius);
+            padding: 20px; display: flex; flex-direction: column; gap: 6px;
+        }
+        .stat-card .num { font-family: var(--font-head); font-size: 1.75rem; font-weight: 800; color: var(--clr-primary); }
+        .stat-card .lbl { color: var(--clr-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; }
+        .table-wrap { background: var(--clr-card); border: 1px solid var(--clr-line); border-radius: var(--radius); overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+        th { text-align: left; color: var(--clr-text); font-weight: 600; padding: 14px 16px; border-bottom: 1px solid var(--clr-line); background: var(--clr-surface); }
+        td { padding: 14px 16px; border-bottom: 1px solid var(--clr-line); color: var(--clr-muted); }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: rgba(224,164,59,0.06); }
+        .status { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+        .status.pending { background: rgba(224,164,59,0.12); color: var(--clr-primary); }
+        .status.confirmed { background: rgba(122,155,87,0.12); color: var(--clr-accent); }
+        .status.cancelled { background: rgba(224,90,75,0.12); color: #e05a4b; }
+        .badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; padding: 4px 10px; border-radius: 6px; background: var(--clr-surface); color: var(--clr-text); border: 1px solid var(--clr-line); }
+        .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600; border: 1px solid transparent; cursor: pointer; transition: 0.3s; text-decoration: none; }
+        .btn-primary { background: var(--clr-primary); color: #1a1206; }
+        .btn-primary:hover { filter: brightness(1.1); }
+        .btn-outline { background: transparent; border-color: var(--clr-line); color: var(--clr-text); }
+        .btn-outline:hover { border-color: var(--clr-primary); color: var(--clr-primary); }
+        .btn-danger { background: transparent; border-color: rgba(224,90,75,0.35); color: #e07a6b; }
+        .btn-danger:hover { background: rgba(224,90,75,0.12); border-color: #e05a4b; }
+        .empty { text-align: center; padding: 48px; color: var(--clr-muted); }
+        .empty i { font-size: 3rem; margin-bottom: 12px; opacity: 0.5; }
+        .msg { margin-bottom: 16px; padding: 10px 14px; border-radius: var(--radius-sm); font-size: 0.9rem; text-align: center; }
+        .msg.success { background: rgba(122,155,87,0.12); color: var(--clr-accent); border: 1px solid rgba(122,155,87,0.3); }
+        .msg.error { background: rgba(224,90,75,0.12); color: #e07a6b; border: 1px solid rgba(224,90,75,0.3); }
+        .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+        .search { padding: 10px 14px; border: 1px solid var(--clr-line); border-radius: var(--radius-sm); background: var(--clr-surface); color: var(--clr-text); width: 260px; }
+        @media (max-width: 640px) {
+            .table-wrap { overflow-x: auto; }
+            table { min-width: 620px; }
+            .toolbar { flex-direction: column; align-items: stretch; }
+            .search { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="admin-nav">
+        <div class="container">
+            <a href="#" class="admin-brand"><i class="fa-solid fa-hotel"></i> Shree Admin</a>
+            <a href="Restaurant Website.html" class="btn btn-back">View Website</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <p class="sub">Manage table reservations for Shree Hotel &amp; Restaurant.</p>
+        <div id="msg" class="msg" style="display:none;"></p>
+
+        <div class="stats">
+            <div class="stat-card"><span class="num" id="statTotal">0</span><span class="lbl">Total Reservations</span></div>
+            <div class="stat-card"><span class="num" id="statPending">0</span><span class="lbl">Pending</span></div>
+            <div class="stat-card"><span class="num" id="statConfirmed">0</span><span class="lbl">Confirmed</span></div>
+            <div class="stat-card"><span class="num" id="statCancelled">0</span><span class="lbl">Cancelled</span></div>
+        </div>
+
+        <div class="toolbar">
+            <input type="search" id="adminSearch" class="search" placeholder="Search by name, email, date...">
+            <button class="btn btn-danger" id="clearAll">Clear All</button>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Guest</th>
+                        <th>Email / Phone</th>
+                        <th>Date &amp; Time</th>
+                        <th>Guests</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="bookingsBody"></tbody>
+            </table>
+        </div>
+        <div class="empty" id="emptyState" style="display:none;">
+            <i class="fa-solid fa-inbox"></i>
+            <p>No reservations yet.</p>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            const $ = (s, c=document) => c.querySelector(s);
+            const $$ = (s, c=document) => Array.from(c.querySelectorAll(s));
+            const body = $("#bookingsBody");
+            const emptyState = $("#emptyState");
+            const msgEl = $("#msg");
+            const searchEl = $("#adminSearch");
+            const clearAllBtn = $("#clearAll");
+            const statEls = { total: $("#statTotal"), pending: $("#statPending"), confirmed: $("#statConfirmed"), cancelled: $("#statCancelled") };
+
+            let bookings = JSON.parse(localStorage.getItem("shree_bookings") || "[]");
+
+            const showMsg = (text, type) => {
+                msgEl.style.display = "block";
+                msgEl.textContent = text;
+                msgEl.className = "msg " + type;
+                setTimeout(() => { msgEl.style.display = "none"; }, 3500);
+            };
+
+            const statusBadge = (status) => {
+                const map = { pending: "pending", confirmed: "confirmed", cancelled: "cancelled" };
+                const cls = map[status] || "pending";
+                return '<span class="status ' + cls + '">' + (status.charAt(0).toUpperCase() + status.slice(1)) + '</span>';
+            };
+
+            const render = () => {
+                const q = (searchEl.value || "").toLowerCase();
+                const list = bookings.filter(b => {
+                    const hay = ((b.name||"") + (b.email||"") + (b.phone||"") + (b.date||"") + (b.id||"")).toLowerCase();
+                    return hay.includes(q);
+                });
+
+                // stats
+                const total = bookings.length;
+                const pending = bookings.filter(b => b.status === "pending").length;
+                const confirmed = bookings.filter(b => b.status === "confirmed").length;
+                const cancelled = bookings.filter(b => b.status === "cancelled").length;
+                statEls.total.textContent = total;
+                statEls.pending.textContent = pending;
+                statEls.confirmed.textContent = confirmed;
+                statEls.cancelled.textContent = cancelled;
+
+                if (list.length === 0) {
+                    body.innerHTML = "";
+                    emptyState.style.display = "block";
+                    return;
+                }
+                emptyState.style.display = "none";
+                body.innerHTML = list.map(b => {
+                    const created = b.createdAt ? new Date(b.createdAt).toLocaleString() : "-";
+                    return `<tr>
+                        <td><span class="badge">#${b.id}</span></td>
+                        <td>${b.name || "-"}</td>
+                        <td>${(b.email || "")}<br><span style="color:var(--clr-muted);font-size:0.82rem;">${b.phone || "-"}</span></td>
+                        <td>${b.date || "-"} <br><span style="color:var(--clr-muted);font-size:0.82rem;">${b.time || "-"}</span></td>
+                        <td>${b.guests || "-"} ${b.guests > 1 ? "guests" : "guest"}</td>
+                        <td>${statusBadge(b.status || "pending")}</td>
+                        <td style="color:var(--clr-muted);font-size:0.82rem;">${created}</td>
+                        <td>
+                            <div class="actions">
+                                <button class="btn btn-outline" data-act="toggle" data-id="${b.id}" title="Toggle confirm/cancel">${b.status === "confirmed" ? "Mark Pending" : "Confirm"}</button>
+                                <button class="btn btn-danger" data-act="delete" data-id="${b.id}" title="Delete">Delete</button>
+                            </div>
+                        </td>
+                    </tr>`;
+                }).join("");
+
+                $$("[data-act='toggle']").forEach(btn => btn.addEventListener("click", (e) => {
+                    const id = e.currentTarget.dataset.id;
+                    const b = bookings.find(x => x.id === id);
+                    if (b) {
+                        b.status = b.status === "confirmed" ? "pending" : "confirmed";
+                        save();
+                    }
+                }));
+                $$("[data-act='delete']").forEach(btn => btn.addEventListener("click", (e) => {
+                    if (!confirm("Delete this reservation?")) return;
+                    const id = e.currentTarget.dataset.id;
+                    bookings = bookings.filter(x => x.id !== id);
+                    save();
+                }));
+            };
+
+            const save = () => {
+                localStorage.setItem("shree_bookings", JSON.stringify(bookings));
+                render();
+                showMsg("Reservation updated.", "success");
+            };
+
+            clearAllBtn.addEventListener("click", () => {
+                if (!confirm("Clear all reservations? This cannot be undone.")) return;
+                bookings = [];
+                save();
+            });
+
+            searchEl.addEventListener("input", render);
+            render();
+        })();
+    </script>
+</body>
+</html>

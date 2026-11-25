@@ -1,9 +1,3 @@
-/* ============================================
-   Shree Hotel & Restaurant — Restaurant Website
-   Modern, responsive stylesheet
-   ============================================ */
-
-/* ---------- Design Tokens ---------- */
 :root {
     --clr-bg: #0f0d0b;
     --clr-surface: #17130f;
@@ -28,7 +22,6 @@
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ---------- Reset ---------- */
 *,
 *::before,
 *::after {
@@ -72,7 +65,6 @@ ul {
     padding: 0 24px;
 }
 
-/* ---------- Buttons ---------- */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -118,7 +110,6 @@ ul {
     width: 100%;
 }
 
-/* ---------- Navbar ---------- */
 .navbar {
     position: fixed;
     inset: 0 0 auto 0;
@@ -213,7 +204,6 @@ ul {
     font-size: 0.9rem;
 }
 
-/* Hamburger */
 .nav-toggle {
     display: none;
     flex-direction: column;
@@ -249,7 +239,6 @@ ul {
     transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ---------- Hero ---------- */
 .hero {
     position: relative;
     min-height: 100vh;
@@ -380,7 +369,6 @@ ul {
     }
 }
 
-/* ---------- Sections ---------- */
 .section {
     padding: 110px 0;
     position: relative;
@@ -420,7 +408,6 @@ ul {
     margin-right: auto;
 }
 
-/* ---------- About ---------- */
 .about-grid {
     display: grid;
     grid-template-columns: 1fr 1.1fr;
@@ -527,7 +514,6 @@ ul {
     font-size: 0.92rem;
 }
 
-/* ---------- Menu ---------- */
 .menu-section {
     background:
         radial-gradient(circle at 15% 20%, rgba(224, 164, 59, 0.06), transparent 40%),
@@ -660,7 +646,6 @@ ul {
     font-weight: 600;
 }
 
-/* ---------- Gallery ---------- */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -703,7 +688,6 @@ ul {
     grid-row: span 2;
 }
 
-/* ---------- Testimonials ---------- */
 .testimonials {
     background:
         radial-gradient(circle at 85% 15%, rgba(122, 155, 87, 0.08), transparent 45%),
@@ -789,7 +773,6 @@ ul {
     transform: scale(1.3);
 }
 
-/* ---------- Reservation ---------- */
 .reservation-grid {
     display: grid;
     grid-template-columns: 0.9fr 1.1fr;
@@ -913,7 +896,6 @@ ul {
     color: #e07a6b;
 }
 
-/* ---------- Contact ---------- */
 .contact {
     background: var(--clr-surface);
 }
@@ -971,7 +953,6 @@ ul {
     color: var(--clr-primary);
 }
 
-/* ---------- Footer ---------- */
 .footer {
     background: var(--clr-bg);
     border-top: 1px solid var(--clr-line);
@@ -1051,7 +1032,6 @@ ul {
     font-size: 0.84rem;
 }
 
-/* ---------- Back to top ---------- */
 .back-to-top {
     position: fixed;
     right: 24px;
@@ -1085,7 +1065,6 @@ ul {
     transform: translateY(-4px);
 }
 
-/* ---------- Reveal animation ---------- */
 .reveal {
     opacity: 0;
     transform: translateY(36px);
@@ -1097,7 +1076,6 @@ ul {
     transform: translateY(0);
 }
 
-/* ---------- Responsive ---------- */
 @media (max-width: 980px) {
 
     .about-grid,
@@ -1140,7 +1118,6 @@ ul {
         grid-column: span 2;
     }
 
-    /* Mobile nav */
     .nav-toggle {
         display: flex;
     }
@@ -1252,7 +1229,6 @@ ul {
     }
 }
 
-/* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;

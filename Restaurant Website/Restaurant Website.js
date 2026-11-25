@@ -96,7 +96,6 @@
         revealEls.forEach((el) => el.classList.add("visible"));
     }
 
-    /* ---------- Menu category filter ---------- */
     const filterBtns = $$(".filter-btn");
     const menuCards = $$(".menu-card");
 
@@ -111,7 +110,6 @@
                 card.classList.toggle("hide", !match);
                 if (match) {
                     card.classList.remove("visible");
-                    // force reflow to re-trigger reveal transition
                     void card.offsetWidth;
                     card.classList.add("visible");
                 }
@@ -119,7 +117,6 @@
         });
     });
 
-    /* ---------- Testimonials slider ---------- */
     const testimonials = [
         {
             text: "An unforgettable evening. The wood-fired ribeye was the best steak I've ever had, and the service felt genuinely warm. Shree Hotel & Restaurant is now our go-to for special nights.",
@@ -191,13 +188,11 @@
 
     if (tText) {
         startAuto();
-        // pause on hover
         const wrap = $(".testimonial-wrap");
         wrap.addEventListener("mouseenter", () => window.clearInterval(autoTimer));
         wrap.addEventListener("mouseleave", restartAuto);
     }
 
-    /* ---------- Reservation form validation ---------- */
     const form = $("#reservationForm");
     const statusEl = $("#formStatus");
 
@@ -235,7 +230,6 @@
             });
         });
 
-        // prevent past dates
         const dateInput = $("#resDate");
         if (dateInput) {
             const today = new Date().toISOString().split("T")[0];
@@ -259,7 +253,6 @@
             }
 
             const data = Object.fromEntries(new FormData(form).entries());
-            // Simulate async booking
             statusEl.textContent = "Reserving your table...";
             const submitBtn = $('button[type="submit"]', form);
             submitBtn.disabled = true;
@@ -288,7 +281,6 @@
         });
     }
 
-    /* ---------- Footer year ---------- */
     const yearEl = $("#year");
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 })();

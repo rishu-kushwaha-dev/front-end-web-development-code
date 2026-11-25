@@ -372,6 +372,7 @@ ul {
 .section {
     padding: 110px 0;
     position: relative;
+    scroll-margin-top: 80px;
 }
 
 .section-eyebrow {
@@ -1032,39 +1033,6 @@ ul {
     font-size: 0.84rem;
 }
 
-.back-to-top {
-    position: fixed;
-    right: 24px;
-    bottom: 24px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: none;
-    background: linear-gradient(135deg, var(--clr-primary), var(--clr-primary-2));
-    color: #1a1206;
-    font-size: 1.3rem;
-    font-weight: 700;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
-    transition: all 0.4s var(--ease);
-    z-index: 900;
-    box-shadow: 0 12px 30px -10px rgba(224, 164, 59, 0.6);
-}
-
-.back-to-top.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.back-to-top:hover {
-    transform: translateY(-4px);
-}
-
 .reveal {
     opacity: 0;
     transform: translateY(36px);
@@ -1221,11 +1189,6 @@ ul {
 
     .about-badge-num {
         font-size: 1.9rem;
-    }
-
-    .back-to-top {
-        right: 16px;
-        bottom: 16px;
     }
 }
 

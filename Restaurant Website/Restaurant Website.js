@@ -34,19 +34,13 @@
     });
 
     const navbar = $("#navbar");
-    const backToTop = $("#backToTop");
 
     const onScroll = () => {
         const y = window.scrollY;
         navbar.classList.toggle("scrolled", y > 30);
-        backToTop.classList.toggle("show", y > 500);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
-
-    backToTop.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    });
 
     const sections = $$("main section[id]");
     const navAnchors = $$(".nav-link");

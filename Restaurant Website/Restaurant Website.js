@@ -1,15 +1,9 @@
-/* ============================================
-   Shree Hotel & Restaurant — Restaurant Website
-   Interactivity & UX enhancements
-   ============================================ */
 (function () {
     "use strict";
 
-    /* ---------- Helpers ---------- */
     const $ = (sel, ctx = document) => ctx.querySelector(sel);
     const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
-    /* ---------- Mobile navigation ---------- */
     const navToggle = $("#navToggle");
     const navLinks = $("#navLinks");
 
@@ -39,7 +33,6 @@
         }
     });
 
-    /* ---------- Navbar scroll state ---------- */
     const navbar = $("#navbar");
 
     const onScroll = () => {
@@ -49,7 +42,6 @@
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
-    /* ---------- Active nav link on scroll ---------- */
     const sections = $$("main section[id]");
     const navAnchors = $$(".nav-link");
 
@@ -68,7 +60,6 @@
     );
     sections.forEach((s) => spy.observe(s));
 
-    /* ---------- Reveal on scroll ---------- */
     const revealEls = $$(".reveal");
     if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         const revealObserver = new IntersectionObserver(
@@ -126,8 +117,8 @@
         },
         {
             text: "The ambiance, the menu, the cocktails — everything is thoughtfully done. We celebrated our anniversary here and the team made it truly special. Five stars, easily.",
-            name: "Priya S.",
-            role: "Celebrating an Anniversary",
+            name: "Priya Singh",
+            role: "Celebrates her Anniversary",
             img: "images/guest-priya.jpg",
         },
     ];
@@ -209,11 +200,21 @@
             setError(field, "Enter a valid email address.");
             return false;
         }
+        if (field.id === "resPhone" && v && !/^\d{10}$/.test(v)) {
+            setError(field, "Enter a 10-digit phone number.");
+            return false;
+        }
         setError(field, "");
         return true;
     };
 
     if (form) {
+        const phoneField = $("#resPhone");
+        if (phoneField) {
+            phoneField.addEventListener("input", () => {
+                phoneField.value = phoneField.value.replace(/\D/g, "").slice(0, 10);
+            });
+        }
         const requiredFields = $$("input[required], select[required]", form);
         requiredFields.forEach((f) => {
             f.addEventListener("blur", () => validateField(f));

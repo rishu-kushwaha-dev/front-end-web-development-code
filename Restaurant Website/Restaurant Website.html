@@ -312,7 +312,7 @@
                         <h2 class="section-title">Reserve Your Table</h2>
                         <p>Book ahead and let us prepare an unforgettable dining experience for you and your guests.</p>
                         <ul class="reservation-points">
-                            <li>Open Tuesday &ndash; Sunday, 5:00 PM &ndash; 11:00 PM</li>
+                            <li>Open Sunday-Saturday</li>
                             <li>Walk-ins welcome, reservations recommended</li>
                             <li>Private dining &amp; events available on request</li>
                         </ul>
@@ -358,7 +358,8 @@
                             </div>
                             <div class="form-field">
                                 <label for="resPhone">Phone</label>
-                                <input type="tel" id="resPhone" name="phone" placeholder="Enter your Phone number" required>
+                                <input type="tel" id="resPhone" name="phone" placeholder="Enter your Phone number"
+                                    required pattern="[0-9]{10}" maxlength="10" inputmode="numeric">
                                 <small class="field-error"></small>
                             </div>
                         </div>

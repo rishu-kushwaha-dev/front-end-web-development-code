@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description"
+            content="Shree Hotel & Restaurant — a modern fine-dining restaurant serving seasonal, chef-crafted cuisine.">
+        <title>Shree Hotel & Restaurant</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="Restaurant Website.css">
+    </head>
+
+    <body>
+
+        <!-- ===== Navbar ===== -->
+        <header class="navbar" id="navbar">
+            <div class="container nav-inner">
+                <a href="#home" class="logo">
+                    <span class="logo-mark">SHR</span>
+                    <span class="logo-text">Shree Hotel <em>&amp;</em> Restaurant</span>
+                </a>
+
+                <nav class="nav-links" id="navLinks">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#menu" class="nav-link">Menu</a>
+                    <a href="#gallery" class="nav-link">Gallery</a>
+                    <a href="#testimonials" class="nav-link">Reviews</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                    <a href="#reservation" class="btn btn-primary nav-cta">Book a Table</a>
+                </nav>
+
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </header>
+
+        <main>
+
+            <!-- ===== Hero ===== -->
+            <section class="hero" id="home">
+                <div class="hero-overlay"></div>
+                <div class="container hero-content">
+                    <p class="hero-eyebrow reveal">Seasonal &middot; Local &middot; Chef-crafted</p>
+                    <h1 class="hero-title reveal">Where Fire Meets <span>Finesse</span></h1>
+                    <p class="hero-sub reveal">An elevated dining experience blending bold flavors, artful plating, and
+                        warm hospitality in the heart of the city.</p>
+                    <div class="hero-actions reveal">
+                        <a href="#reservation" class="btn btn-primary">Reserve a Table</a>
+                        <a href="#menu" class="btn btn-ghost">Explore Menu</a>
+                    </div>
+                    <div class="hero-stats reveal">
+                        <div class="stat">
+                            <span class="stat-num">4.9</span>
+                            <span class="stat-label">Guest Rating</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-num">12+</span>
+                            <span class="stat-label">Years of Craft</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-num">30+</span>
+                            <span class="stat-label">Signature Dishes</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="#about" class="scroll-cue" aria-label="Scroll down">
+                    <span></span>
+                </a>
+            </section>
+
+            <!-- ===== About ===== -->
+            <section class="section about" id="about">
+                <div class="container about-grid">
+                    <div class="about-media reveal">
+                        <div class="about-img-wrap">
+                            <img src="images/about.jpg" alt="Chef plating a dish in the kitchen" loading="lazy">
+                            <div class="about-badge">
+                                <span class="about-badge-num">12</span>
+                                <span class="about-badge-label">Years<br>Excellence</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-content">
+                        <p class="section-eyebrow reveal">Our Story</p>
+                        <h2 class="section-title reveal">Crafted with Passion, Served with Soul</h2>
+                        <p class="reveal">At Shree Hotel &amp; Restaurant, every plate tells a story. We source the
+                            finest
+                            seasonal ingredients from local farms and transform them into dishes that celebrate both
+                            tradition and innovation.</p>
+                        <p class="reveal">Our open kitchen invites you to witness the artistry behind each creation,
+                            while our warm, modern space sets the stage for unforgettable evenings.</p>
+                        <ul class="about-features">
+                            <li class="reveal">
+                                <span class="feature-icon">&#127859;</span>
+                                <div>
+                                    <h4>Farm-to-Table Freshness</h4>
+                                    <p>Ingredients harvested daily from trusted local growers.</p>
+                                </div>
+                            </li>
+                            <li class="reveal">
+                                <span class="feature-icon">&#128293;</span>
+                                <div>
+                                    <h4>Live Fire Cooking</h4>
+                                    <p>Wood-fired grill techniques for deep, smoky flavor.</p>
+                                </div>
+                            </li>
+                            <li class="reveal">
+                                <span class="feature-icon">&#127863;</span>
+                                <div>
+                                    <h4>Handcrafted Everything</h4>
+                                    <p>From fresh pasta to house-made desserts, made in-house.</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="#menu" class="btn btn-primary reveal">Discover Our Menu</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== Menu ===== -->
+            <section class="section menu-section" id="menu">
+                <div class="container">
+                    <div class="section-head reveal">
+                        <p class="section-eyebrow">Our Menu</p>
+                        <h2 class="section-title">Signature Creations</h2>
+                        <p class="section-desc">A curated selection of dishes that define our culinary philosophy.</p>
+                    </div>
+
+                    <div class="menu-filters reveal">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="starters">Starters</button>
+                        <button class="filter-btn" data-filter="mains">Mains</button>
+                        <button class="filter-btn" data-filter="desserts">Desserts</button>
+                        <button class="filter-btn" data-filter="drinks">Drinks</button>
+                    </div>
+
+                    <div class="menu-grid" id="menuGrid">
+                        <!-- Starters -->
+                        <article class="menu-card reveal" data-category="starters">
+                            <div class="menu-card-img">
+                                <img src="images/menu-burrata.jpg" alt="Burrata salad" loading="lazy">
+                                <span class="menu-tag">Popular</span>
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Burrata &amp; Heirloom</h3>
+                                    <span class="menu-price">$16</span>
+                                </div>
+                                <p>Creamy burrata, heirloom tomatoes, basil oil, aged balsamic.</p>
+                            </div>
+                        </article>
+
+                        <article class="menu-card reveal" data-category="starters">
+                            <div class="menu-card-img">
+                                <img src="images/menu-tuna.jpg" alt="Tuna tartare" loading="lazy">
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Yellowfin Tartare</h3>
+                                    <span class="menu-price">$19</span>
+                                </div>
+                                <p>Sashimi-grade tuna, avocado, sesame, citrus ponzu.</p>
+                            </div>
+                        </article>
+
+                        <!-- Mains -->
+                        <article class="menu-card reveal" data-category="mains">
+                            <div class="menu-card-img">
+                                <img src="images/menu-ribeye.jpg" alt="Grilled ribeye steak" loading="lazy">
+                                <span class="menu-tag">Chef's Pick</span>
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Wood-Fired Ribeye</h3>
+                                    <span class="menu-price">$38</span>
+                                </div>
+                                <p>28-day aged ribeye, truffle jus, roasted garlic, seasonal greens.</p>
+                            </div>
+                        </article>
+
+                        <article class="menu-card reveal" data-category="mains">
+                            <div class="menu-card-img">
+                                <img src="images/menu-salmon.jpg" alt="Pan-seared salmon" loading="lazy">
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Seared Atlantic Salmon</h3>
+                                    <span class="menu-price">$29</span>
+                                </div>
+                                <p>Crispy-skin salmon, lemon beurre blanc, asparagus, capers.</p>
+                            </div>
+                        </article>
+
+                        <article class="menu-card reveal" data-category="mains">
+                            <div class="menu-card-img">
+                                <img src="images/menu-risotto.jpg" alt="Wild mushroom risotto" loading="lazy">
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Wild Mushroom Risotto</h3>
+                                    <span class="menu-price">$24</span>
+                                </div>
+                                <p>Arborio rice, forest mushrooms, parmesan, fresh herbs. <em>Veg</em></p>
+                            </div>
+                        </article>
+
+                        <!-- Desserts -->
+                        <article class="menu-card reveal" data-category="desserts">
+                            <div class="menu-card-img">
+                                <img src="images/menu-fondant.jpg" alt="Chocolate fondant" loading="lazy">
+                                <span class="menu-tag">Sweet</span>
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Dark Chocolate Fondant</h3>
+                                    <span class="menu-price">$12</span>
+                                </div>
+                                <p>Warm molten center, vanilla bean ice cream, berry coulis.</p>
+                            </div>
+                        </article>
+
+                        <article class="menu-card reveal" data-category="desserts">
+                            <div class="menu-card-img">
+                                <img src="images/menu-lemon-tart.jpg" alt="Lemon tart" loading="lazy">
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Meyer Lemon Tart</h3>
+                                    <span class="menu-price">$11</span>
+                                </div>
+                                <p>Silky lemon curd, toasted meringue, buttery shell.</p>
+                            </div>
+                        </article>
+
+                        <!-- Drinks -->
+                        <article class="menu-card reveal" data-category="drinks">
+                            <div class="menu-card-img">
+                                <img src="images/menu-cocktail.jpg" alt="Signature cocktail" loading="lazy">
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Sage &amp; Smoke Old Fashioned</h3>
+                                    <span class="menu-price">$15</span>
+                                </div>
+                                <p>Bourbon, sage-infused syrup, aromatic bitters, smoked orange.</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== Gallery ===== -->
+            <section class="section gallery-section" id="gallery">
+                <div class="container">
+                    <div class="section-head reveal">
+                        <p class="section-eyebrow">Gallery</p>
+                        <h2 class="section-title">A Taste of the Experience</h2>
+                    </div>
+                    <div class="gallery-grid">
+                        <div class="gallery-item reveal">
+                            <img src="images/gallery-1.jpg" alt="Restaurant interior" loading="lazy">
+                        </div>
+                        <div class="gallery-item reveal">
+                            <img src="images/gallery-2.jpg" alt="Plated main course" loading="lazy">
+                        </div>
+                        <div class="gallery-item reveal">
+                            <img src="images/gallery-3.jpg" alt="Chef at work" loading="lazy">
+                        </div>
+                        <div class="gallery-item reveal">
+                            <img src="images/gallery-4.jpg" alt="Fine dining table setup" loading="lazy">
+                        </div>
+                        <div class="gallery-item reveal">
+                            <img src="images/gallery-5.jpg" alt="Gourmet spread" loading="lazy">
+                        </div>
+                        <div class="gallery-item reveal">
+                            <img src="images/gallery-6.jpg" alt="Cocktail bar" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== Testimonials ===== -->
+            <section class="section testimonials" id="testimonials">
+                <div class="container">
+                    <div class="section-head reveal">
+                        <p class="section-eyebrow">Guest Love</p>
+                        <h2 class="section-title">What Our Guests Say</h2>
+                    </div>
+                    <div class="testimonial-wrap reveal">
+                        <div class="testimonial-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        <blockquote class="testimonial-text" id="testimonialText">
+                            "An unforgettable evening. The wood-fired ribeye was the best steak I've ever had, and the
+                            service felt genuinely warm. Shree Hotel &amp; Restaurant is now our go-to for special
+                            nights."
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <img src="images/guest-amelia.jpg" alt="Guest portrait" loading="lazy">
+                            <div>
+                                <span class="author-name" id="authorName">Amelia R.</span>
+                                <span class="author-role" id="authorRole">Food Enthusiast</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-dots" id="testimonialDots"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== Reservation ===== -->
+            <section class="section reservation" id="reservation">
+                <div class="container reservation-grid">
+                    <div class="reservation-info reveal">
+                        <p class="section-eyebrow">Join Us</p>
+                        <h2 class="section-title">Reserve Your Table</h2>
+                        <p>Book ahead and let us prepare an unforgettable dining experience for you and your guests.</p>
+                        <ul class="reservation-points">
+                            <li>Open Tuesday &ndash; Sunday, 5:00 PM &ndash; 11:00 PM</li>
+                            <li>Walk-ins welcome, reservations recommended</li>
+                            <li>Private dining &amp; events available on request</li>
+                        </ul>
+                    </div>
+                    <form class="reservation-form reveal" id="reservationForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="resName">Full Name</label>
+                                <input type="text" id="resName" name="name" placeholder="Your name" required>
+                                <small class="field-error"></small>
+                            </div>
+                            <div class="form-field">
+                                <label for="resEmail">Email</label>
+                                <input type="email" id="resEmail" name="email" placeholder="you@example.com" required>
+                                <small class="field-error"></small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="resDate">Date</label>
+                                <input type="date" id="resDate" name="date" required>
+                                <small class="field-error"></small>
+                            </div>
+                            <div class="form-field">
+                                <label for="resTime">Time</label>
+                                <input type="time" id="resTime" name="time" value="19:00" required>
+                                <small class="field-error"></small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="resGuests">Guests</label>
+                                <select id="resGuests" name="guests" required>
+                                    <option value="">Select</option>
+                                    <option value="1">1 Guest</option>
+                                    <option value="2" selected>2 Guests</option>
+                                    <option value="3">3 Guests</option>
+                                    <option value="4">4 Guests</option>
+                                    <option value="5">5 Guests</option>
+                                    <option value="6">6+ Guests</option>
+                                </select>
+                                <small class="field-error"></small>
+                            </div>
+                            <div class="form-field">
+                                <label for="resPhone">Phone</label>
+                                <input type="tel" id="resPhone" name="phone" placeholder="(555) 000-0000">
+                                <small class="field-error"></small>
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label for="resNotes">Special Requests</label>
+                            <textarea id="resNotes" name="notes" rows="3"
+                                placeholder="Allergies, occasion, seating preference..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Confirm Reservation</button>
+                        <p class="form-status" id="formStatus" role="status"></p>
+                    </form>
+                </div>
+            </section>
+
+            <!-- ===== Contact ===== -->
+            <section class="section contact" id="contact">
+                <div class="container contact-grid">
+                    <div class="contact-item reveal">
+                        <span class="contact-icon">&#128205;</span>
+                        <h4>Visit Us</h4>
+                        <p>128 Alder Street<br>Downtown District<br>Metro City, 10001</p>
+                    </div>
+                    <div class="contact-item reveal">
+                        <span class="contact-icon">&#128222;</span>
+                        <h4>Call Us</h4>
+                        <p><a href="tel:+15550001234">(555) 000-1234</a><br><a
+                                href="mailto:hello@shreehotel.com">hello@shreehotel.com</a></p>
+                    </div>
+                    <div class="contact-item reveal">
+                        <span class="contact-icon">&#128337;</span>
+                        <h4>Opening Hours</h4>
+                        <p>Tue &ndash; Thu: 5 PM &ndash; 10 PM<br>Fri &ndash; Sat: 5 PM &ndash; 11 PM<br>Sun: 5 PM
+                            &ndash; 9 PM<br>Mon: Closed</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ===== Footer ===== -->
+        <footer class="footer">
+            <div class="container footer-inner">
+                <div class="footer-brand">
+                    <a href="#home" class="logo">
+                        <span class="logo-mark">SHR</span>
+                        <span class="logo-text">Shree Hotel <em>&amp;</em> Restaurant</span>
+                    </a>
+                    <p>Seasonal cuisine, live fire, and warm hospitality in the heart of the city.</p>
+                </div>
+                <div class="footer-links">
+                    <h5>Explore</h5>
+                    <a href="#about">About</a>
+                    <a href="#menu">Menu</a>
+                    <a href="#gallery">Gallery</a>
+                    <a href="#reservation">Reservations</a>
+                </div>
+                <div class="footer-social">
+                    <h5>Follow</h5>
+                    <div class="social-row">
+                        <a href="#" aria-label="Instagram" class="social-btn">&#128247;</a>
+                        <a href="#" aria-label="Facebook" class="social-btn">&#61590;</a>
+                        <a href="#" aria-label="Twitter" class="social-btn">&#61593;</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container footer-bottom">
+                <p>&copy; <span id="year"></span> Shree Hotel &amp; Restaurant. All rights reserved.</p>
+                <p>Crafted with passion &amp; fresh ingredients.</p>
+            </div>
+        </footer>
+
+        <!-- Back to top -->
+        <button class="back-to-top" id="backToTop" aria-label="Back to top">&#8679;</button>
+
+        <script src="Restaurant Website.js"></script>
+    </body>
+
+</html>

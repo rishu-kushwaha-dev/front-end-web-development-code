@@ -113,13 +113,13 @@
             text: "Every dish was a work of art. The Hyderabadi biryani was pure comfort, and the gulab jamun is worth the visit alone. Impeccable from start to finish.",
             name: "Neha K.",
             role: "Regular Guest",
-            img: "images/guest-marcus.jpg",
+            img: "images/guest-amelia.jpg",
         },
         {
             text: "The ambiance, the tandoor, the mocktails — everything is thoughtfully done. We celebrated our anniversary here and the team made it truly special. Five stars, easily.",
             name: "Amit Verma",
             role: "Celebrates his Anniversary",
-            img: "images/guest-priya.jpg",
+            img: "images/guest-amelia.jpg",
         },
     ];
 
@@ -130,8 +130,6 @@
     const tDots = $("#testimonialDots");
     let current = 0;
     let autoTimer = null;
-
-    const authorImg = $(".testimonial-author img");
 
     const renderDot = (i) => {
         const dot = document.createElement("span");
@@ -155,7 +153,7 @@
             tText.textContent = "\u201C" + t.text + "\u201D";
             tName.textContent = t.name;
             tRole.textContent = t.role;
-            authorImg.src = t.img;
+            tImg.src = t.img;
             $$(".dot", tDots).forEach((d, i) =>
                 d.classList.toggle("active", i === current)
             );

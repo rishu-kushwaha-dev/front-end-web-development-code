@@ -104,21 +104,21 @@
 
     const testimonials = [
         {
-            text: "An unforgettable evening. The wood-fired ribeye was the best steak I've ever had, and the service felt genuinely warm. Shree Hotel & Restaurant is now our go-to for special nights.",
-            name: "Amelia R.",
+            text: "An unforgettable evening. The butter chicken was the best I've ever had, and the service felt genuinely warm. Shree Hotel & Restaurant is now our go-to for special nights.",
+            name: "Rahul S.",
             role: "Food Enthusiast",
             img: "images/guest-amelia.jpg",
         },
         {
-            text: "Every dish was a work of art. The wild mushroom risotto was pure comfort, and the dark chocolate fondant is worth the visit alone. Impeccable from start to finish.",
-            name: "Marcus T.",
+            text: "Every dish was a work of art. The Hyderabadi biryani was pure comfort, and the gulab jamun is worth the visit alone. Impeccable from start to finish.",
+            name: "Neha K.",
             role: "Regular Guest",
             img: "images/guest-marcus.jpg",
         },
         {
-            text: "The ambiance, the menu, the cocktails — everything is thoughtfully done. We celebrated our anniversary here and the team made it truly special. Five stars, easily.",
-            name: "Priya Singh",
-            role: "Celebrates her Anniversary",
+            text: "The ambiance, the tandoor, the mocktails — everything is thoughtfully done. We celebrated our anniversary here and the team made it truly special. Five stars, easily.",
+            name: "Amit Verma",
+            role: "Celebrates his Anniversary",
             img: "images/guest-priya.jpg",
         },
     ];

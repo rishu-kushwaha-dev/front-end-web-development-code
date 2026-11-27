@@ -85,15 +85,54 @@
     const menuCards = $$(".menu-card");
     const menuMore = $("#menuMore");
     const viewFullBtn = $("#viewFullMenu");
+    const menuSearch = $("#menuSearch");
+    const vegToggle = $("#vegToggle");
+    const vegBtns = vegToggle ? $$(".veg-btn", vegToggle) : [];
     const SIGNATURE_LIMIT = 12;
     let fullMenu = false;
+    let vegFilter = "all";
+    let searchTerm = "";
+
+    const NONVEG = new Set([
+        "Butter Chicken",
+        "Hyderabadi Biryani",
+        "Chicken Tikka",
+        "Seekh Kabab",
+        "Amritsari Fish",
+        "Chicken 65",
+        "Chicken Curry",
+        "Mutton Rogan Josh",
+        "Mutton Korma",
+        "Chicken Tikka Masala",
+        "Fish Curry",
+        "Lucknowi Biryani",
+    ]);
+
+    menuCards.forEach((card) => {
+        const name = $("h3", card).textContent.trim();
+        card.dataset.veg = NONVEG.has(name) ? "nonveg" : "veg";
+    });
+
+    const matchesSearch = (card) => {
+        if (!searchTerm) return true;
+        return card.textContent.toLowerCase().includes(searchTerm);
+    };
+
+    const matchesVeg = (card) => {
+        if (vegFilter === "all") return true;
+        return card.dataset.veg === vegFilter;
+    };
 
     const applyFilter = (filter) => {
+        const isFiltering = filter !== "all" || vegFilter !== "all" || searchTerm;
         let visibleIndex = 0;
         menuCards.forEach((card) => {
-            const match = filter === "all" || card.dataset.category === filter;
+            const match =
+                (filter === "all" || card.dataset.category === filter) &&
+                matchesVeg(card) &&
+                matchesSearch(card);
             const withinLimit =
-                filter !== "all" || fullMenu || visibleIndex < SIGNATURE_LIMIT;
+                isFiltering || fullMenu || visibleIndex < SIGNATURE_LIMIT;
             const show = match && withinLimit;
             card.classList.toggle("hide", !show);
             if (match) visibleIndex++;
@@ -104,7 +143,8 @@
             }
         });
         if (menuMore) {
-            menuMore.style.display = filter === "all" ? "" : "none";
+            menuMore.style.display =
+                filter === "all" && vegFilter === "all" && !searchTerm ? "" : "none";
         }
         if (viewFullBtn) {
             viewFullBtn.textContent = fullMenu ? "Show Signature Dishes" : "View Full Menu";
@@ -119,6 +159,22 @@
         });
     });
 
+    vegBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            vegBtns.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            vegFilter = btn.dataset.veg;
+            applyFilter($(".filter-btn.active").dataset.filter);
+        });
+    });
+
+    if (menuSearch) {
+        menuSearch.addEventListener("input", () => {
+            searchTerm = menuSearch.value.trim().toLowerCase();
+            applyFilter($(".filter-btn.active").dataset.filter);
+        });
+    }
+
     if (viewFullBtn) {
         viewFullBtn.addEventListener("click", () => {
             fullMenu = !fullMenu;
@@ -127,134 +183,6 @@
     }
 
     applyFilter("all");
-
-    const rupee = (n) => "\u20B9" + n;
-
-    const parsePrice = (card) => {
-        const priceEl = $(".menu-price", card);
-        const digits = priceEl ? priceEl.textContent.replace(/[^\d]/g, "") : "";
-        return parseInt(digits, 10) || 0;
-    };
-
-    const cart = [];
-    const cartFab = $("#cartFab");
-    const cartCount = $("#cartCount");
-    const cartPanel = $("#cartPanel");
-    const cartOverlay = $("#cartOverlay");
-    const cartClose = $("#cartClose");
-    const cartItems = $("#cartItems");
-    const cartEmpty = $("#cartEmpty");
-    const cartTotal = $("#cartTotal");
-    const cartStatus = $("#cartStatus");
-    const placeOrderBtn = $("#placeOrder");
-
-    menuCards.forEach((card) => {
-        const body = $(".menu-card-body", card);
-        if (!body) return;
-        const name = $("h3", body).textContent.trim();
-        const price = parsePrice(card);
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "add-order-btn";
-        btn.textContent = "Add to Order";
-        btn.addEventListener("click", () => addToCart(name, price));
-        body.appendChild(btn);
-    });
-
-    const cartTotalValue = () =>
-        cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-
-    const renderCart = () => {
-        const count = cart.reduce((sum, item) => sum + item.qty, 0);
-        cartCount.textContent = String(count);
-        cartItems.innerHTML = "";
-        cartEmpty.style.display = cart.length ? "none" : "";
-
-        cart.forEach((item, index) => {
-            const li = document.createElement("li");
-            li.className = "cart-item";
-
-            const info = document.createElement("div");
-            info.className = "cart-item-info";
-            const title = document.createElement("span");
-            title.className = "cart-item-name";
-            title.textContent = item.name;
-            const price = document.createElement("span");
-            price.className = "cart-item-price";
-            price.textContent = rupee(item.price * item.qty);
-            info.append(title, price);
-
-            const qty = document.createElement("div");
-            qty.className = "cart-item-qty";
-            const minus = document.createElement("button");
-            minus.type = "button";
-            minus.textContent = "\u2212";
-            minus.setAttribute("aria-label", "Decrease quantity");
-            minus.addEventListener("click", () => changeQty(index, -1));
-            const qtyNum = document.createElement("span");
-            qtyNum.textContent = String(item.qty);
-            const plus = document.createElement("button");
-            plus.type = "button";
-            plus.textContent = "+";
-            plus.setAttribute("aria-label", "Increase quantity");
-            plus.addEventListener("click", () => changeQty(index, 1));
-            qty.append(minus, qtyNum, plus);
-
-            li.append(info, qty);
-            cartItems.appendChild(li);
-        });
-
-        cartTotal.textContent = rupee(cartTotalValue());
-    };
-
-    const addToCart = (name, price) => {
-        const existing = cart.find((item) => item.name === name);
-        if (existing) {
-            existing.qty++;
-        } else {
-            cart.push({ name, price, qty: 1 });
-        }
-        renderCart();
-        openCart();
-    };
-
-    const changeQty = (index, delta) => {
-        const item = cart[index];
-        if (!item) return;
-        item.qty += delta;
-        if (item.qty <= 0) cart.splice(index, 1);
-        renderCart();
-    };
-
-    const openCart = () => {
-        cartPanel.classList.add("open");
-        cartOverlay.classList.add("open");
-        cartPanel.setAttribute("aria-hidden", "false");
-        if (cartStatus) cartStatus.textContent = "";
-    };
-
-    const closeCart = () => {
-        cartPanel.classList.remove("open");
-        cartOverlay.classList.remove("open");
-        cartPanel.setAttribute("aria-hidden", "true");
-    };
-
-    if (cartFab) cartFab.addEventListener("click", openCart);
-    if (cartClose) cartClose.addEventListener("click", closeCart);
-    if (cartOverlay) cartOverlay.addEventListener("click", closeCart);
-
-    if (placeOrderBtn) {
-        placeOrderBtn.addEventListener("click", () => {
-            if (!cart.length) return;
-            const total = cartTotalValue();
-            cartStatus.textContent =
-                "Order placed! Total " + rupee(total) + ". We'll prepare it fresh for you.";
-            cart.length = 0;
-            renderCart();
-        });
-    }
-
-    renderCart();
 
     const testimonials = [
         {
@@ -406,6 +334,9 @@
             submitBtn.textContent = "Processing...";
 
             window.setTimeout(() => {
+                const ref = "SHR-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+                showBookingModal(data, ref);
+                showToast("Table reserved successfully!");
                 statusEl.textContent =
                     "Thank you, " +
                     data.name.split(" ")[0] +
@@ -427,6 +358,133 @@
             }, 1100);
         });
     }
+
+    const toast = $("#toast");
+    let toastTimer = null;
+    const showToast = (msg) => {
+        if (!toast) return;
+        toast.textContent = msg;
+        toast.classList.add("show");
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(() => toast.classList.remove("show"), 3200);
+    };
+
+    const bookingModal = $("#bookingModal");
+    const modalOverlay = $("#modalOverlay");
+    const modalClose = $("#modalClose");
+    const modalDone = $("#modalDone");
+    const modalSummary = $("#modalSummary");
+    const modalDetails = $("#modalDetails");
+    const modalRef = $("#modalRef");
+
+    const prettyDate = (iso) => {
+        const parts = iso.split("-");
+        if (parts.length !== 3) return iso;
+        return parts[2] + " - " + parts[1] + " - " + parts[0];
+    };
+
+    const prettyTime = (t) => {
+        const [h, m] = t.split(":");
+        const hour = parseInt(h, 10);
+        const suffix = hour >= 12 ? "PM" : "AM";
+        const display = ((hour + 11) % 12) + 1;
+        return display + ":" + m + " " + suffix;
+    };
+
+    const showBookingModal = (data, ref) => {
+        if (!bookingModal) return;
+        modalSummary.textContent =
+            "Thank you, " + data.name.split(" ")[0] + "! We look forward to hosting you.";
+        modalDetails.innerHTML = "";
+        const rows = [
+            ["Name", data.name],
+            ["Guests", data.guests],
+            ["Date", prettyDate(data.date)],
+            ["Time", prettyTime(data.time)],
+        ];
+        rows.forEach(([label, value]) => {
+            const li = document.createElement("li");
+            const k = document.createElement("span");
+            k.textContent = label;
+            const v = document.createElement("strong");
+            v.textContent = value;
+            li.append(k, v);
+            modalDetails.appendChild(li);
+        });
+        modalRef.textContent = ref;
+        bookingModal.classList.add("open");
+        bookingModal.setAttribute("aria-hidden", "false");
+    };
+
+    const closeBookingModal = () => {
+        if (!bookingModal) return;
+        bookingModal.classList.remove("open");
+        bookingModal.setAttribute("aria-hidden", "true");
+    };
+
+    if (modalClose) modalClose.addEventListener("click", closeBookingModal);
+    if (modalDone) modalDone.addEventListener("click", closeBookingModal);
+    if (modalOverlay) modalOverlay.addEventListener("click", closeBookingModal);
+
+    const lightbox = $("#lightbox");
+    const lightboxImg = $("#lightboxImg");
+    const lightboxCaption = $("#lightboxCaption");
+    const lightboxClose = $("#lightboxClose");
+    const lightboxPrev = $("#lightboxPrev");
+    const lightboxNext = $("#lightboxNext");
+    const galleryItems = $$(".gallery-item");
+    let galleryIndex = 0;
+
+    const renderLightbox = () => {
+        const item = galleryItems[galleryIndex];
+        if (!item) return;
+        const img = $("img", item);
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightboxCaption.textContent = img.alt;
+    };
+
+    const openLightbox = (index) => {
+        galleryIndex = index;
+        renderLightbox();
+        lightbox.classList.add("open");
+        lightbox.setAttribute("aria-hidden", "false");
+    };
+
+    const closeLightbox = () => {
+        lightbox.classList.remove("open");
+        lightbox.setAttribute("aria-hidden", "true");
+    };
+
+    const stepLightbox = (delta) => {
+        galleryIndex = (galleryIndex + delta + galleryItems.length) % galleryItems.length;
+        renderLightbox();
+    };
+
+    galleryItems.forEach((item, i) => {
+        item.style.cursor = "pointer";
+        item.addEventListener("click", () => openLightbox(i));
+    });
+
+    if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
+    if (lightboxPrev) lightboxPrev.addEventListener("click", () => stepLightbox(-1));
+    if (lightboxNext) lightboxNext.addEventListener("click", () => stepLightbox(1));
+    if (lightbox) {
+        lightbox.addEventListener("click", (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+    }
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            closeLightbox();
+            closeBookingModal();
+        }
+        if (lightbox && lightbox.classList.contains("open")) {
+            if (e.key === "ArrowLeft") stepLightbox(-1);
+            if (e.key === "ArrowRight") stepLightbox(1);
+        }
+    });
 
     const yearEl = $("#year");
     if (yearEl) yearEl.textContent = new Date().getFullYear();

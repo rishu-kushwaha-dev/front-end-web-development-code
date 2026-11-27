@@ -146,7 +146,8 @@
                         <div class="veg-toggle" id="vegToggle" role="group" aria-label="Diet filter">
                             <button class="veg-btn active" data-veg="all">All</button>
                             <button class="veg-btn" data-veg="veg"><span class="veg-dot veg"></span>Veg</button>
-                            <button class="veg-btn" data-veg="nonveg"><span class="veg-dot nonveg"></span>Non-Veg</button>
+                            <button class="veg-btn" data-veg="nonveg"><span
+                                    class="veg-dot nonveg"></span>Non-Veg</button>
                         </div>
                     </div>
 
@@ -1214,6 +1215,31 @@
             </section>
 
         </main>
+
+        <div class="lightbox" id="lightbox" aria-hidden="true">
+            <button class="lightbox-close" id="lightboxClose" aria-label="Close viewer">&times;</button>
+            <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous image">&#10094;</button>
+            <figure class="lightbox-figure">
+                <img id="lightboxImg" src="" alt="">
+                <figcaption id="lightboxCaption"></figcaption>
+            </figure>
+            <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next image">&#10095;</button>
+        </div>
+
+        <div class="modal" id="bookingModal" aria-hidden="true">
+            <div class="modal-overlay" id="modalOverlay"></div>
+            <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+                <button class="modal-close" id="modalClose" aria-label="Close confirmation">&times;</button>
+                <div class="modal-check" aria-hidden="true">&#10004;</div>
+                <h3 class="modal-title" id="modalTitle">Booking Confirmed</h3>
+                <p class="modal-sub" id="modalSummary"></p>
+                <ul class="modal-details" id="modalDetails"></ul>
+                <p class="modal-ref">Reference: <span id="modalRef"></span></p>
+                <button class="btn btn-primary btn-block" id="modalDone">Done</button>
+            </div>
+        </div>
+
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
         <button class="cart-fab" id="cartFab" aria-label="View your order">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"

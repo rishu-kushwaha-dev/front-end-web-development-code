@@ -959,30 +959,6 @@ ul {
     color: var(--clr-primary);
 }
 
-.social-row {
-    display: flex;
-    gap: 12px;
-}
-
-.social-btn {
-    display: grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background: var(--clr-surface-2);
-    border: 1px solid var(--clr-line);
-    color: var(--clr-muted);
-    font-size: 1.1rem;
-    transition: all 0.3s var(--ease);
-}
-
-.social-btn:hover {
-    background: var(--clr-primary);
-    color: #1a1206;
-    transform: translateY(-3px);
-}
-
 .footer-bottom {
     display: flex;
     justify-content: space-between;

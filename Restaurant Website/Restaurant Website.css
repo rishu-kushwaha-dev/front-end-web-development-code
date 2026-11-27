@@ -1301,12 +1301,13 @@ ul {
 
 .footer-bottom {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     gap: 16px;
     flex-wrap: wrap;
     padding-top: 26px;
     color: var(--clr-muted);
     font-size: 0.84rem;
+    text-align: center;
 }
 
 .reveal {

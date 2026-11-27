@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="Currency Converter.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Currency Converter</h1>
+        <p class="subtitle">Default Currency: Indian Rupee (INR)</p>
+        
+        <div class="converter">
+            <div class="input-group">
+                <label for="amount">Amount</label>
+                <input type="number" id="amount" value="1" min="0" step="any">
+            </div>
+
+            <div class="currency-row">
+                <div class="currency-group">
+                    <label for="fromCurrency">From</label>
+                    <select id="fromCurrency"></select>
+                </div>
+
+                <button class="swap-btn" onclick="swapCurrencies()" title="Swap currencies">⇄</button>
+
+                <div class="currency-group">
+                    <label for="toCurrency">To</label>
+                    <select id="toCurrency"></select>
+                </div>
+            </div>
+
+            <button class="convert-btn" onclick="convertCurrency()">Convert</button>
+
+            <div class="result" id="result" style="display: none;">
+                <div class="result-box">
+                    <p class="from-text" id="fromText">1 INR =</p>
+                    <p class="to-text" id="toText">0.012 USD</p>
+                </div>
+                <p class="rate-text" id="rateText">Exchange Rate: 1 INR = 0.012 USD</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="Currency Converter.js"></script>
+</body>
+</html>

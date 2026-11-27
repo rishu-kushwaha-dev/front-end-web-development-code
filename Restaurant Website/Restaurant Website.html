@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description"
+            content="Shree Hotel & Restaurant — authentic Indian cuisine serving traditional flavors from across India.">
+        <title>Shree Hotel & Restaurant</title>
+        <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <link rel="apple-touch-icon" href="images/favicon.png">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="Restaurant Website.css">
+    </head>
+
+    <body>
+
+        <header class="navbar" id="navbar">
+            <div class="container nav-inner">
+                <a href="#home" class="logo">
+                    <span class="logo-mark">SHR</span>
+                    <span class="logo-text">Shree Hotel <em>&amp;</em> Restaurant</span>
+                </a>
+
+                <nav class="nav-links" id="navLinks">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#menu" class="nav-link">Menu</a>
+                    <a href="#gallery" class="nav-link">Gallery</a>
+                    <a href="#testimonials" class="nav-link">Reviews</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                    <a href="#reservation" class="btn btn-primary nav-cta">Book a Table</a>
+                </nav>
+
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </header>
+
+        <main>
+
+            <section class="hero" id="home">
+                <div class="hero-overlay"></div>
+                <div class="container hero-content">
+                    <p class="hero-eyebrow reveal">Authentic &middot; Traditional &middot; Chef-crafted</p>
+                    <h1 class="hero-title reveal">Where Spice Meets <span>Heritage</span></h1>
+                    <p class="hero-sub reveal">An elevated Indian dining experience blending bold flavors, artful
+                        plating, and
+                        warm hospitality in the heart of the city.</p>
+                    <div class="hero-actions reveal">
+                        <a href="#reservation" class="btn btn-primary">Reserve a Table</a>
+                        <a href="#menu" class="btn btn-ghost">Explore Menu</a>
+                    </div>
+                    <div class="hero-stats reveal">
+                        <div class="stat">
+                            <span class="stat-num">4.9</span>
+                            <span class="stat-label">Guest Rating</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-num">12+</span>
+                            <span class="stat-label">Years of Craft</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-num">30+</span>
+                            <span class="stat-label">Signature Dishes</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="#about" class="scroll-cue" aria-label="Scroll down">
+                    <span></span>
+                </a>
+            </section>
+
+            <section class="section about" id="about">
+                <div class="container about-grid">
+                    <div class="about-media reveal">
+                        <div class="about-img-wrap">
+                            <img src="images/about.jpg" alt="Chef plating an Indian dish in the kitchen" loading="lazy">
+                            <div class="about-badge">
+                                <span class="about-badge-num">12</span>
+                                <span class="about-badge-label">Years<br>Excellence</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-content">
+                        <p class="section-eyebrow reveal">Our Story</p>
+                        <h2 class="section-title reveal">Crafted with Passion, Served with Soul</h2>
+                        <p class="reveal">At Shree Hotel &amp; Restaurant, every plate tells a story. We source the
+                            finest
+                            Indian spices and ingredients and transform them into dishes that celebrate both
+                            tradition and innovation.</p>
+                        <p class="reveal">Our open kitchen invites you to witness the artistry behind each creation,
+                            while our warm, modern space sets the stage for unforgettable evenings.</p>
+                        <ul class="about-features">
+                            <li class="reveal">
+                                <span class="feature-icon">&#127859;</span>
+                                <div>
+                                    <h4>Authentic Indian Spices</h4>
+                                    <p>Hand-picked spices sourced from across India.</p>
+                                </div>
+                            </li>
+                            <li class="reveal">
+                                <span class="feature-icon">&#127835;</span>
+                                <div>
+                                    <h4>Tandoor Cooking</h4>
+                                    <p>Clay oven techniques for deep, smoky flavor.</p>
+                                </div>
+                            </li>
+                            <li class="reveal">
+                                <span class="feature-icon">&#127863;</span>
+                                <div>
+                                    <h4>Handcrafted Everything</h4>
+                                    <p>From fresh naan to house-made desserts, made in-house.</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="#menu" class="btn btn-primary reveal">Discover Our Menu</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section menu-section" id="menu">
+                <div class="container">
+                    <div class="section-head reveal">
+                        <p class="section-eyebrow">Our Menu</p>
+                        <h2 class="section-title">Signature Creations</h2>
+                        <p class="section-desc">A curated selection of dishes that define our culinary philosophy.</p>
+                    </div>
+
+                    <div class="menu-filters reveal">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="starters">Starters</button>
+                        <button class="filter-btn" data-filter="mains">Mains</button>
+                        <button class="filter-btn" data-filter="breads">Breads</button>
+                        <button class="filter-btn" data-filter="desserts">Desserts</button>
+                        <button class="filter-btn" data-filter="drinks">Drinks</button>
+                    </div>
+
+                    <div class="menu-grid" id="menuGrid">
+                        <article class="menu-card reveal" data-category="starters">
+                            <div class="menu-card-img">
+                                <img src="images/Paneer Tikka.jfif" alt="Paneer Tikka" loading="lazy">
+                                <span class="menu-tag">Popular</span>
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Paneer Tikka</h3>
+                                    <span class="menu-price">&#8377;320</span>
+                                </div>
+                                <p>Grilled cottage cheese marinated in spiced yogurt, served with mint chutney.</p>
+                            </div>
+                        </article>
+
+                        <article class="menu-card reveal" data-category="starters">
+                            <div class="menu-card-img">
+                                <img src="images/Vegetable Samosa.jfif" alt="Vegetable Samosa" loading="lazy">
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Vegetable Samosa</h3>
+                                    <span class="menu-price">&#8377;180</span>
+                                </div>
+                                <p>Crispy golden pastry filled with spiced potatoes and peas, served with tamarind
+                                    chutney.</p>
+                            </div>
+                        </article>
+
+                        <article class="menu-card reveal" data-category="mains">
+                            <div class="menu-card-img">
+                                <img src="images/Butter Chicken.jfif" alt="Butter Chicken" loading="lazy">
+                                <span class="menu-tag">Chef's Pick</span>
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Butter Chicken</h3>
+                                    <span class="menu-price">&#8377;450</span>
+                                </div>
+                                <p>Tender chicken in a rich, creamy tomato and butter gravy.</p>
+                            </div>
+                        </article>
+
+                        <article class="menu-card reveal" data-category="mains">
+                            <div class="menu-card-img">
+                                <img src="images/Hyderabadi Biryani.jfif" alt="Hyderabadi Biryani" loading="lazy">
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Hyderabadi Biryani</h3>
+                                    <span class="menu-price">&#8377;420</span>
+                                </div>
+                                <p>Aromatic basmati rice layered with marinated meat and saffron.</p>
+                            </div>
+                        </article>
+
+                        <article class="menu-card reveal" data-category="mains">
+                            <div class="menu-card-img">
+                                <img src="images/Palak Paneer.jfif" alt="Palak Paneer" loading="lazy">
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Palak Paneer</h3>
+                                    <span class="menu-price">&#8377;340</span>
+                                </div>
+                                <p>Cottage cheese in a smooth spinach gravy. <em>Veg</em></p>
+                            </div>
+                        </article>
+
+                        <article class="menu-card reveal" data-category="breads">
+                            <div class="menu-card-img">
+                                <img src="images/Garlic Naan.jfif" alt="Garlic Naan" loading="lazy">
+                                <span class="menu-tag">Fresh</span>
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Garlic Naan</h3>
+                                    <span class="menu-price">&#8377;90</span>
+                                </div>
+                                <p>Tandoor-baked flatbread topped with garlic and butter.</p>
+                            </div>
+                        </article>
+
+                        <article class="menu-card reveal" data-category="breads">
+                            <div class="menu-card-img">
+                                <img src="images/Butter Naan.jfif" alt="Butter Naan" loading="lazy">
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Butter Naan</h3>
+                                    <span class="menu-price">&#8377;80</span>
+                                </div>
+                                <p>Soft tandoor-baked bread brushed with butter.</p>
+                            </div>
+                        </article>
+
+                        <article class="menu-card reveal" data-category="desserts">
+                            <div class="menu-card-img">
+                                <img src="images/Gulab Jamun.jfif" alt="Gulab Jamun" loading="lazy">
+                                <span class="menu-tag">Sweet</span>
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Gulab Jamun</h3>
+                                    <span class="menu-price">&#8377;160</span>
+                                </div>
+                                <p>Soft milk-solids dumplings soaked in rose-scented sugar syrup.</p>
+                            </div>
+                        </article>
+
+                        <article class="menu-card reveal" data-category="desserts">
+                            <div class="menu-card-img">
+                                <img src="images/Kheer.jfif" alt="Rice Kheer" loading="lazy">
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Kheer</h3>
+                                    <span class="menu-price">&#8377;140</span>
+                                </div>
+                                <p>Creamy rice pudding with cardamom and nuts.</p>
+                            </div>
+                        </article>
+
+                        <article class="menu-card reveal" data-category="drinks">
+                            <div class="menu-card-img">
+                                <img src="images/Masala Chai.jfif" alt="Masala Chai" loading="lazy">
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Masala Chai</h3>
+                                    <span class="menu-price">&#8377;60</span>
+                                </div>
+                                <p>Spiced Indian tea brewed with ginger, cardamom, and milk.</p>
+                            </div>
+                        </article>
+
+                        <article class="menu-card reveal" data-category="drinks">
+                            <div class="menu-card-img">
+                                <img src="images/Mango Lassi.jfif" alt="Mango Lassi" loading="lazy">
+                            </div>
+                            <div class="menu-card-body">
+                                <div class="menu-card-top">
+                                    <h3>Mango Lassi</h3>
+                                    <span class="menu-price">&#8377;120</span>
+                                </div>
+                                <p>Chilled yogurt drink blended with ripe mango.</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section gallery-section" id="gallery">
+                <div class="container">
+                    <div class="section-head reveal">
+                        <p class="section-eyebrow">Gallery</p>
+                        <h2 class="section-title">A Taste of the Experience</h2>
+                    </div>
+                    <div class="gallery-grid">
+                        <div class="gallery-item reveal">
+                            <img src="images/gallery-1.jpg" alt="Restaurant interior" loading="lazy">
+                        </div>
+                        <div class="gallery-item reveal">
+                            <img src="images/gallery-2.jpg" alt="Plated Indian main course" loading="lazy">
+                        </div>
+                        <div class="gallery-item reveal">
+                            <img src="images/gallery-3.jpg" alt="Chef at tandoor" loading="lazy">
+                        </div>
+                        <div class="gallery-item reveal">
+                            <img src="images/gallery-4.jpg" alt="Indian dining table setup" loading="lazy">
+                        </div>
+                        <div class="gallery-item reveal">
+                            <img src="images/gallery-5.jpg" alt="Indian thali spread" loading="lazy">
+                        </div>
+                        <div class="gallery-item reveal">
+                            <img src="images/gallery-6.jpg" alt="Tandoor oven" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section testimonials" id="testimonials">
+                <div class="container">
+                    <div class="section-head reveal">
+                        <p class="section-eyebrow">Guest Love</p>
+                        <h2 class="section-title">What Our Guests Say</h2>
+                    </div>
+                    <div class="testimonial-wrap reveal">
+                        <div class="testimonial-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        <blockquote class="testimonial-text" id="testimonialText">
+                            "An unforgettable evening. The butter chicken was the best I've ever had, and the
+                            service felt genuinely warm. Shree Hotel &amp; Restaurant is now our go-to for special
+                            nights."
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <img src="images/guest-amelia.jpg" alt="Guest portrait" loading="lazy">
+                            <div>
+                                <span class="author-name" id="authorName">Rahul S.</span>
+                                <span class="author-role" id="authorRole">Food Enthusiast</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-dots" id="testimonialDots"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section reservation" id="reservation">
+                <div class="container reservation-grid">
+                    <div class="reservation-info reveal">
+                        <p class="section-eyebrow">Join Us</p>
+                        <h2 class="section-title">Reserve Your Table</h2>
+                        <p>Book ahead and let us prepare an unforgettable dining experience for you and your guests.</p>
+                        <ul class="reservation-points">
+                            <li>Open Sunday-Saturday</li>
+                            <li>Walk-ins welcome, reservations recommended</li>
+                            <li>Private dining &amp; events available on request</li>
+                        </ul>
+                    </div>
+                    <form class="reservation-form reveal" id="reservationForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="resName">Full Name</label>
+                                <input type="text" id="resName" name="name" placeholder="Enter Your name" required>
+                                <small class="field-error"></small>
+                            </div>
+                            <div class="form-field">
+                                <label for="resEmail">Email</label>
+                                <input type="email" id="resEmail" name="email" placeholder="Enter your Email" required>
+                                <small class="field-error"></small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="resDate">Date</label>
+                                <input type="date" id="resDate" name="date" required>
+                                <small class="field-error"></small>
+                            </div>
+                            <div class="form-field">
+                                <label for="resTime">Time</label>
+                                <input type="time" id="resTime" name="time" value="19:00" required>
+                                <small class="field-error"></small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="resGuests">Guests</label>
+                                <select id="resGuests" name="guests" required>
+                                    <option value="">Select</option>
+                                    <option value="1">1 Guest</option>
+                                    <option value="2" selected>2 Guests</option>
+                                    <option value="3">3 Guests</option>
+                                    <option value="4">4 Guests</option>
+                                    <option value="5">5 Guests</option>
+                                    <option value="6">6+ Guests</option>
+                                </select>
+                                <small class="field-error"></small>
+                            </div>
+                            <div class="form-field">
+                                <label for="resPhone">Phone</label>
+                                <input type="tel" id="resPhone" name="phone" placeholder="Enter your Phone number"
+                                    required pattern="[0-9]{10}" maxlength="10" inputmode="numeric">
+                                <small class="field-error"></small>
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label for="resNotes">Special Requests</label>
+                            <textarea id="resNotes" name="notes" rows="3"
+                                placeholder="Allergies, occasion, seating preference..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Confirm Reservation</button>
+                        <p class="form-status" id="formStatus" role="status"></p>
+                    </form>
+                </div>
+            </section>
+
+            <section class="section contact" id="contact">
+                <div class="container contact-grid">
+                    <div class="contact-item reveal">
+                        <span class="contact-icon">&#128205;</span>
+                        <h4>Visit Us</h4>
+                        <p>128 MG Road<br>Connaught Place<br>New Delhi, 110001</p>
+                    </div>
+                    <div class="contact-item reveal">
+                        <span class="contact-icon">&#128222;</span>
+                        <h4>Call Us</h4>
+                        <p><a href="tel:+911123456789">+91 11 2345 6789</a><br><a
+                                href="mailto:hello@shreehotel.com">hello@shreehotel.com</a></p>
+                    </div>
+                    <div class="contact-item reveal">
+                        <span class="contact-icon">&#128337;</span>
+                        <h4>Opening Hours</h4>
+                        <p>Tue &ndash; Thu: 12 PM &ndash; 11 PM<br>Fri &ndash; Sat: 12 PM &ndash; 12 AM<br>Sun: 12 PM
+                            &ndash; 10 PM<br>Mon: Closed</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="footer">
+            <div class="container footer-inner">
+                <div class="footer-brand">
+                    <a href="#home" class="logo">
+                        <span class="logo-mark">SHR</span>
+                        <span class="logo-text">Shree Hotel <em>&amp;</em> Restaurant</span>
+                    </a>
+                    <p>Authentic Indian cuisine, tandoor cooking, and warm hospitality in the heart of the city.</p>
+                </div>
+                <div class="footer-links">
+                    <h5>Explore</h5>
+                    <a href="#about">About</a>
+                    <a href="#menu">Menu</a>
+                    <a href="#gallery">Gallery</a>
+                    <a href="#reservation">Reservations</a>
+                </div>
+                <div class="footer-social">
+                    <h5>Follow</h5>
+                    <div class="social-row">
+                        <a href="#" aria-label="Instagram" class="social-btn">&#128247;</a>
+                        <a href="#" aria-label="Facebook" class="social-btn">&#61590;</a>
+                        <a href="#" aria-label="Twitter" class="social-btn">&#61593;</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container footer-bottom">
+                <p>&copy; <span id="year"></span> Shree Hotel &amp; Restaurant. All rights reserved.</p>
+                <p>Crafted with passion &amp; fresh Indian spices.</p>
+            </div>
+        </footer>
+
+        <script src="Restaurant Website.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,167 @@
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+min-height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 20px;
+}
+
+.container {
+background: white;
+padding: 40px;
+border-radius: 16px;
+box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+max-width: 450px;
+width: 100%;
+text-align: center;
+}
+
+h1 {
+color: #333;
+margin-bottom: 24px;
+font-size: 28px;
+}
+
+.mode-tabs {
+display: flex;
+justify-content: center;
+gap: 8px;
+margin-bottom: 24px;
+}
+
+.tab {
+padding: 8px 16px;
+border: 2px solid #ddd;
+background: #fafafa;
+border-radius: 8px;
+cursor: pointer;
+font-size: 14px;
+font-weight: 600;
+color: #666;
+transition: all 0.3s;
+}
+
+.tab.active {
+background: #667eea;
+color: white;
+border-color: #667eea;
+}
+
+.tab:hover {
+border-color: #667eea;
+}
+
+.input-box {
+margin-bottom: 20px;
+}
+
+.input-box label {
+display: block;
+margin-bottom: 8px;
+color: #555;
+font-size: 16px;
+font-weight: 600;
+text-align: left;
+}
+
+#qr-text {
+width: 100%;
+padding: 14px;
+font-size: 16px;
+border: 2px solid #ddd;
+border-radius: 8px;
+outline: none;
+transition: border-color 0.3s;
+}
+
+#qr-text:focus {
+border-color: #667eea;
+}
+
+.file-box input[type="file"] {
+width: 100%;
+padding: 12px;
+border: 2px solid #ddd;
+border-radius: 8px;
+background: #fafafa;
+outline: none;
+cursor: pointer;
+}
+
+.file-hint {
+font-size: 12px;
+color: #888;
+margin-top: 6px;
+}
+
+.preview-box {
+margin-top: 12px;
+display: flex;
+justify-content: center;
+align-items: center;
+border: 2px dashed #eee;
+border-radius: 10px;
+background: #fafafa;
+overflow: hidden;
+}
+
+.preview-box img,
+.preview-box video {
+max-width: 100%;
+max-height: 180px;
+border-radius: 8px;
+display: block;
+}
+
+.qr-box {
+margin: 30px 0;
+min-height: 250px;
+display: flex;
+justify-content: center;
+align-items: center;
+border: 2px dashed #eee;
+border-radius: 12px;
+background: #fafafa;
+transition: border-color 0.3s;
+}
+
+.qr-box img {
+max-width: 100%;
+max-height: 250px;
+border-radius: 8px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+#download-btn {
+margin-top: 20px;
+padding: 12px 24px;
+background: #667eea;
+color: white;
+border: none;
+border-radius: 8px;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+transition: background 0.3s;
+}
+
+#download-btn:hover {
+background: #5568d3;
+}
+
+@media (max-width: 480px) {
+.container {
+padding: 24px;
+}
+h1 {
+font-size: 22px;
+}
+}

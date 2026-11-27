@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>QR Code Generator</title>
+        <link rel="stylesheet" href="QR Code Generator.css">
+    </head>
+
+    <body>
+
+        <div class="container">
+            <h1>QR Code Generator</h1>
+
+            <div class="mode-tabs">
+                <button class="tab active" data-tab="text">Text / URL</button>
+                <button class="tab" data-tab="image">Image</button>
+                <button class="tab" data-tab="video">Video</button>
+            </div>
+
+            <div class="input-box" id="text-box">
+                <label for="qr-text">Enter text or URL:</label>
+                <input type="text" id="qr-text" placeholder="Type here...">
+            </div>
+
+            <div class="input-box file-box" id="image-box" style="display:none;">
+                <label>Select Image:</label>
+                <input type="file" id="image-file" accept="image/*">
+                <div id="image-preview" class="preview-box" style="display:none;"></div>
+                <div class="file-hint">QR codes store text, not files. Image is compressed to fit. Very small images
+                    work best.</div>
+            </div>
+
+            <div class="input-box file-box" id="video-box" style="display:none;">
+                <label>Select Video:</label>
+                <input type="file" id="video-file" accept="video/*">
+                <div id="video-preview" class="preview-box" style="display:none;"></div>
+                <div class="file-hint">Video cannot fit in a QR code. Upload it online and paste the link in Text/URL
+                    tab.</div>
+            </div>
+
+            <div class="qr-box" id="qr-box">
+                <div id="qrcode"></div>
+            </div>
+            <div class="download-btn" id="download-btn" style="display:none;">Download QR Code</div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+        <script src="QR Code Generator.js"></script>
+    </body>
+
+</html>

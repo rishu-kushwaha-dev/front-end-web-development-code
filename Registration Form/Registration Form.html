@@ -1,0 +1,420 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registration Form</title>
+        <link rel="stylesheet" href="Registration Form.css">
+    </head>
+
+    <body>
+        <h1>Student Registration Form</h1>
+        <div class="progress-wrap">
+            <div class="progress-bar">
+                <div class="fill" id="progressFill"></div>
+            </div>
+            <span class="progress-text" id="progressText">0% complete</span>
+        </div>
+        <form id="regForm" novalidate>
+            <fieldset class="form-section">
+                <legend>Photo Section</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="photoInput">Student Photo <span class="req">*</span></label>
+                        <label for="photoInput" class="upload-btn">Upload Student's Photo</label>
+                        <input type="file" name="photo" id="photoInput" hidden
+                            accept="image/*,.jpg,.jpeg,.png,.gif,.webp,.bmp,.svg,.avif,.heic,.heif,.tif,.tiff,.ico,.jfif,.jxl">
+                        <img id="photoPreview" class="photo-preview" alt="Student photo preview">
+                    </div>
+                    <div class="form-group">
+                        <label for="fatherPhotoInput">Father Photo <span class="req">*</span></label>
+                        <label for="fatherPhotoInput" class="upload-btn">Upload Father's Photo</label>
+                        <input type="file" name="father_photo" id="fatherPhotoInput" hidden
+                            accept="image/*,.jpg,.jpeg,.png,.gif,.webp,.bmp,.svg,.avif,.heic,.heif,.tif,.tiff,.ico,.jfif,.jxl">
+                        <img id="fatherPhotoPreview" class="photo-preview" alt="Father photo preview">
+                    </div>
+                    <div class="form-group">
+                        <label for="motherPhotoInput">Mother Photo <span class="req">*</span></label>
+                        <label for="motherPhotoInput" class="upload-btn">Upload Mother's Photo</label>
+                        <input type="file" name="mother_photo" id="motherPhotoInput" hidden
+                            accept="image/*,.jpg,.jpeg,.png,.gif,.webp,.bmp,.svg,.avif,.heic,.heif,.tif,.tiff,.ico,.jfif,.jxl">
+                        <img id="motherPhotoPreview" class="photo-preview" alt="Mother photo preview">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend>Student Details</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name <span class="req">*</span></label>
+                        <input type="text" id="name" name="name" autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date of Birth <span class="req">*</span></label>
+                        <input type="date" id="dob" name="dob">
+                        <p class="age-display" id="ageDisplay"></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender <span class="req">*</span></label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="gender" value="male" required> Male</label>
+                            <label><input type="radio" name="gender" value="female" required> Female</label>
+                            <label><input type="radio" name="gender" value="other" required> Other</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="religion">Religion <span class="req">*</span></label>
+                        <select id="religion" name="religion">
+                            <option value="">Select</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Muslim">Muslim</option>
+                            <option value="Christian">Christian</option>
+                            <option value="Sikh">Sikh</option>
+                            <option value="Buddhist">Buddhist</option>
+                            <option value="Jain">Jain</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="caste">Caste <span class="req">*</span></label>
+                        <select id="caste" name="caste">
+                            <option value="">Select</option>
+                            <option value="General">General</option>
+                            <option value="OBC">OBC</option>
+                            <option value="SC">SC</option>
+                            <option value="ST">ST</option>
+                            <option value="EWS">EWS</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="blood_group">Blood Group <span class="req">*</span></label>
+                        <select id="blood_group" name="blood_group">
+                            <option value="">Select</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="max-width:320px">
+                        <label for="aadhaar">Aadhaar Number <span class="req">*</span></label>
+                        <input type="text" id="aadhaar" name="aadhaar" inputmode="numeric" maxlength="12"
+                            placeholder="Enter your Aadhaar number">
+                    </div>
+                    <div class="form-group">
+                        <label for="nationality">Nationality <span class="req">*</span></label>
+                        <input type="text" id="nationality" name="nationality" value="Indian">
+                    </div>
+                    <div class="form-group">
+                        <label for="allergies">Allergies / Special Needs</label>
+                        <input type="text" id="allergies" name="allergies"
+                            placeholder="Food/medication allergies">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend>Parents Details</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="father_name">Father Name <span class="req">*</span></label>
+                        <input type="text" id="father_name" name="father_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="father_occupation">Father's Occupation <span class="req">*</span></label>
+                        <input type="text" id="father_occupation" name="father_occupation">
+                    </div>
+                    <div class="form-group">
+                        <label for="father_mobile">Father's Mobile Number <span class="req">*</span></label>
+                        <input type="tel" id="father_mobile" name="father_mobile" inputmode="numeric" maxlength="10"
+                            placeholder="Enter your father's mobile number">
+                    </div>
+                    <div class="form-group">
+                        <label for="father_email">Father's Email</label>
+                        <input type="email" id="father_email" name="father_email" placeholder="xyz@example.com">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mother_name">Mother Name <span class="req">*</span></label>
+                        <input type="text" id="mother_name" name="mother_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="mother_occupation">Mother's Occupation <span class="req">*</span></label>
+                        <input type="text" id="mother_occupation" name="mother_occupation">
+                    </div>
+                    <div class="form-group">
+                        <label for="mother_mobile">Mother's Mobile Number <span class="req">*</span></label>
+                        <input type="tel" id="mother_mobile" name="mother_mobile" inputmode="numeric" maxlength="10"
+                            placeholder="Enter your mother's mobile number">
+                    </div>
+                    <div class="form-group">
+                        <label for="mother_email">Mother's Email</label>
+                        <input type="email" id="mother_email" name="mother_email" placeholder="xyz@example.com">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="guardian_name">Legal Guardian Name (if applicable)</label>
+                        <input type="text" id="guardian_name" name="guardian_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="annual_income">Parents' Annual Income <span class="req">*</span></label>
+                        <input type="number" id="annual_income" name="annual_income" inputmode="numeric" min="0"
+                            placeholder="Annual Income">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="parents_signature">Parents Signature <span class="req">*</span></label>
+                        <label for="parents_signature" class="upload-btn">Upload Scanned Signature</label>
+                        <input type="file" name="parents_signature" id="parents_signature" hidden
+                            accept="image/*,.pdf,.jpg,.jpeg,.png,.gif,.webp,.bmp,.svg,.avif,.heic,.heif,.tif,.tiff">
+                        <img id="parentsSignaturePreview" class="photo-preview" alt="Signature preview">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend>Contact Details</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span class="req">*</span></label>
+                        <input type="tel" id="phone" name="phone" inputmode="numeric" maxlength="10"
+                            placeholder="Mobile Number">
+                    </div>
+                    <div class="form-group">
+                        <label for="alternate_phone">Alternate Phone Number</label>
+                        <input type="tel" id="alternate_phone" name="alternate_phone" inputmode="numeric" maxlength="10"
+                            placeholder="Alternate Mobile Number">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email <span class="req">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="xyz@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="emergency_contact">Emergency Contact Number <span class="req">*</span></label>
+                        <input type="tel" id="emergency_contact" name="emergency_contact" inputmode="numeric"
+                            maxlength="10" placeholder="Emergency Contact Number">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend>Admission Details</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="class">Class Want to take admission <span class="req">*</span></label>
+                        <select id="class" name="class">
+                            <option value="">Select</option>
+                            <option value="1">1st Class</option>
+                            <option value="2">2nd Class</option>
+                            <option value="3">3rd Class</option>
+                            <option value="4">4th Class</option>
+                            <option value="5">5th Class</option>
+                            <option value="6">6th Class</option>
+                            <option value="7">7th Class</option>
+                            <option value="8">8th Class</option>
+                            <option value="9">9th Class</option>
+                            <option value="10">10th Class</option>
+                            <option value="11">11th Class</option>
+                            <option value="12">12th Class</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="streamGroup" hidden>
+                        <label for="stream">Stream <span class="req">*</span></label>
+                        <select id="stream" name="stream">
+                            <option value="">Select</option>
+                            <option value="pcm">Science (PCM)</option>
+                            <option value="pcb">Science (PCB)</option>
+                            <option value="commerce">Commerce</option>
+                            <option value="arts">Arts/Humanities</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="admission_date">Admission Date</label>
+                        <input type="date" id="admission_date" name="admission_date">
+                    </div>
+                    <div class="form-group">
+                        <label for="disease">Any Disease</label>
+                        <input type="text" id="disease" name="disease" placeholder="Write 'None' if not applicable">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" id="siblingsCountGroup">
+                        <label for="siblings">Number of Siblings <span class="req">*</span></label>
+                        <input type="number" id="siblings" name="siblings" inputmode="numeric" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Siblings in the same school <span class="req">*</span></label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="siblings_school" value="yes" required> Yes</label>
+                            <label><input type="radio" name="siblings_school" value="no" required> No</label>
+                        </div>
+                    </div>
+                    <div class="form-group" id="siblingsClassGroup">
+                        <label for="siblings_class">Siblings Class <span class="req">*</span></label>
+                        <input type="text" id="siblings_class" name="siblings_class" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="prev_class">Previous Class</label>
+                        <input type="text" id="prev_class" name="prev_class" placeholder="e.g. 8th">
+                    </div>
+                    <div class="form-group">
+                        <label for="prev_marks">Percentage / Marks Obtained</label>
+                        <input type="text" id="prev_marks" name="prev_marks" placeholder="e.g. 85%">
+                    </div>
+                    <div class="form-group">
+                        <label for="prev_medium">Medium of Instruction (Prev School)</label>
+                        <input type="text" id="prev_medium" name="prev_medium" placeholder="English / Hindi">
+                    </div>
+                    <div class="form-group">
+                        <label for="prev_board">Board of Previous School</label>
+                        <select id="prev_board" name="prev_board">
+                            <option value="">Select</option>
+                            <option value="CBSE">CBSE</option>
+                            <option value="ICSE">ICSE</option>
+                            <option value="State Board">State Board</option>
+                            <option value="IB">IB</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" id="lastSchoolGroup">
+                        <label for="last_school">Last School Name <span class="req">*</span></label>
+                        <input type="text" id="last_school" name="last_school" required>
+                        <p class="condition-note" id="classNote" hidden>Not required for 1st Class admission.</p>
+                    </div>
+                    <div class="form-group" id="reasonGroup">
+                        <label for="reason">Reason for Leaving Last School <span class="req">*</span></label>
+                        <textarea id="reason" name="reason" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Transport Facility <span class="req">*</span></label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="transport" value="yes" required> Yes</label>
+                        <label><input type="radio" name="transport" value="no" required> No</label>
+                    </div>
+                </div>
+                <div class="form-group" id="routeGroup" hidden>
+                    <label for="transport_route">Transport Route <span class="req">*</span></label>
+                    <input type="text" id="transport_route" name="transport_route"
+                        placeholder="e.g. Route 4 - Gandhi Nagar">
+                </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend>Address Details</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="address">Permanent Address <span class="req">*</span></label>
+                        <textarea id="address" name="address" rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="temp_address">Temporary Address <span class="req">*</span></label>
+                        <textarea id="temp_address" name="temp_address" rows="4"></textarea>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" id="sameAsPermanent" name="same_as_permanent"> Same as
+                                Permanent Address</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City / District <span class="req">*</span></label>
+                        <input type="text" id="city" name="city">
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State <span class="req">*</span></label>
+                        <input type="text" id="state" name="state">
+                    </div>
+                    <div class="form-group">
+                        <label for="pincode">PIN Code <span class="req">*</span></label>
+                        <input type="text" id="pincode" name="pincode" inputmode="numeric" maxlength="6"
+                            placeholder="6 digit PIN code">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend>Documents Upload</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="aadhaarInput">Aadhaar Card Copy <span class="req">*</span></label>
+                        <label for="aadhaarInput" class="upload-btn">Upload Aadhaar Copy</label>
+                        <input type="file" name="aadhaar_copy" id="aadhaarInput" hidden
+                            accept="image/*,.pdf,.jpg,.jpeg,.png,.gif,.webp,.bmp,.svg,.avif,.heic,.heif,.tif,.tiff">
+                        <img id="aadhaarPreview" class="photo-preview" alt="Aadhaar preview">
+                    </div>
+                    <div class="form-group">
+                        <label for="birthCertInput">Birth Certificate <span class="req">*</span></label>
+                        <label for="birthCertInput" class="upload-btn">Upload Birth Certificate</label>
+                        <input type="file" name="birth_cert" id="birthCertInput" hidden
+                            accept="image/*,.pdf,.jpg,.jpeg,.png,.gif,.webp,.bmp,.svg,.avif,.heic,.heif,.tif,.tiff">
+                        <img id="birthCertPreview" class="photo-preview" alt="Birth certificate preview">
+                    </div>
+                    <div class="form-group">
+                        <label for="tcInput">Transfer Certificate / Marksheet <span class="req">*</span></label>
+                        <label for="tcInput" class="upload-btn">Upload TC / Marksheet</label>
+                        <input type="file" name="tc" id="tcInput" hidden
+                            accept="image/*,.pdf,.jpg,.jpeg,.png,.gif,.webp,.bmp,.svg,.avif,.heic,.heif,.tif,.tiff">
+                        <img id="tcPreview" class="photo-preview" alt="TC preview">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-section">
+                <legend>Consent</legend>
+                <div class="form-row">
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="newsletter"> I want to receive the newsletter</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="terms"> I agree to the terms and conditions <span
+                                    class="req">*</span></label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="button-row">
+                <button type="button" class="btn-secondary" id="resetBtn">Reset</button>
+                <button type="submit" class="btn-primary" id="registerBtn">Register</button>
+            </div>
+        </form>
+
+        <div class="modal" id="summaryModal">
+            <div class="modal-content receipt" id="receipt">
+                <div class="receipt-header">
+                    <h2>Registration Summary</h2>
+                    <p class="receipt-sub">Student Admission Receipt</p>
+                </div>
+                <div id="receiptBody"></div>
+                <div class="receipt-actions">
+                    <button type="button" class="btn-primary" id="printBtn">Print</button>
+                    <button type="button" class="btn-secondary" id="closeModal">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="Registration Form.js"></script>
+    </body>
+
+</html>

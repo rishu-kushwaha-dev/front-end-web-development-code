@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#gameCanvas {
+  background-color: #be9999;
+}
+
+#login-container,
+#create-account-container {
+  background-color: #ddd;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+input {
+  margin: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #5cb85c;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button.secondary {
+  background-color: #f0ad4e;
+}
+
+.hidden {
+  display: none;
+}

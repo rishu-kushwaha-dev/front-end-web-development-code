@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Screen Recorder</title>
+        <link rel="stylesheet" href="Screen Recorder.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <header>
+                <h1><u> Screen Recorder </u></h1>
+            </header>
+
+            <main>
+                <div class="preview-section">
+                    <video id="preview" autoplay muted playsinline></video>
+                    <video id="webcamPreview" autoplay muted playsinline class="webcam-preview" hidden></video>
+                    <canvas id="drawingCanvas" class="drawing-canvas" hidden></canvas>
+                    <div class="drawing-toolbar" id="drawingToolbar" hidden>
+                        <button class="draw-tool-btn" data-tool="pen" title="Pen (P)" aria-label="Pen">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 19l7-7 3 3-7 7-3 3z"></path>
+                                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                                <path d="M2 2l7.586 7.586"></path>
+                                <circle cx="11" cy="11" r="2"></circle>
+                            </svg>
+                        </button>
+                        <button class="draw-tool-btn" data-tool="highlighter" title="Highlighter (H)"
+                            aria-label="Highlighter">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 3v18"></path>
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z">
+                                </path>
+                            </svg>
+                        </button>
+                        <button class="draw-tool-btn" data-tool="arrow" title="Arrow (A)" aria-label="Arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="preview-overlay" id="previewOverlay">
+                        <svg class="play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        <span>Click "Start Recording" to begin</span>
+                    </div>
+                    <div class="countdown-overlay" id="countdownOverlay" hidden>
+                        <span class="countdown-number" id="countdownNumber"></span>
+                    </div>
+                    <div class="recording-indicator" id="recordingIndicator" hidden>
+                        <span class="rec-dot" aria-hidden="true"></span>
+                        <span class="rec-text" id="recText">REC</span>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <div class="control-group">
+                        <button id="startBtn" class="btn btn-primary" aria-label="Start recording">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <circle cx="12" cy="12" r="10"></circle>
+                            </svg>
+                            <span>Start Recording</span>
+                        </button>
+                        <button id="pauseBtn" class="btn btn-secondary" disabled aria-label="Pause recording">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <rect x="6" y="4" width="4" height="16"></rect>
+                                <rect x="14" y="4" width="4" height="16"></rect>
+                            </svg>
+                            <span>Pause</span>
+                        </button>
+                        <button id="stopBtn" class="btn btn-danger" disabled aria-label="Stop recording">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            </svg>
+                            <span>Stop</span>
+                        </button>
+                        <button id="screenshotBtnRecording" class="btn btn-secondary" disabled
+                            aria-label="Take Screenshot" title="Take Snapshot (S)">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+                                </path>
+                                <circle cx="12" cy="12" r="4"></circle>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="audio-visualizer" id="audioVisualizer" hidden>
+                        <div class="visualizer-bars">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                        </div>
+                        <span class="mic-label">MIC</span>
+                    </div>
+
+                    <div class="timer" id="timer" aria-live="polite">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <span>00:00:00</span>
+                        <span class="file-size" id="fileSizeDisplay" hidden>• 0 MB</span>
+                    </div>
+                </div>
+
+                <div class="options">
+                    <fieldset>
+                        <legend>Recording Options</legend>
+                        <div class="option-row">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="audioCheckbox" checked>
+                                <span class="checkmark"></span>
+                                Record System Audio
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="micCheckbox">
+                                <span class="checkmark"></span>
+                                Record Microphone
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="webcamCheckbox">
+                                <span class="checkmark"></span>
+                                Show Webcam
+                            </label>
+                        </div>
+                        <div class="option-row">
+                            <label for="qualitySelect">Video Quality:</label>
+                            <select id="qualitySelect">
+                                <option value="high">High (1080p)</option>
+                                <option value="medium" selected>Medium (720p)</option>
+                                <option value="low">Low (480p)</option>
+                            </select>
+                            <label for="fpsSelect">Frame Rate:</label>
+                            <select id="fpsSelect">
+                                <option value="30" selected>30 FPS</option>
+                                <option value="60">60 FPS</option>
+                            </select>
+                        </div>
+                        <div class="option-row">
+                            <label for="watermarkInput">Watermark Text:</label>
+                            <input type="text" id="watermarkInput" placeholder="Enter your Watermark Text"
+                                maxlength="30">
+                            <label for="autoStopSelect">Auto-Stop Timer:</label>
+                            <select id="autoStopSelect">
+                                <option value="0" selected>Off</option>
+                                <option value="60">1 Minute</option>
+                                <option value="300">5 Minutes</option>
+                                <option value="600">10 Minutes</option>
+                                <option value="1800">30 Minutes</option>
+                            </select>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="recordings-section" id="recordingsSection" hidden>
+                    <h2>Recordings</h2>
+                    <div class="recordings-list" id="recordingsList"></div>
+                </div>
+
+                <div class="preview-player-section" id="previewPlayerSection" hidden>
+                    <h2>Recording Preview</h2>
+                    <div class="preview-player">
+                        <video id="previewPlayer" controls playsinline></video>
+                        <div class="trimmer-section" id="trimmerSection" hidden>
+                            <h3>Trim Video</h3>
+                            <div class="trim-controls">
+                                <div class="trim-input-group">
+                                    <label for="trimStart">Start Time:</label>
+                                    <input type="time" id="trimStart" step="1">
+                                </div>
+                                <div class="trim-input-group">
+                                    <label for="trimEnd">End Time:</label>
+                                    <input type="time" id="trimEnd" step="1">
+                                </div>
+                                <button id="applyTrimBtn" class="btn btn-primary">
+                                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M5 12h14"></path>
+                                        <path d="M12 5l7 7-7 7"></path>
+                                    </svg>
+                                    <span>Apply Trim</span>
+                                </button>
+                            </div>
+                            <div class="trim-preview-bar">
+                                <input type="range" id="trimStartRange" min="0" max="100" value="0" step="0.1">
+                                <input type="range" id="trimEndRange" min="0" max="100" value="100" step="0.1">
+                            </div>
+                        </div>
+                        <div class="filename-section">
+                            <label for="customFilename">File Name:</label>
+                            <input type="text" id="customFilename" placeholder="My_Recording">
+                        </div>
+                        <div class="preview-player-actions">
+                            <button id="screenshotBtn" class="btn btn-secondary" aria-label="Take Screenshot">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+                                    </path>
+                                    <circle cx="12" cy="12" r="4"></circle>
+                                </svg>
+                                <span>Take Snapshot</span>
+                            </button>
+                            <button id="trimToggleBtn" class="btn btn-secondary" aria-label="Show Trimmer">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M5 12h14"></path>
+                                    <path d="M12 5l7 7-7 7"></path>
+                                </svg>
+                                <span>Trim Video</span>
+                            </button>
+                            <button id="downloadWebmBtn" class="btn btn-primary" aria-label="Download as WebM">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                <span>Download (.webm)</span>
+                            </button>
+                            <button id="downloadMp4Btn" class="btn btn-secondary" aria-label="Download as MP4">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                <span>Download (.mp4)</span>
+                            </button>
+                            <button id="discardBtn" class="btn btn-danger" aria-label="Discard and re-record">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path
+                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                    </path>
+                                </svg>
+                                <span>Discard / Re-record</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <div class="keyboard-shortcuts" id="keyboardShortcuts">
+                <h3>Keyboard Shortcuts</h3>
+                <div class="shortcuts-list">
+                    <kbd><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd></kbd>
+                    <span>Start / Stop Recording</span>
+                    <kbd><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd></kbd>
+                    <span>Pause / Resume</span>
+                </div>
+            </div>
+
+            <div class="toast-container" id="toastContainer"></div>
+        </div>
+
+        <script src="Screen Recorder.js"></script>
+    </body>
+
+</html>

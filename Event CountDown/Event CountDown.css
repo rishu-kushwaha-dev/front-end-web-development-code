@@ -1,0 +1,96 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e70a2f, #982a66);
+    color: #fff;
+}
+
+.container {
+    width: min(750px, 100%);
+    padding: 32px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    margin-bottom: 24px;
+}
+
+.form {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.form input,
+.form button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.form button {
+    margin-top: 8px;
+    background: #ffd166;
+    color: #1e3c72;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.form button:hover {
+    background: #ffbe3b;
+}
+
+#event-title {
+    min-height: 32px;
+    margin-bottom: 8px;
+}
+
+.message {
+    min-height: 24px;
+    margin-bottom: 16px;
+    color: #ffd166;
+    font-weight: bold;
+}
+
+.countdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.time-box {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 16px;
+    border-radius: 12px;
+}
+
+.time-box span {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.time-box small {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 560px) {
+    .countdown {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

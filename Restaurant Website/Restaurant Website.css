@@ -390,8 +390,7 @@ ul {
 .about-img-wrap img {
     width: 100%;
     height: 520px;
-    object-fit: contain;
-    background: var(--clr-surface-2);
+    object-fit: cover;
     transition: transform 0.8s var(--ease);
 }
 
@@ -548,8 +547,7 @@ ul {
 .menu-card-img img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    background: var(--clr-surface-2);
+    object-fit: cover;
     transition: transform 0.6s var(--ease);
 }
 
@@ -625,8 +623,7 @@ ul {
 .gallery-item img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    background: var(--clr-surface-2);
+    object-fit: cover;
     transition: transform 0.7s var(--ease);
 }
 

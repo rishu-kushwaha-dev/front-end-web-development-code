@@ -83,24 +83,178 @@
 
     const filterBtns = $$(".filter-btn");
     const menuCards = $$(".menu-card");
+    const menuMore = $("#menuMore");
+    const viewFullBtn = $("#viewFullMenu");
+    const SIGNATURE_LIMIT = 12;
+    let fullMenu = false;
+
+    const applyFilter = (filter) => {
+        let visibleIndex = 0;
+        menuCards.forEach((card) => {
+            const match = filter === "all" || card.dataset.category === filter;
+            const withinLimit =
+                filter !== "all" || fullMenu || visibleIndex < SIGNATURE_LIMIT;
+            const show = match && withinLimit;
+            card.classList.toggle("hide", !show);
+            if (match) visibleIndex++;
+            if (show) {
+                card.classList.remove("visible");
+                void card.offsetWidth;
+                card.classList.add("visible");
+            }
+        });
+        if (menuMore) {
+            menuMore.style.display = filter === "all" ? "" : "none";
+        }
+        if (viewFullBtn) {
+            viewFullBtn.textContent = fullMenu ? "Show Signature Dishes" : "View Full Menu";
+        }
+    };
 
     filterBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
             filterBtns.forEach((b) => b.classList.remove("active"));
             btn.classList.add("active");
-            const filter = btn.dataset.filter;
-
-            menuCards.forEach((card) => {
-                const match = filter === "all" || card.dataset.category === filter;
-                card.classList.toggle("hide", !match);
-                if (match) {
-                    card.classList.remove("visible");
-                    void card.offsetWidth;
-                    card.classList.add("visible");
-                }
-            });
+            applyFilter(btn.dataset.filter);
         });
     });
+
+    if (viewFullBtn) {
+        viewFullBtn.addEventListener("click", () => {
+            fullMenu = !fullMenu;
+            applyFilter("all");
+        });
+    }
+
+    applyFilter("all");
+
+    const rupee = (n) => "\u20B9" + n;
+
+    const parsePrice = (card) => {
+        const priceEl = $(".menu-price", card);
+        const digits = priceEl ? priceEl.textContent.replace(/[^\d]/g, "") : "";
+        return parseInt(digits, 10) || 0;
+    };
+
+    const cart = [];
+    const cartFab = $("#cartFab");
+    const cartCount = $("#cartCount");
+    const cartPanel = $("#cartPanel");
+    const cartOverlay = $("#cartOverlay");
+    const cartClose = $("#cartClose");
+    const cartItems = $("#cartItems");
+    const cartEmpty = $("#cartEmpty");
+    const cartTotal = $("#cartTotal");
+    const cartStatus = $("#cartStatus");
+    const placeOrderBtn = $("#placeOrder");
+
+    menuCards.forEach((card) => {
+        const body = $(".menu-card-body", card);
+        if (!body) return;
+        const name = $("h3", body).textContent.trim();
+        const price = parsePrice(card);
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "add-order-btn";
+        btn.textContent = "Add to Order";
+        btn.addEventListener("click", () => addToCart(name, price));
+        body.appendChild(btn);
+    });
+
+    const cartTotalValue = () =>
+        cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+    const renderCart = () => {
+        const count = cart.reduce((sum, item) => sum + item.qty, 0);
+        cartCount.textContent = String(count);
+        cartItems.innerHTML = "";
+        cartEmpty.style.display = cart.length ? "none" : "";
+
+        cart.forEach((item, index) => {
+            const li = document.createElement("li");
+            li.className = "cart-item";
+
+            const info = document.createElement("div");
+            info.className = "cart-item-info";
+            const title = document.createElement("span");
+            title.className = "cart-item-name";
+            title.textContent = item.name;
+            const price = document.createElement("span");
+            price.className = "cart-item-price";
+            price.textContent = rupee(item.price * item.qty);
+            info.append(title, price);
+
+            const qty = document.createElement("div");
+            qty.className = "cart-item-qty";
+            const minus = document.createElement("button");
+            minus.type = "button";
+            minus.textContent = "\u2212";
+            minus.setAttribute("aria-label", "Decrease quantity");
+            minus.addEventListener("click", () => changeQty(index, -1));
+            const qtyNum = document.createElement("span");
+            qtyNum.textContent = String(item.qty);
+            const plus = document.createElement("button");
+            plus.type = "button";
+            plus.textContent = "+";
+            plus.setAttribute("aria-label", "Increase quantity");
+            plus.addEventListener("click", () => changeQty(index, 1));
+            qty.append(minus, qtyNum, plus);
+
+            li.append(info, qty);
+            cartItems.appendChild(li);
+        });
+
+        cartTotal.textContent = rupee(cartTotalValue());
+    };
+
+    const addToCart = (name, price) => {
+        const existing = cart.find((item) => item.name === name);
+        if (existing) {
+            existing.qty++;
+        } else {
+            cart.push({ name, price, qty: 1 });
+        }
+        renderCart();
+        openCart();
+    };
+
+    const changeQty = (index, delta) => {
+        const item = cart[index];
+        if (!item) return;
+        item.qty += delta;
+        if (item.qty <= 0) cart.splice(index, 1);
+        renderCart();
+    };
+
+    const openCart = () => {
+        cartPanel.classList.add("open");
+        cartOverlay.classList.add("open");
+        cartPanel.setAttribute("aria-hidden", "false");
+        if (cartStatus) cartStatus.textContent = "";
+    };
+
+    const closeCart = () => {
+        cartPanel.classList.remove("open");
+        cartOverlay.classList.remove("open");
+        cartPanel.setAttribute("aria-hidden", "true");
+    };
+
+    if (cartFab) cartFab.addEventListener("click", openCart);
+    if (cartClose) cartClose.addEventListener("click", closeCart);
+    if (cartOverlay) cartOverlay.addEventListener("click", closeCart);
+
+    if (placeOrderBtn) {
+        placeOrderBtn.addEventListener("click", () => {
+            if (!cart.length) return;
+            const total = cartTotalValue();
+            cartStatus.textContent =
+                "Order placed! Total " + rupee(total) + ". We'll prepare it fresh for you.";
+            cart.length = 0;
+            renderCart();
+        });
+    }
+
+    renderCart();
 
     const testimonials = [
         {
@@ -118,7 +272,7 @@
         {
             text: "The ambiance, the tandoor, the mocktails — everything is thoughtfully done. We celebrated our anniversary here and the team made it truly special. Five stars, easily.",
             name: "Neeraj Maurya",
-            role: "Celebrates his Anniversary",
+            role: "Celebrated his Anniversary",
             img: "images/Neeraj Maurya.jfif",
         },
     ];

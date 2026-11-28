@@ -305,10 +305,26 @@
             });
         });
 
-        const dateInput = $("#resDate");
-        if (dateInput) {
-            const today = new Date().toISOString().split("T")[0];
-            dateInput.min = today;
+        const purposeSelect = $("#resPurpose");
+        const peopleField = $("#functionPeopleField");
+        const typeField = $("#functionTypeField");
+        const toggleFunctionFields = () => {
+            const isFn = purposeSelect && purposeSelect.value === "function";
+            if (peopleField) peopleField.style.display = isFn ? "" : "none";
+            if (typeField) typeField.style.display = isFn ? "" : "none";
+        };
+        const guestsSelect = $("#resGuests");
+        const guestsCustom = $("#resGuestsCustom");
+        const toggleGuestsCustom = () => {
+            if (!guestsSelect || !guestsCustom) return;
+            const show = guestsSelect.value === "6+";
+            guestsCustom.style.display = show ? "" : "none";
+            guestsCustom.required = show;
+            if (!show) guestsCustom.value = "";
+        };
+        if (guestsSelect) {
+            guestsSelect.addEventListener("change", toggleGuestsCustom);
+            toggleGuestsCustom();
         }
 
         form.addEventListener("submit", (e) => {

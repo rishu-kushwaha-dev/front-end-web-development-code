@@ -1129,14 +1129,8 @@
             <section class="section reservation" id="reservation">
                 <div class="container reservation-grid">
                     <div class="reservation-info reveal">
-                        <p class="section-eyebrow">Join Us</p>
                         <h2 class="section-title">Reserve Your Table</h2>
                         <p>Book ahead and let us prepare an unforgettable dining experience for you and your guests.</p>
-                        <ul class="reservation-points">
-                            <li>Open Sunday-Saturday</li>
-                            <li>Walk-ins welcome, reservations recommended</li>
-                            <li>Private dining &amp; events available on request</li>
-                        </ul>
                     </div>
                     <form class="reservation-form reveal" id="reservationForm" novalidate>
                         <div class="form-row">
@@ -1173,8 +1167,10 @@
                                     <option value="3">3 Guests</option>
                                     <option value="4">4 Guests</option>
                                     <option value="5">5 Guests</option>
-                                    <option value="6">6+ Guests</option>
+                                    <option value="6+">6+ Guests</option>
                                 </select>
+                                <input type="number" id="resGuestsCustom" name="guestsCustom" min="6"
+                                    placeholder="Enter number of guests" style="display:none; margin-top:6px;">
                                 <small class="field-error"></small>
                             </div>
                             <div class="form-field">
@@ -1183,6 +1179,28 @@
                                     required pattern="[0-9]{10}" maxlength="10" inputmode="numeric">
                                 <small class="field-error"></small>
                             </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="resPurpose">Booking For</label>
+                                <select id="resPurpose" name="purpose" required>
+                                    <option value="table" selected>Table Booking</option>
+                                    <option value="function">Function / Event at Hotel</option>
+                                </select>
+                                <small class="field-error"></small>
+                            </div>
+                            <div class="form-field" id="functionPeopleField" style="display:none;">
+                                <label for="resFunctionPeople">People in Function</label>
+                                <input type="number" id="resFunctionPeople" name="functionPeople" min="1"
+                                    placeholder="Number of people">
+                                <small class="field-error"></small>
+                            </div>
+                        </div>
+                        <div class="form-field" id="functionTypeField" style="display:none;">
+                            <label for="resFunctionType">Function Type</label>
+                            <input type="text" id="resFunctionType" name="functionType"
+                                placeholder="e.g. Birthday, Wedding, Corporate">
+                            <small class="field-error"></small>
                         </div>
                         <div class="form-field">
                             <label for="resNotes">Special Requests</label>

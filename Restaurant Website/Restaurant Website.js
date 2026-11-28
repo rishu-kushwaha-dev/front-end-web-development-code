@@ -317,11 +317,31 @@
         const purposeSelect = $("#resPurpose");
         const peopleField = $("#functionPeopleField");
         const typeField = $("#functionTypeField");
+        const functionPeopleInput = $("#resFunctionPeople");
+        const functionTypeSelect = $("#resFunctionType");
         const toggleFunctionFields = () => {
             const isFn = purposeSelect && purposeSelect.value === "function";
             if (peopleField) peopleField.style.display = isFn ? "" : "none";
             if (typeField) typeField.style.display = isFn ? "" : "none";
+            if (functionPeopleInput) functionPeopleInput.required = isFn;
+            if (functionTypeSelect) functionTypeSelect.required = isFn;
+            if (!isFn) {
+                if (functionPeopleInput) functionPeopleInput.value = "";
+                if (functionTypeSelect) functionTypeSelect.value = "";
+                const peopleWrap = functionPeopleInput?.closest(".form-field");
+                const typeWrap = functionTypeSelect?.closest(".form-field");
+                peopleWrap?.classList.remove("invalid");
+                typeWrap?.classList.remove("invalid");
+                const peopleErr = peopleWrap ? $(".field-error", peopleWrap) : null;
+                const typeErr = typeWrap ? $(".field-error", typeWrap) : null;
+                if (peopleErr) peopleErr.textContent = "";
+                if (typeErr) typeErr.textContent = "";
+            }
         };
+        if (purposeSelect) {
+            purposeSelect.addEventListener("change", toggleFunctionFields);
+            toggleFunctionFields();
+        }
         const guestsSelect = $("#resGuests");
         const guestsCustom = $("#resGuestsCustom");
         const toggleGuestsCustom = () => {
@@ -341,8 +361,10 @@
             statusEl.textContent = "";
             statusEl.className = "form-status";
 
+            // Re-query required fields to include dynamically required ones
+            const currentRequiredFields = $$("input[required], select[required]", form);
             let valid = true;
-            requiredFields.forEach((f) => {
+            currentRequiredFields.forEach((f) => {
                 if (!validateField(f)) valid = false;
             });
 

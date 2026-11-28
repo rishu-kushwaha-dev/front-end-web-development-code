@@ -1099,14 +1099,30 @@ ul {
 
 .reservation-grid {
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 60px;
-    align-items: start;
+    grid-template-columns: 1fr;
+    gap: 44px;
+    justify-items: center;
+    text-align: center;
+}
+
+.reservation-info {
+    max-width: 680px;
 }
 
 .reservation-info>p {
     color: var(--clr-muted);
     margin-top: 18px;
+}
+
+.reservation-form {
+    width: 100%;
+    max-width: 720px;
+    text-align: left;
+    background: var(--clr-card);
+    border: 1px solid var(--clr-line);
+    border-radius: var(--radius);
+    padding: 36px;
+    box-shadow: var(--shadow-soft);
 }
 
 .reservation-points {
@@ -1129,14 +1145,6 @@ ul {
     top: 1px;
     color: var(--clr-primary);
     font-weight: 700;
-}
-
-.reservation-form {
-    background: var(--clr-card);
-    border: 1px solid var(--clr-line);
-    border-radius: var(--radius);
-    padding: 36px;
-    box-shadow: var(--shadow-soft);
 }
 
 .form-row {

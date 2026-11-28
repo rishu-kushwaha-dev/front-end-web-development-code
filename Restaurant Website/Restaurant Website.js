@@ -189,19 +189,19 @@
             text: "An unforgettable evening. The butter chicken was the best I've ever had, and the service felt genuinely warm. Shree Hotel & Restaurant is now our go-to for special nights.",
             name: "Rahul Singh",
             role: "Food Enthusiast",
-            img: "images/Rahul Singh.jfif",
+            img: "images/Rahul Singh.png",
         },
         {
             text: "Every dish was a work of art. The Hyderabadi biryani was pure comfort, and the gulab jamun is worth the visit alone. Impeccable from start to finish.",
             name: "Amit Kumar",
             role: "Regular Guest",
-            img: "images/Amit Kumar.jfif",
+            img: "images/Amit Kumar.png",
         },
         {
             text: "The ambiance, the tandoor, the mocktails — everything is thoughtfully done. We celebrated our anniversary here and the team made it truly special. Five stars, easily.",
             name: "Neeraj Maurya",
             role: "Celebrated his Anniversary",
-            img: "images/Neeraj Maurya.jfif",
+            img: "images/Neeraj Maurya.png",
         },
     ];
 

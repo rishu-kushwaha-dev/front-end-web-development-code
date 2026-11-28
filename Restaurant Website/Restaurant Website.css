@@ -1512,6 +1512,11 @@ ul {
     text-decoration: none;
 }
 
+.whatsapp-float .whatsapp-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
 .whatsapp-float:hover {
     transform: scale(1.1) translateY(-4px);
     box-shadow: 0 16px 32px -8px rgba(37, 211, 102, 0.6), 0 0 0 6px rgba(37, 211, 102, 0.2);
@@ -1554,7 +1559,11 @@ ul {
         right: 16px;
         bottom: 16px;
     }
-
+    
+    .whatsapp-float .whatsapp-icon {
+        font-size: 24px;
+    }
+    
     .whatsapp-tooltip {
         display: none;
     }

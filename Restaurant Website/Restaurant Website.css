@@ -1251,6 +1251,7 @@ ul {
     height: 60px;
     border-radius: 16px;
     background: var(--clr-surface-2);
+    color: var(--clr-accent);
     font-size: 1.6rem;
     margin-bottom: 20px;
     border: 1px solid var(--clr-line);

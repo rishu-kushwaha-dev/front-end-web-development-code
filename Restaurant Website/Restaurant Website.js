@@ -284,6 +284,15 @@
             setError(field, "Enter a 10-digit phone number.");
             return false;
         }
+        if (field.id === "resDate" && v) {
+            const selectedDate = new Date(v);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            if (selectedDate < today) {
+                setError(field, "Please select a future date.");
+                return false;
+            }
+        }
         setError(field, "");
         return true;
     };
@@ -504,4 +513,14 @@
 
     const yearEl = $("#year");
     if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    const dateField = $("#resDate");
+    if (dateField) {
+        const today = new Date().toISOString().split("T")[0];
+        dateField.setAttribute("min", today);
+    }
+
+    if (window.lucide) {
+        lucide.createIcons();
+    }
 })();

@@ -400,8 +400,8 @@ ul {
 
 .about-badge {
     position: absolute;
-    right: -24px;
-    bottom: 30px;
+    right: 24px;
+    bottom: 24px;
     width: 130px;
     height: 130px;
     border-radius: 50%;
@@ -460,8 +460,14 @@ ul {
     height: 52px;
     border-radius: 14px;
     background: var(--clr-surface-2);
-    font-size: 1.4rem;
     border: 1px solid var(--clr-line);
+    color: var(--clr-primary);
+}
+
+.feature-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
 }
 
 .about-features h4 {
@@ -953,6 +959,24 @@ ul {
     white-space: nowrap;
 }
 
+.veg-indicator {
+    flex: 0 0 auto;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid;
+}
+
+.veg-indicator.veg {
+    border-color: #2e7d32;
+    background: #2e7d32;
+}
+
+.veg-indicator.nonveg {
+    border-color: #c62828;
+    background: #c62828;
+}
+
 .menu-card-body p {
     color: var(--clr-muted);
     font-size: 0.9rem;
@@ -1260,9 +1284,14 @@ ul {
     border-radius: 16px;
     background: var(--clr-surface-2);
     color: var(--clr-accent);
-    font-size: 1.6rem;
     margin-bottom: 20px;
     border: 1px solid var(--clr-line);
+}
+
+.contact-icon svg {
+    width: 28px;
+    height: 28px;
+    stroke-width: 2;
 }
 
 .contact-item h4 {
@@ -1437,7 +1466,7 @@ ul {
     .about-badge {
         width: 104px;
         height: 104px;
-        right: 10px;
+        right: 16px;
         bottom: 16px;
     }
 

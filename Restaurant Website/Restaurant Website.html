@@ -15,6 +15,7 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
             rel="stylesheet">
+        <script src="https://unpkg.com/lucide@latest"></script>
         <link rel="stylesheet" href="Restaurant Website.css">
     </head>
 
@@ -78,7 +79,8 @@
                 <div class="container about-grid">
                     <div class="about-media reveal">
                         <div class="about-img-wrap">
-                            <img src="images/about.jpg" alt="Chef plating an Indian dish in the kitchen" loading="lazy">
+                            <img src="images/about.jpg"
+                                alt="Elegant restaurant dining area with warm lighting and modern decor" loading="lazy">
                             <div class="about-badge">
                                 <span class="about-badge-num">12</span>
                                 <span class="about-badge-label">Years<br>Excellence</span>
@@ -96,21 +98,21 @@
                             while our warm, modern space sets the stage for unforgettable evenings.</p>
                         <ul class="about-features">
                             <li class="reveal">
-                                <span class="feature-icon">&#127859;</span>
+                                <span class="feature-icon" data-lucide="spice"></span>
                                 <div>
                                     <h4>Authentic Indian Spices</h4>
                                     <p>Hand-picked spices sourced from across India.</p>
                                 </div>
                             </li>
                             <li class="reveal">
-                                <span class="feature-icon">&#127835;</span>
+                                <span class="feature-icon" data-lucide="flame"></span>
                                 <div>
                                     <h4>Tandoor Cooking</h4>
                                     <p>Clay oven techniques for deep, smoky flavor.</p>
                                 </div>
                             </li>
                             <li class="reveal">
-                                <span class="feature-icon">&#127863;</span>
+                                <span class="feature-icon" data-lucide="sparkles"></span>
                                 <div>
                                     <h4>Handcrafted Everything</h4>
                                     <p>From fresh naan to house-made desserts, made in-house.</p>
@@ -167,6 +169,7 @@
                                 <div class="menu-card-top">
                                     <h3>Paneer Tikka</h3>
                                     <span class="menu-price">&#8377;320</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Grilled cottage cheese marinated in spiced yogurt, served with mint chutney.</p>
                             </div>
@@ -180,6 +183,7 @@
                                 <div class="menu-card-top">
                                     <h3>Vegetable Samosa</h3>
                                     <span class="menu-price">&#8377;180</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Crispy golden pastry filled with spiced potatoes and peas, served with tamarind
                                     chutney.</p>
@@ -195,6 +199,7 @@
                                 <div class="menu-card-top">
                                     <h3>Butter Chicken</h3>
                                     <span class="menu-price">&#8377;450</span>
+                                    <span class="veg-indicator nonveg" aria-label="Non-Vegetarian"></span>
                                 </div>
                                 <p>Tender chicken in a rich, creamy tomato and butter gravy.</p>
                             </div>
@@ -208,6 +213,7 @@
                                 <div class="menu-card-top">
                                     <h3>Hyderabadi Biryani</h3>
                                     <span class="menu-price">&#8377;420</span>
+                                    <span class="veg-indicator nonveg" aria-label="Non-Vegetarian"></span>
                                 </div>
                                 <p>Aromatic basmati rice layered with marinated meat and saffron.</p>
                             </div>
@@ -221,8 +227,9 @@
                                 <div class="menu-card-top">
                                     <h3>Palak Paneer</h3>
                                     <span class="menu-price">&#8377;340</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
-                                <p>Cottage cheese in a smooth spinach gravy. <em>Veg</em></p>
+                                <p>Cottage cheese in a smooth spinach gravy.</p>
                             </div>
                         </article>
 
@@ -235,6 +242,7 @@
                                 <div class="menu-card-top">
                                     <h3>Garlic Naan</h3>
                                     <span class="menu-price">&#8377;90</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Tandoor-baked flatbread topped with garlic and butter.</p>
                             </div>
@@ -248,6 +256,7 @@
                                 <div class="menu-card-top">
                                     <h3>Butter Naan</h3>
                                     <span class="menu-price">&#8377;80</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Soft tandoor-baked bread brushed with butter.</p>
                             </div>
@@ -262,6 +271,7 @@
                                 <div class="menu-card-top">
                                     <h3>Gulab Jamun</h3>
                                     <span class="menu-price">&#8377;160</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Soft milk-solids dumplings soaked in rose-scented sugar syrup.</p>
                             </div>
@@ -275,6 +285,7 @@
                                 <div class="menu-card-top">
                                     <h3>Kheer</h3>
                                     <span class="menu-price">&#8377;140</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Creamy rice pudding with cardamom and nuts.</p>
                             </div>
@@ -288,6 +299,7 @@
                                 <div class="menu-card-top">
                                     <h3>Masala Chai</h3>
                                     <span class="menu-price">&#8377;60</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Spiced Indian tea brewed with ginger, cardamom, and milk.</p>
                             </div>
@@ -301,6 +313,7 @@
                                 <div class="menu-card-top">
                                     <h3>Mango Lassi</h3>
                                     <span class="menu-price">&#8377;120</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Chilled yogurt drink blended with ripe mango.</p>
                             </div>
@@ -314,6 +327,7 @@
                                 <div class="menu-card-top">
                                     <h3>Hara Bhara Kabab</h3>
                                     <span class="menu-price">&#8377;220</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Spinach and potato patties pan-seared with spices.</p>
                             </div>
@@ -328,6 +342,7 @@
                                 <div class="menu-card-top">
                                     <h3>Chicken Tikka</h3>
                                     <span class="menu-price">&#8377;340</span>
+                                    <span class="veg-indicator nonveg" aria-label="Non-Vegetarian"></span>
                                 </div>
                                 <p>Boneless chicken marinated in yogurt and spices, grilled in tandoor.</p>
                             </div>
@@ -354,6 +369,7 @@
                                 <div class="menu-card-top">
                                     <h3>Amritsari Fish</h3>
                                     <span class="menu-price">&#8377;320</span>
+                                    <span class="veg-indicator nonveg" aria-label="Non-Vegetarian"></span>
                                 </div>
                                 <p>Fish fillets coated in gram flour batter and deep-fried.</p>
                             </div>
@@ -367,6 +383,7 @@
                                 <div class="menu-card-top">
                                     <h3>Papri Chaat</h3>
                                     <span class="menu-price">&#8377;140</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Crispy wafers topped with yogurt, tamarind chutney and spices.</p>
                             </div>
@@ -380,6 +397,7 @@
                                 <div class="menu-card-top">
                                     <h3>Aloo Tikki</h3>
                                     <span class="menu-price">&#8377;120</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Spiced potato patties shallow-fried and served with chutney.</p>
                             </div>
@@ -393,6 +411,7 @@
                                 <div class="menu-card-top">
                                     <h3>Dahi Puri</h3>
                                     <span class="menu-price">&#8377;130</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Crispy puris filled with yogurt, sev and tangy chutneys.</p>
                             </div>
@@ -406,6 +425,7 @@
                                 <div class="menu-card-top">
                                     <h3>Paneer Pakoda</h3>
                                     <span class="menu-price">&#8377;160</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Cottage cheese fritters deep-fried in spiced gram flour batter.</p>
                             </div>
@@ -419,6 +439,7 @@
                                 <div class="menu-card-top">
                                     <h3>Malai Kofta</h3>
                                     <span class="menu-price">&#8377;280</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Creamy dumplings of paneer and potato in rich white gravy.</p>
                             </div>
@@ -432,6 +453,7 @@
                                 <div class="menu-card-top">
                                     <h3>Onion Bhajia</h3>
                                     <span class="menu-price">&#8377;110</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Sliced onions deep-fried in chickpea batter with ajwain.</p>
                             </div>
@@ -445,6 +467,7 @@
                                 <div class="menu-card-top">
                                     <h3>Chicken 65</h3>
                                     <span class="menu-price">&#8377;320</span>
+                                    <span class="veg-indicator nonveg" aria-label="Non-Vegetarian"></span>
                                 </div>
                                 <p>Spicy deep-fried chicken pieces with curry leaves and chilies.</p>
                             </div>
@@ -458,6 +481,7 @@
                                 <div class="menu-card-top">
                                     <h3>Paneer Chilli</h3>
                                     <span class="menu-price">&#8377;240</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Indo-Chinese cottage cheese tossed with bell peppers and soy sauce.</p>
                             </div>
@@ -471,6 +495,7 @@
                                 <div class="menu-card-top">
                                     <h3>Spring Roll</h3>
                                     <span class="menu-price">&#8377;140</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Vegetable-filled crispy rolls served with sweet chili sauce.</p>
                             </div>
@@ -484,6 +509,7 @@
                                 <div class="menu-card-top">
                                     <h3>Dal Makhani</h3>
                                     <span class="menu-price">&#8377;240</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Black lentils slow-cooked overnight with butter and cream.</p>
                             </div>
@@ -498,6 +524,7 @@
                                 <div class="menu-card-top">
                                     <h3>Paneer Butter Masala</h3>
                                     <span class="menu-price">&#8377;320</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Cottage cheese cubes in a rich tomato and butter gravy.</p>
                             </div>
@@ -511,6 +538,7 @@
                                 <div class="menu-card-top">
                                     <h3>Chicken Curry</h3>
                                     <span class="menu-price">&#8377;340</span>
+                                    <span class="veg-indicator nonveg" aria-label="Non-Vegetarian"></span>
                                 </div>
                                 <p>Traditional chicken curry with onion-tomato masala.</p>
                             </div>
@@ -524,6 +552,7 @@
                                 <div class="menu-card-top">
                                     <h3>Mutton Rogan Josh</h3>
                                     <span class="menu-price">&#8377;450</span>
+                                    <span class="veg-indicator nonveg" aria-label="Non-Vegetarian"></span>
                                 </div>
                                 <p>Kashmiri mutton curry with yogurt and aromatic spices.</p>
                             </div>
@@ -537,6 +566,7 @@
                                 <div class="menu-card-top">
                                     <h3>Chole Bhature</h3>
                                     <span class="menu-price">&#8377;180</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Spicy chickpea curry served with fluffy deep-fried bread.</p>
                             </div>
@@ -550,6 +580,7 @@
                                 <div class="menu-card-top">
                                     <h3>Rajma</h3>
                                     <span class="menu-price">&#8377;220</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Kidney beans cooked in onion-tomato gravy with spices.</p>
                             </div>
@@ -563,6 +594,7 @@
                                 <div class="menu-card-top">
                                     <h3>Baingan Bharta</h3>
                                     <span class="menu-price">&#8377;200</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Roasted eggplant mashed and cooked with tomatoes and spices.</p>
                             </div>
@@ -576,6 +608,7 @@
                                 <div class="menu-card-top">
                                     <h3>Aloo Gobi</h3>
                                     <span class="menu-price">&#8377;180</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Potato and cauliflower stir-fried with turmeric and cumin.</p>
                             </div>
@@ -589,6 +622,7 @@
                                 <div class="menu-card-top">
                                     <h3>Methi Malai Matar</h3>
                                     <span class="menu-price">&#8377;260</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Green peas and fenugreek leaves in creamy cashew gravy.</p>
                             </div>
@@ -602,6 +636,7 @@
                                 <div class="menu-card-top">
                                     <h3>Mutton Korma</h3>
                                     <span class="menu-price">&#8377;420</span>
+                                    <span class="veg-indicator nonveg" aria-label="Non-Vegetarian"></span>
                                 </div>
                                 <p>Tender mutton in a rich yogurt and nut-based gravy.</p>
                             </div>
@@ -615,6 +650,7 @@
                                 <div class="menu-card-top">
                                     <h3>Chicken Tikka Masala</h3>
                                     <span class="menu-price">&#8377;360</span>
+                                    <span class="veg-indicator nonveg" aria-label="Non-Vegetarian"></span>
                                 </div>
                                 <p>Grilled chicken tikka in a spiced tomato-cream sauce.</p>
                             </div>
@@ -628,6 +664,7 @@
                                 <div class="menu-card-top">
                                     <h3>Fish Curry</h3>
                                     <span class="menu-price">&#8377;320</span>
+                                    <span class="veg-indicator nonveg" aria-label="Non-Vegetarian"></span>
                                 </div>
                                 <p>Coconut-based fish curry with curry leaves and tamarind.</p>
                             </div>
@@ -641,6 +678,7 @@
                                 <div class="menu-card-top">
                                     <h3>Lucknowi Biryani</h3>
                                     <span class="menu-price">&#8377;380</span>
+                                    <span class="veg-indicator nonveg" aria-label="Non-Vegetarian"></span>
                                 </div>
                                 <p>Awadhi-style dum biryani with fragrant basmati rice.</p>
                             </div>
@@ -654,6 +692,7 @@
                                 <div class="menu-card-top">
                                     <h3>Veg Pulao</h3>
                                     <span class="menu-price">&#8377;180</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Basmati rice cooked with mixed vegetables and whole spices.</p>
                             </div>
@@ -667,6 +706,7 @@
                                 <div class="menu-card-top">
                                     <h3>Dal Tadka</h3>
                                     <span class="menu-price">&#8377;160</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Yellow lentils tempered with cumin, garlic and ghee.</p>
                             </div>
@@ -681,6 +721,7 @@
                                 <div class="menu-card-top">
                                     <h3>Navratan Korma</h3>
                                     <span class="menu-price">&#8377;300</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Nine vegetables cooked in a rich, creamy cashew and yogurt gravy.</p>
                             </div>
@@ -694,6 +735,7 @@
                                 <div class="menu-card-top">
                                     <h3>Tandoori Roti</h3>
                                     <span class="menu-price">&#8377;30</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Whole wheat bread baked in the tandoor.</p>
                             </div>
@@ -707,6 +749,7 @@
                                 <div class="menu-card-top">
                                     <h3>Laccha Paratha</h3>
                                     <span class="menu-price">&#8377;60</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Layered flaky whole wheat flatbread.</p>
                             </div>
@@ -720,6 +763,7 @@
                                 <div class="menu-card-top">
                                     <h3>Aloo Paratha</h3>
                                     <span class="menu-price">&#8377;70</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Stuffed spiced potato whole wheat flatbread.</p>
                             </div>
@@ -733,6 +777,7 @@
                                 <div class="menu-card-top">
                                     <h3>Paneer Paratha</h3>
                                     <span class="menu-price">&#8377;80</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Whole wheat flatbread stuffed with crumbled paneer.</p>
                             </div>
@@ -746,6 +791,7 @@
                                 <div class="menu-card-top">
                                     <h3>Butter Roti</h3>
                                     <span class="menu-price">&#8377;35</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Soft whole wheat bread brushed with butter.</p>
                             </div>
@@ -759,6 +805,7 @@
                                 <div class="menu-card-top">
                                     <h3>Kulcha</h3>
                                     <span class="menu-price">&#8377;70</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Leavened flatbread baked in tandoor with herbs.</p>
                             </div>
@@ -772,6 +819,7 @@
                                 <div class="menu-card-top">
                                     <h3>Missi Roti</h3>
                                     <span class="menu-price">&#8377;40</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Flatbread made with wheat and gram flour.</p>
                             </div>
@@ -785,6 +833,7 @@
                                 <div class="menu-card-top">
                                     <h3>Rumali Roti</h3>
                                     <span class="menu-price">&#8377;45</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Thin handkerchief bread tossed and cooked on griddle.</p>
                             </div>
@@ -799,6 +848,7 @@
                                 <div class="menu-card-top">
                                     <h3>Cheese Naan</h3>
                                     <span class="menu-price">&#8377;100</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Naan stuffed with mozzarella cheese.</p>
                             </div>
@@ -812,6 +862,7 @@
                                 <div class="menu-card-top">
                                     <h3>Kashmiri Naan</h3>
                                     <span class="menu-price">&#8377;110</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Sweet naan filled with dry fruits and coconut.</p>
                             </div>
@@ -826,6 +877,7 @@
                                 <div class="menu-card-top">
                                     <h3>Rasgulla</h3>
                                     <span class="menu-price">&#8377;110</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Spongy cheese balls in light sugar syrup.</p>
                             </div>
@@ -839,6 +891,7 @@
                                 <div class="menu-card-top">
                                     <h3>Rasmalai</h3>
                                     <span class="menu-price">&#8377;140</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Cottage cheese patties in sweetened milk with cardamom.</p>
                             </div>
@@ -852,6 +905,7 @@
                                 <div class="menu-card-top">
                                     <h3>Jalebi</h3>
                                     <span class="menu-price">&#8377;100</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Deep-fried spiral batter soaked in sugar syrup.</p>
                             </div>
@@ -865,6 +919,7 @@
                                 <div class="menu-card-top">
                                     <h3>Gajar Halwa</h3>
                                     <span class="menu-price">&#8377;150</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Grated carrot cooked in milk, ghee and dry fruits.</p>
                             </div>
@@ -878,6 +933,7 @@
                                 <div class="menu-card-top">
                                     <h3>Besan Laddu</h3>
                                     <span class="menu-price">&#8377;90</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Roasted gram flour balls with ghee and sugar.</p>
                             </div>
@@ -891,6 +947,7 @@
                                 <div class="menu-card-top">
                                     <h3>Moong Dal Halwa</h3>
                                     <span class="menu-price">&#8377;140</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Split green gram cooked in ghee and sugar.</p>
                             </div>
@@ -904,6 +961,7 @@
                                 <div class="menu-card-top">
                                     <h3>Rabri</h3>
                                     <span class="menu-price">&#8377;120</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Thickened sweetened milk with saffron and nuts.</p>
                             </div>
@@ -917,6 +975,7 @@
                                 <div class="menu-card-top">
                                     <h3>Kulfi Faluda</h3>
                                     <span class="menu-price">&#8377;130</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Frozen milk dessert with vermicelli and rose syrup.</p>
                             </div>
@@ -930,6 +989,7 @@
                                 <div class="menu-card-top">
                                     <h3>Shahi Tukda</h3>
                                     <span class="menu-price">&#8377;130</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Fried bread soaked in rabri with dry fruits.</p>
                             </div>
@@ -943,6 +1003,7 @@
                                 <div class="menu-card-top">
                                     <h3>Chaas</h3>
                                     <span class="menu-price">&#8377;40</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Spiced buttermilk with cumin and mint.</p>
                             </div>
@@ -956,6 +1017,7 @@
                                 <div class="menu-card-top">
                                     <h3>Nimbu Pani</h3>
                                     <span class="menu-price">&#8377;50</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Fresh lemonade with sugar, salt and mint.</p>
                             </div>
@@ -969,6 +1031,7 @@
                                 <div class="menu-card-top">
                                     <h3>Masala Chaas</h3>
                                     <span class="menu-price">&#8377;50</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Buttermilk spiced with roasted cumin and black salt.</p>
                             </div>
@@ -982,6 +1045,7 @@
                                 <div class="menu-card-top">
                                     <h3>Cold Coffee</h3>
                                     <span class="menu-price">&#8377;110</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Chilled coffee blended with milk and ice cream.</p>
                             </div>
@@ -995,6 +1059,7 @@
                                 <div class="menu-card-top">
                                     <h3>Mango Shake</h3>
                                     <span class="menu-price">&#8377;100</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Blended mango with milk and sugar.</p>
                             </div>
@@ -1008,6 +1073,7 @@
                                 <div class="menu-card-top">
                                     <h3>Badam Milk</h3>
                                     <span class="menu-price">&#8377;100</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Warm milk with almonds and saffron.</p>
                             </div>
@@ -1021,6 +1087,7 @@
                                 <div class="menu-card-top">
                                     <h3>Rose Milk</h3>
                                     <span class="menu-price">&#8377;90</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Chilled milk with rose syrup.</p>
                             </div>
@@ -1034,6 +1101,7 @@
                                 <div class="menu-card-top">
                                     <h3>Sweet Lassi</h3>
                                     <span class="menu-price">&#8377;100</span>
+                                    <span class="veg-indicator veg" aria-label="Vegetarian"></span>
                                 </div>
                                 <p>Sweetened yogurt drink.</p>
                             </div>
@@ -1148,7 +1216,7 @@
                         <div class="form-row">
                             <div class="form-field">
                                 <label for="resDate">Date</label>
-                                <input type="date" id="resDate" name="date" required>
+                                <input type="date" id="resDate" name="date" required min="">
                                 <small class="field-error"></small>
                             </div>
                             <div class="form-field">
@@ -1226,7 +1294,7 @@
                         <p>Beside Atulyam Restaurant,<br>near Police Chowki, Jhunsi<br>211019</p>
                     </div>
                     <div class="contact-item reveal">
-                        <span class="contact-icon">&#128222;</span>
+                        <span class="contact-icon" data-lucide="phone"></span>
                         <h4>Call Us</h4>
                         <p><a href="tel:+9195696 14016">+91 95696 14016</a><br><a
                                 href="mailto:rishukushwaha542@gmail.com">rishukushwaha542@gmail.com</a></p>
